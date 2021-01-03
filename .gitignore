@@ -1,3 +1,5 @@
+/sarasavi book shop/nbproject/private/
+
 ##############################
 ## Java
 ##############################
@@ -82,3 +84,4 @@ nb-configuration.xml
 ## OS X
 ##############################
 .DS_Store
+/JavaApplication22/nbproject/private/
