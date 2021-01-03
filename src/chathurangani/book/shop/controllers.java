@@ -1,0 +1,38 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package chathurangani.book.shop;
+
+import java.math.BigDecimal;
+
+/**
+ *
+ * @author Dilum
+ */
+public class controllers extends stater{
+    
+    //callin stater class constructor
+    controllers()
+        {
+             super();
+        }
+    
+    static String primaryKeyOfdealsData; //holding primary kery after a evry deal
+    static boolean QuantityTrue; // this varibale support to flow of the programme by holding a quantitiy enderd or not value
+    static boolean passwordis = false; //this varibale support to flow of the programme by holding if password is exsists or not in db
+    static BigDecimal cashPrice , sellPrice ,out,sell; // two variable sfor income amount calculation
+    
+    // for usage of dbconnector class;
+    static String[] itemset = new String[4];
+    
+    public static void reset_pricedata()
+        {
+            cashPrice = new BigDecimal("0.0");
+            sellPrice = new BigDecimal("0.0");
+            out = new BigDecimal("0.0");
+            sell = new BigDecimal("0.0");
+        }
+    
+}
