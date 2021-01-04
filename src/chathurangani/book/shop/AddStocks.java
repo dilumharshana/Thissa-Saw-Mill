@@ -9,6 +9,8 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -17,18 +19,41 @@ public class AddStocks extends javax.swing.JFrame {
     /**
      * Creates new form AddStocks
      */
-    public AddStocks() {
+    public AddStocks(int index) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
         
         submit.setEnabled(false);
+        System.out.println("hey "+index);
+        switch (index) 
+            {
+            
+            case 1:
 
+                lbl_sellprice.setVisible(false); //hide cashprice panel
+                sprice.setVisible(false);
+                filledChek[2]=true; //enebaling all fields filled cheking array cashprice value
+                break;
+            case 2:
+                
+                lbl_sellprice.setVisible(false);
+                sprice.setVisible(false);
+                filledChek[2]=true; //enebaling all fields filled cheking array cashprice value
+                break;
+            
+            default:
+
+            }
+        
+
+            this.index = index; //identifying which panel is this 
     }
 
-    static boolean[] filledChek = {false, false, false, false, false};
+    static boolean[] filledChek = {false, false, false, false};
     int icount = 1;
     boolean dot = false; //cheking if " . " is tyoe at one time
     dbConnector connect = new dbConnector(); //databse connection
+    static int index;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,9 +71,7 @@ public class AddStocks extends javax.swing.JFrame {
         itemCode = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
-        cprice = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lbl_sellprice = new javax.swing.JLabel();
         sprice = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         stock = new javax.swing.JTextField();
@@ -110,26 +133,15 @@ public class AddStocks extends javax.swing.JFrame {
             }
         });
 
-        cprice.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        cprice.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cpriceKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cpriceKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cpriceKeyTyped(evt);
-            }
-        });
-
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel4.setText("Cash Price");
-
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel5.setText("Selling Price");
+        lbl_sellprice.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lbl_sellprice.setText("Selling Price");
 
         sprice.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        sprice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                spriceActionPerformed(evt);
+            }
+        });
         sprice.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 spriceKeyReleased(evt);
@@ -164,13 +176,9 @@ public class AddStocks extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(stock, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_sellprice, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(sprice, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cprice, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -194,17 +202,13 @@ public class AddStocks extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cprice)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(sprice)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_sellprice, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(stock)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         submit.setBackground(new java.awt.Color(0, 255, 255));
@@ -228,7 +232,7 @@ public class AddStocks extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(108, 108, 108)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(88, 88, 88)
@@ -239,9 +243,9 @@ public class AddStocks extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGap(35, 35, 35)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(itemCount, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                     .addComponent(submit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -272,7 +276,7 @@ public class AddStocks extends javax.swing.JFrame {
             filledChek[0] = true;
         }
 
-        if (filledChek[0] == true && filledChek[1] == true && filledChek[2] == true && filledChek[3] == true && filledChek[4] == true) {
+        if (filledChek[0] == true && filledChek[1] == true && filledChek[2] == true && filledChek[3] == true) {
             submit.setEnabled(true);
         } else {
             submit.setEnabled(false);
@@ -288,16 +292,15 @@ public class AddStocks extends javax.swing.JFrame {
             filledChek[1] = true;
         }
 
-        if (filledChek[0] == true && filledChek[1] == true && filledChek[2] == true && filledChek[3] == true && filledChek[4] == true) {
+        if (filledChek[0] == true && filledChek[1] == true && filledChek[2] == true && filledChek[3] == true ) {
             submit.setEnabled(true);
         } else {
             submit.setEnabled(false);
         }
     }//GEN-LAST:event_nameKeyReleased
 
-    private void cpriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpriceKeyReleased
-        String lenth = cprice.getText().trim();
-        char charactor = evt.getKeyChar();
+    private void spriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spriceKeyReleased
+        String lenth = sprice.getText().trim();
 
         if (lenth.isEmpty()) {
             filledChek[2] = false;
@@ -305,25 +308,7 @@ public class AddStocks extends javax.swing.JFrame {
             filledChek[2] = true;
         }
 
-        if (filledChek[0] == true && filledChek[1] == true && filledChek[2] == true && filledChek[3] == true && filledChek[4] == true) {
-            submit.setEnabled(true);
-        } else {
-            submit.setEnabled(false);
-        }
-
-
-    }//GEN-LAST:event_cpriceKeyReleased
-
-    private void spriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spriceKeyReleased
-        String lenth = sprice.getText().trim();
-
-        if (lenth.isEmpty()) {
-            filledChek[3] = false;
-        } else {
-            filledChek[3] = true;
-        }
-
-        if (filledChek[0] == true && filledChek[1] == true && filledChek[2] == true && filledChek[3] == true && filledChek[4] == true) {
+        if (filledChek[0] == true && filledChek[1] == true && filledChek[2] == true && filledChek[3] == true ) {
             submit.setEnabled(true);
         } else {
             submit.setEnabled(false);
@@ -334,12 +319,12 @@ public class AddStocks extends javax.swing.JFrame {
         String lenth = stock.getText().trim();
 
         if (lenth.isEmpty()) {
-            filledChek[4] = false;
+            filledChek[3] = false;
         } else {
-            filledChek[4] = true;
+            filledChek[3] = true;
         }
         
-        if (filledChek[0] == true && filledChek[1] == true && filledChek[2] == true && filledChek[3] == true && filledChek[4] == true) {
+        if (filledChek[0] == true && filledChek[1] == true && filledChek[2] == true && filledChek[3] == true ) {
             submit.setEnabled(true);
         } else {
             submit.setEnabled(false);
@@ -355,62 +340,6 @@ public class AddStocks extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_nameKeyTyped
-
-    private void cpriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpriceKeyTyped
-
-        String lenth = cprice.getText().trim();
-        char charactor = evt.getKeyChar();
-        
-        if (lenth.length() == 16) 
-           {
-              evt.consume();
-           }
-
-           // IF DOT HAS TYPED THIS PART WILL BW RUN
-        if(dot == false)
-            {
-                            if ((Character.isDigit(charactor)) || (Character.isISOControl(charactor)) || charactor == KeyEvent.VK_PERIOD)
-                            {
-                               cprice.setEditable(true);
-                                
-                            } else {
-                                
-                               evt.consume();
-                            }
-                             
-            }
-        
-        else
-            {
-   // IF DOT DOES NOT HAS TYPED THIS PART WILL RUN
-                            if ((Character.isDigit(charactor)) || (Character.isISOControl(charactor)) )
-                                {
-                                    if(lenth.length() == lenth.indexOf(".")+3)
-                                        {
-                                         evt.consume();
-                                        }
-                                }
-                            else
-                                {
-                                       evt.consume();
-                                }
-            }
-   
-  
-    //CHAKING IF ALREADY " . " IN TEXT BOX
-        if(!lenth.contains("."))
-            {
-                dot=false;
-                
-            }
-     
-    //MAKE dot VARIABLE TRUE IF USER PRESSED " . "
-        if(charactor == KeyEvent.VK_PERIOD)
-            {
-                dot = true;
-           }
-
-    }//GEN-LAST:event_cpriceKeyTyped
     
     private void spriceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_spriceKeyTyped
         String lenth = sprice.getText().trim();
@@ -492,7 +421,7 @@ public class AddStocks extends javax.swing.JFrame {
             filledChek[0] = true;
         }
 
-        if (filledChek[0] == true && filledChek[1] == true && filledChek[2] == true && filledChek[3] == true && filledChek[4] == true) {
+        if (filledChek[0] == true && filledChek[1] == true && filledChek[2] == true && filledChek[3]) {
             submit.setEnabled(true);
         } else {
             submit.setEnabled(false);
@@ -503,49 +432,194 @@ public class AddStocks extends javax.swing.JFrame {
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
 
         String[] itemData = new String[3];
-        BigDecimal[] prices = new BigDecimal[2];
-
-        try {
-            itemData[0] = itemCode.getText().trim();
-            itemData[1] = name.getText().trim();
-            itemData[2] = stock.getText().trim();
-
-            prices[0] = new BigDecimal(String.valueOf(cprice.getText().trim()));
-            prices[1] = new BigDecimal(String.valueOf(sprice.getText().trim()));
-
-            //creating object of database controlling class
-            //calling newItemToBase methos in dbConnector class
-            connect.newItemToBase(itemData, prices);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Please chek your barcode . this item is Available in stocks !");
-        }
-        catch(Exception e)
+        BigDecimal[] prices = new BigDecimal[1];
+        
+         switch (index) 
             {
-                JOptionPane.showMessageDialog(null, "Enter valid data !");
-            }
-        itemCount.setText(icount + " Items Added !");
-        icount++;
+             case 0:
+                 
+                            try {
+                                itemData[0] = itemCode.getText().trim();
+                                itemData[1] = name.getText().trim();
+                                itemData[2] = stock.getText().trim();
 
+                                prices[0] = new BigDecimal(String.valueOf(sprice.getText().trim()));
+
+                                //creating object of database controlling class
+                                //calling newItemToBase methos in dbConnector class
+                                connect.newItemToBase(itemData, prices);
+
+                                //notifing by lable
+                                itemCount.setText(icount + " Items Added !");
+                                icount++;
+                                
+                                //setting default values to text filef filled cheker array
+                                filledChek[0]=false;
+                                filledChek[1]=false;
+                                filledChek[2]=false;
+                                filledChek[3]=false;
+
+                            } catch (SQLException e) {
+ Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, e);                                
+//JOptionPane.showMessageDialog(null, "Please select another ITEM CODE , This Item Code is already in your stocks !", "Same Item Code Found ",JOptionPane.WARNING_MESSAGE);
+                                //setting default values to text filef filled cheker array
+                                filledChek[0]=false;
+                                filledChek[1]=false;
+                                filledChek[2]=false;
+                                filledChek[3]=false;
+                            }
+
+                            catch(Exception e)
+                            {
+                                 Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, e);  
+                                //JOptionPane.showMessageDialog(null, "Enter valid data !");
+                                //setting default values to text filef filled cheker array
+                                filledChek[0]=false;
+                                filledChek[1]=false;
+                                filledChek[2]=false;
+                                filledChek[3]=false;
+                            }
+
+                            break;
+                
+            case 1:
+                
+                        try {
+                            itemData[0] = itemCode.getText().trim();
+                            itemData[1] = name.getText().trim();
+                            itemData[2] = stock.getText().trim();
+
+                            //creating object of database controlling class
+                            //calling newItemToBase methos in dbConnector class
+                            connect.timber_ItemToBase(itemData, index);
+
+                            //notifing by lable
+                            itemCount.setText(icount + " Items Added !");
+                            icount++;
+
+                        //setting default values to text filef filled cheker array
+                        filledChek[0]=false;
+                        filledChek[1]=false;
+                        filledChek[3]=false;
+                        
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, "Please select another ITEM CODE , This Item Code is already in your stocks !", "Same Item Code Found ",JOptionPane.WARNING_MESSAGE);
+                            //setting default values to text filef filled cheker array
+                            filledChek[0]=false;
+                            filledChek[1]=false;
+                            filledChek[3]=false;
+                        }
+
+                        catch(Exception e)
+                        {
+                            JOptionPane.showMessageDialog(null, "Enter valid data !");
+                            //setting default values to text filef filled cheker array
+                            filledChek[0]=false;
+                            filledChek[1]=false;
+                            filledChek[3]=false;
+                        }
+
+                        break;
+
+            case 2:
+                
+                        try {
+                            itemData[0] = itemCode.getText().trim();
+                            itemData[1] = name.getText().trim();
+                            itemData[2] = stock.getText().trim();
+
+                            //creating object of database controlling class
+                            //calling newItemToBase methos in dbConnector class
+                            connect.timber_ItemToBase(itemData, index);
+
+                            //notifing by lable
+                            itemCount.setText(icount + " Items Added !");
+                            icount++;
+                            
+                           //setting default values to text filef filled cheker array
+                            filledChek[0]=false;
+                            filledChek[1]=false;
+                            filledChek[3]=false;
+
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, "Please select another ITEM CODE , This Item Code is already in your stocks !", "Same Item Code Found ",JOptionPane.WARNING_MESSAGE);
+                            //setting default values to text filef filled cheker array
+                            filledChek[0]=false;
+                            filledChek[1]=false;
+                            filledChek[3]=false;
+                        }
+
+                        catch(Exception e)
+                        {
+                            JOptionPane.showMessageDialog(null, "Enter valid data !");
+                            //setting default values to text filef filled cheker array
+                            filledChek[0]=false;
+                            filledChek[1]=false;
+                            filledChek[3]=false;
+                        }
+
+                        break;
+                
+            case 3:
+                
+                        try {
+                             itemData[0] = itemCode.getText().trim();
+                             itemData[1] = name.getText().trim();
+                             itemData[2] = stock.getText().trim();
+
+                            prices[0] = new BigDecimal(String.valueOf(sprice.getText().trim()));
+
+                            //creating object of database controlling class
+                            //calling newItemToBase methos in dbConnector class
+                            connect.newItemToBase(itemData, prices);
+
+                            //notifing by lable
+                            itemCount.setText(icount + " Items Added !");
+                            icount++;
+                            
+                        //setting default values to text filef filled cheker array
+                        filledChek[0]=false;
+                        filledChek[1]=false;
+                        filledChek[2]=false;
+                        filledChek[3]=false;
+
+                        } catch (SQLException e) {
+                            JOptionPane.showMessageDialog(null, "Please select another ITEM CODE , This Item Code is already in your stocks !", "Same Item Code Found ",JOptionPane.WARNING_MESSAGE);
+                             //setting default values to text filef filled cheker array
+                            filledChek[0]=false;
+                            filledChek[1]=false;
+                            filledChek[2]=false;
+                            filledChek[3]=false;
+                        }
+
+                        catch(Exception e)
+                        {
+                            JOptionPane.showMessageDialog(null, "Enter valid data !");
+                             //setting default values to text filef filled cheker array
+                            filledChek[0]=false;
+                            filledChek[1]=false;
+                            filledChek[2]=false;
+                            filledChek[3]=false;
+                        }
+                        
+                        break;
+            
+            default:
+
+            }
+         
         itemCode.setText(" ");
         name.setText(" ");
-        cprice.setText(" ");
         sprice.setText(" ");
         stock.setText(" ");
 
         submit.setEnabled(false);
 
-      //setting default values to text filef filled cheker array
-        filledChek[0]=false;
-        filledChek[1]=false;
-        filledChek[2]=false;
-        filledChek[3]=false;
-        filledChek[4]=false;
-
     }//GEN-LAST:event_submitActionPerformed
 
-    private void cpriceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpriceKeyPressed
-
-    }//GEN-LAST:event_cpriceKeyPressed
+    private void spriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spriceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_spriceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -577,24 +651,22 @@ public class AddStocks extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddStocks().setVisible(true);
+                new AddStocks(index).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField cprice;
     public static javax.swing.JTextField itemCode;
     private javax.swing.JLabel itemCount;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lbl_sellprice;
     private javax.swing.JTextField name;
     private javax.swing.JTextField sprice;
     private javax.swing.JTextField stock;

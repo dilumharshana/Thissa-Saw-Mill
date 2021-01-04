@@ -19,7 +19,7 @@ public class dbConnector {
     void newItemToBase(String[] details , BigDecimal[] prices) throws Exception {
 
         query = "INSERT INTO `bookshop`.`stocks` (`itemcode`, `name`, `stock`) VALUES (?,?,?);";
-        query2 = "UPDATE `bookshop`.`stocks` SET `cashprice` = ?, `sellprice` = ? WHERE (`itemcode` = '"+details[0]+"');";
+        query2 = "UPDATE `bookshop`.`stocks` SET ` `sellprice` = ? WHERE (`itemcode` = '"+details[0]+"');";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -33,8 +33,7 @@ public class dbConnector {
         st.setInt(3, Integer.parseInt(details[2]));
         
         //Setting data to qury2 
-        st2.setBigDecimal(1, prices[0]);
-        st2.setBigDecimal(2,prices[1]);
+        st2.setBigDecimal(1,prices[0]);
         
         st.executeUpdate();
         st2.executeUpdate();
@@ -171,64 +170,155 @@ public class dbConnector {
   
   //STOCK PANEL SHOW ALL BTN
     public void stockItemsShowAll() throws Exception {
+        
         String query = "SELECT * FROM `bookshop`.`stocks` ;";
+        String query2 = "SELECT * FROM `bookshop`.`raw_stocks` ;";
+        String query3 = "SELECT * FROM `bookshop`.`cut_stocks` ;";
+        String query4 = "SELECT * FROM `bookshop`.`cut_stocks` ;";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
         Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(query);
+        
+        ResultSet rs = st.executeQuery(query); //selling stocks
 
         //stocks table = new stocks();
         //DefaultTableModel additem = (DefaultTableModel)table.showstocks.getModel();
-        Double[] stockitemsInts = new Double[2];
+        int[] stockitemsInts = new int[2];
         String[] stockitemsString = new String[4];
 
+        String[] linebrake = {"", "", "", "", ""};
+        
         while (rs.next()) {
 
             //this will make a emptyline after each result
-            String[] linebrake = {"", "", "", "", ""};
             stocks.itemsToTable(linebrake);
 
             stockitemsString[0] = rs.getString("itemcode");
             stockitemsString[1] = rs.getString("name");
-            stockitemsString[3] = String.valueOf((int)rs.getDouble("stock"));
-            stockitemsInts[0] = rs.getDouble("cashprice");
-            stockitemsInts[1] = rs.getDouble("sellprice");
+            stockitemsString[3] = String.valueOf((int)rs.getDouble("sellprice"));
+            stockitemsInts[0] = rs.getInt("stock");
 
-            String[] itemset = {stockitemsString[0], stockitemsString[1], String.valueOf(stockitemsInts[0]), String.valueOf(stockitemsInts[1]), String.valueOf(stockitemsString[3])};
+            String[] itemset = {stockitemsString[0], stockitemsString[1], String.valueOf(stockitemsString[3]) , String.valueOf(stockitemsInts[0])};
             stocks.itemsToTable(itemset);
+        }
+        
+        ResultSet rs2 = st.executeQuery(query2); // raw stocks
+        
+        while (rs2.next()) {
+
+            //this will make a emptyline after each result
+            stocks.timerStocks_toTable(linebrake , true);
+
+            String[] itemset = {rs2.getString("itemcode"), rs2.getString("name"), String.valueOf(rs2.getInt("stock"))};
+            stocks.timerStocks_toTable(itemset , true);
+        }
+        
+        ResultSet rs3 = st.executeQuery(query3); //cutting stocks
+        
+        while (rs3.next()) {
+
+            //this will make a emptyline after each result
+            stocks.timerStocks_toTable(linebrake,false);
+
+           String[] itemset = {rs3.getString("itemcode"), rs3.getString("name"), String.valueOf(rs3.getInt("stock"))};
+           stocks.timerStocks_toTable(itemset,false);
         }
 
         st.close();
         con.close();
     }
     
+    
      // SEARCH STOCK RUNNING OUT ITEMS ACCOUDINT TO CASHIER ENTERD VALUE 
-    public void searchForStockOutItems(int smallerthan) throws ClassNotFoundException, SQLException {
+    public void searchForStockOutItems(int smallerthan , int index) throws ClassNotFoundException, SQLException {
+        
         String query = "SELECT * FROM `bookshop`.`stocks` where stock<" + smallerthan + ";";
+        String query2 = "SELECT * FROM `bookshop`.`raw_stocks` where stock<" + smallerthan + ";";
+        String query3 = "SELECT * FROM `bookshop`.`cut_stocks` where stock<" + smallerthan + ";";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
         Statement st = con.createStatement();
+        
         ResultSet rs = st.executeQuery(query);
 
-        Double[] stockitemsInts = new Double[2];
+        int[] stockitemsInts = new int[2];
         String[] stockitemsString = new String[4];
         
-        while (rs.next()) {
-            //this will make a emptyline after each result
-            String[] linebrake = {"", "", "", "", ""};
-            stocks.itemsToTable(linebrake);
+        String[] linebrake = {"", "", "", "", ""}; // line space for all tables
+        
+       
+                  switch (index) 
+                    {
+                       case 0: // selling timer stock
+                               while (rs.next())
+                               {
+                                    //this will make a emptyline after each result
 
-            stockitemsString[0] = rs.getString("itemcode");
-            stockitemsString[1] = rs.getString("name");
-            stockitemsString[3] = String.valueOf((int)rs.getDouble("stock"));
-            stockitemsInts[0] = rs.getDouble("cashprice");
-            stockitemsInts[1] = rs.getDouble("sellprice");
+                                    stocks.itemsToTable(linebrake);
 
-            String[] itemset = {stockitemsString[0], stockitemsString[1], String.valueOf(stockitemsInts[0]), String.valueOf(stockitemsInts[1]), String.valueOf(stockitemsString[3])};
-            stocks.itemsToTable(itemset);
-        }
+                                    stockitemsString[0] = rs.getString("itemcode");
+                                    stockitemsString[1] = rs.getString("name");
+                                    stockitemsString[3] = String.valueOf((int)rs.getDouble("sellprice"));
+                                    stockitemsInts[0] = rs.getInt("stock");
+
+                                    String[] itemset = {stockitemsString[0], stockitemsString[1], String.valueOf(stockitemsString[3]) , String.valueOf(stockitemsInts[0])};
+                                    stocks.itemsToTable(itemset);
+                                }
+                            break;
+
+                       case 1: // row timer stock
+                             ResultSet rs2 = st.executeQuery(query2); // raw stocks
+        
+                                    while (rs2.next())
+                                    {
+
+                                        //this will make a emptyline after each result
+                                        stocks.timerStocks_toTable(linebrake , true);
+
+                                        String[] itemset = {rs2.getString("itemcode"), rs2.getString("name"), String.valueOf(rs2.getInt("stock"))};
+                                        stocks.timerStocks_toTable(itemset , true);
+                                    }
+
+                            break;
+
+
+                       case 2: //cutting timber stock
+                                 ResultSet rs3 = st.executeQuery(query3); //cutting stocks
+        
+                                while (rs3.next())
+                                {
+
+                                    //this will make a emptyline after each result
+                                    stocks.timerStocks_toTable(linebrake,false);
+
+                                    String[] itemset = {rs3.getString("itemcode"), rs3.getString("name"), String.valueOf(rs3.getInt("stock"))};
+                                    stocks.timerStocks_toTable(itemset,false);
+                                }
+                            break;
+
+                       case 3: //cempus stock
+                           
+                               while (rs.next())
+                               {
+                                    //this will make a emptyline after each result
+
+                                    stocks.itemsToTable(linebrake);
+
+                                    stockitemsString[0] = rs.getString("itemcode");
+                                    stockitemsString[1] = rs.getString("name");
+                                    stockitemsString[3] = String.valueOf((int)rs.getDouble("sellprice"));
+                                    stockitemsInts[0] = rs.getInt("stock");
+
+                                    String[] itemset = {stockitemsString[0], stockitemsString[1], String.valueOf(stockitemsString[3]) , String.valueOf(stockitemsInts[0])};
+                                    stocks.itemsToTable(itemset);
+                                }
+                            break;
+                            
+                       default :
+                           //nothing
+                    }
 
         st.close();
         con.close();
@@ -1368,4 +1458,45 @@ public class dbConnector {
             st.executeUpdate();
         
         }
+        
+        //updating raw timber stock and cutting timber stock
+
+    void timber_ItemToBase(String[] details , int index) throws Exception {
+
+        query = "INSERT INTO `bookshop`.`raw_stocks` (`itemcode`, `name`, `stock`) VALUES (?,?,?);";
+        query2 = "INSERT INTO `bookshop`.`cut_stocks` (`itemcode`, `name`, `stock`) VALUES (?,?,?);";
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, uname, pass);
+        
+        switch (index)
+           {
+               case 1:
+               
+                     PreparedStatement st = con.prepareStatement(query);
+                   // Setting data to query
+                    st.setString(1, details[0]);
+                    st.setString(2, details[1]);
+                    st.setInt(3, Integer.parseInt(details[2]));
+                    st.executeUpdate();
+                    st.close();
+                    
+                    break;
+                    
+               case 2:
+                   
+                   PreparedStatement st2 = con.prepareStatement(query2);
+                   
+                    st2.setString(1, details[0]);
+                    st2.setString(2, details[1]);
+                    st2.setInt(3, Integer.parseInt(details[2]));
+                    
+                    st2.executeUpdate();
+                    st2.close();
+           }
+ 
+       
+        con.close();
+    }
+    
 }

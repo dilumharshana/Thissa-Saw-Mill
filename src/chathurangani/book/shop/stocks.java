@@ -13,10 +13,13 @@ public class stocks extends javax.swing.JFrame {
     dbConnector connect = new dbConnector();
 
     Object stocktable;
+    static int index;
 
     public stocks() throws ClassNotFoundException, SQLException {
+       
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
+        
         updatebtn.setEnabled(false);
         delete.setEnabled(false);
        
@@ -26,6 +29,8 @@ public class stocks extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        this.index = 0;
     }
 
     @SuppressWarnings("unchecked")
@@ -35,11 +40,8 @@ public class stocks extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        stockname = new javax.swing.JLabel();
         refresh = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        stockitemstable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         showAllstock = new javax.swing.JButton();
         outofstocks = new javax.swing.JButton();
@@ -49,6 +51,19 @@ public class stocks extends javax.swing.JFrame {
         stockcounter = new javax.swing.JTextField();
         searchbar = new javax.swing.JTextField();
         searchForItem = new javax.swing.JButton();
+        tablePane = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        stockitemstable = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        rawtable = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        cuttingTable = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        cempusTable = new javax.swing.JTable();
 
         jLabel6.setText("Item Name");
 
@@ -63,9 +78,9 @@ public class stocks extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 28)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("CHATHURANGANI BOOK SHOP STOCKS");
+        stockname.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 28)); // NOI18N
+        stockname.setForeground(new java.awt.Color(255, 255, 255));
+        stockname.setText("CHATHURANGANI BOOK SHOP STOCKS");
 
         refresh.setBackground(new java.awt.Color(51, 51, 51));
         refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/unnamed.png"))); // NOI18N
@@ -82,62 +97,17 @@ public class stocks extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(stockname, javax.swing.GroupLayout.PREFERRED_SIZE, 712, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+            .addComponent(stockname, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(refresh, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-        );
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        stockitemstable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        stockitemstable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Item Code", "Item Name", "Cash Price", "Selling Price", "Stocks"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        stockitemstable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        stockitemstable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                stockitemstableMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                stockitemstableMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                stockitemstableMouseExited(evt);
-            }
-        });
-        jScrollPane2.setViewportView(stockitemstable);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 884, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
         );
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -203,7 +173,7 @@ public class stocks extends javax.swing.JFrame {
         jPanel3.add(updatebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 190, 50));
 
         stockcounter.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        stockcounter.setText("20");
+        stockcounter.setText("250");
         stockcounter.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         stockcounter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,24 +213,223 @@ public class stocks extends javax.swing.JFrame {
             }
         });
 
+        tablePane.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tablePaneStateChanged(evt);
+            }
+        });
+        tablePane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePaneMouseClicked(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        stockitemstable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        stockitemstable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Item Code", "Item Name", "Selling Price", "Stocks"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        stockitemstable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        stockitemstable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                stockitemstableMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                stockitemstableMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                stockitemstableMouseExited(evt);
+            }
+        });
+        jScrollPane2.setViewportView(stockitemstable);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+        );
+
+        tablePane.addTab("SELLING STOCKS", jPanel2);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        rawtable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        rawtable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Item Code", "Item Name", "Stocks"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        rawtable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rawtable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rawtableMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                rawtableMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                rawtableMouseExited(evt);
+            }
+        });
+        jScrollPane3.setViewportView(rawtable);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+        );
+
+        tablePane.addTab("RAW STOCKS", jPanel4);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        cuttingTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cuttingTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Item Code", "Item Name", "Stocks"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        cuttingTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cuttingTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cuttingTableMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cuttingTableMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cuttingTableMouseExited(evt);
+            }
+        });
+        jScrollPane4.setViewportView(cuttingTable);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+        );
+
+        tablePane.addTab("CUTTING STOCKS", jPanel5);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        cempusTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        cempusTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Item Code", "Item Name", "Selling Price", "Stocks"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        cempusTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cempusTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cempusTableMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cempusTableMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cempusTableMouseExited(evt);
+            }
+        });
+        jScrollPane5.setViewportView(cempusTable);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+        );
+
+        tablePane.addTab("CEMPUS", jPanel6);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addComponent(searchForItem, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1037, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(tablePane, javax.swing.GroupLayout.PREFERRED_SIZE, 1013, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,12 +439,14 @@ public class stocks extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchForItem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tablePane, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
+
+        tablePane.getAccessibleContext().setAccessibleName("selling");
 
         pack();
         setLocationRelativeTo(null);
@@ -286,7 +457,8 @@ public class stocks extends javax.swing.JFrame {
     }//GEN-LAST:event_searchbarActionPerformed
 
     private void showAllstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllstockActionPerformed
-        //celar current contetnt in table
+        
+//celar current contetnt in table
         clearTable();
         updatebtn.setEnabled(false);
         delete.setEnabled(false);
@@ -300,14 +472,40 @@ public class stocks extends javax.swing.JFrame {
     }//GEN-LAST:event_showAllstockActionPerformed
 
     private void outofstocksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outofstocksActionPerformed
+
         DefaultTableModel stockshow = (DefaultTableModel) stockitemstable.getModel();
         int Smallerthan;
         try { //cheking if user enters a null value !
             Smallerthan = Integer.parseInt(stockcounter.getText());
 
             if (Smallerthan == 0 || String.valueOf(Smallerthan) == "") {
-                Smallerthan = 20;
-                stockcounter.setText("20");
+                
+                switch (index) 
+                    {
+                       case 0: // selling timer stock
+                           Smallerthan = 250;
+                           stockcounter.setText("100");
+                            break;
+
+                       case 1: // row timer stock
+                            Smallerthan = 200;
+                            stockcounter.setText("200");
+                            break;
+
+
+                       case 2: //cutting timber stock
+                            Smallerthan = 200;
+                            stockcounter.setText("200");
+                            break;
+
+                       case 3: //cempus stock
+                            Smallerthan = 250;
+                            stockcounter.setText("250");
+                            break;
+                            
+                       default :
+                           //nothing
+                    }
             }
         } catch (Exception e) {
 
@@ -318,7 +516,7 @@ public class stocks extends javax.swing.JFrame {
         clearTable();
 
         try {
-            connect.searchForStockOutItems(Smallerthan);
+            connect.searchForStockOutItems(Smallerthan , index);
         } catch (Exception ex) {
             Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -380,7 +578,7 @@ public class stocks extends javax.swing.JFrame {
     }//GEN-LAST:event_stockitemstableMouseExited
 
     private void add_NewI_tem_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_NewI_tem_BtnActionPerformed
-        AddStocks add_item = new AddStocks();
+        AddStocks add_item = new AddStocks(index);
         add_item.setVisible(true);
     }//GEN-LAST:event_add_NewI_tem_BtnActionPerformed
 
@@ -448,6 +646,89 @@ public class stocks extends javax.swing.JFrame {
        searchBarProcess();
     }//GEN-LAST:event_searchbarKeyReleased
 
+    private void rawtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rawtableMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rawtableMouseClicked
+
+    private void rawtableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rawtableMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rawtableMouseEntered
+
+    private void rawtableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rawtableMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rawtableMouseExited
+
+    private void cuttingTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuttingTableMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cuttingTableMouseClicked
+
+    private void cuttingTableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuttingTableMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cuttingTableMouseEntered
+
+    private void cuttingTableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuttingTableMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cuttingTableMouseExited
+
+    private void cempusTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cempusTableMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cempusTableMouseClicked
+
+    private void cempusTableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cempusTableMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cempusTableMouseEntered
+
+    private void cempusTableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cempusTableMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cempusTableMouseExited
+
+    private void tablePaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tablePaneStateChanged
+       int count = tablePane.getSelectedIndex();
+       
+       switch (count) 
+        {
+           case 0: // selling timer stock
+                index = 0;
+                stockname.setText("Selling Stocks");
+                stockcounter.setText("250");
+                break;
+                
+                
+           case 1: // row timer stock
+                 index = 1;
+                 stockname.setText("Raw Stocks");
+                 stockcounter.setText("200");
+                break;
+                
+                
+           case 2: //cutting timber stock
+                 index = 2;
+                 stockname.setText("Cutting Stocks");
+                 stockcounter.setText("200");
+                break;
+                
+           case 3: //cempus stock
+                 index=3;
+                 stockname.setText("Cempus Stocks");
+                 stockcounter.setText("250");
+                 
+                 
+                 //these btns are not nessery to cempus stock
+                 showAllstock.setVisible(false);
+                 stockcounter.setVisible(false);
+                 outofstocks.setVisible(false);
+                 add_NewI_tem_Btn.setVisible(false);
+                break;
+           
+           default :
+               //nothing    
+        }
+    }//GEN-LAST:event_tablePaneStateChanged
+
+    private void tablePaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePaneMouseClicked
+
+    }//GEN-LAST:event_tablePaneMouseClicked
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -469,6 +750,20 @@ public class stocks extends javax.swing.JFrame {
         DefaultTableModel stockshow = (DefaultTableModel) stockitemstable.getModel();
         stockshow.addRow(stockdata);
     }
+    
+    public static void timerStocks_toTable(String [] stock , boolean which) // if which == true then set to raw stock if false the set data to cutting stock
+        {
+            if( which == true) //raw timer stock
+                {
+                     DefaultTableModel stockshow = (DefaultTableModel) rawtable.getModel();
+                     stockshow.addRow(stock);
+                }
+            else
+                {
+                    DefaultTableModel stockshow = (DefaultTableModel) cuttingTable.getModel();
+                    stockshow.addRow(stock);
+                }
+        }
 
     public static void setItemsToTable(String[] stockdata) {
 
@@ -493,33 +788,59 @@ public class stocks extends javax.swing.JFrame {
 
     //seacr bar process
     void searchBarProcess() {
+        
         clearTable();
-        updatebtn.setEnabled(false);
-        delete.setEnabled(false);
-        String item = searchbar.getText().trim();
-        try {
-            connect.searchIteminStock(item);
-        } catch (Exception ex) {
-            Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
+        
+        if (searchbar.getText().length() == 0) {
+            clearTable();
+            try {
+                connect.stockItemsShowAll();
+            } catch (Exception ex) {
+                Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        else
+            {
+                  updatebtn.setEnabled(false);
+                    delete.setEnabled(false);
+                    String item = searchbar.getText().trim();
+                    try {
+                        connect.searchIteminStock(item);
+                    } catch (Exception ex) {
+                        Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            }
+          
+        
+      
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_NewI_tem_Btn;
+    public static javax.swing.JTable cempusTable;
+    public static javax.swing.JTable cuttingTable;
     private javax.swing.JButton delete;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JButton outofstocks;
+    public static javax.swing.JTable rawtable;
     public javax.swing.JButton refresh;
     private javax.swing.JButton searchForItem;
     private static javax.swing.JTextField searchbar;
     private javax.swing.JButton showAllstock;
     private javax.swing.JTextField stockcounter;
     public static javax.swing.JTable stockitemstable;
+    private javax.swing.JLabel stockname;
+    private javax.swing.JTabbedPane tablePane;
     private javax.swing.JButton updatebtn;
     // End of variables declaration//GEN-END:variables
 }

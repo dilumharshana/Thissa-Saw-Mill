@@ -1146,7 +1146,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
     private void addStockTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockTabActionPerformed
         try {
-            AddStocks open = new AddStocks();
+            AddStocks open = new AddStocks(0);
             open.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Cant open Add Stocks window");
