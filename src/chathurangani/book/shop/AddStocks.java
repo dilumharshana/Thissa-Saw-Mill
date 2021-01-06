@@ -24,7 +24,6 @@ public class AddStocks extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
         
         submit.setEnabled(false);
-        System.out.println("hey "+index);
         switch (index) 
             {
             
@@ -117,6 +116,9 @@ public class AddStocks extends javax.swing.JFrame {
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 itemCodeKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                itemCodeKeyTyped(evt);
             }
         });
 
@@ -458,10 +460,9 @@ public class AddStocks extends javax.swing.JFrame {
                                 filledChek[1]=false;
                                 filledChek[2]=false;
                                 filledChek[3]=false;
-
+                                
                             } catch (SQLException e) {
- Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, e);                                
-//JOptionPane.showMessageDialog(null, "Please select another ITEM CODE , This Item Code is already in your stocks !", "Same Item Code Found ",JOptionPane.WARNING_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Please select another ITEM CODE , This Item Code is already in your stocks !", "Same Item Code Found ",JOptionPane.WARNING_MESSAGE);
                                 //setting default values to text filef filled cheker array
                                 filledChek[0]=false;
                                 filledChek[1]=false;
@@ -471,8 +472,7 @@ public class AddStocks extends javax.swing.JFrame {
 
                             catch(Exception e)
                             {
-                                 Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, e);  
-                                //JOptionPane.showMessageDialog(null, "Enter valid data !");
+                                JOptionPane.showMessageDialog(null, "Enter valid data !");
                                 //setting default values to text filef filled cheker array
                                 filledChek[0]=false;
                                 filledChek[1]=false;
@@ -559,67 +559,36 @@ public class AddStocks extends javax.swing.JFrame {
                         }
 
                         break;
-                
-            case 3:
-                
-                        try {
-                             itemData[0] = itemCode.getText().trim();
-                             itemData[1] = name.getText().trim();
-                             itemData[2] = stock.getText().trim();
-
-                            prices[0] = new BigDecimal(String.valueOf(sprice.getText().trim()));
-
-                            //creating object of database controlling class
-                            //calling newItemToBase methos in dbConnector class
-                            connect.newItemToBase(itemData, prices);
-
-                            //notifing by lable
-                            itemCount.setText(icount + " Items Added !");
-                            icount++;
-                            
-                        //setting default values to text filef filled cheker array
-                        filledChek[0]=false;
-                        filledChek[1]=false;
-                        filledChek[2]=false;
-                        filledChek[3]=false;
-
-                        } catch (SQLException e) {
-                            JOptionPane.showMessageDialog(null, "Please select another ITEM CODE , This Item Code is already in your stocks !", "Same Item Code Found ",JOptionPane.WARNING_MESSAGE);
-                             //setting default values to text filef filled cheker array
-                            filledChek[0]=false;
-                            filledChek[1]=false;
-                            filledChek[2]=false;
-                            filledChek[3]=false;
-                        }
-
-                        catch(Exception e)
-                        {
-                            JOptionPane.showMessageDialog(null, "Enter valid data !");
-                             //setting default values to text filef filled cheker array
-                            filledChek[0]=false;
-                            filledChek[1]=false;
-                            filledChek[2]=false;
-                            filledChek[3]=false;
-                        }
-                        
-                        break;
             
             default:
-
+                //nothing
             }
          
         itemCode.setText(" ");
         name.setText(" ");
         sprice.setText(" ");
         stock.setText(" ");
-
+        
+        try {
+            connect.stockItemsShowAll();
+        } catch (Exception ex) {
+            
+        }
         submit.setEnabled(false);
+        
 
     }//GEN-LAST:event_submitActionPerformed
 
     private void spriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spriceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_spriceActionPerformed
+
+    private void itemCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemCodeKeyTyped
+        if(itemCode.getText().length()==16)
+            {
+                evt.consume();
+            }
+    }//GEN-LAST:event_itemCodeKeyTyped
 
     /**
      * @param args the command line arguments
