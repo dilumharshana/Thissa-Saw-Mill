@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Dilum
  */
-public class BillOwner extends javax.swing.JFrame {
+public class newAdvanced extends javax.swing.JFrame {
 
     /**
      * Creates new form BillOwner
@@ -25,30 +25,15 @@ public class BillOwner extends javax.swing.JFrame {
     
     boolean who = true; //true means new borrower update // false for new cashier
     
-    public BillOwner() {
+    public newAdvanced() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
-        lbl_pass.setVisible(false);
-        passbox.setVisible(false);
         changephoneno.setEnabled(false);
         next.setEnabled(false);
-    }
-    
-     public BillOwner(boolean cashier) {
-        initComponents();
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
-        lbl_name.setText("Cashier Name");
-        lbl_nic.setText("NIC");
-        lbl_address.setText("Address");
-        lbl_phone.setText("Phone");
-        next.setText("ADD");
-        changephoneno.setEnabled(false);
-        next.setEnabled(false);
-        
-        this.who = false;
     }
 
     dbConnector connect = new dbConnector();
+    static boolean dot = false;//for get notified wen working with floating points
   
 
     /**
@@ -72,14 +57,14 @@ public class BillOwner extends javax.swing.JFrame {
         lbl_address = new javax.swing.JLabel();
         address = new javax.swing.JTextField();
         lbl_pass = new javax.swing.JLabel();
-        passbox = new javax.swing.JTextField();
+        advanceAmount = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Customer Name & Phone Number ");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(51, 204, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -128,12 +113,12 @@ public class BillOwner extends javax.swing.JFrame {
 
         lbl_phone.setBackground(new java.awt.Color(255, 255, 255));
         lbl_phone.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lbl_phone.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_phone.setForeground(new java.awt.Color(255, 255, 255));
         lbl_phone.setText("Customer Phone Number");
 
         lbl_name.setBackground(new java.awt.Color(255, 255, 255));
         lbl_name.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lbl_name.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_name.setForeground(new java.awt.Color(255, 255, 255));
         lbl_name.setText("Customer Name");
 
         changephoneno.setText("Change");
@@ -160,12 +145,12 @@ public class BillOwner extends javax.swing.JFrame {
 
         lbl_nic.setBackground(new java.awt.Color(255, 255, 255));
         lbl_nic.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lbl_nic.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_nic.setForeground(new java.awt.Color(255, 255, 255));
         lbl_nic.setText("Customer NIC");
 
         lbl_address.setBackground(new java.awt.Color(255, 255, 255));
         lbl_address.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lbl_address.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_address.setForeground(new java.awt.Color(255, 255, 255));
         lbl_address.setText("Customer Address");
 
         address.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -177,10 +162,15 @@ public class BillOwner extends javax.swing.JFrame {
 
         lbl_pass.setBackground(new java.awt.Color(255, 255, 255));
         lbl_pass.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lbl_pass.setForeground(new java.awt.Color(102, 102, 102));
-        lbl_pass.setText("Set a password");
+        lbl_pass.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_pass.setText("Advanced Amount");
 
-        passbox.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        advanceAmount.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        advanceAmount.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                advanceAmountKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -193,27 +183,23 @@ public class BillOwner extends javax.swing.JFrame {
                         .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(passbox)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(CusNameForBill)
+                            .addComponent(nic)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cusphoneForBill)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(changephoneno, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(address)
+                            .addComponent(advanceAmount)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbl_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(142, 142, 142)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(CusNameForBill)
-                                .addComponent(nic)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(cusphoneForBill)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(changephoneno, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(address)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lbl_nic, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbl_name, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbl_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbl_address, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(142, 142, 142))))))
+                                    .addComponent(lbl_nic, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_name, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_address, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(142, 142, 142)))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -237,10 +223,10 @@ public class BillOwner extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(changephoneno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cusphoneForBill, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(lbl_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(passbox, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(advanceAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
@@ -261,10 +247,10 @@ public class BillOwner extends javax.swing.JFrame {
         if(who == true)
         {
             try {
-            //calling processing method name send data;
-            sendData();
+                //calling processing method name send data;
+                sendData();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null,"New Borrower is not available !");
+                Logger.getLogger(newAdvanced.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         else
@@ -314,7 +300,7 @@ public class BillOwner extends javax.swing.JFrame {
                 //calling processing method name send data;
                 sendData();
             } catch (Exception ex) {
-                Logger.getLogger(BillOwner.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(newAdvanced.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -397,47 +383,99 @@ public class BillOwner extends javax.swing.JFrame {
 
     private void addressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_addressKeyTyped
         
-       if(address.getText().length()==240)
+       if(address.getText().length() == 240)
         {
             evt.consume();
         }
     }//GEN-LAST:event_addressKeyTyped
 
+    private void advanceAmountKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_advanceAmountKeyTyped
+       
+        String lenth = advanceAmount.getText().trim();
+        char charactor = evt.getKeyChar();
+
+        if (lenth.length() == 16) {
+            evt.consume();
+        }
+
+        // IF DOT HAS TYPED THIS PART WILL BW RUN
+        if (dot == false) {
+            if ((Character.isDigit(charactor)) || (Character.isISOControl(charactor)) || charactor == KeyEvent.VK_PERIOD) {
+                advanceAmount.setEditable(true);
+
+            } else {
+
+                evt.consume();
+            }
+
+        } else // IF DOT DOES NOT HAS TYPED THIS PART WILL RUN
+        {
+            if ((Character.isDigit(charactor)) || (Character.isISOControl(charactor))) {
+                if (lenth.length() == lenth.indexOf(".") + 3) {
+                    evt.consume();
+                }
+            } else {
+                evt.consume();
+            }
+        }
+
+        //CHAKING IF ALREADY " . " IN TEXT BOX
+        if (!lenth.contains(".")) {
+            dot = false;
+
+        }
+
+        //MAKE dot VARIABLE TRUE IF USER PRESSED " . "
+        if (charactor == KeyEvent.VK_PERIOD) {
+            dot = true;
+        }
+
+    }//GEN-LAST:event_advanceAmountKeyTyped
+
     void sendData() throws Exception {
 
-       //defng bigdecimal values to send to the database
-       BigDecimal[] defaultValues = {new BigDecimal("0.0"),new BigDecimal("0.0"),new BigDecimal("0.0")};
+        if(advanceAmount.getText().length()>0)
+         {
+             //defng bigdecimal values to send to the database
+                BigDecimal[] defaultValues = {new BigDecimal("0.0"),new BigDecimal("0.0"),new BigDecimal(String.valueOf(advanceAmount.getText()))};
+
+                //setting new borrowers detials to create a new borrower in databse
+                String [] namePhoneNic = {CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() , String.valueOf(java.time.LocalDate.now())}; // getiing new borrower details
+
+                //sending new borrower to database
+                int key = connect.storeAdvancedDealsDataIntoBase(namePhoneNic , defaultValues); // storing borrrower to db
+
+                //displaying borrower in table
+                DefaultTableModel delas = (DefaultTableModel) advanced.advancedTable.getModel();
+                String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim(), "0.0","0.0" , String.valueOf(advanceAmount.getText()) , String.valueOf(java.time.LocalDate.now())};
+                delas.addRow(newBorro);
+
+                setVisible(false);
+         }
+        else
+            {
+                    JOptionPane.showMessageDialog(null , "Plese insert advanced amound !");
+            }
+        
        
-       //setting new borrowers detials to create a new borrower in databse
-       String [] namePhoneNic = {CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim()}; // getiing new borrower details
-      
-       //sending new borrower to database
-       int key = connect.storeBorrowDealsDataIntoBase(namePhoneNic , defaultValues); // storing borrrower to db
-       
-       //displaying borrower in table
-       DefaultTableModel delas = (DefaultTableModel) borrowers.dealTable.getModel();
-       String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim(), "0.0","0.0" , String.valueOf(java.time.LocalDate.now())};
-       delas.addRow(newBorro);
-       
-       setVisible(false);
     }
     
     
   //process of new cashier
      void sendData(boolean cashier) throws Exception {
 
-         if(passbox.getText().length()>0)
+         if(advanceAmount.getText().length()>0)
          {
  
                //setting new borrowers detials to create a new borrower in databse
-               String [] namePhoneNic = {CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() ,passbox.getText()}; // getiing new borrower details
+               String [] namePhoneNic = {CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() ,advanceAmount.getText()}; // getiing new borrower details
 
                //sending new borrower to database
                int key = connect.addNewCasher(namePhoneNic ); // storing borrrower to db
 
                //displaying borrower in table
                DefaultTableModel delas = (DefaultTableModel) cashiers.cTable.getModel();
-               String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() ,  passbox.getText().trim() , "Active"};
+               String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() ,  advanceAmount.getText().trim() , "Active"};
                delas.addRow(newBorro);
 
                setVisible(false);
@@ -466,21 +504,23 @@ public class BillOwner extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BillOwner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(newAdvanced.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BillOwner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(newAdvanced.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BillOwner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(newAdvanced.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BillOwner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(newAdvanced.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BillOwner().setVisible(true);
+                new newAdvanced().setVisible(true);
             }
         });
     }
@@ -488,6 +528,7 @@ public class BillOwner extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CusNameForBill;
     private javax.swing.JTextField address;
+    private javax.swing.JTextField advanceAmount;
     private javax.swing.JButton changephoneno;
     private javax.swing.JTextField cusphoneForBill;
     private javax.swing.JPanel jPanel1;
@@ -498,6 +539,5 @@ public class BillOwner extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_phone;
     private javax.swing.JButton next;
     private javax.swing.JTextField nic;
-    private javax.swing.JTextField passbox;
     // End of variables declaration//GEN-END:variables
 }

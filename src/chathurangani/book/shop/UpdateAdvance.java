@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class UpdateBorrowers extends javax.swing.JFrame {
+public class UpdateAdvance extends javax.swing.JFrame {
 
     /**
      * Creates new form stock_item_display
@@ -14,41 +14,14 @@ public class UpdateBorrowers extends javax.swing.JFrame {
     
     boolean whichPanel = true; //true for borrower update anf false for cashier update
     
-    public UpdateBorrowers(String code, String nameis, String tp, String nicis , String addressis) {
+    public UpdateAdvance(String code, String nameis, String tp, String nicis , String addressis , String advance) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));//setting windowicon
         name.setText(nameis);
         contact.setText(tp);
         nic.setText(nicis);
         address.setText(addressis);
-
-        name.setEditable(false);
-        contact.setEditable(false);
-        nic.setEditable(false);
-        address.setEditable(false);
-
-        nameUpdate.setEnabled(false);
-        contactUpdate.setEnabled(false);
-        nicUpdate.setEnabled(false);
-        addressUpdate.setEnabled(false);
-        
-        lbl_password.setVisible(false);
-        passbox.setVisible(false);
-        passedit.setVisible(false);
-        passupdate.setVisible(false);
-
-        this.primarykeyofdata = code;
-    }
-    
-        public UpdateBorrowers(String code, String nameis, String tp, String nicis , String addressis , String password) {
-        initComponents();
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));//setting windowicon
-        panel_name.setText("Cashier Update");
-        name.setText(nameis);
-        contact.setText(tp);
-        nic.setText(nicis);
-        address.setText(addressis);
-        passbox.setText(password);
+        advanceBox.setText(advance);
 
         name.setEditable(false);
         contact.setEditable(false);
@@ -60,12 +33,11 @@ public class UpdateBorrowers extends javax.swing.JFrame {
         nicUpdate.setEnabled(false);
         addressUpdate.setEnabled(false);
         passupdate.setEnabled(false);
+        
 
         this.primarykeyofdata = code;
-        
-        whichPanel = false;
     }
-
+    
     dbConnector connect = new dbConnector();
 
     String primarykeyofdata;
@@ -105,7 +77,7 @@ public class UpdateBorrowers extends javax.swing.JFrame {
         addressUpdate = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         lbl_password = new javax.swing.JLabel();
-        passbox = new javax.swing.JTextField();
+        advanceBox = new javax.swing.JTextField();
         passedit = new javax.swing.JButton();
         passupdate = new javax.swing.JButton();
 
@@ -129,7 +101,7 @@ public class UpdateBorrowers extends javax.swing.JFrame {
         panel_name.setBackground(new java.awt.Color(255, 255, 255));
         panel_name.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
         panel_name.setForeground(new java.awt.Color(0, 0, 0));
-        panel_name.setText("Borrower Update");
+        panel_name.setText("Advance Payments Update");
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -292,15 +264,15 @@ public class UpdateBorrowers extends javax.swing.JFrame {
         lbl_password.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_password.setForeground(new java.awt.Color(0, 0, 0));
         lbl_password.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbl_password.setText("Password");
+        lbl_password.setText("Advance");
 
-        passbox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        passbox.addKeyListener(new java.awt.event.KeyAdapter() {
+        advanceBox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        advanceBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                passboxKeyReleased(evt);
+                advanceBoxKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                passboxKeyTyped(evt);
+                advanceBoxKeyTyped(evt);
             }
         });
 
@@ -383,7 +355,7 @@ public class UpdateBorrowers extends javax.swing.JFrame {
                                     .addComponent(addressUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
-                                .addComponent(passbox, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(advanceBox, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(passedit, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -427,7 +399,7 @@ public class UpdateBorrowers extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passbox, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(advanceBox, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passedit, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_password, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -453,20 +425,11 @@ public class UpdateBorrowers extends javax.swing.JFrame {
 
     private void CloseUpdatePannelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseUpdatePannelActionPerformed
         try {
-            if(whichPanel == true)
-                {
-                    borrowers.clearTable();
-                    connect.search_all_deals();
-                    borrowers.brnhandler();
-                }
-            else
-                {
-                    cashiers.clearTable();
-                    connect.search_all_cashiers();
-                    cashiers.brnhandler();
-                }
+                    advanced.clearTable();
+                    connect.search_all_advanced();
+                    advanced.brnhandler();
         } catch (Exception ex) {
-            Logger.getLogger(UpdateBorrowers.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UpdateAdvance.class.getName()).log(Level.SEVERE, null, ex);
         }
         setVisible(false);
 
@@ -508,17 +471,13 @@ public class UpdateBorrowers extends javax.swing.JFrame {
     private void nicUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nicUpdateActionPerformed
 
         try {
-            if(whichPanel==true)
-                {
-                    connect.updateBorrowerData("nic", nic.getText().trim(), primarykeyofdata,true);
-                }
-            else
-                {
-                    connect.updateBorrowerData("id", nic.getText().trim(), primarykeyofdata,false);
-                }
+
+              connect.updateAdvanceData("nic", nic.getText().trim(), primarykeyofdata);
+
         } catch (Exception ex) {
             System.out.println(ex);
         }
+
 
         nicUpdate.setEnabled(false);
         nic.setEditable(false);
@@ -527,14 +486,9 @@ public class UpdateBorrowers extends javax.swing.JFrame {
 
     private void nameUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameUpdateActionPerformed
         try {
-            if(whichPanel == true)
-                {
-                    connect.updateBorrowerData("name", name.getText().trim(), primarykeyofdata,true);
-                }
-            else
-                {
-                     connect.updateBorrowerData("name", name.getText().trim(), primarykeyofdata,false);
-                }
+
+              connect.updateAdvanceData("name", name.getText().trim(), primarykeyofdata);
+
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -544,16 +498,12 @@ public class UpdateBorrowers extends javax.swing.JFrame {
     }//GEN-LAST:event_nameUpdateActionPerformed
 
     private void contactUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactUpdateActionPerformed
+        
+        
         try {
-            
-            if(whichPanel == true)
-                {
-                    connect.updateBorrowerData("tp", contact.getText().trim(), primarykeyofdata,true);
-                }
-            else
-                {
-                    connect.updateBorrowerData("phone", contact.getText().trim(), primarykeyofdata,false);
-                }
+
+              connect.updateAdvanceData("phone", contact.getText().trim(), primarykeyofdata);
+
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -662,18 +612,13 @@ public class UpdateBorrowers extends javax.swing.JFrame {
     private void addressUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addressUpdateActionPerformed
         
         try {
-            if(whichPanel == true)
-                {
-                    connect.updateBorrowerData("address", address.getText().trim(), primarykeyofdata,true);
-                }
-            else
-                {
-                    connect.updateBorrowerData("address", address.getText().trim(), primarykeyofdata,false);
-                }
-            
+
+              connect.updateAdvanceData("address", address.getText().trim(), primarykeyofdata);
+
         } catch (Exception ex) {
             System.out.println(ex);
         }
+
 
         address.setEditable(false);
         addressUpdate.setEnabled(false);
@@ -693,34 +638,42 @@ public class UpdateBorrowers extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_contactKeyTyped
 
-    private void passboxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passboxKeyReleased
+    private void advanceBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_advanceBoxKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_passboxKeyReleased
+          String lenth = advanceBox.getText();
+
+        if (lenth.length() > 0) {
+            passupdate.setEnabled(true);
+        } else {
+            passupdate.setEnabled(false);
+        }
+        
+    }//GEN-LAST:event_advanceBoxKeyReleased
 
     private void passeditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passeditActionPerformed
-       passbox.setEnabled(true);
+       advanceBox.setEnabled(true);
     }//GEN-LAST:event_passeditActionPerformed
 
     private void passupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passupdateActionPerformed
-        try {
-            
-           connect.updateBorrowerData("pass", passbox.getText().trim(), primarykeyofdata,false);
-            
+       try {
+
+              connect.updateAdvanceData("advanced", advanceBox.getText().trim(), primarykeyofdata);
+
         } catch (Exception ex) {
             System.out.println(ex);
         }
 
-        address.setEditable(false);
-        addressUpdate.setEnabled(false);
+        advanceBox.setEditable(false);
+        passupdate.setEnabled(false);
     }//GEN-LAST:event_passupdateActionPerformed
 
-    private void passboxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passboxKeyTyped
+    private void advanceBoxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_advanceBoxKeyTyped
         
-        if(passbox.getText().length() == 20)
+        if(advanceBox.getText().length() == 20)
             {
                 evt.consume();
             }
-    }//GEN-LAST:event_passboxKeyTyped
+    }//GEN-LAST:event_advanceBoxKeyTyped
 
     /**
      * @param args the command line arguments
@@ -739,14 +692,16 @@ public class UpdateBorrowers extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateBorrowers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateAdvance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateBorrowers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateAdvance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateBorrowers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateAdvance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateBorrowers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateAdvance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -754,7 +709,7 @@ public class UpdateBorrowers extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new UpdateBorrowers("", "", "","","").setVisible(true);
+                    new UpdateAdvance("", "", "","","","").setVisible(true);
                 } catch (Exception e) {
 
                 }
@@ -766,6 +721,7 @@ public class UpdateBorrowers extends javax.swing.JFrame {
     private javax.swing.JButton CloseUpdatePannel;
     private javax.swing.JTextField address;
     private javax.swing.JButton addressUpdate;
+    private javax.swing.JTextField advanceBox;
     private javax.swing.JButton conditionedit;
     private javax.swing.JTextField contact;
     private javax.swing.JButton contactUpdate;
@@ -788,7 +744,6 @@ public class UpdateBorrowers extends javax.swing.JFrame {
     private javax.swing.JTextField nic;
     private javax.swing.JButton nicUpdate;
     private javax.swing.JLabel panel_name;
-    private javax.swing.JTextField passbox;
     private javax.swing.JButton passedit;
     private javax.swing.JButton passupdate;
     // End of variables declaration//GEN-END:variables

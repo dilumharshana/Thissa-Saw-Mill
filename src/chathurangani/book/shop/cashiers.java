@@ -16,13 +16,13 @@ public class cashiers extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         viewItem.setEnabled(false);
-        delete.setEnabled(false);
         viewItem.setVisible(false);
     }
-    
+
     dbConnector connect = new dbConnector();
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -219,114 +219,108 @@ public class cashiers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewItemActionPerformed
-        
-       try
-        {
-             DefaultTableModel getRow = (DefaultTableModel)cTable.getModel();
+
+        try {
+            DefaultTableModel getRow = (DefaultTableModel) cTable.getModel();
             int row = cTable.getSelectedRow();
 
-            String primary = (String)getRow.getValueAt(row,0);
-            String customer = (String)getRow.getValueAt(row,1);
+            String primary = (String) getRow.getValueAt(row, 0);
+            String customer = (String) getRow.getValueAt(row, 1);
 
-            Deal_Item_History open = new Deal_Item_History(primary , customer);
+            paymentHistory open = new paymentHistory(primary, customer);
 
             open.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please select a Cashier !");
         }
-        catch(Exception e)
-              {
-                 JOptionPane.showMessageDialog(null , "Please select a Borrower !");
-              }
-        
+
     }//GEN-LAST:event_viewItemActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        
-       try
-        {
-             DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
-        
-                int row = cTable.getSelectedRow();
-                String primary = String.valueOf(cTable.getValueAt(row , 0));
 
-                try {
-                    connect.clearBorrows(primary , false);
-                } catch (Exception ex) {
-                    Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        try {
+            DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
 
-                 delas.removeRow(row);
-         
+            int row = cTable.getSelectedRow();
+            String primary = String.valueOf(cTable.getValueAt(row, 0));
+
+            try {
+                connect.clearBorrows(primary, false);
+            } catch (Exception ex) {
+                Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            delas.removeRow(row);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please select a Cashier !");
         }
-         catch(Exception e)
-              {
-                 JOptionPane.showMessageDialog(null , "Please select a Borrower !");
-              }
-                   
+
     }//GEN-LAST:event_deleteActionPerformed
 
     private void newBorrowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBorrowerActionPerformed
-        BillOwner open = new BillOwner(false);
-        open.setVisible(true);        
+        try
+            {
+                BillOwner open = new BillOwner(false);
+                open.setVisible(true);
+            }
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, "Please select a Cashier !");
+            }
     }//GEN-LAST:event_newBorrowerActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        try
-            {
-                DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
-                int row = cTable.getSelectedRow();
+        try {
+            DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
+            int row = cTable.getSelectedRow();
 
-                String pk = String.valueOf(delas.getValueAt(row, 0));
-                String name = String.valueOf(delas.getValueAt(row, 1));
-                String tp = String.valueOf(delas.getValueAt(row, 2));
-                String nice = String.valueOf(delas.getValueAt(row, 3));
-                String address = String.valueOf(delas.getValueAt(row, 4));
-                String pass = String.valueOf(delas.getValueAt(row, 5));
+            String pk = String.valueOf(delas.getValueAt(row, 0));
+            String name = String.valueOf(delas.getValueAt(row, 1));
+            String tp = String.valueOf(delas.getValueAt(row, 2));
+            String nice = String.valueOf(delas.getValueAt(row, 3));
+            String address = String.valueOf(delas.getValueAt(row, 4));
+            String pass = String.valueOf(delas.getValueAt(row, 5));
 
-                UpdateBorrowers open = new UpdateBorrowers( pk , name ,tp ,nice , address , pass);
-                open.setVisible(true);
-            }
-         catch(Exception e)
-              {
-                 JOptionPane.showMessageDialog(null , "Please select a Borrower !");
-              }
+            UpdateBorrowers open = new UpdateBorrowers(pk, name, tp, nice, address, pass);
+            open.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please select a Cashier !");
+        }
     }//GEN-LAST:event_updateActionPerformed
 
     private void cTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cTableMouseClicked
-       
-         DefaultTableModel borrower = (DefaultTableModel) cTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
-         int borrowerRow = cTable.getSelectedRow(); 
-         cusName.setText(cTable.getValueAt(borrowerRow,1).toString());
-        
+
+        DefaultTableModel borrower = (DefaultTableModel) cTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
+        int borrowerRow = cTable.getSelectedRow();
+        cusName.setText(cTable.getValueAt(borrowerRow, 1).toString());
+
         viewItem.setEnabled(true);
         update.setEnabled(true);
         delete.setEnabled(true);
-        
-         int row = cTable.getSelectedRow();
-             
-             if(cTable.getValueAt(row,6)== "Locked")
-                {
-                    lock.setText("Unlock Account");
-                }
-             else
-                {
-                    lock.setText("Lock Account");
-                }
-        
-        
+
+        int row = cTable.getSelectedRow();
+
+        if (cTable.getValueAt(row, 6) == "Locked") {
+            lock.setText("Unlock Account");
+        } else {
+            lock.setText("Lock Account");
+        }
+
+
     }//GEN-LAST:event_cTableMouseClicked
 
     private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased
         String lenth = searchBar.getText().trim();
-        if(lenth.length() == 0)
-            {
-                clearTable();
-               try {
-                   connect.search_all_cashiers();
-               } catch (Exception ex) {
-                   Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
-               }
+        if (lenth.length() == 0) {
+            clearTable();
+            try {
+                connect.search_all_cashiers();
+            } catch (Exception ex) {
+                Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
             }
-          try {
+        }
+        try {
             clearTable();
             connect.search_every_cashier(lenth);
         } catch (Exception ex) {
@@ -336,7 +330,7 @@ public class cashiers extends javax.swing.JFrame {
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         String code = searchBar.getText().trim();
-        
+
         try {
             clearTable();
             connect.search_every_cashier(code);
@@ -347,26 +341,23 @@ public class cashiers extends javax.swing.JFrame {
 
     private void lockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lockActionPerformed
         try {
-             DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
-             int row = cTable.getSelectedRow();
-             
-             if(cTable.getValueAt(row,6)== "Locked")
-                {
-                    boolean if_ok = connect.activeCashier(cTable.getValueAt(row,0).toString() , 1);
-                    JOptionPane.showMessageDialog(null,"Account unlocked !");
-                    lock.setText("Lock Account");
-                    connect.search_all_cashiers();
-                }
-             else
-                {
-                     boolean if_ok = connect.activeCashier(cTable.getValueAt(row,0).toString() , 0);
-                     JOptionPane.showMessageDialog(null,"Account locked !");
-                     lock.setText("Lock Account");
-                     connect.search_all_cashiers();
-                }
-             
+            DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
+            int row = cTable.getSelectedRow();
+
+            if (cTable.getValueAt(row, 6) == "Locked") {
+                boolean if_ok = connect.activeCashier(cTable.getValueAt(row, 0).toString(), 1);
+                JOptionPane.showMessageDialog(null, "Account unlocked !");
+                lock.setText("Lock Account");
+                connect.search_all_cashiers();
+            } else {
+                boolean if_ok = connect.activeCashier(cTable.getValueAt(row, 0).toString(), 0);
+                JOptionPane.showMessageDialog(null, "Account locked !");
+                lock.setText("Lock Account");
+                connect.search_all_cashiers();
+            }
+
         } catch (Exception ex) {
-            Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Please select a Cashier !");
         }
     }//GEN-LAST:event_lockActionPerformed
 
@@ -405,31 +396,28 @@ public class cashiers extends javax.swing.JFrame {
             }
         });
     }
-    
-     public static void clearTable()
-        {
-            DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
-            
-            while(delas.getRowCount() > 0)
-                {
-                    delas.removeRow(0);
-                }
+
+    public static void clearTable() {
+        DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
+
+        while (delas.getRowCount() > 0) {
+            delas.removeRow(0);
         }
-    
+    }
+
     //THIS METHOD WILL ADD A NEW ROWTO J TABLE USING dealdata ARRAY WHICH IS PASSED BY Search_Every_Field METHOD
-    public static void dealItemsToTable(String [] dealData)
-        {
-            DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
-            delas.addRow(dealData);
-        
-        }
+    public static void dealItemsToTable(String[] dealData) {
+        DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
+        delas.addRow(dealData);
+
+    }
+
     //btns disabling
-    static void brnhandler()
-        {
-            viewItem.setEnabled(false);
-            update.setEnabled(false);
-            delete.setEnabled(true);
-        }
+    static void brnhandler() {
+        viewItem.setEnabled(false);
+        update.setEnabled(false);
+        delete.setEnabled(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable cTable;

@@ -25,11 +25,10 @@ public class controllers extends stater{
     static BigDecimal cashPrice , sellPrice ,out,sell; // two variable sfor income amount calculation
     
     // for usage of dbconnector class;
-    static String[] itemset = new String[4];
+    static String[] itemset = new String[3];
     
     public static void reset_pricedata()
         {
-            cashPrice = new BigDecimal("0.0");
             sellPrice = new BigDecimal("0.0");
             out = new BigDecimal("0.0");
             sell = new BigDecimal("0.0");

@@ -7,31 +7,32 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class borrowers extends javax.swing.JFrame {
+public class advanced extends javax.swing.JFrame {
 
-    public borrowers() {
+    public advanced() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
         try {
-            connect.search_all_deals();
+            connect.search_all_advanced();
         } catch (Exception ex) {
-            Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        history.setEnabled(false);
+        
+        viewItem.setEnabled(false);
         update.setEnabled(false);
         updateFromBill.setEnabled(false);
         payment.setEnabled(false);
         delete.setEnabled(false);
     }
-
+    
     dbConnector connect = new dbConnector();
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        viewItem = new javax.swing.JButton();
         searchBar = new javax.swing.JTextField();
         search = new javax.swing.JButton();
         delete = new javax.swing.JButton();
@@ -41,16 +42,30 @@ public class borrowers extends javax.swing.JFrame {
         update = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        dealTable = new javax.swing.JTable();
+        advancedTable = new javax.swing.JTable();
         cusName = new javax.swing.JLabel();
-        history = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Deals");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 51));
+        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
+        viewItem.setBackground(new java.awt.Color(153, 255, 153));
+        viewItem.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        viewItem.setForeground(new java.awt.Color(0, 0, 0));
+        viewItem.setText("VIEW ITEM");
+        viewItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewItemActionPerformed(evt);
+            }
+        });
+
+        searchBar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBarActionPerformed(evt);
+            }
+        });
         searchBar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 searchBarKeyReleased(evt);
@@ -80,7 +95,7 @@ public class borrowers extends javax.swing.JFrame {
         newBorrower.setBackground(new java.awt.Color(153, 0, 255));
         newBorrower.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         newBorrower.setForeground(new java.awt.Color(255, 255, 255));
-        newBorrower.setText("NEW BORROWER");
+        newBorrower.setText("NEW ADVANCE");
         newBorrower.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newBorrowerActionPerformed(evt);
@@ -120,44 +135,34 @@ public class borrowers extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("BORROWERS");
+        jLabel3.setText("Advanced Bills");
 
-        dealTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        dealTable.setModel(new javax.swing.table.DefaultTableModel(
+        advancedTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        advancedTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Deal No", "Customer", "Phone No", "NIC", "Address", "Bill Amount", "Discounted", "Date & Time"
+                "Deal No", "Customer", "Phone No", "NIC", "Address", "Bill Amount", "Discounted", "Advance", "Date & Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, true
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        dealTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        advancedTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                dealTableMouseClicked(evt);
+                advancedTableMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(dealTable);
+        jScrollPane2.setViewportView(advancedTable);
 
         cusName.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         cusName.setForeground(new java.awt.Color(255, 255, 0));
-
-        history.setBackground(new java.awt.Color(204, 255, 204));
-        history.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        history.setForeground(new java.awt.Color(0, 0, 0));
-        history.setText("HISTORY");
-        history.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                historyActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -168,7 +173,7 @@ public class borrowers extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(history, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(viewItem, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(newBorrower, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -207,20 +212,20 @@ public class borrowers extends javax.swing.JFrame {
                                 .addGap(11, 11, 11)
                                 .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(updateFromBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
                         .addComponent(update, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(newBorrower, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(newBorrower, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(viewItem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(2, 2, 2)))
-                    .addComponent(history, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(2, 2, 2))))
                 .addGap(9, 9, 9))
         );
 
@@ -239,215 +244,253 @@ public class borrowers extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+    private void viewItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewItemActionPerformed
+        
+       try
+        {
+           DefaultTableModel getRow = (DefaultTableModel)advancedTable.getModel();
+            int row = advancedTable.getSelectedRow();
 
-        try {
-            DefaultTableModel delas = (DefaultTableModel) dealTable.getModel();
+            String primary = (String)getRow.getValueAt(row,0);
+            String customer = (String)getRow.getValueAt(row,1);
 
-            int row = dealTable.getSelectedRow();
-            String primary = String.valueOf(dealTable.getValueAt(row, 0));
+            advancedItems open = new advancedItems(primary , customer);
 
-            try {
-                connect.clearBorrows(primary, true);
-            } catch (Exception ex) {
-                Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            delas.removeRow(row);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Please select a Borrower !");
+            open.setVisible(true);
         }
+        catch(Exception e)
+              {
+                 JOptionPane.showMessageDialog(null , "Please select a Advance !");
+              }
+        
+    }//GEN-LAST:event_viewItemActionPerformed
 
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        
+       try
+        {
+             DefaultTableModel delas = (DefaultTableModel) advancedTable.getModel();
+        
+                int row = advancedTable.getSelectedRow();
+                String primary = String.valueOf(advancedTable.getValueAt(row , 0));
+
+                try {
+                    connect.clearAdvanced(primary);
+                } catch (Exception ex) {
+                    Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                 delas.removeRow(row);
+         
+        }
+         catch(Exception e)
+              {
+                 JOptionPane.showMessageDialog(null , "Please select a Advance !");
+              }
+                   
     }//GEN-LAST:event_deleteActionPerformed
 
     private void newBorrowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBorrowerActionPerformed
-        BillOwner open = new BillOwner();
-        open.setVisible(true);
+        newAdvanced open = new newAdvanced();
+        open.setVisible(true);        
     }//GEN-LAST:event_newBorrowerActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        try {
-            DefaultTableModel delas = (DefaultTableModel) dealTable.getModel();
-            int row = dealTable.getSelectedRow();
+        try
+            {
+                DefaultTableModel delas = (DefaultTableModel) advancedTable.getModel();
+                int row = advancedTable.getSelectedRow();
 
-            String pk = String.valueOf(delas.getValueAt(row, 0));
-            String name = String.valueOf(delas.getValueAt(row, 1));
-            String tp = String.valueOf(delas.getValueAt(row, 2));
-            String nice = String.valueOf(delas.getValueAt(row, 3));
-            String address = String.valueOf(delas.getValueAt(row, 4));
+                String pk = String.valueOf(delas.getValueAt(row, 0));
+                String name = String.valueOf(delas.getValueAt(row, 1));
+                String tp = String.valueOf(delas.getValueAt(row, 2));
+                String nice = String.valueOf(delas.getValueAt(row, 3));
+                String address = String.valueOf(delas.getValueAt(row, 4));
+                String advance = String.valueOf(delas.getValueAt(row, 7));
 
-            UpdateBorrowers open = new UpdateBorrowers(pk, name, tp, nice, address);
-            open.setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Please select a Borrower !");
-        }
+                UpdateAdvance open = new UpdateAdvance( pk , name ,tp ,nice , address , advance);
+                open.setVisible(true);
+            }
+         catch(Exception e)
+              {
+                 JOptionPane.showMessageDialog(null , "Please select a Advance !");
+              }
     }//GEN-LAST:event_updateActionPerformed
 
     private void updateFromBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateFromBillActionPerformed
+      
+        
+                if(!(MAIN_FRAME.staticTotal.getText().trim()).equals(""))
+                {
+                    if(true)
+                        {
+                            DefaultTableModel itemTable = (DefaultTableModel) MAIN_FRAME.selltable.getModel(); // BILLING PANEL ITEMS TABLE
+                            DefaultTableModel borrower = (DefaultTableModel) advancedTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
 
-        try {
-            if (!(MAIN_FRAME.staticTotal.getText().trim()).equals("")) {
-                DefaultTableModel itemTable = (DefaultTableModel) MAIN_FRAME.selltable.getModel(); // BILLING PANEL ITEMS TABLE
-                DefaultTableModel borrower = (DefaultTableModel) dealTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
+                    int dealNo = advancedTable.getSelectedRow(); 
+                    int rowcount = MAIN_FRAME.selltable.getRowCount();
 
-                int borrowerRow = dealTable.getSelectedRow();
-                int rowcount = MAIN_FRAME.selltable.getRowCount();
 
-                if (rowcount > 0) {
-                    BigDecimal totalGet = new BigDecimal(MAIN_FRAME.total.getText().trim()); //getting total bill amount from main frame jlable
-                    BigDecimal discountGet = new BigDecimal(MAIN_FRAME.discAmount.getText().trim());//getting discount amount from main frame jlable
-
-                    //calling to storeBorrowDealsDataIntoBase in dbconnector class to stor borrow deal data in to database
-                    //taking exsists borrowers current due amount from database
-                    BigDecimal[] current_value = connect.borrow_amount_Upater(String.valueOf(borrower.getValueAt(borrowerRow, 0)));
-
-                    // adding new total amount and discount amounts to exsisting total and discount values
-                    BigDecimal[] values = {current_value[0].add(discountGet), current_value[1].add(totalGet)};
-
-                    //storing new updated discount and total values in to database
-                    connect.storeBorrowDealsDataIntoBase(values, String.valueOf(dealTable.getValueAt(borrowerRow, 0)));
-
-                    boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()));
-
-                    //if date is not exsit in database then create new row for the date either update exsising dat row
-                    if (dateAvailability == true) {
-                        // adding new cashprice amount and sellprice amount to prevois cashprice and sell price amount
-                        //new cash price and sell price amounts are holded in controller class cashPrice and sellPrice variables
-    
-                        BigDecimal updated_sellPrice = new BigDecimal(MAIN_FRAME.total.getText().trim()).add(controllers.sellPrice);
-                        connect.incomedataUpdater( String.valueOf(updated_sellPrice), String.valueOf(java.time.LocalDate.now()));
-                    } else {
-                      
-                        connect.Strore_incomedata( MAIN_FRAME.total.getText(), "0.0", "0.0", String.valueOf(java.time.LocalDate.now()));
-                    }
-
-                    // loop for send each borrow item to database frim MAiN FRAME panel
-                    for (int i = 0; i < rowcount; i++) {
-                        String cheker = String.valueOf(MAIN_FRAME.selltable.getValueAt(i, 0));
-
-                        if (!cheker.equals("")) {
+                    if(rowcount>0)
+                        {
+                        try {
+                            BigDecimal totalGet = new BigDecimal(MAIN_FRAME.total.getText().trim()); //getting total bill amount from main frame jlable
+                            BigDecimal discountGet = new BigDecimal(MAIN_FRAME.discAmount.getText().trim());//getting discount amount from main frame jlable
                             
-                           String pk , code , name , quantity;
-                           BigDecimal  price , total;
+                            //calling to storeBorrowDealsDataIntoBase in dbconnector class to stor borrow deal data in to database
+                            
+                            //taking exsists borrowers current due amount from database
+                              BigDecimal[] current_value = connect.borrow_amount_Upater(String.valueOf(borrower.getValueAt(dealNo,0)));
+                            
+                            // adding new total amount and discount amounts to exsisting total and discount values
+                            BigDecimal [] values = {current_value[0].add(discountGet) , current_value[1].add(totalGet)};
+                            
+                            //storing new updated discount and total values in to database
+                             connect.storeBorrowDealsDataIntoBase(values, String.valueOf(advancedTable.getValueAt(dealNo,0)));
+                            
+                            boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()));
+                            
+                            //if date is not exsit in database then create new row for the date either update exsising dat row
+                            if (dateAvailability == true) {
+                                // adding new sellprice amount to prevois  sell price amount
+                                //new sell price amounts are holded in controller class sellPrice variables
+                                BigDecimal updated_sellPrice = new BigDecimal(MAIN_FRAME.total.getText().trim()).add(controllers.sellPrice);
+                                connect.incomedataUpdater(String.valueOf(updated_sellPrice), String.valueOf(java.time.LocalDate.now()));
+                            } else {
+                                connect.Strore_incomedata( MAIN_FRAME.total.getText(),"0.0","0.0", String.valueOf(java.time.LocalDate.now()));
+                            }
+                            
+                            // loop for send each borrow item to database frim MAiN FRAME panel
+                            for(int i=0; i < rowcount; i++)
+                            {
+                                String cheker = String.valueOf(MAIN_FRAME.selltable.getValueAt(i,0));
+                                
+                                if(!cheker.equals(""))
+                                {
+                                    String pk , code , name , quantity;
+                                    BigDecimal  price , total;
                                     
-                                    pk = dealTable.getValueAt(borrowerRow,0).toString(); //primarykey
+                                    pk = advancedTable.getValueAt(dealNo,0).toString(); //primarykey
                                     code = MAIN_FRAME.selltable.getValueAt(i,0).toString(); //item code
                                     name = MAIN_FRAME.selltable.getValueAt(i,1).toString(); //item name
                                     price = new BigDecimal(MAIN_FRAME.selltable.getValueAt(i,2).toString());// unit prce
                                     quantity = MAIN_FRAME.selltable.getValueAt(i,3).toString(); //quantity
                                     total =new BigDecimal( MAIN_FRAME.selltable.getValueAt(i,4).toString()); //quantity
-
-                            //store item details in to databse
-                            connect.storeDealItemsIntoDataBase(pk, code, name, quantity, price , total);
-
-                            //decreasing stock of out items
-                            int stock = connect.searchItemStock(code); //cheking for current stock
-                            if (stock > 0) {
-
-                                if (stock > Integer.valueOf(quantity)) {
-                                    stock = stock - Integer.parseInt(quantity); //updatin stock
-                                    connect.updateStockitems("stocks","stock", String.valueOf(stock), code);
-                                } else // if customer buys items more than in stock it automaticly set stocl items to 0.
-                                {
-                                    connect.updateStockitems("stocks","stock", String.valueOf(0), code);
-                                    JOptionPane.showMessageDialog(null, " Done !");
+                                    
+                                    //store item details in to databse
+                                    connect.storeDealItemsIntoDataBase(pk,code, name, quantity, price , total);
+                                    
+                                    
+                                    //decreasing stock of out items
+                                    int stock = connect.searchItemStock(code); //cheking for current stock
+                                    if (stock > 0) {
+                                        
+                                        if (stock > Integer.valueOf(quantity)) {
+                                            stock = stock - Integer.parseInt(quantity); //updatin stock
+                                            connect.updateStockitems("stocks","stock", String.valueOf(stock), code);
+                                        } else // if customer buys items more than in stock it automaticly set stocl items to 0.
+                                        {
+                                            connect.updateStockitems("stocks","stock", String.valueOf(0), code);
+                                            //JOptionPane.showMessageDialog(null , " Done !");
+                                        }
+                                        
+                                    }
                                 }
-
                             }
+                            
+                            //refreing borrower window to show new updated data as wel
+                            connect.search_all_advanced();
+                            
+                            //reseting MAIN FRAME window
+                            MAIN_FRAME.refreshWindow();
+                            JOptionPane.showMessageDialog(null," Item added to Advanced successfully !");
+                            
+                        } catch (Exception ex) {
+                            Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    }
 
-                    //refreing borrower window to show new updated data as wel
-                    connect.search_all_deals();
 
-                    //reseting MAIN FRAME window
-                    MAIN_FRAME.refreshWindow();
-                    JOptionPane.showMessageDialog(null, " Item added to borrower successfully !");
-
+                        }
+                        }
+                    else
+                        {
+                            JOptionPane.showMessageDialog(null , "Please create a new advanced payment account !");
+                        }
                 }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Please select a Borrower !");
-        }
+      
     }//GEN-LAST:event_updateFromBillActionPerformed
 
     private void paymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentActionPerformed
 
-        try {
-            DefaultTableModel borrower = (DefaultTableModel) dealTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
-            int borrowerRow = dealTable.getSelectedRow();
-
-            BigDecimal amount = new BigDecimal(dealTable.getValueAt(borrowerRow, 5).toString());
-            String name = dealTable.getValueAt(borrowerRow, 1).toString();
-            String code = dealTable.getValueAt(borrowerRow, 0).toString();
-
-            loanPay open = new loanPay(amount, name, code);
-            open.setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Please select a Borrower !");
-        }
+          int row = advancedTable.getSelectedRow(); //selected row
+        //setting customer advanced items to billing panel table
+                   try
+                        {
+                            MAIN_FRAME.refreshWindow();
+                            DefaultTableModel getRow = (DefaultTableModel)advancedTable.getModel();
+                            connect.getAdvancetems(advancedTable.getValueAt( row ,0).toString() , false);
+                            
+                        }
+                    catch(Exception e)
+                        {
+                           JOptionPane.showMessageDialog(null , "Please select a Advance !");
+                     
+                        }
+                   
+            //setting cash amout to billoing panel
+            MAIN_FRAME.staticTotal.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString()) .subtract(new BigDecimal(advancedTable.getValueAt( row ,7).toString()))));
+            MAIN_FRAME.total.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString()) .subtract(new BigDecimal(advancedTable.getValueAt( row ,7).toString()))));
+            MAIN_FRAME.discAmount.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,6).toString())));
     }//GEN-LAST:event_paymentActionPerformed
 
-    private void dealTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dealTableMouseClicked
-
-        DefaultTableModel borrower = (DefaultTableModel) dealTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
-        int borrowerRow = dealTable.getSelectedRow();
-        cusName.setText(dealTable.getValueAt(borrowerRow, 1).toString());
-
-        history.setEnabled(true);
+    private void advancedTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_advancedTableMouseClicked
+       
+         DefaultTableModel borrower = (DefaultTableModel) advancedTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
+         int borrowerRow = advancedTable.getSelectedRow(); 
+         cusName.setText(advancedTable.getValueAt(borrowerRow,1).toString());
+        
+        viewItem.setEnabled(true);
         update.setEnabled(true);
         updateFromBill.setEnabled(true);
         payment.setEnabled(true);
         delete.setEnabled(true);
-
-
-    }//GEN-LAST:event_dealTableMouseClicked
+        
+        
+    }//GEN-LAST:event_advancedTableMouseClicked
 
     private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased
         String lenth = searchBar.getText().trim();
-        if (lenth.length() == 0) {
-            clearTable();
-            try {
-                connect.search_all_deals();
-            } catch (Exception ex) {
-                Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
+        if(lenth.length() == 0)
+            {
+                clearTable();
+               try {
+                   connect.search_all_advanced();
+               } catch (Exception ex) {
+                   Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
+               }
             }
-        }
-        try {
+          try {
             clearTable();
-            connect.search_every_field(lenth);
+            connect.search_every_advanced(lenth);
         } catch (Exception ex) {
-            Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_searchBarKeyReleased
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
         String code = searchBar.getText().trim();
-
+        
         try {
             clearTable();
             connect.search_every_field(code);
         } catch (Exception ex) {
-            Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_searchActionPerformed
 
-    private void historyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyActionPerformed
-             try {
-                    DefaultTableModel getRow = (DefaultTableModel) dealTable.getModel();
-                    int row = dealTable.getSelectedRow();
-
-                    String primary = (String) getRow.getValueAt(row, 0);
-                    String customer = (String) getRow.getValueAt(row, 1);
-
-                    paymentHistory open = new paymentHistory(primary, customer);
-
-                    open.setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Please select a Borrower !");
-        }
-    }//GEN-LAST:event_historyActionPerformed
+    private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchBarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -480,40 +523,42 @@ public class borrowers extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new borrowers().setVisible(true);
+                new advanced().setVisible(true);
             }
         });
     }
-
-    public static void clearTable() {
-        DefaultTableModel delas = (DefaultTableModel) dealTable.getModel();
-
-        while (delas.getRowCount() > 0) {
-            delas.removeRow(0);
+    
+     public static void clearTable()
+        {
+            DefaultTableModel delas = (DefaultTableModel) advancedTable.getModel();
+            
+            while(delas.getRowCount() > 0)
+                {
+                    delas.removeRow(0);
+                }
         }
-    }
-
+    
     //THIS METHOD WILL ADD A NEW ROWTO J TABLE USING dealdata ARRAY WHICH IS PASSED BY Search_Every_Field METHOD
-    public static void dealItemsToTable(String[] dealData) {
-        DefaultTableModel delas = (DefaultTableModel) dealTable.getModel();
-        delas.addRow(dealData);
-
-    }
-
+    public static void dealItemsToTable(String [] dealData)
+        {
+            DefaultTableModel delas = (DefaultTableModel) advancedTable.getModel();
+            delas.addRow(dealData);
+        
+        }
     //btns disabling
-    static void brnhandler() {
-        history.setEnabled(false);
-        update.setEnabled(false);
-        updateFromBill.setEnabled(false);
-        payment.setEnabled(false);
-        delete.setEnabled(true);
-    }
+    static void brnhandler()
+        {
+            viewItem.setEnabled(false);
+            update.setEnabled(false);
+            updateFromBill.setEnabled(false);
+            payment.setEnabled(false);
+            delete.setEnabled(true);
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JTable advancedTable;
     private javax.swing.JLabel cusName;
-    public static javax.swing.JTable dealTable;
     private static javax.swing.JButton delete;
-    private static javax.swing.JButton history;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -523,5 +568,6 @@ public class borrowers extends javax.swing.JFrame {
     private javax.swing.JTextField searchBar;
     private static javax.swing.JButton update;
     private static javax.swing.JButton updateFromBill;
+    private static javax.swing.JButton viewItem;
     // End of variables declaration//GEN-END:variables
 }

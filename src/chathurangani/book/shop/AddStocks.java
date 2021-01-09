@@ -9,8 +9,6 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -334,7 +332,7 @@ public class AddStocks extends javax.swing.JFrame {
     }//GEN-LAST:event_stockKeyReleased
 
     private void nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyTyped
-        char character = evt.getKeyChar();
+
         String lenth = name.getText().trim();
 
         if (lenth.length() == 100) {

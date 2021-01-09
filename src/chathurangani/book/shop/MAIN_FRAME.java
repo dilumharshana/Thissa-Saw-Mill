@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -43,8 +42,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         
         //Disabling btns
         removeItem.setEnabled(false);
-        CpBtn.setEnabled(false);
-
         discLable.setVisible(false);
         discAmount.setVisible(false);
         balanceLable.setVisible(false);
@@ -66,7 +63,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     
     dbConnector connect = new dbConnector();
     static String newPrice = "0.0";// for storing new item price
-    static BigDecimal cashpriceAmount = new BigDecimal("0.0"); //total amount of cashpricess of the deal
     static BigDecimal returnCash = new BigDecimal("0.0"); //total amount of cashpricess of the deal
     static BigDecimal paymentForBill = new BigDecimal("0.0");
     static BigDecimal balanceForBill = new BigDecimal("0.0");
@@ -89,7 +85,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         shopName = new javax.swing.JLabel();
         Date = new javax.swing.JLabel();
         Time = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         barcode = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -109,15 +104,13 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         stockTab = new javax.swing.JButton();
         settingTab = new javax.swing.JButton();
         addStockTab = new javax.swing.JButton();
-        returnTab = new javax.swing.JButton();
         bell = new javax.swing.JLabel();
+        advancedTab = new javax.swing.JButton();
         proceed = new javax.swing.JButton();
         paymentAmount = new javax.swing.JTextField();
         disc = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        CpBtn = new javax.swing.JButton();
-        CpriceBox = new javax.swing.JLabel();
         cancel = new javax.swing.JButton();
         borrowProceed = new javax.swing.JButton();
         discountingBtn = new javax.swing.JButton();
@@ -128,19 +121,20 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         selltable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("CHATHURANGANI BOOK SHOP");
+        setTitle("TISSA SAW MILL");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 51));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setForeground(new java.awt.Color(0, 0, 0));
 
         shopName.setBackground(new java.awt.Color(204, 0, 255));
         shopName.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 42)); // NOI18N
-        shopName.setForeground(new java.awt.Color(255, 255, 255));
+        shopName.setForeground(new java.awt.Color(0, 0, 0));
         shopName.setText("THISSA SAW MILL ");
 
         Date.setBackground(new java.awt.Color(255, 255, 102));
@@ -153,8 +147,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         Time.setForeground(new java.awt.Color(255, 255, 102));
         Time.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/ok.png"))); // NOI18N
-
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("- By  EvonApps ... -");
@@ -165,15 +157,12 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(shopName)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(shopName))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(342, 342, 342)
+                        .addGap(330, 330, 330)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 482, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 624, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
@@ -185,20 +174,17 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(shopName))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shopName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 107));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 100));
 
         barcode.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         barcode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 51), 1, true));
@@ -285,7 +271,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(removeItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 563, 214, 43));
 
-        jPanel3.setBackground(new java.awt.Color(0, 153, 51));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         borrowersTab.setBackground(new java.awt.Color(102, 0, 204));
@@ -336,43 +322,47 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             }
         });
 
-        returnTab.setBackground(new java.awt.Color(255, 0, 0));
-        returnTab.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        returnTab.setForeground(new java.awt.Color(255, 255, 255));
-        returnTab.setText("Return");
-        returnTab.setToolTipText("Return Items.");
-        returnTab.setActionCommand(" Return Items .");
-        returnTab.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        returnTab.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnTabActionPerformed(evt);
-            }
-        });
-
         bell.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 60)); // NOI18N
         bell.setForeground(new java.awt.Color(255, 0, 0));
         bell.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/out.png"))); // NOI18N
         bell.setText(".");
         bell.setToolTipText("Your stocks running out !");
 
+        advancedTab.setBackground(new java.awt.Color(51, 51, 51));
+        advancedTab.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        advancedTab.setForeground(new java.awt.Color(255, 255, 255));
+        advancedTab.setText("Advanced");
+        advancedTab.setToolTipText("Settings");
+        advancedTab.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        advancedTab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                advancedTabActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(settingTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(borrowersTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(addStockTab, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                                    .addComponent(stockTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(bell)
+                                .addGap(35, 35, 35))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(settingTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(borrowersTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(returnTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addStockTab, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                            .addComponent(stockTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(bell)
-                        .addGap(35, 35, 35))))
+                        .addComponent(advancedTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,12 +372,12 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addStockTab, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(returnTab, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(borrowersTab, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(advancedTab, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(settingTab, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addComponent(bell, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
@@ -443,23 +433,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
         jLabel5.setText("Payment");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(726, 562, 296, 14));
-
-        CpBtn.setBackground(new java.awt.Color(102, 102, 102));
-        CpBtn.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        CpBtn.setForeground(new java.awt.Color(255, 255, 255));
-        CpBtn.setText("View CP");
-        CpBtn.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 102), 1, true));
-        CpBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CpBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CpBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(416, 563, 129, 43));
-
-        CpriceBox.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        CpriceBox.setForeground(new java.awt.Color(51, 51, 51));
-        CpriceBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(CpriceBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 563, 154, 43));
 
         cancel.setBackground(new java.awt.Color(51, 51, 51));
         cancel.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
@@ -554,52 +527,16 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void CpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CpBtnActionPerformed
-
-        try {
-            if (viewCp == true) {
-                int whichRow = selltable.getSelectedRow();
-
-                if (!selltable.getValueAt(whichRow, 0).equals("")) {
-
-                    String item = (String) selltable.getValueAt(whichRow, 0);
-                    String cprice = "";
-
-                    try {
-                        cprice = connect.searchItemPrice(item);
-                    } catch (SQLException ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    CpriceBox.setText("Rs . " + cprice);
-
-                    CpBtn.setText("Hide Cp");
-                    viewCp = false;
-                } else {
-                    JOptionPane.showMessageDialog(null, "Please Select a valid Item !");
-                }
-            } else {
-                CpriceBox.setText("");
-                CpBtn.setText("View CP");
-                viewCp = true;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No item selected");
-        }
-    }//GEN-LAST:event_CpBtnActionPerformed
 
     private void barcodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barcodeKeyTyped
         //CHEKING IF ENTER PRESSED
@@ -745,14 +682,12 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
                                     //if date is not exsit in database then create new row for the date either update exsising dat row
                                     if (dateAvailability == true) {
-                                        // adding new cashprice amount and sellprice amount to prevois cashprice and sell price amount
-                                        //new cash price and sell price amounts are holded in controller class cashPrice and sellPrice variables
-                                        BigDecimal updated_cashPrice = cashpriceAmount.add(controllers.cashPrice);
+                                        // adding new sellprice amount to prevois cashprice and sell price amount
+                                        //new  sell price amounts are holded in controller class sellPrice variables
                                         BigDecimal updated_sellPrice = new BigDecimal(total.getText().trim()).add(controllers.sellPrice);
-                                        connect.incomedataUpdater(String.valueOf(updated_cashPrice), String.valueOf(updated_sellPrice), String.valueOf(java.time.LocalDate.now()));
+                                        connect.incomedataUpdater( String.valueOf(updated_sellPrice), String.valueOf(java.time.LocalDate.now()));
                                     } else {
-                                        String cashprice_is = String.valueOf(cashpriceAmount);
-                                        connect.Strore_incomedata(cashprice_is, total.getText(), "0.0", "0.0", String.valueOf(java.time.LocalDate.now()));
+                                        connect.Strore_incomedata( total.getText(), "0.0", "0.0", String.valueOf(java.time.LocalDate.now()));
                                     }
                                     
                                     
@@ -799,16 +734,14 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                                          if (dateAvailability == true) {
                                              // adding new cashprice amount and sellprice amount to prevois cashprice and sell price amount
                                              //new cash price and sell price amounts are holded in controller class cashPrice and sellPrice variables
-                                             System.out.println("cashamount:"+cashpriceAmount+" returncash : "+returnCash);
-                                              updated_cashPrice = (cashpriceAmount.subtract(returnCash)).add(controllers.cashPrice);
-                                              System.out.println(cashpriceAmount.subtract(returnCash));
+
                                               updated_sellPrice = (new BigDecimal(total.getText().trim()) .subtract(new BigDecimal(paymentAmount.getText().trim()))).add(controllers.sellPrice);
-                                              connect.incomedataUpdater(String.valueOf(updated_cashPrice),String.valueOf(updated_sellPrice) , String.valueOf(java.time.LocalDate.now()));
+                                              connect.incomedataUpdater(String.valueOf(updated_sellPrice) , String.valueOf(java.time.LocalDate.now()));
                                               refreshWindow();
                                          } else {
-                                            updated_cashPrice = cashpriceAmount.subtract(returnCash);
+ 
                                             updated_sellPrice = new BigDecimal(total.getText().trim()) .subtract(new BigDecimal(paymentAmount.getText().trim()));
-                                            connect.Strore_incomedata( updated_cashPrice.toString(), updated_sellPrice.toString(), "0.0", "0.0" ,String.valueOf(java.time.LocalDate.now()));
+                                            connect.Strore_incomedata( updated_sellPrice.toString(), "0.0", "0.0" ,String.valueOf(java.time.LocalDate.now()));
                                             refreshWindow();
                                          }
                                          } catch (Exception ex) {
@@ -834,14 +767,13 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                                          if (dateAvailability == true) {
                                              // adding new cashprice amount and sellprice amount to prevois cashprice and sell price amount
                                              //new cash price and sell price amounts are holded in controller class cashPrice and sellPrice variables
-                                              updated_cashPrice = returnCash.subtract(cashpriceAmount).add(controllers.out);
+  
                                               updated_sellPrice = new BigDecimal(paymentAmount.getText().trim()).subtract(new BigDecimal(total.getText().trim())).add(controllers.sell);
-                                              connect.incomedata_outUpdater(String.valueOf(updated_cashPrice),String.valueOf(updated_sellPrice) , String.valueOf(java.time.LocalDate.now()));
+                                              connect.incomedata_outUpdater(String.valueOf(updated_sellPrice) , String.valueOf(java.time.LocalDate.now()));
                                               refreshWindow();
                                          } else {
-                                            updated_cashPrice = returnCash.subtract(cashpriceAmount);
                                             updated_sellPrice = new BigDecimal(paymentAmount.getText().trim()).subtract(new BigDecimal(total.getText().trim()));
-                                             connect.Strore_incomedata("0.0", "0.0", updated_cashPrice.toString(), updated_sellPrice.toString(),String.valueOf(java.time.LocalDate.now()));
+                                             connect.Strore_incomedata("0.0", updated_cashPrice.toString(), updated_sellPrice.toString(),String.valueOf(java.time.LocalDate.now()));
                                              refreshWindow();
                                          }
                                          } catch (Exception ex) {
@@ -896,10 +828,10 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
                                                         if (stock > Integer.valueOf(quantity)) {
                                                             stock = stock - Integer.parseInt(quantity); //updatin stock
-                                                            connect.updateStockitems("stock", String.valueOf(stock), code);
+                                                            connect.updateStockitems("stocks" , "stock", String.valueOf(stock), code);
                                                         } else // if customer buys items more than in stock it automaticly set stocl items to 0.
                                                         {
-                                                            connect.updateStockitems("stock", String.valueOf(0), code);
+                                                            connect.updateStockitems("stocks" ,"stock", String.valueOf(0), code);
                                                             JOptionPane.showMessageDialog(null, " Done !");
                                                         }
 
@@ -1153,15 +1085,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_addStockTabActionPerformed
 
-    private void returnTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnTabActionPerformed
-        try {
-            returns open = new returns();
-            open.setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Cant open returns window 1");
-        }
-    }//GEN-LAST:event_returnTabActionPerformed
-
     private void borrowersTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrowersTabActionPerformed
 
         try {
@@ -1200,9 +1123,20 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
        
         //eanabling table oparator btns
         removeItem.setEnabled(true);
-        CpBtn.setEnabled(true);
         cancel.setEnabled(true);
     }//GEN-LAST:event_selltableMouseClicked
+
+    private void advancedTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_advancedTabActionPerformed
+        try
+            {
+                advanced open = new advanced();
+                open.setVisible(true);
+            }
+        catch(Exception e)
+            {
+            
+            }
+    }//GEN-LAST:event_advancedTabActionPerformed
 
 //filling jtable with parsed itesm
     public static void searchItemsToTable(String[] stockdatas) {
@@ -1230,6 +1164,27 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             {
                     JOptionPane.showMessageDialog(null,"Please enter a valid Number !");
             }*/
+    }
+    
+    //filling jtable with parsed itesm
+    public static void advancedItems_searchItemsToTable(String[] stockdatas) {
+
+        // try
+        //   {
+        String[] dataToTable = new String[5];
+        String[] lineBreak = {"", "", "", "", ""};
+
+        dataToTable[0] = stockdatas[0];
+        dataToTable[1] = stockdatas[1];
+        dataToTable[2] = stockdatas[3];
+        dataToTable[3] = stockdatas[2];
+        dataToTable[4] = stockdatas[4];
+
+        DefaultTableModel itemData = (DefaultTableModel) selltable.getModel();
+
+        itemData.addRow(lineBreak);
+        itemData.addRow(dataToTable);
+
     }
 
 //starting barcode detect process
@@ -1284,7 +1239,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
             totalIs = totalIs.add(newItemPrice.multiply(new BigDecimal(quan))); // adding new item price to total amount of things
 
-            cashpriceAmount = cashpriceAmount.add((new BigDecimal(controllers.itemset[3]).multiply(new BigDecimal(quan))));
             total.setText(totalIs.toString()); // displayng new total amount to display
             staticTotal.setText("Rs. " + totalIs.toString());
             newPrice = "0.0";//setting default new price amount to 0.0
@@ -1300,7 +1254,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     //RESETING THE WINDOW   
     public static void refreshWindow() {
         removeItem.setEnabled(false);
-        CpBtn.setEnabled(false);
         discLable.setVisible(false);
         discAmount.setVisible(false);
         balanceLable.setVisible(false);
@@ -1310,7 +1263,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         viewCp = false; //for make cashprice view btn double actio
         dot = false;//for get notified wen working with floating points
         quan = "1.0"; //guantity of new item
-        cashpriceAmount = new BigDecimal("0.0");
 
         //clearing the table
         DefaultTableModel items = (DefaultTableModel) selltable.getModel();
@@ -1325,7 +1277,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         discAmount.setText("0.0");
         paymentAmount.setText("");
         disc.setText("");
-        CpriceBox.setText("");
 
     }
 
@@ -1422,11 +1373,10 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JButton CpBtn;
-    public static javax.swing.JLabel CpriceBox;
     public static javax.swing.JLabel Date;
     public static javax.swing.JLabel Time;
     private javax.swing.JButton addStockTab;
+    private javax.swing.JButton advancedTab;
     public static javax.swing.JLabel balanceLable;
     public static javax.swing.JLabel balanceShow;
     public static javax.swing.JTextField barcode;
@@ -1439,7 +1389,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     public static javax.swing.JLabel discLable;
     private javax.swing.JButton discountingBtn;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1457,7 +1406,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton paymentBtn;
     public static javax.swing.JButton proceed;
     public static javax.swing.JButton removeItem;
-    private javax.swing.JButton returnTab;
     public static javax.swing.JTable selltable;
     private javax.swing.JButton settingTab;
     private javax.swing.JLabel shopName;

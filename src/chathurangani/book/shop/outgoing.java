@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Dilum
  */
-public class Deal_Item_History extends javax.swing.JFrame {
+public class outgoing extends javax.swing.JFrame {
 
     /**
      * Creates new form Deal_Item_History
@@ -24,16 +24,16 @@ public class Deal_Item_History extends javax.swing.JFrame {
  String primaryKey;
  dbConnector connect = new dbConnector();
  
- public Deal_Item_History(String primaryKey , String cusname) {
+ public outgoing(String primaryKey , String cusname) {
            
                 initComponents();
                 setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
-                this.cusName.setText(cusname+" Payment History");
+                this.cusName.setText(java.time.LocalDate.now().toString()+" CASH OUT GOING");
             
              try {
                 connect.getDealItems(primaryKey);
             } catch (Exception ex ) {
-                Logger.getLogger(Deal_Item_History.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(outgoing.class.getName()).log(Level.SEVERE, null, ex);
             } 
         
     }
@@ -62,6 +62,7 @@ public class Deal_Item_History extends javax.swing.JFrame {
         cusName.setBackground(new java.awt.Color(0, 0, 0));
         cusName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         cusName.setForeground(new java.awt.Color(0, 0, 0));
+        cusName.setText("CASH OUT GOING");
 
         jButton1.setText("CLOSE PANNEL");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +100,7 @@ public class Deal_Item_History extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(itemTable, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(

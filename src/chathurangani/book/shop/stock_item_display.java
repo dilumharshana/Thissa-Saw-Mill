@@ -4,6 +4,9 @@ package chathurangani.book.shop;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,43 +23,77 @@ public class stock_item_display extends javax.swing.JFrame {
     /**
      * Creates new form stock_item_display
      */
-    public stock_item_display(String code , String name , String cprice , String sprice , String stocksize) {
+    public stock_item_display(String code , String name , String sprice , String stocksize , String table) {
         
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
          this.itemData[0]=code;
          this.itemData[1]=name;
-         this.itemData[2]=cprice;
          this.itemData[3]=sprice;
          this.itemData[4]=stocksize;
   
         
         itemCodeBox.setText(code);
         itemNameBox.setText(name);
-        cashPriceBox.setText(cprice);
         sellingPriceBox.setText(sprice);
         stockBox.setText(stocksize);
        
         
         itemCodeBox.setEditable(false);
         itemNameBox.setEditable(false);
-        cashPriceBox.setEditable(false);
         sellingPriceBox.setEditable(false);
         stockBox.setEditable(false);
         
         codeupdate.setEnabled(false);
         nameupdate.setEnabled(false);
-        cpriceupdate.setEnabled(false);
         spriceupdate.setEnabled(false);
         stockupdate.setEnabled(false);
         
         ok1.setVisible(false);
         ok2.setVisible(false);
-        ok3.setVisible(false);
         ok4.setVisible(false);
         ok5.setVisible(false);
         
         this.primarykeyofdata=code;
+        
+        this.table = table;
+ 
+    }
+    
+        public stock_item_display(String code , String name , String stocksize , String table) {
+        
+        initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
+         this.itemData[0]=code;
+         this.itemData[1]=name;
+         this.itemData[4]=stocksize;
+  
+        
+        itemCodeBox.setText(code);
+        itemNameBox.setText(name);
+        stockBox.setText(stocksize);
+       
+        lbl_sprice.setVisible(false);
+        itemCodeBox.setEditable(false);
+        itemNameBox.setEditable(false);
+        sellingPriceBox.setVisible(false);
+        stockBox.setEditable(false);
+        
+        codeupdate.setEnabled(false);
+        nameupdate.setEnabled(false);
+        spriceupdate.setVisible(false);
+        stockupdate.setEnabled(false);
+        spriceedit.setVisible(false);
+        
+        ok1.setVisible(false);
+        ok2.setVisible(false);
+        ok4.setVisible(false);
+        ok5.setVisible(false);
+        
+        this.primarykeyofdata=code;
+        
+        this.table = table;
+ 
     }
     
     dbConnector connect = new dbConnector();
@@ -67,6 +104,9 @@ public class stock_item_display extends javax.swing.JFrame {
      // thisarraycontain default values of the item for later use
     String [] itemData = new String[5];
     boolean dot;
+    static String table; //tab index;
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,26 +129,27 @@ public class stock_item_display extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         itemCodeBox = new javax.swing.JTextField();
         itemNameBox = new javax.swing.JTextField();
-        cashPriceBox = new javax.swing.JTextField();
+        stockAdder = new javax.swing.JTextField();
         stockBox = new javax.swing.JTextField();
         CloseUpdatePannel = new javax.swing.JButton();
         codeedit = new javax.swing.JButton();
         codeupdate = new javax.swing.JButton();
         nameedit = new javax.swing.JButton();
         nameupdate = new javax.swing.JButton();
-        cpriceedit = new javax.swing.JButton();
-        cpriceupdate = new javax.swing.JButton();
+        stockAddBtn = new javax.swing.JButton();
         spriceedit = new javax.swing.JButton();
         stockupdate = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
+        lbl_sprice = new javax.swing.JLabel();
         sellingPriceBox = new javax.swing.JTextField();
         stocksedit = new javax.swing.JButton();
         spriceupdate = new javax.swing.JButton();
         ok2 = new javax.swing.JLabel();
-        ok3 = new javax.swing.JLabel();
         ok4 = new javax.swing.JLabel();
         ok1 = new javax.swing.JLabel();
         ok5 = new javax.swing.JLabel();
+        stockAddBtn1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -135,20 +176,23 @@ public class stock_item_display extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("ITEM CODE ");
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("ITEM NAME");
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setText("CASH PRICE   ");
+        jLabel4.setText("Add Stock");
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("STOCKS    ");
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Add more stocks ");
 
         itemCodeBox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         itemCodeBox.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -177,19 +221,19 @@ public class stock_item_display extends javax.swing.JFrame {
             }
         });
 
-        cashPriceBox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        cashPriceBox.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        cashPriceBox.addActionListener(new java.awt.event.ActionListener() {
+        stockAdder.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        stockAdder.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        stockAdder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cashPriceBoxActionPerformed(evt);
+                stockAdderActionPerformed(evt);
             }
         });
-        cashPriceBox.addKeyListener(new java.awt.event.KeyAdapter() {
+        stockAdder.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                cashPriceBoxKeyReleased(evt);
+                stockAdderKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                cashPriceBoxKeyTyped(evt);
+                stockAdderKeyTyped(evt);
             }
         });
 
@@ -207,7 +251,7 @@ public class stock_item_display extends javax.swing.JFrame {
         CloseUpdatePannel.setBackground(new java.awt.Color(51, 51, 51));
         CloseUpdatePannel.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         CloseUpdatePannel.setForeground(new java.awt.Color(255, 255, 255));
-        CloseUpdatePannel.setText("CLOSE  PANNEL");
+        CloseUpdatePannel.setText("CLOSE  PANEL");
         CloseUpdatePannel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         CloseUpdatePannel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,30 +303,19 @@ public class stock_item_display extends javax.swing.JFrame {
             }
         });
 
-        cpriceedit.setBackground(new java.awt.Color(255, 0, 0));
-        cpriceedit.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        cpriceedit.setForeground(new java.awt.Color(255, 255, 255));
-        cpriceedit.setText("Edit");
-        cpriceedit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        cpriceedit.addActionListener(new java.awt.event.ActionListener() {
+        stockAddBtn.setBackground(new java.awt.Color(255, 0, 0));
+        stockAddBtn.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        stockAddBtn.setForeground(new java.awt.Color(255, 255, 255));
+        stockAddBtn.setText("+");
+        stockAddBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        stockAddBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cpriceeditActionPerformed(evt);
+                stockAddBtnActionPerformed(evt);
             }
         });
-
-        cpriceupdate.setBackground(new java.awt.Color(0, 204, 204));
-        cpriceupdate.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
-        cpriceupdate.setForeground(new java.awt.Color(255, 255, 255));
-        cpriceupdate.setText("UPDATE");
-        cpriceupdate.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        cpriceupdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cpriceupdateActionPerformed(evt);
-            }
-        });
-        cpriceupdate.addKeyListener(new java.awt.event.KeyAdapter() {
+        stockAddBtn.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                cpriceupdateKeyPressed(evt);
+                stockAddBtnKeyPressed(evt);
             }
         });
 
@@ -308,9 +341,10 @@ public class stock_item_display extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("SELL PRICE ");
+        lbl_sprice.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbl_sprice.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_sprice.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbl_sprice.setText("SELL PRICE ");
 
         sellingPriceBox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         sellingPriceBox.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -347,13 +381,32 @@ public class stock_item_display extends javax.swing.JFrame {
 
         ok2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/tick.png"))); // NOI18N
 
-        ok3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/tick.png"))); // NOI18N
-
         ok4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/tick.png"))); // NOI18N
 
         ok1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/tick.png"))); // NOI18N
 
         ok5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/tick.png"))); // NOI18N
+
+        stockAddBtn1.setBackground(new java.awt.Color(255, 0, 0));
+        stockAddBtn1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        stockAddBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        stockAddBtn1.setText("-");
+        stockAddBtn1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        stockAddBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stockAddBtn1ActionPerformed(evt);
+            }
+        });
+        stockAddBtn1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                stockAddBtn1KeyPressed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel6.setText("STOCKS    ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -362,69 +415,71 @@ public class stock_item_display extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(178, 178, 178)
-                        .addComponent(CloseUpdatePannel, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(21, 21, 21)
-                                        .addComponent(cashPriceBox, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(21, 21, 21)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(itemCodeBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(itemNameBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(sellingPriceBox, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)
+                                .addComponent(itemCodeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(codeedit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(codeupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ok1))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)
+                                .addComponent(itemNameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(nameedit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(nameupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(ok2))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cpriceedit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cpriceupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(ok3))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(codeedit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(codeupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addGap(6, 6, 6)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(nameedit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(spriceedit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(nameupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(spriceupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(ok2)
-                                                .addComponent(ok4, javax.swing.GroupLayout.Alignment.TRAILING))
-                                            .addComponent(ok1, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                                        .addComponent(lbl_sprice)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(sellingPriceBox, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(spriceedit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(6, 6, 6)
+                                        .addComponent(spriceupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(ok4))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(45, 45, 45)
-                                .addComponent(stockBox, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(stocksedit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(stockupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ok5)))))
+                                .addGap(19, 19, 19)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(120, 120, 120)
+                                        .addComponent(stockBox, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(stocksedit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(stockupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(ok5))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(16, 16, 16)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(stockAdder, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(stockAddBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(stockAddBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(190, 190, 190)
+                .addComponent(CloseUpdatePannel, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -434,54 +489,54 @@ public class stock_item_display extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(itemCodeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(codeupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(codeedit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(codeedit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(codeupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ok1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(itemNameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameedit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ok2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_sprice, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sellingPriceBox, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spriceedit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(nameedit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(itemNameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(nameupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ok2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(cpriceedit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cpriceupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cashPriceBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ok3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(spriceedit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sellingPriceBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spriceupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(1, 1, 1)
+                        .addComponent(spriceupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ok4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(stockBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(stocksedit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(stockupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ok4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(4, 4, 4)
+                        .addComponent(ok5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(stockBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(stocksedit, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(stockupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                        .addComponent(CloseUpdatePannel, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(ok5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(stockAdder, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(stockAddBtn1)
+                        .addComponent(stockAddBtn)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(CloseUpdatePannel, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 600, 390));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 610, 420));
 
         jPanel3.setBackground(new java.awt.Color(0, 204, 204));
 
@@ -544,9 +599,10 @@ public class stock_item_display extends javax.swing.JFrame {
 
     private void stockupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockupdateActionPerformed
         try {
-            connect.updateStockitems("stock",stockBox.getText().trim(),primarykeyofdata);
+            connect.updateStockitems(table,"stock",stockBox.getText().trim(),primarykeyofdata);
             this.itemData[4] = stockBox.getText().trim();
             ok5.setVisible(true);
+            connect.stockItemsShowAll(); 
         } catch (Exception ex) {
             //System.out.println(ex);
             System.out.println(ex);
@@ -562,57 +618,46 @@ public class stock_item_display extends javax.swing.JFrame {
 
         itemCodeBox.setEditable(false);
         itemNameBox.setEditable(false);
-        cashPriceBox.setEditable(false);
         stockBox.setEditable(false);
 
         codeupdate.setEnabled(false);
         nameupdate.setEnabled(false);
-        cpriceupdate.setEnabled(false);
         spriceupdate.setEnabled(false);
         stockupdate.setEnabled(false);
     }//GEN-LAST:event_spriceeditActionPerformed
 
-    private void cpriceupdateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cpriceupdateKeyPressed
+    private void stockAddBtnKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stockAddBtnKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cpriceupdateKeyPressed
+    }//GEN-LAST:event_stockAddBtnKeyPressed
 
-    private void cpriceupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpriceupdateActionPerformed
+    private void stockAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockAddBtnActionPerformed
 
-        try {
+        if(stockAdder.getText().length() > 0 || stockAdder.getText().length() > 0)
+            {
             
-            BigDecimal Price_cash = new BigDecimal(cashPriceBox.getText().trim());
-            connect.updateStockitems("cashprice",Price_cash.toString(),primarykeyofdata);
-            this.itemData[2]=cashPriceBox.getText().trim();
-            ok3.setVisible(true);
-        } catch (Exception ex) {
-           // JOptionPane.showMessageDialog(null,"Invalid Input !");
-           System.out.println(ex);
-        }
+                       try {
+                           
+                           //geting values from new upted box and current stock box and setting agin to current stock box and sending to databse
+                            stockBox.setText(String.valueOf(Integer.parseInt(stockAdder.getText()) + Integer.parseInt(stockBox.getText())));
+                            connect.updateStockitems(table,"stock",stockBox.getText().trim(),primarykeyofdata);
+                            
+                        } catch (Exception ex) {
+                           // JOptionPane.showMessageDialog(null,"Invalid Input !");
+                           System.out.println(ex);
+                        }
+                
+            }
+    
+        stockAdder.setText("");
 
-        cpriceupdate.setEnabled(false);
-        cashPriceBox.setEditable(false);
-
-    }//GEN-LAST:event_cpriceupdateActionPerformed
-
-    private void cpriceeditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpriceeditActionPerformed
-        cashPriceBox.setEditable(true);
-
-        itemCodeBox.setEditable(false);
-        itemNameBox.setEditable(false);
-        sellingPriceBox.setEditable(false);
-        stockBox.setEditable(false);
-
-        codeupdate.setEnabled(false);
-        nameupdate.setEnabled(false);
-        spriceupdate.setEnabled(false);
-        stockupdate.setEnabled(false);
-    }//GEN-LAST:event_cpriceeditActionPerformed
+    }//GEN-LAST:event_stockAddBtnActionPerformed
 
     private void nameupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameupdateActionPerformed
          try {
-            connect.updateStockitems("name",itemNameBox.getText().trim(),primarykeyofdata);
+            connect.updateStockitems(table,"name",itemNameBox.getText().trim(),primarykeyofdata);
             this.itemData[1]=itemNameBox.getText().trim();
             ok2.setVisible(true);
+            connect.stockItemsShowAll(); 
         }
         catch (Exception ex) {
            // JOptionPane.showMessageDialog(null,"THIS ITEM IS ALREADY IN YOUR STOCK ! ");
@@ -629,12 +674,10 @@ public class stock_item_display extends javax.swing.JFrame {
         itemNameBox.setEditable(true);
         
         itemCodeBox.setEditable(false);
-        cashPriceBox.setEditable(false);
         sellingPriceBox.setEditable(false);
         stockBox.setEditable(false);
 
         codeupdate.setEnabled(false);
-        cpriceupdate.setEnabled(false);
         spriceupdate.setEnabled(false);
         stockupdate.setEnabled(false);
     }//GEN-LAST:event_nameeditActionPerformed
@@ -642,17 +685,23 @@ public class stock_item_display extends javax.swing.JFrame {
     private void codeupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codeupdateActionPerformed
 
         try {
-            connect.updateStockitems("itemcode",itemCodeBox.getText().trim(),primarykeyofdata);
+ 
+            connect.updateStockitems(table,"itemcode",itemCodeBox.getText().trim(),primarykeyofdata);
             this.itemData[0]=itemCodeBox.getText().trim();
             primarykeyofdata = itemCodeBox.getText().trim(); // setting new primary key
             ok1.setVisible(true);
+            connect.stockItemsShowAll(); 
         }
-        catch (Exception ex) {
-           // JOptionPane.showMessageDialog(null,"THIS ITEM IS ALREADY IN YOUR STOCK ! ");
-           // itemCodeBox.setText(itemData[0]);
-            System.out.println(ex);
+
+             catch (SQLException ex) {
+                 JOptionPane.showMessageDialog(null, "Please select another ITEM CODE , This Item Code is already in your stocks !", "Same Item Code Found ",JOptionPane.WARNING_MESSAGE);
+                 itemCodeBox.setText(" ");
         }
         
+        catch(Exception e)
+        {
+                JOptionPane.showMessageDialog(null , "Enter valid data !");
+        }        
         
         
 
@@ -664,13 +713,11 @@ public class stock_item_display extends javax.swing.JFrame {
         itemCodeBox.setEditable(true);
 
         itemNameBox.setEditable(false);
-        cashPriceBox.setEditable(false);
         stockBox.setEditable(false);
         stockBox.setEditable(false);
         sellingPriceBox.setEditable(false);
         
         nameupdate.setEnabled(false);
-        cpriceupdate.setEnabled(false);
         spriceupdate.setEnabled(false);
         stockupdate.setEnabled(false);
         
@@ -678,9 +725,9 @@ public class stock_item_display extends javax.swing.JFrame {
             {
                 itemNameBox.setText(itemData[1]);
             }
-        if(cashPriceBox.getText().trim().isEmpty())
+        if(stockAdder.getText().trim().isEmpty())
             {
-                cashPriceBox.setText(itemData[2]);
+                stockAdder.setText(itemData[2]);
             }
         if(sellingPriceBox.getText().trim().isEmpty())
             {
@@ -741,9 +788,9 @@ public class stock_item_display extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_stockBoxKeyReleased
 
-    private void cashPriceBoxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cashPriceBoxKeyTyped
+    private void stockAdderKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stockAdderKeyTyped
         char charactor = evt.getKeyChar();
-        String lenth = cashPriceBox.getText();
+        String lenth = stockAdder.getText();
 
         if(lenth.length()==16)
         {
@@ -763,7 +810,7 @@ public class stock_item_display extends javax.swing.JFrame {
             {
                             if ((Character.isDigit(charactor)) || (Character.isISOControl(charactor)) || charactor == KeyEvent.VK_PERIOD)
                             {
-                               cashPriceBox.setEditable(true);
+                               stockAdder.setEditable(true);
                                 
                             } else {
                                 
@@ -797,24 +844,24 @@ public class stock_item_display extends javax.swing.JFrame {
 
     
     
-    }//GEN-LAST:event_cashPriceBoxKeyTyped
+    }//GEN-LAST:event_stockAdderKeyTyped
 
-    private void cashPriceBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cashPriceBoxKeyReleased
-        String lenth = cashPriceBox.getText();
+    private void stockAdderKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stockAdderKeyReleased
+        String lenth = stockAdder.getText();
 
         if(lenth.length()>0)
         {
-            cpriceupdate.setEnabled(true);
+            stockAddBtn.setEnabled(true);
         }
         else
         {
-            cpriceupdate.setEnabled(false);
+            stockAddBtn.setEnabled(false);
         }
-    }//GEN-LAST:event_cashPriceBoxKeyReleased
+    }//GEN-LAST:event_stockAdderKeyReleased
 
-    private void cashPriceBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashPriceBoxActionPerformed
+    private void stockAdderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockAdderActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cashPriceBoxActionPerformed
+    }//GEN-LAST:event_stockAdderActionPerformed
 
     private void itemNameBoxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemNameBoxKeyTyped
         char character = evt.getKeyChar();
@@ -906,12 +953,10 @@ public class stock_item_display extends javax.swing.JFrame {
         
         itemCodeBox.setEditable(false);
         itemNameBox.setEditable(false);
-        cashPriceBox.setEditable(false);
         sellingPriceBox.setEditable(false);
         
         codeupdate.setEnabled(false);
         nameupdate.setEnabled(false);
-        cpriceupdate.setEnabled(false);
         spriceupdate.setEnabled(false);
         stockupdate.setEnabled(false);
         
@@ -922,9 +967,10 @@ public class stock_item_display extends javax.swing.JFrame {
           try {
               
             BigDecimal selprice = new BigDecimal(sellingPriceBox.getText().trim());
-            connect.updateStockitems("sellprice",selprice.toString(),primarykeyofdata);
+            connect.updateStockitems(table,"sellprice",selprice.toString(),primarykeyofdata);
             this.itemData[3]=sellingPriceBox.getText().trim();
             ok4.setVisible(true);
+            connect.stockItemsShowAll(); 
             
         } catch (Exception ex) {
           //  JOptionPane.showMessageDialog(null , "Invalid Input !");
@@ -939,10 +985,34 @@ public class stock_item_display extends javax.swing.JFrame {
          //seting all fields to default values
         itemCodeBox.setText(itemData[0]);
         itemNameBox.setText(itemData[1]);
-        cashPriceBox.setText(itemData[2]);
+        stockAdder.setText(itemData[2]);
         sellingPriceBox.setText(itemData[3]);
         stockBox.setText(itemData[4]);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void stockAddBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockAddBtn1ActionPerformed
+        if(stockAdder.getText().length() > 0 || stockAdder.getText().length() > 0)
+            {
+            
+                       try {
+                           
+                           //geting values from new upted box and current stock box and setting agin to current stock box and sending to databse
+                            stockBox.setText(String.valueOf( Integer.parseInt(stockBox.getText()) - Integer.parseInt(stockAdder.getText())));
+                            connect.updateStockitems(table,"stock",stockBox.getText().trim(),primarykeyofdata);
+                            
+                        } catch (Exception ex) {
+                           // JOptionPane.showMessageDialog(null,"Invalid Input !");
+                           System.out.println(ex);
+                        }
+                
+            }
+    
+        stockAdder.setText("");
+    }//GEN-LAST:event_stockAddBtn1ActionPerformed
+
+    private void stockAddBtn1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stockAddBtn1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stockAddBtn1KeyPressed
 
     /**
      * @param args the command line arguments
@@ -989,12 +1059,9 @@ public class stock_item_display extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CloseUpdatePannel;
-    private javax.swing.JTextField cashPriceBox;
     private javax.swing.JButton codeedit;
     private javax.swing.JButton codeupdate;
-    private javax.swing.JButton cpriceedit;
-    private javax.swing.JButton cpriceupdate;
-    private javax.swing.JTextField itemCodeBox;
+    public static javax.swing.JTextField itemCodeBox;
     private javax.swing.JTextField itemNameBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton19;
@@ -1010,18 +1077,22 @@ public class stock_item_display extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel lbl_sprice;
     private javax.swing.JButton nameedit;
     private javax.swing.JButton nameupdate;
     private javax.swing.JLabel ok1;
     private javax.swing.JLabel ok2;
-    private javax.swing.JLabel ok3;
     private javax.swing.JLabel ok4;
     private javax.swing.JLabel ok5;
     private javax.swing.JTextField sellingPriceBox;
     private javax.swing.JButton spriceedit;
     private javax.swing.JButton spriceupdate;
+    private javax.swing.JButton stockAddBtn;
+    private javax.swing.JButton stockAddBtn1;
+    private javax.swing.JTextField stockAdder;
     private javax.swing.JTextField stockBox;
     private javax.swing.JButton stocksedit;
     private javax.swing.JButton stockupdate;

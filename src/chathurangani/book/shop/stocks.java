@@ -71,7 +71,7 @@ public class stocks extends javax.swing.JFrame {
         jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Mangala Motors - Stocks");
+        setTitle("Thissa Saw Mill - Stocks");
         setBackground(new java.awt.Color(255, 204, 204));
         setResizable(false);
 
@@ -517,8 +517,6 @@ public class stocks extends javax.swing.JFrame {
             stockcounter.setText("200");
         }
 
-       
-
         try {
             connect.searchForStockOutItems(Smallerthan, index);
         } catch (Exception ex) {
@@ -537,28 +535,116 @@ public class stocks extends javax.swing.JFrame {
 
         //disabaling delete btn to avoid errors
         delete.setEnabled(false);
+  
+          switch (index)
+                {
+                
+                case 0:
 
-        int whichRow = stockitemstable.getSelectedRow();
-        System.out.println(whichRow);
+                          if (!stockitemstable.getValueAt(stockitemstable.getSelectedRow(), 0).equals("")) {
 
-        if (!stockitemstable.getValueAt(whichRow, 0).equals("")) {
+                            try {
+                                String[] items = new String[4];
+                                for (int i = 0; i < 4; i++) {
 
-            try {
-                String[] items = new String[5];
-                for (int i = 0; i < 5; i++) {
-                    items[i] = String.valueOf(stockitemstable.getValueAt(whichRow, i));
+                                    items[i] = String.valueOf(stockitemstable.getValueAt(stockitemstable.getSelectedRow(), i));
+                                }
+
+                                stock_item_display updateitemSet = new stock_item_display(items[0], items[1], items[2], items[3], "stocks");
+                                updateitemSet.setVisible(true);
+                                updatebtn.setEnabled(false);
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, "Please select an item to Update !");
+                                updatebtn.setEnabled(false);
+                                Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please select a valid row !");
+                        }
+                        clearTable();
+                        break;
+                case 1:
+                    
+                        if (!rawtable.getValueAt(rawtable.getSelectedRow(), 0).equals("")) {
+
+                            try {
+                                String[] items = new String[3];
+                                for (int i = 0; i < 3; i++) {
+
+                                    items[i] = String.valueOf(rawtable.getValueAt(rawtable.getSelectedRow(), i));
+                                }
+
+                                stock_item_display updateitemSet = new stock_item_display(items[0], items[1], items[2], "raw_stocks");
+                                updateitemSet.setVisible(true);
+                                updatebtn.setEnabled(false);
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, "Please select an item to Update !");
+                                updatebtn.setEnabled(false);
+                                Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please select a valid row !");
+                        }
+                        
+                        clearTable_raw();
+                        break;
+                
+                case 2:
+                    
+                       if (!cuttingTable.getValueAt(cuttingTable.getSelectedRow(), 0).equals("")) {
+
+                            try {
+                                String[] items = new String[3];
+                                for (int i = 0; i < 3; i++) {
+
+                                    items[i] = String.valueOf(cuttingTable.getValueAt(cuttingTable.getSelectedRow(), i));
+                                }
+
+                                stock_item_display updateitemSet = new stock_item_display(items[0], items[1], items[2], "cut_stocks");
+                                updateitemSet.setVisible(true);
+                                updatebtn.setEnabled(false);
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, "Please select an item to Update !");
+                                updatebtn.setEnabled(false);
+                                Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please select a valid row !");
+                        }
+                       
+                        clearTable_cut();
+                        break;
+                
+                case 3:
+                    
+                       if (!kempasTable.getValueAt(kempasTable.getSelectedRow(), 0).equals("")) {
+
+                            try {
+                                String[] items = new String[4];
+                                for (int i = 0; i < 4; i++) {
+
+                                    items[i] = String.valueOf(kempasTable.getValueAt(kempasTable.getSelectedRow(), i));
+                                }
+
+                                stock_item_display updateitemSet = new stock_item_display(items[0], items[1], items[2], items[3], "stocks");
+                                updateitemSet.setVisible(true);
+                                updatebtn.setEnabled(false);
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, "Please select an item to Update !");
+                                updatebtn.setEnabled(false);
+                                Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Please select a valid row !");
+                        }
+                       
+                        clear_kempasTable();
+                        break;
+                
                 }
+          
 
-                stock_item_display updateitemSet = new stock_item_display(items[0], items[1], items[2], items[3], items[4]);
-                updateitemSet.setVisible(true);
-                updatebtn.setEnabled(false);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Please select an item to Update !");
-                updatebtn.setEnabled(false);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a valid row !");
-        }
+      
     }//GEN-LAST:event_updatebtnActionPerformed
 
     private void stockcounterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockcounterActionPerformed
@@ -610,48 +696,43 @@ public class stocks extends javax.swing.JFrame {
 
     }//GEN-LAST:event_stockitemstableMouseEntered
 
-   int whichRow ; // for delete btn action perfomr table choosing purpose
-   DefaultTableModel table_is = null;
+    int whichRow; // for delete btn action perfomr table choosing purpose
+    DefaultTableModel table_is = null;
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
 
         //disabaling updte btn to avoid errors
         updatebtn.setEnabled(false);
 
         String tablename = ""; // database tablename
-        
-        switch (index)
-            {
+
+        switch (index) {
             case 0:
                 table_is = (DefaultTableModel) stockitemstable.getModel(); //selecting table model
                 whichRow = stockitemstable.getSelectedRow(); // main stock items displyng table
                 tablename = "stocks";
                 break;
-                
+
             case 1:
                 table_is = (DefaultTableModel) rawtable.getModel(); //selecting table model
                 whichRow = rawtable.getSelectedRow(); // raw stock table
                 tablename = "raw_stocks";
                 break;
-             
+
             case 2:
                 table_is = (DefaultTableModel) cuttingTable.getModel(); //selecting table model
                 whichRow = cuttingTable.getSelectedRow(); //cutting stock table
                 tablename = "cut_stocks";
                 break;
-                
+
             case 3:
                 table_is = (DefaultTableModel) kempasTable.getModel(); //selecting table model
                 whichRow = kempasTable.getSelectedRow(); //kempas stock table
                 tablename = "stocks";
                 break;
-                
-            default:
-                //nothing
-            }
 
-        
-            
-            
+            default:
+            //nothing
+            }
 
         if (!stockitemstable.getValueAt(whichRow, 0).equals("")) {
 
@@ -660,7 +741,7 @@ public class stocks extends javax.swing.JFrame {
 
                 if (deleteok == 0) {
                     //calling to delete method
-                    connect.deleteData(table_is.getValueAt(whichRow, 0).toString() , tablename );
+                    connect.deleteData(table_is.getValueAt(whichRow, 0).toString(), tablename);
 
                     //refreshing the table
                     clearTable();
@@ -672,7 +753,7 @@ public class stocks extends javax.swing.JFrame {
             }
 
             delete.setEnabled(false);
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Please select an item to Remove !");
             delete.setEnabled(false);
@@ -698,7 +779,7 @@ public class stocks extends javax.swing.JFrame {
     }//GEN-LAST:event_rawtableMouseExited
 
     private void cuttingTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuttingTableMouseClicked
-       //enabling btns of upating and deleting
+        //enabling btns of upating and deleting
         updatebtn.setEnabled(true);
         delete.setEnabled(true);
     }//GEN-LAST:event_cuttingTableMouseClicked
@@ -712,7 +793,7 @@ public class stocks extends javax.swing.JFrame {
     }//GEN-LAST:event_cuttingTableMouseExited
 
     private void kempasTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kempasTableMouseClicked
-       //enabling btns of upating and deleting
+        //enabling btns of upating and deleting
         updatebtn.setEnabled(true);
         delete.setEnabled(true);
     }//GEN-LAST:event_kempasTableMouseClicked

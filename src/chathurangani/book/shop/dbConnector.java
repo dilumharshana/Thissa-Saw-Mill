@@ -95,7 +95,7 @@ public class dbConnector {
     }
 
     //SEARCH ITEMS IN STOCKS  
-    static BigDecimal[] stockitemsInts = new BigDecimal[2];
+    static BigDecimal[] stockitemsInts = new BigDecimal[1];
     static String[] stockitemsString = new String[3];
 
     public void itemsForSelling(String what) throws Exception {
@@ -115,13 +115,11 @@ public class dbConnector {
             stockitemsString[1] = rs.getString("name");
 
             stockitemsInts[0] = rs.getBigDecimal("sellprice");
-            stockitemsInts[1] = rs.getBigDecimal("cashprice");
 
             //Assigning values in to string array (item set) in controllers class
             controllers.itemset[0] = stockitemsString[0]; //itemcode
             controllers.itemset[1] = stockitemsString[1];//itemName
             controllers.itemset[2] = String.valueOf(stockitemsInts[0]);//selling price
-            controllers.itemset[3] = String.valueOf(stockitemsInts[1]);//cash price
 
             //making QuantityTrue = true to continue search process
             controllers.QuantityTrue = true;
@@ -136,13 +134,11 @@ public class dbConnector {
                 stockitemsString[1] = rs2.getString("name");
 
                 stockitemsInts[0] = rs2.getBigDecimal("sellprice");
-                stockitemsInts[1] = rs2.getBigDecimal("cashprice");
 
                 //Assigning values in to string array (item set) in controllers class
                 controllers.itemset[0] = stockitemsString[0]; //itemcode
                 controllers.itemset[1] = stockitemsString[1];//itemName
                 controllers.itemset[2] = String.valueOf(stockitemsInts[0]);//selling price
-                controllers.itemset[3] = String.valueOf(stockitemsInts[1]);//cash price
 
                 //making QuantityTrue = true to continue search process
                 controllers.QuantityTrue = true;
@@ -316,11 +312,11 @@ public class dbConnector {
     }
 
     //UPDATE STOCK METHOD which has BIGDECIMAL data types
-    public int updateStockitems(String colomn, String value, String PrimaryKey) throws Exception {
+    public int updateStockitems(String table ,String colomn, String value, String PrimaryKey) throws Exception {
         int stock = 0;
 
-        try {
-            String query = "UPDATE bookshop.stocks SET `" + colomn + "` = '" + value + "' WHERE (`itemcode` = '" + PrimaryKey + "');";
+            System.out.println(table);
+            String query = "UPDATE bookshop."+table+" SET `" + colomn + "` = '" + value + "' WHERE (`itemcode` = '" + PrimaryKey + "');";
 
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(url, uname, pass);
@@ -329,17 +325,14 @@ public class dbConnector {
 
             st.close();
             con.close();
-        } catch (Exception e) {
-
-        }
 
         return stock;
 
     }
 
     //UPDATE STOCK METHOD which has string data types
-    public void updateStockitemsStrings(String colomn, String value, String PrimaryKey) throws Exception {
-        String query = "UPDATE `bookshop`.`stocks` SET `" + colomn + "` = '" + value + "' WHERE (`itemcode` = '" + PrimaryKey + "');";
+    public void updateStockitemsStrings(String table, String colomn, String value, String PrimaryKey) throws Exception {
+        String query = "UPDATE `bookshop`.`"+table+"` SET `" + colomn + "` = '" + value + "' WHERE (`itemcode` = '" + PrimaryKey + "');";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -419,8 +412,8 @@ public class dbConnector {
     }
 
     //storing income data
-    public void Strore_incomedata(String cprice, String sprice, String cash, String sell, String date) throws Exception {
-        String query = "INSERT INTO `bookshop`.`incomedata` (`cashIncome`, `sellIncome`, `outcash`,`outsell`, `date`)  VALUES ('" + cprice + "', '" + sprice + "','" + cash + "','" + sell + "','" + date + "');";
+    public void Strore_incomedata(String sprice, String cash, String sell, String date) throws Exception {
+        String query = "INSERT INTO `bookshop`.`incomedata` (`sellIncome`, `outcash`,`outsell`, `date`)  VALUES ('" + sprice + "','" + cash + "','" + sell + "','" + date + "');";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -430,9 +423,8 @@ public class dbConnector {
     }
 
     //update incomedate
-    public void incomedataUpdater(String cprice, String sprice, String date) throws Exception {
-        String query = "UPDATE `bookshop`.`incomedata` SET `cashIncome` = '" + cprice + "', `sellIncome` = '" + sprice + "' WHERE (`date` = '" + date + "');";
-
+    public void incomedataUpdater(String sprice, String date) throws Exception {
+        String query = "UPDATE `bookshop`.`incomedata` SET `sellIncome` = '" + sprice + "' WHERE (`date` = '" + date + "');";
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
         Statement st = con.createStatement();
@@ -441,8 +433,8 @@ public class dbConnector {
     }
 
     //update incomedate`outsell` 
-    public void incomedata_outUpdater(String cash, String sell, String date) throws Exception {
-        String query = "UPDATE `bookshop`.`incomedata` SET `outcash` = '" + cash + "', `outsell` = '" + sell + "'  WHERE (`date` = '" + date + "');";
+    public void incomedata_outUpdater( String sell, String date) throws Exception {
+        String query = "UPDATE `bookshop`.`incomedata` SET `outsell` = '" + sell + "'  WHERE (`date` = '" + date + "');";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -486,12 +478,12 @@ public class dbConnector {
         return key;
     }
 
-    // //BORROW DEALS IN TO DATA BASE     //OVERLOADING
+    // //Advanced DEALS IN TO DATA BASE     //OVERLOADING
     public int storeBorrowDealsDataIntoBase(BigDecimal[] values, String pk) throws ClassNotFoundException, SQLException {
 
         int key = 0;
 
-        String query = "UPDATE `bookshop`.`borrow` SET `discount` = '" + values[0] + "', `total` = '" + values[1] + "' , `cashprice` = '" + values[2] + "'  WHERE (`dealNo` = '" + pk + "');";
+        String query = "UPDATE `bookshop`.`advanced` SET `discount` = '" + values[0] + "', `total` = '" + values[1] + "'  WHERE (`dealNo` = '" + pk + "');";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -506,8 +498,8 @@ public class dbConnector {
     }
 
     //INSERTING DEAL ITEMS DEATILS ITEM CODE ITEM NAME QUANTITIY PRICE
-    public void storeDealItemsIntoDataBase(String primarykey, String icode, String iname, String quantity, BigDecimal price) throws ClassNotFoundException, SQLException {
-        String query = "INSERT INTO `bookshop`.`borrowitems` (`dealNo`, `itemCode`, `itemName`, `quantity`, `price`) VALUES ('" + primarykey + "', '" + icode + "', '" + iname + "', '" + quantity + "', '" + price + "');";
+    public void storeDealItemsIntoDataBase(String primarykey, String icode, String iname, String quantity, BigDecimal price , BigDecimal total) throws ClassNotFoundException, SQLException {
+        String query = "INSERT INTO `bookshop`.`advanceditems` (`dealNo`, `itemCode`, `itemName`, `quantity`, `price` , `total`) VALUES ('" + primarykey + "', '" + icode + "', '" + iname + "', '" + quantity + "', '" + price + "' , '" + total + "');";
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
         Statement st = con.createStatement();
@@ -515,37 +507,37 @@ public class dbConnector {
     }
 
     //CHEKING DEALS FOR RETURN BILL PANNEL
-    public String[] dealCheker(String dealCode) throws Exception {
-        String query = "SELECT * FROM bookshop.cashdeals WHERE dealNo = '" + dealCode + "'";
-        String query2 = "SELECT * FROM bookshop.cashitems WHERE dealNo = '" + dealCode + "'";
-
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(query);
-
-        String[] customer = new String[6];
-
-        if (rs.next()) {
-            customer[2] = rs.getString("TotaltValue");
-            customer[3] = rs.getString("DiscountValue");
-            customer[4] = rs.getString("paymentValue");
-            customer[5] = rs.getString("BalanceValue");
-
-            ResultSet rs2 = st.executeQuery(query2);
-
-            while (rs2.next()) {
-                returns.dealItemsToTable(rs2.getString("itemCode"), rs2.getString("itemName"), rs2.getString("quantity"), rs2.getString("price"));
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "INVALID DEAL CODE !");
-        }
-        st.close();
-        con.close();
-
-        return customer;
-
-    }
+//    public String[] dealCheker(String dealCode) throws Exception {
+//        String query = "SELECT * FROM bookshop.cashdeals WHERE dealNo = '" + dealCode + "'";
+//        String query2 = "SELECT * FROM bookshop.cashitems WHERE dealNo = '" + dealCode + "'";
+//
+//        Class.forName("com.mysql.jdbc.Driver");
+//        Connection con = DriverManager.getConnection(url, uname, pass);
+//        Statement st = con.createStatement();
+//        ResultSet rs = st.executeQuery(query);
+//
+//        String[] customer = new String[6];
+//
+//        if (rs.next()) {
+//            customer[2] = rs.getString("TotaltValue");
+//            customer[3] = rs.getString("DiscountValue");
+//            customer[4] = rs.getString("paymentValue");
+//            customer[5] = rs.getString("BalanceValue");
+//
+//            ResultSet rs2 = st.executeQuery(query2);
+//
+//            while (rs2.next()) {
+//                returns.dealItemsToTable(rs2.getString("itemCode"), rs2.getString("itemName"), rs2.getString("quantity"), rs2.getString("price"));
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "INVALID DEAL CODE !");
+//        }
+//        st.close();
+//        con.close();
+//
+//        return customer;
+//
+//    }
 
     //SEARCHING FOR BORROWERS
     public void search_all_deals() throws Exception {
@@ -708,7 +700,7 @@ public class dbConnector {
 
     //getting each borrowing item accorfing to customer when user select a deal
     public void getDealItems(String code) throws ClassNotFoundException, SQLException {
-        String query = "SELECT * FROM bookshop.payments WHERE `cusCode`=" + code + ";";
+        String query1 = "SELECT * FROM bookshop.payments WHERE `cusCode`=" + code + ";";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -716,7 +708,7 @@ public class dbConnector {
 
         String[] itemDetails = new String[4];
 
-        ResultSet rs = st.executeQuery(query);
+        ResultSet rs = st.executeQuery(query1);
 
         while (rs.next()) {
             itemDetails[0] = rs.getString("date");
@@ -724,7 +716,7 @@ public class dbConnector {
             itemDetails[2] = rs.getBigDecimal("payment").toString();
             itemDetails[3] = rs.getBigDecimal("newAmount").toString();
 
-            Deal_Item_History.dealItemsToTable(itemDetails);
+            paymentHistory.dealItemsToTable(itemDetails);
         }
 
     }
@@ -968,7 +960,6 @@ public class dbConnector {
 
         if (rs.next()) {
             dateVeryfied = true;
-            controllers.cashPrice = rs.getBigDecimal("cashIncome");
             controllers.sellPrice = rs.getBigDecimal("sellIncome");
             controllers.out = rs.getBigDecimal("outcash");
             controllers.sell = rs.getBigDecimal("outsell");
@@ -1008,11 +999,11 @@ public class dbConnector {
 
     }
 
-    // CHEKIKNG IS USER GIVEN PASSWORD IS EXSISTS IN DB
+    // CHEKIKNG IS advance IS EXSISTS IN DB
     public BigDecimal[] borrow_amount_Upater(String code) throws Exception {
         BigDecimal[] prices = new BigDecimal[3];
 
-        String query = "SELECT * FROM bookshop.borrow WHERE `dealNo`= ? ;";
+        String query = "SELECT * FROM bookshop.advanced WHERE `dealNo`= ? ;";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -1022,7 +1013,6 @@ public class dbConnector {
         if (rs.next()) {
             prices[0] = rs.getBigDecimal("discount");
             prices[1] = rs.getBigDecimal("total");
-            prices[2] = rs.getBigDecimal("cashprice");
         }
 
         st.close();
@@ -1146,7 +1136,7 @@ public class dbConnector {
 
     //Adding new casher to system
     // //BORROW DEALS IN TO DATA BASE 
-    public int addNewCasher(String[] nameContact) throws ClassNotFoundException, SQLException {
+    public int addNewCasher(String[] nameContact) throws ClassNotFoundException , SQLException {
 
         int key = 0;
 
@@ -1462,4 +1452,183 @@ public class dbConnector {
 
         }
     }
+    
+    
+     //Advanced payment DEALS IN TO DATA BASE 
+    public int storeAdvancedDealsDataIntoBase(String[] nameContact, BigDecimal[] defaultsValues) throws ClassNotFoundException, SQLException {
+
+        int key = 0;
+
+        String query = "INSERT INTO `bookshop`.`advanced` (`name`,`phone`,`nic` , `address` , `discount` , `total` , `advanced` , `date`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + defaultsValues[0] + "', '" + defaultsValues[1] + "' , '" + defaultsValues[2] + "' , '" + nameContact[4] + "' );";
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, uname, pass);
+        Statement st = con.createStatement();
+
+        st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS); //inserting values and Getting autoincremented dealno to insert items to item table,
+
+        ResultSet rs = st.getGeneratedKeys();
+        rs.next();
+        controllers.primaryKeyOfdealsData = String.valueOf(rs.getInt(1)); //stroting returned deal no to use latar.
+
+        st.close();
+        con.close();
+
+        return key;
+    }
+    
+    
+    //removing advanced deals from the database  
+    void clearAdvanced(String primaryKey) throws Exception {
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, uname, pass);
+        Statement st = con.createStatement(); // for get primary key
+        Statement st2 = con.createStatement(); //for remove data
+
+        String query2 = "DELETE FROM `bookshop`.`advanced` WHERE (`dealNo` = '" + primaryKey + "');";
+        String query3 = "DELETE FROM `bookshop`.`advanceditems`  WHERE (`dealNo` = '" + primaryKey + "');";
+
+        st2.executeUpdate(query3);
+        st2.executeUpdate(query2);
+        JOptionPane.showMessageDialog(null, " Advanced deleted successfully !");
+
+        st.close();
+        con.close();
+    }
+    
+        //SEARCHING FOR BORROWERS
+        public void search_all_advanced() throws Exception {
+
+            {
+                String query = "SELECT * FROM bookshop.advanced;";
+
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = DriverManager.getConnection(url, uname, pass);
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery(query);
+
+                String[] customer = new String[9];
+                advanced.clearTable();
+
+                while (rs.next()) {
+                    customer[0] = rs.getString("dealno");
+                    customer[1] = rs.getString("name");
+                    customer[2] = rs.getString("phone");
+                    customer[3] = rs.getString("nic");
+                    customer[4] = rs.getString("address");
+                    customer[5] = String.valueOf(rs.getBigDecimal("total"));
+                    customer[6] = String.valueOf(rs.getBigDecimal("discount"));
+                    customer[7] = String.valueOf(rs.getBigDecimal("advanced"));
+                    customer[8] = rs.getString("date");
+
+                    advanced.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
+                }
+
+            }
+        }
+        
+        
+        public void updateAdvanceData(String colomn, String value, String PrimaryKey) throws Exception {
+
+        //borrowers
+        String query = "UPDATE `bookshop`.`advanced` SET `" + colomn + "` = '" + value + "' WHERE (`dealNo` = '" + PrimaryKey + "');";
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, uname, pass);
+        Statement st = con.createStatement();
+
+        int updated = st.executeUpdate(query);
+
+        JOptionPane.showMessageDialog(null, "Detail updated successfully !");
+
+        st.close();
+        con.close();
+
+    }
+        
+       
+     //getting each borrowing item accorfing to customer when user select a deal
+      //here which is for data to advance item viwing panel to payment billing panel
+    public void getAdvancetems(String code , boolean which) throws ClassNotFoundException, SQLException { 
+        String query = "SELECT * FROM bookshop.advanceditems WHERE `dealNo`=" + code + ";";
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, uname, pass);
+        Statement st = con.createStatement();
+
+        String[] itemDetails = new String[5];
+
+        ResultSet rs = st.executeQuery(query);
+
+        while (rs.next()) {
+
+            if(which == true)
+                {
+                    itemDetails[0]= rs.getString("itemName");
+                    itemDetails[1] = rs.getString("quantity");
+                    itemDetails[2] = rs.getBigDecimal("total").toString();
+                    advancedItems.dealItemsToTable(itemDetails); // displying data to advance payments item viwing panel
+                }
+            else
+                  {
+                      itemDetails[0]= rs.getString("itemCode");
+                      itemDetails[1]= rs.getString("itemName");
+                      itemDetails[2] = rs.getString("quantity");
+                      itemDetails[3] = rs.getBigDecimal("price").toString();
+                      itemDetails[4] = rs.getBigDecimal("total").toString();
+                      MAIN_FRAME.advancedItems_searchItemsToTable(itemDetails); // displying data to billing pannel for create bill 
+                  }
+             }
+         }
+    
+       //searching for all cashiers
+    // THIS METHOD WILL SEARCH CUSTOMER DETAILS OF borrowers FROM DATABASE 
+    public void search_every_advanced(String code) throws SQLException, ClassNotFoundException {
+
+        String Query1 = "SELECT * FROM bookshop.advanced WHERE dealno = '" + code + "';"; // code means customer name which wants to search from DB
+        String Query2 = "SELECT * FROM bookshop.advanced WHERE  name LIKE '%" + code + "%';";
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, uname, pass);
+        Statement st = con.createStatement();
+
+        String[] customer = new String[9]; // result containing list
+
+        //genereating results from all sugessted fields
+        ResultSet rs = st.executeQuery(Query1);
+
+        while (rs.next()) {
+
+                    customer[0] = rs.getString("dealno");
+                    customer[1] = rs.getString("name");
+                    customer[2] = rs.getString("phone");
+                    customer[3] = rs.getString("nic");
+                    customer[4] = rs.getString("address");
+                    customer[5] = String.valueOf(rs.getBigDecimal("total"));
+                    customer[6] = String.valueOf(rs.getBigDecimal("discount"));
+                    customer[7] = String.valueOf(rs.getBigDecimal("advanced"));
+                    customer[8] = rs.getString("date");
+
+                    advanced.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
+                }
+        
+        ResultSet rs2 = st.executeQuery(Query2);
+        
+          while (rs2.next()) {
+
+                    customer[0] = rs2.getString("dealno");
+                    customer[1] = rs2.getString("name");
+                    customer[2] = rs2.getString("phone");
+                    customer[3] = rs2.getString("nic");
+                    customer[4] = rs2.getString("address");
+                    customer[5] = String.valueOf(rs2.getBigDecimal("total"));
+                    customer[6] = String.valueOf(rs2.getBigDecimal("discount"));
+                    customer[7] = String.valueOf(rs2.getBigDecimal("advanced"));
+                    customer[8] = rs2.getString("date");
+
+                    advanced.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
+                }
+        }
+       
 }
