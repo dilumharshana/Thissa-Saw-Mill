@@ -330,8 +330,9 @@ public class quantitiyBox extends javax.swing.JFrame {
     private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
      
 
-                if(returns == false)
-                    {
+            try
+                {
+                    
                              String lenth = QUANTITIY_BOX.getText().trim();
         
                             //if quantitiy box is empty then setting value to 1
@@ -347,25 +348,12 @@ public class quantitiyBox extends javax.swing.JFrame {
                             MAIN_FRAME.searchItemsToTable(controllers.itemset);
                             MAIN_FRAME.ContinueSearch();
                             setVisible(false);
-                    }
-                else
-                    {
-                         String lenth = QUANTITIY_BOX.getText().trim();
-        
-                        //if quantitiy box is empty then setting value to 1
-                         if(lenth.isEmpty())
-                                    {
-                                        ReturnFrame.quan = "1";
-                                    }
-                                else
-                                    {
-                                        ReturnFrame.quan = lenth;
-                                    }
-                        QUANTITIY_BOX.setText("");
-                        ReturnFrame.searchItemsToTable(controllers.itemset);
-                        ReturnFrame.ContinueSearch();
-                        setVisible(false);
-                    }
+                }
+               catch(Exception e)
+                {
+                    //nothing
+                }
+              
            
     }//GEN-LAST:event_okBtnActionPerformed
 
@@ -436,24 +424,7 @@ public class quantitiyBox extends javax.swing.JFrame {
 
                             setVisible(false);
                     }
-                //for return panel
-                else
-                    {
-        
-                        //if quantitiy box is empty then setting value to 1
-                         if(lenth.isEmpty())
-                                    {
-                                        ReturnFrame.quan = "1";
-                                    }
-                                else
-                                    {
-                                        ReturnFrame.quan = lenth;
-                                    }
-                        QUANTITIY_BOX.setText("");
-                        ReturnFrame.searchItemsToTable(controllers.itemset);
-                        ReturnFrame.ContinueSearch();
-                        setVisible(false);
-                    }
+      
             }
     }//GEN-LAST:event_QUANTITIY_BOXKeyTyped
 
@@ -481,15 +452,6 @@ public class quantitiyBox extends javax.swing.JFrame {
                         //calling continueSearchProcess methos in MIAN_FRAME class to continue the search process
                         MAIN_FRAME.searchItemsToTable(controllers.itemset);
                         MAIN_FRAME.ContinueSearch();
-                        setVisible(false);
-                }
-           else
-                {
-                        ReturnFrame.quan = value;
-            
-                        //calling continueSearchProcess methos in MIAN_FRAME class to continue the search process
-                        ReturnFrame.searchItemsToTable(controllers.itemset);
-                        ReturnFrame.ContinueSearch();
                         setVisible(false);
                 }
             

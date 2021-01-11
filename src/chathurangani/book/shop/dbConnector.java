@@ -412,8 +412,18 @@ public class dbConnector {
     }
 
     //storing income data
-    public void Strore_incomedata(String sprice, String cash, String sell, String date) throws Exception {
-        String query = "INSERT INTO `bookshop`.`incomedata` (`sellIncome`, `outcash`,`outsell`, `date`)  VALUES ('" + sprice + "','" + cash + "','" + sell + "','" + date + "');";
+    public void Strore_incomedata(String sprice, String incomeType , String date) throws Exception {
+        
+        String query = "";
+        
+        if( incomeType != "borrowing" )
+            {
+               query = "INSERT INTO `bookshop`.`incomedata` (`sellIncome`, `date`, `borrowing`) VALUES ('"+sprice+"', '"+date+"', '0.0');";
+            }
+        else
+            {
+                query = "INSERT INTO `bookshop`.`incomedata` (`sellIncome`, `date`, `borrowing`) VALUES ('0.0', '"+date+"', '"+sprice+"');";
+            }
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -423,24 +433,14 @@ public class dbConnector {
     }
 
     //update incomedate
-    public void incomedataUpdater(String sprice, String date) throws Exception {
-        String query = "UPDATE `bookshop`.`incomedata` SET `sellIncome` = '" + sprice + "' WHERE (`date` = '" + date + "');";
+    public void incomedataUpdater(String sprice, String incomeType , String date ) throws Exception {
+        String query = "UPDATE `bookshop`.`incomedata` SET `"+incomeType+"` = '" + sprice + "' WHERE (`date` = '" + date + "');";
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
         Statement st = con.createStatement();
 
         st.executeUpdate(query);
-    }
-
-    //update incomedate`outsell` 
-    public void incomedata_outUpdater( String sell, String date) throws Exception {
-        String query = "UPDATE `bookshop`.`incomedata` SET `outsell` = '" + sell + "'  WHERE (`date` = '" + date + "');";
-
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
-        Statement st = con.createStatement();
-
-        st.executeUpdate(query);
+         
     }
 
     //INSERTING DEAL ITEMS DEATILS ITEM CODE ITEM NAME QUANTITIY PRICE
@@ -460,7 +460,7 @@ public class dbConnector {
 
         int key = 0;
 
-        String query = "INSERT INTO `bookshop`.`borrow` (`name`,`tp`,`nic` , `address` , `discount` , `total` , `cashprice`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + defaultsValues[0] + "', '" + defaultsValues[1] + "' , '" + defaultsValues[2] + "');";
+        String query = "INSERT INTO `bookshop`.`borrow` (`name`,`tp`,`nic` , `address` , `discount` , `total` ) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + defaultsValues[0] + "', '" + defaultsValues[1] + "');";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -479,11 +479,30 @@ public class dbConnector {
     }
 
     // //Advanced DEALS IN TO DATA BASE     //OVERLOADING
-    public int storeBorrowDealsDataIntoBase(BigDecimal[] values, String pk) throws ClassNotFoundException, SQLException {
+    public int store_advanced_DealsDataIntoBase(BigDecimal[] values, String pk) throws ClassNotFoundException, SQLException {
 
         int key = 0;
 
         String query = "UPDATE `bookshop`.`advanced` SET `discount` = '" + values[0] + "', `total` = '" + values[1] + "'  WHERE (`dealNo` = '" + pk + "');";
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, uname, pass);
+        Statement st = con.createStatement();
+
+        st.executeUpdate(query); //inserting values and Getting autoincremented dealno to insert items to item table,
+
+        st.close();
+        con.close();
+
+        return key;
+    }
+    
+       // //borrower DEALS IN TO DATA BASE     //OVERLOADING
+    public int storeBorrowDealsDataIntoBase(BigDecimal[] values, String pk) throws ClassNotFoundException, SQLException {
+
+        int key = 0;
+
+        String query = "UPDATE `bookshop`.`borrow` SET `discount` = '" + values[0] + "', `total` = '" + values[1] + "'  WHERE (`dealNo` = '" + pk + "');";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -947,11 +966,13 @@ public class dbConnector {
     }
 
     // CHEKIKNG IS USER GIVEN DATE IS EXSISTS IN DB
-    public boolean passdate(String date) throws Exception {
+    
+    //this method is using both cashincome and borrowing data fetching. by pasing true it fetch cash income and false it fetch borring income
+    public boolean passdate(String date , boolean cashincome) throws Exception {
         boolean dateVeryfied;
 
-        String query = "SELECT * FROM bookshop.incomedata WHERE `date`= ? ;";
-
+        String query ="SELECT * FROM bookshop.incomedata WHERE `date`= ? ;";
+          
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
         PreparedStatement st = con.prepareStatement(query);
@@ -959,10 +980,18 @@ public class dbConnector {
         ResultSet rs = st.executeQuery();
 
         if (rs.next()) {
-            dateVeryfied = true;
-            controllers.sellPrice = rs.getBigDecimal("sellIncome");
-            controllers.out = rs.getBigDecimal("outcash");
-            controllers.sell = rs.getBigDecimal("outsell");
+            
+               dateVeryfied = true; //mentioing a deal is available with this date
+            
+               if(cashincome == true) //fetching cashincome price
+                {
+                    controllers.sellPrice = rs.getBigDecimal("sellIncome");
+                }
+               else //FETCHING BORROWING INCOME TOTAL PRICE
+                {
+                    controllers.sellPrice = rs.getBigDecimal("borrowing");
+                }
+            
         } else {
             dateVeryfied = false;
         }
@@ -987,9 +1016,9 @@ public class dbConnector {
         Statement st = con.createStatement();
 
         if (which == true) {
-            int updated = st.executeUpdate(query);
+             st.executeUpdate(query);
         } else {
-            int updated = st.executeUpdate(query2);
+             st.executeUpdate(query2);
         }
 
         JOptionPane.showMessageDialog(null, "Detail updated successfully !");
@@ -1001,6 +1030,28 @@ public class dbConnector {
 
     // CHEKIKNG IS advance IS EXSISTS IN DB
     public BigDecimal[] borrow_amount_Upater(String code) throws Exception {
+        BigDecimal[] prices = new BigDecimal[3];
+
+        String query = "SELECT * FROM bookshop.borrow WHERE `dealNo`= ? ;";
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, uname, pass);
+        PreparedStatement st = con.prepareStatement(query);
+        st.setString(1, code);
+        ResultSet rs = st.executeQuery();
+        if (rs.next()) {
+            prices[0] = rs.getBigDecimal("discount");
+            prices[1] = rs.getBigDecimal("total");
+        }
+
+        st.close();
+        con.close();
+
+        return prices;
+    }
+    
+       // CHEKIKNG IS advance IS EXSISTS IN DB
+    public BigDecimal[] advanced_amount_Upater(String code) throws Exception {
         BigDecimal[] prices = new BigDecimal[3];
 
         String query = "SELECT * FROM bookshop.advanced WHERE `dealNo`= ? ;";
@@ -1064,14 +1115,11 @@ public class dbConnector {
     void get_values_of_income(String date) throws Exception {
 
         String query = "SELECT * FROM bookshop.incomedata WHERE (`date` = '" + date + "');";
-
-        String query2 = "SELECT * FROM bookshop.cashdeals WHERE (`date` = '" + date + "');";
-
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
         Statement st = con.createStatement();
 
-        ResultSet rs2 = st.executeQuery(query2); //execute query 2
+        ResultSet rs2 = st.executeQuery(query); //execute query 2
 
         while (rs2.next()) {
             report.cashOnly = report.cashOnly.add(rs2.getBigDecimal("TotaltValue")); //income from cashdeals
@@ -1079,9 +1127,7 @@ public class dbConnector {
 
         ResultSet rs = st.executeQuery(query); //execute query 1
         if (rs.next()) {
-            report.tCash = rs.getBigDecimal("cashIncome");
             report.tSell = rs.getBigDecimal("sellIncome");
-            report.tOut = rs.getBigDecimal("outsell");
         } else {
             JOptionPane.showMessageDialog(null, "No Date Exsist !");
         }
@@ -1529,10 +1575,10 @@ public class dbConnector {
         }
         
         
-        public void updateAdvanceData(String colomn, String value, String PrimaryKey) throws Exception {
+        public int updateAdvanceData(String table , String colomn, String value, String PrimaryKey) throws Exception {
 
         //borrowers
-        String query = "UPDATE `bookshop`.`advanced` SET `" + colomn + "` = '" + value + "' WHERE (`dealNo` = '" + PrimaryKey + "');";
+        String query = "UPDATE `bookshop`.`"+table+"` SET `" + colomn + "` = '" + value + "' WHERE (`dealNo` = '" + PrimaryKey + "');";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -1540,10 +1586,10 @@ public class dbConnector {
 
         int updated = st.executeUpdate(query);
 
-        JOptionPane.showMessageDialog(null, "Detail updated successfully !");
-
         st.close();
         con.close();
+        
+        return 0;
 
     }
         
@@ -1631,4 +1677,63 @@ public class dbConnector {
                 }
         }
        
+    
+     //storing income data
+    public int Strore_outGoingdata(String sprice, String reson , String date) throws Exception {
+        
+        String query = "INSERT INTO `bookshop`.`outgoing` (`outgoing`, `reson`, `date`) VALUES ('"+sprice+"', '"+reson+"', '"+date+"');";
+  
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, uname, pass);
+        Statement st = con.createStatement();
+
+       int code = st.executeUpdate(query , Statement.RETURN_GENERATED_KEYS);
+        
+        return code;
+    }
+    
+      //SEARCHING FOR Out going cash
+        public void search_all_outgoing(String date) throws Exception {
+
+            {
+                String query = "SELECT * FROM bookshop.outgoing WHERE `date` = '"+date+"' ;";
+
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = DriverManager.getConnection(url, uname, pass);
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery(query);
+
+                String[] customer = new String[9];
+                outgoing.clearTable();
+
+                while (rs.next()) {
+                    customer[0] = rs.getString("dealNo");
+                    customer[1] = rs.getString("outgoing");
+                    customer[2] = rs.getString("reson");
+                    customer[3] = rs.getString("date");
+       
+                    outgoing.cashouts_ToTable(customer); // calling data items setting to table method in dealHistory class
+                }
+
+            }
+        }
+        
+        
+         //removing advanced deals from the database  
+        void clearOutGoing(String primaryKey) throws Exception {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, uname, pass);
+            Statement st = con.createStatement(); // for get primary key
+            Statement st2 = con.createStatement(); //for remove data
+
+            String query = "DELETE FROM `bookshop`.`outgoing` WHERE (`dealNo` = '" + primaryKey + "');";
+
+            st2.executeUpdate(query);
+            JOptionPane.showMessageDialog(null, " Cash Out deleted successfully !");
+
+            st.close();
+            con.close();
+        }
+
 }

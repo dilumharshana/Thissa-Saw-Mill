@@ -330,6 +330,7 @@ public class loanPay extends javax.swing.JFrame {
     }//GEN-LAST:event_payActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+      String staticPayment = payAmount.getText().trim(); //customer payment amount
       String lenth = payAmount.getText().trim(); //customer payment amount
       payAmount.setText("");
       
@@ -347,7 +348,7 @@ public class loanPay extends javax.swing.JFrame {
                                     payment.setText(String.valueOf(new BigDecimal(lenth)));
                                 }
                                 
-                                BigDecimal cash = new BigDecimal(lenth);
+                                BigDecimal cash = new BigDecimal(staticPayment);
                                 int decision = cash.compareTo(new BigDecimal( total.getText())); //big decimal value comparison  payment & dueAmount
 
                                 switch (decision) {

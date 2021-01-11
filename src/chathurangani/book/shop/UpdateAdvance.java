@@ -4,6 +4,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 public class UpdateAdvance extends javax.swing.JFrame {
@@ -472,8 +473,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
 
         try {
 
-              connect.updateAdvanceData("nic", nic.getText().trim(), primarykeyofdata);
-
+              connect.updateAdvanceData("advanced" , "nic", nic.getText().trim(), primarykeyofdata);
+              JOptionPane.showMessageDialog(null, "Detail updated successfully !");
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -487,7 +488,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
     private void nameUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameUpdateActionPerformed
         try {
 
-              connect.updateAdvanceData("name", name.getText().trim(), primarykeyofdata);
+              connect.updateAdvanceData("advanced" ,"name", name.getText().trim(), primarykeyofdata);
+              JOptionPane.showMessageDialog(null, "Detail updated successfully !");
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -502,8 +504,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
         
         try {
 
-              connect.updateAdvanceData("phone", contact.getText().trim(), primarykeyofdata);
-
+              connect.updateAdvanceData( "advanced" ,"phone", contact.getText().trim(), primarykeyofdata);
+              JOptionPane.showMessageDialog(null, "Detail updated successfully !");
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -613,8 +615,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
         
         try {
 
-              connect.updateAdvanceData("address", address.getText().trim(), primarykeyofdata);
-
+              connect.updateAdvanceData("advanced","address", address.getText().trim(), primarykeyofdata);
+              JOptionPane.showMessageDialog(null, "Detail updated successfully !");   
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -657,8 +659,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
     private void passupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passupdateActionPerformed
        try {
 
-              connect.updateAdvanceData("advanced", advanceBox.getText().trim(), primarykeyofdata);
-
+              connect.updateAdvanceData("advanced","advanced", advanceBox.getText().trim(), primarykeyofdata);
+              JOptionPane.showMessageDialog(null, "Detail updated successfully !");
         } catch (Exception ex) {
             System.out.println(ex);
         }

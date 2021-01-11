@@ -48,7 +48,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         balanceShow.setVisible(false);
 
         //this is a normal billing window
-        this.returns = false;
 
         try {
 
@@ -63,17 +62,15 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     
     dbConnector connect = new dbConnector();
     static String newPrice = "0.0";// for storing new item price
-    static BigDecimal returnCash = new BigDecimal("0.0"); //total amount of cashpricess of the deal
     static BigDecimal paymentForBill = new BigDecimal("0.0");
     static BigDecimal balanceForBill = new BigDecimal("0.0");
-    static boolean viewCp = false; //for make cashprice view btn double actio
     static boolean dot = false;//for get notified wen working with floating points
     public static String quan = "1"; //guantity of new item
     static BigDecimal payment;
     static BigDecimal discount;
     static boolean panelLock;
     static boolean passAvailability;
-    Boolean returns = false;
+
 
  
 
@@ -125,10 +122,10 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 204));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -139,12 +136,12 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
         Date.setBackground(new java.awt.Color(255, 255, 102));
         Date.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        Date.setForeground(new java.awt.Color(255, 204, 0));
+        Date.setForeground(new java.awt.Color(255, 255, 255));
         Date.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         Time.setBackground(new java.awt.Color(255, 255, 102));
         Time.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        Time.setForeground(new java.awt.Color(255, 255, 102));
+        Time.setForeground(new java.awt.Color(255, 255, 255));
         Time.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
@@ -271,7 +268,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(removeItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 563, 214, 43));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 204));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         borrowersTab.setBackground(new java.awt.Color(102, 0, 204));
@@ -382,7 +379,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 .addGap(40, 40, 40))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 110, 170, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 100, 170, -1));
 
         proceed.setBackground(new java.awt.Color(255, 0, 0));
         proceed.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -593,8 +590,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     DefaultTableModel items = (DefaultTableModel) selltable.getModel();
     int rowCount = selltable.getRowCount();
     
-    //this is original billing process
-        if (returns == false) {
 
             //cheking if items avaible in table
             if (rowCount > 0) {
@@ -678,16 +673,16 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                             try {
                                 
                                     //cheking is date avaible()
-                                    boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()));
+                                    boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()) , true);
 
                                     //if date is not exsit in database then create new row for the date either update exsising dat row
                                     if (dateAvailability == true) {
                                         // adding new sellprice amount to prevois cashprice and sell price amount
                                         //new  sell price amounts are holded in controller class sellPrice variables
                                         BigDecimal updated_sellPrice = new BigDecimal(total.getText().trim()).add(controllers.sellPrice);
-                                        connect.incomedataUpdater( String.valueOf(updated_sellPrice), String.valueOf(java.time.LocalDate.now()));
+                                        connect.incomedataUpdater( String.valueOf(updated_sellPrice), "sellIncome", String.valueOf(java.time.LocalDate.now()));
                                     } else {
-                                        connect.Strore_incomedata( total.getText(), "0.0", "0.0", String.valueOf(java.time.LocalDate.now()));
+                                        connect.Strore_incomedata( total.getText(), "sellIncome",  String.valueOf(java.time.LocalDate.now()));
                                     }
                                     
                                     
@@ -698,106 +693,10 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                                 Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
                             }
                       }
-            }
-        
-    //this is for return pannel
-            else 
-            
-            {
-                    if(rowCount>0)
-                        {
-                            BigDecimal payment_is = new BigDecimal(paymentAmount.getText().trim());
-                            BigDecimal currentTotal = new BigDecimal(total.getText().trim());
-                            
-                               for(int i=0 ; i<rowCount; i++)
-                                        {
-                                                String code = selltable.getValueAt(i, 0).toString();//itemcode
-                                                String quantity = selltable.getValueAt(i, 3).toString();
-                                                //updating stocks by calling stockupdate mthod
-                                                stockupdate(code , quantity);
-                                        }
-                            
-                            int comparison = payment_is.compareTo(currentTotal); //comparing payment amount and new total amount of items
-                                       
-                           // if return value less than to new item total value , then you will recive cash
-                           if(comparison == -1)
-                                {
-                                        try {
-                                     //cheking is date avaible()
-
-                                         boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()));
-
-                                              //if date is not exsit in database then create new row for the date either update exsising dat row
-                                         BigDecimal updated_cashPrice = new BigDecimal("0.0"); //updating cashprice holder
-                                         BigDecimal updated_sellPrice  = new BigDecimal("0.0"); //updating sellprice holder
-                                         
-                                         if (dateAvailability == true) {
-                                             // adding new cashprice amount and sellprice amount to prevois cashprice and sell price amount
-                                             //new cash price and sell price amounts are holded in controller class cashPrice and sellPrice variables
-
-                                              updated_sellPrice = (new BigDecimal(total.getText().trim()) .subtract(new BigDecimal(paymentAmount.getText().trim()))).add(controllers.sellPrice);
-                                              connect.incomedataUpdater(String.valueOf(updated_sellPrice) , String.valueOf(java.time.LocalDate.now()));
-                                              refreshWindow();
-                                         } else {
- 
-                                            updated_sellPrice = new BigDecimal(total.getText().trim()) .subtract(new BigDecimal(paymentAmount.getText().trim()));
-                                            connect.Strore_incomedata( updated_sellPrice.toString(), "0.0", "0.0" ,String.valueOf(java.time.LocalDate.now()));
-                                            refreshWindow();
-                                         }
-                                         } catch (Exception ex) {
-                                             Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
-                                         }
-                                        
-                                         //calling bill printng method
-                                         invoice(rowCount);
-                                }
-                           
-                            // if return value greater than to new item total value , then you have to return cash
-                            if(comparison == 1)
-                                {
-                                        try {
-                                     //cheking is date avaible()
-
-                                         boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()));
-
-                                         //if date is not exsit in database then create new row for the date either update exsising dat row
-                                         BigDecimal updated_cashPrice = new BigDecimal("0.0"); //updating cashprice holder
-                                         BigDecimal updated_sellPrice  = new BigDecimal("0.0"); //updating sellprice holder
-                                         
-                                         if (dateAvailability == true) {
-                                             // adding new cashprice amount and sellprice amount to prevois cashprice and sell price amount
-                                             //new cash price and sell price amounts are holded in controller class cashPrice and sellPrice variables
-  
-                                              updated_sellPrice = new BigDecimal(paymentAmount.getText().trim()).subtract(new BigDecimal(total.getText().trim())).add(controllers.sell);
-                                              connect.incomedata_outUpdater(String.valueOf(updated_sellPrice) , String.valueOf(java.time.LocalDate.now()));
-                                              refreshWindow();
-                                         } else {
-                                            updated_sellPrice = new BigDecimal(paymentAmount.getText().trim()).subtract(new BigDecimal(total.getText().trim()));
-                                             connect.Strore_incomedata("0.0", updated_cashPrice.toString(), updated_sellPrice.toString(),String.valueOf(java.time.LocalDate.now()));
-                                             refreshWindow();
-                                         }
-                                         } catch (Exception ex) {
-                                             Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
-                                         }
-                                        
-                                         //calling bill printng method
-                                          invoice(rowCount);
-                                }
-                           
-                           
-                               
-                            
-                        }
-            }
-        
-
-            //cheking is this a return pannel or main panel
-            if (returns == true) {
-                dispose();
-            } else {
+           
                 //refresh main class window
                 refreshWindow();
-            }
+            
 
         
     }//GEN-LAST:event_proceedActionPerformed
@@ -1260,7 +1159,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         balanceShow.setVisible(false);
         disc.setEditable(true);
         newPrice = "0.0";// for storing new item price
-        viewCp = false; //for make cashprice view btn double actio
         dot = false;//for get notified wen working with floating points
         quan = "1.0"; //guantity of new item
 

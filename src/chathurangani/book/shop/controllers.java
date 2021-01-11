@@ -22,7 +22,7 @@ public class controllers extends stater{
     static String primaryKeyOfdealsData; //holding primary kery after a evry deal
     static boolean QuantityTrue; // this varibale support to flow of the programme by holding a quantitiy enderd or not value
     static boolean passwordis = false; //this varibale support to flow of the programme by holding if password is exsists or not in db
-    static BigDecimal cashPrice , sellPrice ,out,sell; // two variable sfor income amount calculation
+    static BigDecimal borrowing , sellPrice ; // two variable sfor income amount calculation
     
     // for usage of dbconnector class;
     static String[] itemset = new String[3];
@@ -30,8 +30,7 @@ public class controllers extends stater{
     public static void reset_pricedata()
         {
             sellPrice = new BigDecimal("0.0");
-            out = new BigDecimal("0.0");
-            sell = new BigDecimal("0.0");
+            
         }
     
 }

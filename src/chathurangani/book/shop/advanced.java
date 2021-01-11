@@ -291,8 +291,15 @@ public class advanced extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteActionPerformed
 
     private void newBorrowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBorrowerActionPerformed
-        newAdvanced open = new newAdvanced();
-        open.setVisible(true);        
+        try
+            {
+                    newAdvanced open = new newAdvanced();
+                     open.setVisible(true);
+             }
+         catch(Exception e)
+            {
+                
+            }
     }//GEN-LAST:event_newBorrowerActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
@@ -324,7 +331,7 @@ public class advanced extends javax.swing.JFrame {
                 {
                     if(true)
                         {
-                            DefaultTableModel itemTable = (DefaultTableModel) MAIN_FRAME.selltable.getModel(); // BILLING PANEL ITEMS TABLE
+                           // DefaultTableModel itemTable = (DefaultTableModel) MAIN_FRAME.selltable.getModel(); // BILLING PANEL ITEMS TABLE
                             DefaultTableModel borrower = (DefaultTableModel) advancedTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
 
                     int dealNo = advancedTable.getSelectedRow(); 
@@ -340,25 +347,31 @@ public class advanced extends javax.swing.JFrame {
                             //calling to storeBorrowDealsDataIntoBase in dbconnector class to stor borrow deal data in to database
                             
                             //taking exsists borrowers current due amount from database
-                              BigDecimal[] current_value = connect.borrow_amount_Upater(String.valueOf(borrower.getValueAt(dealNo,0)));
+                            BigDecimal[] current_value = connect.advanced_amount_Upater(String.valueOf(borrower.getValueAt(dealNo,0)));
                             
                             // adding new total amount and discount amounts to exsisting total and discount values
                             BigDecimal [] values = {current_value[0].add(discountGet) , current_value[1].add(totalGet)};
                             
                             //storing new updated discount and total values in to database
-                             connect.storeBorrowDealsDataIntoBase(values, String.valueOf(advancedTable.getValueAt(dealNo,0)));
+                             connect.store_advanced_DealsDataIntoBase(values, String.valueOf(advancedTable.getValueAt(dealNo,0)));
                             
-                            boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()));
+                             //cheking if at one time if this user hasbeen update by cheking bill amount
+                             int preUpdatedUser = new BigDecimal(String.valueOf(borrower.getValueAt(dealNo,5))).compareTo(new BigDecimal("0.0"));
+                             if(preUpdatedUser == 0 )
+                                {
+                                     boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()) , true);
                             
-                            //if date is not exsit in database then create new row for the date either update exsising dat row
-                            if (dateAvailability == true) {
-                                // adding new sellprice amount to prevois  sell price amount
-                                //new sell price amounts are holded in controller class sellPrice variables
-                                BigDecimal updated_sellPrice = new BigDecimal(MAIN_FRAME.total.getText().trim()).add(controllers.sellPrice);
-                                connect.incomedataUpdater(String.valueOf(updated_sellPrice), String.valueOf(java.time.LocalDate.now()));
-                            } else {
-                                connect.Strore_incomedata( MAIN_FRAME.total.getText(),"0.0","0.0", String.valueOf(java.time.LocalDate.now()));
-                            }
+                                        //if date is not exsit in database then create new row for the date either update exsising dat row
+                                        if (dateAvailability == true) {
+                                            // adding new sellprice amount to prevois  sell price amount
+                                            //new sell price amounts are holded in controller class sellPrice variables
+                                            BigDecimal updated_sellPrice = new BigDecimal(borrower.getValueAt(dealNo,7).toString()).add(controllers.sellPrice);
+                                            System.out.println("hihiha");
+                                            connect.incomedataUpdater(String.valueOf(updated_sellPrice), "sellIncome" , String.valueOf(java.time.LocalDate.now()));
+                                        } else {
+                                            connect.Strore_incomedata( borrower.getValueAt(dealNo,7).toString(), "sellIncome" ,String.valueOf(java.time.LocalDate.now()));
+                                        }
+                                }
                             
                             // loop for send each borrow item to database frim MAiN FRAME panel
                             for(int i=0; i < rowcount; i++)

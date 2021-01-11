@@ -308,18 +308,18 @@ public class borrowers extends javax.swing.JFrame {
                     //storing new updated discount and total values in to database
                     connect.storeBorrowDealsDataIntoBase(values, String.valueOf(dealTable.getValueAt(borrowerRow, 0)));
 
-                    boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()));
+                    boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()) , false);
 
                     //if date is not exsit in database then create new row for the date either update exsising dat row
                     if (dateAvailability == true) {
-                        // adding new cashprice amount and sellprice amount to prevois cashprice and sell price amount
-                        //new cash price and sell price amounts are holded in controller class cashPrice and sellPrice variables
-    
+                        
+                        //adding new updated borrowing price                       
                         BigDecimal updated_sellPrice = new BigDecimal(MAIN_FRAME.total.getText().trim()).add(controllers.sellPrice);
-                        connect.incomedataUpdater( String.valueOf(updated_sellPrice), String.valueOf(java.time.LocalDate.now()));
+                        connect.incomedataUpdater( String.valueOf(updated_sellPrice), "borrowing" , String.valueOf(java.time.LocalDate.now()));
+                        
                     } else {
                       
-                        connect.Strore_incomedata( MAIN_FRAME.total.getText(), "0.0", "0.0", String.valueOf(java.time.LocalDate.now()));
+                        connect.Strore_incomedata( MAIN_FRAME.total.getText(), "borrowing" ,String.valueOf(java.time.LocalDate.now()));
                     }
 
                     // loop for send each borrow item to database frim MAiN FRAME panel
@@ -368,7 +368,8 @@ public class borrowers extends javax.swing.JFrame {
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Please select a Borrower !");
+            Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, e);
+            //JOptionPane.showMessageDialog(null, "Please select a Borrower !");
         }
     }//GEN-LAST:event_updateFromBillActionPerformed
 

@@ -671,31 +671,145 @@ public class settings extends javax.swing.JFrame implements Runnable {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton14ActionPerformed
 
-    private void removePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePasswordActionPerformed
-        //calling to passwrod removeing method
-        try {
-            connect.removePass();
-            MAIN_FRAME.panelLock = false; //updatinf mainframe password on / off variable state to off
-        } catch (Exception ex) {
-            Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, ex);
+    private void cashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashierActionPerformed
+
+        cashiers open = new cashiers();
+        open.setVisible(true);
+    }//GEN-LAST:event_cashierActionPerformed
+
+    private void delasstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delasstockActionPerformed
+        //visibeling deal panel
+        DealHistory open = new DealHistory();
+        open.setVisible(true);
+    }//GEN-LAST:event_delasstockActionPerformed
+
+    private void analizeBizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizeBizActionPerformed
+        report open = new report();
+        open.setVisible(true);
+    }//GEN-LAST:event_analizeBizActionPerformed
+
+    private void questionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_questionKeyTyped
+
+        int lenth = question.getText().toString().length();
+        if(lenth ==254)
+        {
+
+            evt.consume();
         }
-    }//GEN-LAST:event_removePasswordActionPerformed
+    }//GEN-LAST:event_questionKeyTyped
 
-    private void changePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordActionPerformed
-        changePannel.setVisible(true);
-    }//GEN-LAST:event_changePasswordActionPerformed
+    private void questionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_questionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_questionActionPerformed
 
-    private void addpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addpasswordActionPerformed
-        setPanel.setVisible(true);
-    }//GEN-LAST:event_addpasswordActionPerformed
+    private void answerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_answerKeyTyped
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        changePannel.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        int lenth = answer.getText().toString().length();
+        if(lenth ==254)
+        {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_answerKeyTyped
+
+    private void s_p_newPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_s_p_newPassKeyTyped
+
+        int lenth = String.copyValueOf(s_p_newPass.getPassword()).length();
+        if(lenth ==254)
+        {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_s_p_newPassKeyTyped
+
+    private void s_p_retypePassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_s_p_retypePassKeyTyped
+        int lenth = String.copyValueOf(s_p_retypePass.getPassword()).length();
+        if(lenth ==254)
+        {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_s_p_retypePassKeyTyped
+
+    private void s_p_retypePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_p_retypePassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_s_p_retypePassActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         setPanel.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void setPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setPasswordActionPerformed
+
+        String newPass = String.valueOf(s_p_newPass.getPassword());
+        String rePass = String.valueOf(s_p_retypePass.getPassword());
+        String questionis = String.valueOf(question.getText().trim());
+        String answeris = String.valueOf(answer.getText().trim());
+
+        if (!newPass.isEmpty() && !rePass.isEmpty() && !questionis.isEmpty() && !answeris.isEmpty()) {
+            if (newPass.equals(rePass)) {
+                try {
+
+                    Encoder encode = new Encoder();
+                    String hash = encode.getMd5(String.valueOf(s_p_retypePass.getPassword()));
+                    connect.changePass(hash , questionis , answeris);
+
+                    s_p_newPass.setText("");
+                    s_p_retypePass.setText("");
+                    question.setText("");
+                    answer.setText("");
+
+                    MAIN_FRAME.panelLock = true; //updatinf mainframe password on / off variable state to on
+                    setPanel.setVisible(false);
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, " Something went wrong Code-Settings604! ");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, " passwords dosent match ! ");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, " Please fill every field ! ");
+        }
+
+        if(forgetpass == true)
+        {
+            Adimin_login open = new Adimin_login();
+            open.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_setPasswordActionPerformed
+
+    private void currentPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_currentPassKeyTyped
+        int lenth = String.copyValueOf(currentPass.getPassword()).length();
+        if(lenth ==254)
+        {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_currentPassKeyTyped
+
+    private void c_p_newPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_c_p_newPassKeyTyped
+        int lenth = String.copyValueOf(c_p_newPass.getPassword()).length();
+        if(lenth ==254)
+        {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_c_p_newPassKeyTyped
+
+    private void c_p_retypePassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_c_p_retypePassKeyTyped
+        int lenth = String.copyValueOf(c_p_retypePass.getPassword()).length();
+        if(lenth ==254)
+        {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_c_p_retypePassKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        changePannel.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeActionPerformed
 
@@ -704,7 +818,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
         String rp = String.valueOf(c_p_retypePass.getPassword()); //getting retyped password
 
         Encoder encode = new Encoder();
-        
+
         if (!cp.isEmpty() && !np.isEmpty() && !rp.isEmpty()) //CHEKING IS EVERY FIELD HAS BEEN FILED
         {
             try {
@@ -714,7 +828,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
                 if (passOk == true) {
                     //CHEKKING NEW TYPED PASSWORD AND RETYPE PASS WORD ARE EQAULS
                     if (String.valueOf(c_p_newPass.getPassword()).equals(String.valueOf(c_p_retypePass.getPassword()))) {
-                        
+
                         String newPass = encode.getMd5(String.valueOf(rp));
                         connect.changePass("", String.valueOf(newPass));
 
@@ -736,49 +850,25 @@ public class settings extends javax.swing.JFrame implements Runnable {
         } else {
             JOptionPane.showMessageDialog(null, " Please fill every field ! ");
         }
-
     }//GEN-LAST:event_ChangeActionPerformed
 
-    private void setPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setPasswordActionPerformed
+    private void addpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addpasswordActionPerformed
+        setPanel.setVisible(true);
+    }//GEN-LAST:event_addpasswordActionPerformed
 
-        String newPass = String.valueOf(s_p_newPass.getPassword());
-        String rePass = String.valueOf(s_p_retypePass.getPassword());
-        String questionis = String.valueOf(question.getText().trim());
-        String answeris = String.valueOf(answer.getText().trim());
-
-        if (!newPass.isEmpty() && !rePass.isEmpty() && !questionis.isEmpty() && !answeris.isEmpty()) {
-            if (newPass.equals(rePass)) {
-                try {
-
-                    Encoder encode = new Encoder();
-                    String hash = encode.getMd5(String.valueOf(s_p_retypePass.getPassword()));
-                    connect.changePass(hash , questionis , answeris);
-                    
-                    s_p_newPass.setText("");
-                    s_p_retypePass.setText("");
-                    question.setText("");
-                    answer.setText("");
-                    
-                    MAIN_FRAME.panelLock = true; //updatinf mainframe password on / off variable state to on
-                    setPanel.setVisible(false);
-
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, " Something went wrong Code-Settings604! ");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, " passwords dosent match ! ");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, " Please fill every field ! ");
+    private void removePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePasswordActionPerformed
+        //calling to passwrod removeing method
+        try {
+            connect.removePass();
+            MAIN_FRAME.panelLock = false; //updatinf mainframe password on / off variable state to off
+        } catch (Exception ex) {
+            Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if(forgetpass == true)
-            {
-                Adimin_login open = new Adimin_login();
-                open.setVisible(true);
-                dispose();
-            }
-    }//GEN-LAST:event_setPasswordActionPerformed
+    }//GEN-LAST:event_removePasswordActionPerformed
+
+    private void changePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordActionPerformed
+        changePannel.setVisible(true);
+    }//GEN-LAST:event_changePasswordActionPerformed
 
     private void ctimeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctimeMouseClicked
         int clearOk = JOptionPane.showConfirmDialog(null, "You need to clear all data ?", "Clear All Deals..", JOptionPane.ERROR_MESSAGE, JOptionPane.OK_CANCEL_OPTION);
@@ -791,97 +881,6 @@ public class settings extends javax.swing.JFrame implements Runnable {
             }
         }
     }//GEN-LAST:event_ctimeMouseClicked
-
-    private void analizeBizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizeBizActionPerformed
-        report open = new report();
-        open.setVisible(true);
-    }//GEN-LAST:event_analizeBizActionPerformed
-
-    private void delasstockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delasstockActionPerformed
-        //visibeling deal panel
-        DealHistory open = new DealHistory();
-        open.setVisible(true);
-    }//GEN-LAST:event_delasstockActionPerformed
-
-    private void questionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_questionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_questionActionPerformed
-
-    private void s_p_newPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_s_p_newPassKeyTyped
-         
-        int lenth = String.copyValueOf(s_p_newPass.getPassword()).length();
-        if(lenth ==254)
-            {
-                
-               evt.consume(); 
-            }
-    }//GEN-LAST:event_s_p_newPassKeyTyped
-
-    private void questionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_questionKeyTyped
-        
-        int lenth = question.getText().toString().length();
-        if(lenth ==254)
-            {
-                
-               evt.consume(); 
-            }
-    }//GEN-LAST:event_questionKeyTyped
-
-    private void answerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_answerKeyTyped
-         
-        int lenth = answer.getText().toString().length();
-        if(lenth ==254)
-            {
-                
-               evt.consume(); 
-            }
-    }//GEN-LAST:event_answerKeyTyped
-
-    private void s_p_retypePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_s_p_retypePassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_s_p_retypePassActionPerformed
-
-    private void s_p_retypePassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_s_p_retypePassKeyTyped
-        int lenth = String.copyValueOf(s_p_retypePass.getPassword()).length();
-        if(lenth ==254)
-            {
-                
-               evt.consume(); 
-            }
-    }//GEN-LAST:event_s_p_retypePassKeyTyped
-
-    private void currentPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_currentPassKeyTyped
-        int lenth = String.copyValueOf(currentPass.getPassword()).length();
-        if(lenth ==254)
-            {
-                
-               evt.consume(); 
-            }
-    }//GEN-LAST:event_currentPassKeyTyped
-
-    private void c_p_newPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_c_p_newPassKeyTyped
-        int lenth = String.copyValueOf(c_p_newPass.getPassword()).length();
-        if(lenth ==254)
-            {
-                
-               evt.consume(); 
-            }
-    }//GEN-LAST:event_c_p_newPassKeyTyped
-
-    private void c_p_retypePassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_c_p_retypePassKeyTyped
-         int lenth = String.copyValueOf(c_p_retypePass.getPassword()).length();
-        if(lenth ==254)
-            {
-                
-               evt.consume(); 
-            }
-    }//GEN-LAST:event_c_p_retypePassKeyTyped
-
-    private void cashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashierActionPerformed
-        
-        cashiers open = new cashiers();
-        open.setVisible(true);
-    }//GEN-LAST:event_cashierActionPerformed
 
     /**
      * @param args the command line arguments

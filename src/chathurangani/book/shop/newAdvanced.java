@@ -478,6 +478,7 @@ public class newAdvanced extends javax.swing.JFrame {
                String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() ,  advanceAmount.getText().trim() , "Active"};
                delas.addRow(newBorro);
 
+               //setting new advanced value to advanced panel advanced value holding variable
                setVisible(false);
          }
          else

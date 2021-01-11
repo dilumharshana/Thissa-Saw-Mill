@@ -264,7 +264,8 @@ public class BillOwner extends javax.swing.JFrame {
             //calling processing method name send data;
             sendData();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null,"New Borrower is not available !");
+                Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+               // JOptionPane.showMessageDialog(null,"New Borrower is not available !");
             }
         }
         else
@@ -406,7 +407,7 @@ public class BillOwner extends javax.swing.JFrame {
     void sendData() throws Exception {
 
        //defng bigdecimal values to send to the database
-       BigDecimal[] defaultValues = {new BigDecimal("0.0"),new BigDecimal("0.0"),new BigDecimal("0.0")};
+       BigDecimal[] defaultValues = {new BigDecimal("0.0"),new BigDecimal("0.0")};
        
        //setting new borrowers detials to create a new borrower in databse
        String [] namePhoneNic = {CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim()}; // getiing new borrower details
