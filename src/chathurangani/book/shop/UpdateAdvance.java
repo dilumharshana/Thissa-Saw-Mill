@@ -240,6 +240,9 @@ public class UpdateAdvance extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 addressKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                addressKeyTyped(evt);
+            }
         });
 
         addressUpdate.setBackground(new java.awt.Color(0, 153, 204));
@@ -602,13 +605,13 @@ public class UpdateAdvance extends javax.swing.JFrame {
     }//GEN-LAST:event_contactKeyReleased
 
     private void addressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_addressKeyReleased
-         String lenth = address.getText();
 
-        if (lenth.length() > 0) {
+        if (address.getText().length() > 0) {
             addressUpdate.setEnabled(true);
         } else {
             addressUpdate.setEnabled(false);
         }
+
     }//GEN-LAST:event_addressKeyReleased
 
     private void addressUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addressUpdateActionPerformed
@@ -618,7 +621,7 @@ public class UpdateAdvance extends javax.swing.JFrame {
               connect.updateAdvanceData("advanced","address", address.getText().trim(), primarykeyofdata);
               JOptionPane.showMessageDialog(null, "Detail updated successfully !");   
         } catch (Exception ex) {
-            System.out.println(ex);
+            Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -676,6 +679,13 @@ public class UpdateAdvance extends javax.swing.JFrame {
                 evt.consume();
             }
     }//GEN-LAST:event_advanceBoxKeyTyped
+
+    private void addressKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_addressKeyTyped
+                
+        if (address.getText().length() == 200) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_addressKeyTyped
 
     /**
      * @param args the command line arguments

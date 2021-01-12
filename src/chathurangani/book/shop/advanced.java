@@ -392,22 +392,7 @@ public class advanced extends javax.swing.JFrame {
                                     
                                     //store item details in to databse
                                     connect.storeDealItemsIntoDataBase(pk,code, name, quantity, price , total);
-                                    
-                                    
-                                    //decreasing stock of out items
-                                    int stock = connect.searchItemStock(code); //cheking for current stock
-                                    if (stock > 0) {
-                                        
-                                        if (stock > Integer.valueOf(quantity)) {
-                                            stock = stock - Integer.parseInt(quantity); //updatin stock
-                                            connect.updateStockitems("stocks","stock", String.valueOf(stock), code);
-                                        } else // if customer buys items more than in stock it automaticly set stocl items to 0.
-                                        {
-                                            connect.updateStockitems("stocks","stock", String.valueOf(0), code);
-                                            //JOptionPane.showMessageDialog(null , " Done !");
-                                        }
-                                        
-                                    }
+  
                                 }
                             }
                             
@@ -451,7 +436,9 @@ public class advanced extends javax.swing.JFrame {
                         }
                    
             //setting cash amout to billoing panel
-            MAIN_FRAME.staticTotal.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString()) .subtract(new BigDecimal(advancedTable.getValueAt( row ,7).toString()))));
+            
+     //subtracting advanced from total billa amount       
+      MAIN_FRAME.staticTotal.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString()) .subtract(new BigDecimal(advancedTable.getValueAt( row ,7).toString()))));
             MAIN_FRAME.total.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString()) .subtract(new BigDecimal(advancedTable.getValueAt( row ,7).toString()))));
             MAIN_FRAME.discAmount.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,6).toString())));
     }//GEN-LAST:event_paymentActionPerformed

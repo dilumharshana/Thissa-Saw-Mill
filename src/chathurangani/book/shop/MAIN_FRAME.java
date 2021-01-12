@@ -35,10 +35,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
         
-         Toolkit screenSize = Toolkit.getDefaultToolkit();
-         int height = (int) screenSize.getScreenSize().getHeight();
-         int width = (int) screenSize.getScreenSize().getWidth();
-         this.setSize(width,height);
+      
         
         //Disabling btns
         removeItem.setEnabled(false);
@@ -274,7 +271,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         borrowersTab.setBackground(new java.awt.Color(102, 0, 204));
         borrowersTab.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         borrowersTab.setForeground(new java.awt.Color(255, 255, 255));
-        borrowersTab.setText("Borrowers");
+        borrowersTab.setText("Debtors");
         borrowersTab.setToolTipText("Borrowers");
         borrowersTab.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         borrowersTab.addActionListener(new java.awt.event.ActionListener() {
@@ -346,20 +343,19 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(settingTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(borrowersTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(addStockTab, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                                    .addComponent(stockTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(bell)
-                                .addGap(35, 35, 35))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(settingTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(borrowersTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addStockTab, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                            .addComponent(stockTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(advancedTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(bell)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,9 +370,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 .addComponent(advancedTab, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(settingTab, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                .addGap(55, 55, 55)
                 .addComponent(bell, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 100, 170, -1));
@@ -391,7 +387,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 proceedActionPerformed(evt);
             }
         });
-        jPanel1.add(proceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(726, 640, 289, 50));
+        jPanel1.add(proceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(726, 640, 289, 40));
 
         paymentAmount.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         paymentAmount.addActionListener(new java.awt.event.ActionListener() {
@@ -445,13 +441,13 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         borrowProceed.setBackground(new java.awt.Color(153, 0, 153));
         borrowProceed.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
         borrowProceed.setForeground(new java.awt.Color(255, 255, 255));
-        borrowProceed.setText("BORROWING");
+        borrowProceed.setText("LENDING");
         borrowProceed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 borrowProceedActionPerformed(evt);
             }
         });
-        jPanel1.add(borrowProceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(1021, 640, -1, 50));
+        jPanel1.add(borrowProceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(1021, 640, 160, 40));
 
         discountingBtn.setBackground(new java.awt.Color(255, 255, 255));
         discountingBtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -528,7 +524,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
 
         pack();
@@ -572,7 +568,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
                 BigDecimal updateTotal = (new BigDecimal(total.getText().trim()).add(new BigDecimal(discAmount.getText().trim()))).subtract(removingAmount);
                 total.setText(updateTotal.toString());
-                staticTotal.setText(updateTotal.toString());
+                staticTotal.setText("Rs. "+updateTotal.toString());
                 discAmount.setText("0.0");
                 remove.removeRow(row);
             }
@@ -1158,6 +1154,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         balanceLable.setVisible(false);
         balanceShow.setVisible(false);
         disc.setEditable(true);
+        discountingBtn.setEnabled(true);
         newPrice = "0.0";// for storing new item price
         dot = false;//for get notified wen working with floating points
         quan = "1.0"; //guantity of new item
@@ -1285,7 +1282,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     public static javax.swing.JTextField disc;
     public static javax.swing.JLabel discAmount;
     public static javax.swing.JLabel discLable;
-    private javax.swing.JButton discountingBtn;
+    public static javax.swing.JButton discountingBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

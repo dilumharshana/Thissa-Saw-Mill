@@ -80,7 +80,7 @@ public class borrowers extends javax.swing.JFrame {
         newBorrower.setBackground(new java.awt.Color(153, 0, 255));
         newBorrower.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         newBorrower.setForeground(new java.awt.Color(255, 255, 255));
-        newBorrower.setText("NEW BORROWER");
+        newBorrower.setText("NEW DEBTOR");
         newBorrower.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newBorrowerActionPerformed(evt);
@@ -120,7 +120,7 @@ public class borrowers extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("BORROWERS");
+        jLabel3.setText("DEBTORS");
 
         dealTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         dealTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -146,7 +146,7 @@ public class borrowers extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(dealTable);
 
-        cusName.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        cusName.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         cusName.setForeground(new java.awt.Color(255, 255, 0));
 
         history.setBackground(new java.awt.Color(204, 255, 204));
@@ -176,15 +176,15 @@ public class borrowers extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(updateFromBill, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(payment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(payment, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -195,19 +195,12 @@ public class borrowers extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 14, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,19 +301,6 @@ public class borrowers extends javax.swing.JFrame {
                     //storing new updated discount and total values in to database
                     connect.storeBorrowDealsDataIntoBase(values, String.valueOf(dealTable.getValueAt(borrowerRow, 0)));
 
-                    boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()) , false);
-
-                    //if date is not exsit in database then create new row for the date either update exsising dat row
-                    if (dateAvailability == true) {
-                        
-                        //adding new updated borrowing price                       
-                        BigDecimal updated_sellPrice = new BigDecimal(MAIN_FRAME.total.getText().trim()).add(controllers.sellPrice);
-                        connect.incomedataUpdater( String.valueOf(updated_sellPrice), "borrowing" , String.valueOf(java.time.LocalDate.now()));
-                        
-                    } else {
-                      
-                        connect.Strore_incomedata( MAIN_FRAME.total.getText(), "borrowing" ,String.valueOf(java.time.LocalDate.now()));
-                    }
 
                     // loop for send each borrow item to database frim MAiN FRAME panel
                     for (int i = 0; i < rowcount; i++) {
@@ -328,18 +308,19 @@ public class borrowers extends javax.swing.JFrame {
 
                         if (!cheker.equals("")) {
                             
-                           String pk , code , name , quantity;
-                           BigDecimal  price , total;
+                            String pk, code, name, quantity, priceget;
+                           BigDecimal price, totalis;
                                     
-                                    pk = dealTable.getValueAt(borrowerRow,0).toString(); //primarykey
-                                    code = MAIN_FRAME.selltable.getValueAt(i,0).toString(); //item code
-                                    name = MAIN_FRAME.selltable.getValueAt(i,1).toString(); //item name
-                                    price = new BigDecimal(MAIN_FRAME.selltable.getValueAt(i,2).toString());// unit prce
-                                    quantity = MAIN_FRAME.selltable.getValueAt(i,3).toString(); //quantity
-                                    total =new BigDecimal( MAIN_FRAME.selltable.getValueAt(i,4).toString()); //quantity
+                                                pk = dealTable.getValueAt(borrowerRow,0).toString(); //primarykey
+                                                code = MAIN_FRAME.selltable.getValueAt(i, 0).toString();//itemcode
+                                                name = MAIN_FRAME.selltable.getValueAt(i, 1).toString();//item name
+                                                priceget = MAIN_FRAME.selltable.getValueAt(i, 2).toString();
+                                                quantity = MAIN_FRAME.selltable.getValueAt(i, 3).toString();
+                                                totalis = new BigDecimal(MAIN_FRAME.selltable.getValueAt(i, 4).toString());
+                                                price = new BigDecimal(priceget);
 
                             //store item details in to databse
-                            connect.storeDealItemsIntoDataBase(pk, code, name, quantity, price , total);
+                            connect.storeCashDealItemsIntoDataBase(pk, code, name, price, quantity, totalGet);
 
                             //decreasing stock of out items
                             int stock = connect.searchItemStock(code); //cheking for current stock

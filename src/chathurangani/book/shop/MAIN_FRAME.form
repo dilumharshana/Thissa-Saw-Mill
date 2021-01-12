@@ -33,7 +33,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="1" pref="706" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" pref="700" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -445,27 +445,24 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="settingTab" max="32767" attributes="0"/>
-                                          <Component id="borrowersTab" max="32767" attributes="0"/>
-                                          <Component id="addStockTab" pref="154" max="32767" attributes="0"/>
-                                          <Component id="stockTab" alignment="1" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="bell" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="settingTab" max="32767" attributes="0"/>
+                                  <Component id="borrowersTab" max="32767" attributes="0"/>
+                                  <Component id="addStockTab" pref="154" max="32767" attributes="0"/>
+                                  <Component id="stockTab" alignment="1" max="32767" attributes="0"/>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="advancedTab" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="bell" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -482,9 +479,9 @@
                       <Component id="advancedTab" min="-2" pref="58" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="settingTab" min="-2" pref="58" max="-2" attributes="0"/>
-                      <EmptySpace pref="94" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                       <Component id="bell" min="-2" pref="101" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <EmptySpace pref="79" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -501,7 +498,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Borrowers"/>
+                <Property name="text" type="java.lang.String" value="Debtors"/>
                 <Property name="toolTipText" type="java.lang.String" value="Borrowers"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -650,7 +647,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="726" y="640" width="289" height="50"/>
+              <AbsoluteConstraints x="726" y="640" width="289" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -750,14 +747,14 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="BORROWING"/>
+            <Property name="text" type="java.lang.String" value="LENDING"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="borrowProceedActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1021" y="640" width="-1" height="50"/>
+              <AbsoluteConstraints x="1021" y="640" width="160" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -777,6 +774,9 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="discountingBtnActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="1110" y="516" width="65" height="40"/>

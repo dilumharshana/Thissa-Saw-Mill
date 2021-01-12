@@ -502,7 +502,7 @@ public class dbConnector {
 
         int key = 0;
 
-        String query = "UPDATE `bookshop`.`borrow` SET `discount` = '" + values[0] + "', `total` = '" + values[1] + "'  WHERE (`dealNo` = '" + pk + "');";
+        String query = "UPDATE `bookshop`.`borrow` SET `discount` = '" + values[0] + "', `total` = '" + values[1] + "' , `date` = '" + java.time.LocalDate.now().toString() + "'  WHERE (`dealNo` = '" + pk + "');";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -1083,78 +1083,96 @@ public class dbConnector {
 
     }
 
-    //sending income date values to generate income report in report class
-    void get_values_of_income() throws Exception {
-
-        String query = "SELECT * FROM bookshop.incomedata WHERE (`date` = '" + java.time.LocalDate.now() + "');";
-
-        String query2 = "SELECT * FROM bookshop.cashdeals WHERE (`date` = '" + java.time.LocalDate.now() + "');";
-
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
-        Statement st = con.createStatement();
-
-        ResultSet rs2 = st.executeQuery(query2); //execute query 2
-
-        while (rs2.next()) {
-            report.cashOnly = report.cashOnly.add(rs2.getBigDecimal("TotaltValue")); //income from cashdeals
-        }
-
-        ResultSet rs = st.executeQuery(query); //execute query 1
-        if (rs.next()) {
-            report.tCash = rs.getBigDecimal("cashIncome");
-            report.tSell = rs.getBigDecimal("sellIncome");
-            report.tOut = rs.getBigDecimal("outsell");
-        }
-
-        st.close();
-        con.close();
-    }
+//    //sending income date values to generate income report in report class
+//    void get_values_of_income() throws Exception {
+//
+//        String query = "SELECT * FROM bookshop.incomedata WHERE (`date` = '" + java.time.LocalDate.now() + "');";
+//
+//        String query2 = "SELECT * FROM bookshop.outgoing WHERE (`date` = '" + java.time.LocalDate.now() + "');";
+//
+//        Class.forName("com.mysql.jdbc.Driver");
+//        Connection con = DriverManager.getConnection(url, uname, pass);
+//        Statement st = con.createStatement();
+//
+//        ResultSet rs2 = st.executeQuery(query2); //execute query 2
+//
+//        while (rs2.next()) {
+//            report.tCashOut = report.tCashOut.add(rs2.getBigDecimal("outgoing")); //total ofcash outs
+//        }
+//
+//        ResultSet rs = st.executeQuery(query); //execute query 1
+//        
+//        if (rs.next()) {
+//            report.tSell = rs.getBigDecimal("sellIncome");
+//        }
+//
+//        st.close();
+//        con.close();
+//    }
 
     //sending income date values of specific date to generate income report in report class
     void get_values_of_income(String date) throws Exception {
 
-        String query = "SELECT * FROM bookshop.incomedata WHERE (`date` = '" + date + "');";
+        String query = "SELECT * FROM bookshop.outgoing WHERE (`date` = '" + date + "');";
+        String query2 = "SELECT * FROM bookshop.incomedata WHERE (`date` = '" + date + "');";
+        String query3 = "SELECT * FROM bookshop.borrow WHERE (`date` = '" + date + "');"; 
+        String query4 = "SELECT * FROM bookshop.cashitems WHERE (`itemCode` = '" + "50" + "');";
+        String query5 = "SELECT * FROM bookshop.cashitems WHERE (`itemCode` = '" + "50" + "');";
+        
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
         Statement st = con.createStatement();
 
-        ResultSet rs2 = st.executeQuery(query); //execute query 2
-
-        while (rs2.next()) {
-            report.cashOnly = report.cashOnly.add(rs2.getBigDecimal("TotaltValue")); //income from cashdeals
-        }
-
         ResultSet rs = st.executeQuery(query); //execute query 1
-        if (rs.next()) {
-            report.tSell = rs.getBigDecimal("sellIncome");
-        } else {
-            JOptionPane.showMessageDialog(null, "No Date Exsist !");
+       
+        while (rs.next()) {
+            report.csshout.setText(new BigDecimal(report.csshout.getText()).add(rs.getBigDecimal("outgoing")).toString()); //out goingcashdeals
         }
+        
+        ResultSet rs2 = st.executeQuery(query2); //execute query 2
+        
+        if (rs2.next()) {
+            report.totalsell.setText(new BigDecimal(report.totalsell.getText()).add(rs2.getBigDecimal("sellIncome")).toString()); //income amount
+        } else {
+            JOptionPane.showMessageDialog(null, " No Date Excist !");
+        }
+        
+        ResultSet rs3 = st.executeQuery(query3); //execute query 1
+         while (rs3.next()) {
+            report.lend.setText(new BigDecimal(report.lend.getText()).add(rs3.getBigDecimal("total")).toString()); //lending amount
+        }
+         
+         ResultSet rs4 = st.executeQuery(query4); //execute query 1
+         while (rs4.next()) {
+            report.woodpowder.setText(new BigDecimal(report.woodpowder.getText()).add(rs4.getBigDecimal("price")).toString()); //wood powder amount
+        }
+
+
+       
 
         st.close();
         con.close();
     }
 
-    //sending income date values to generate income report in report class
-    void get_values_of_income(String from, String to) throws Exception {
-
-        String chek = "SELECT * FROM bookshop.incomedata WHERE `date` BETWEEN  '" + from + "' AND '" + to + "' ;";
-
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
-        Statement st = con.createStatement();
-
-        ResultSet rs = st.executeQuery(chek);
-
-        while (rs.next()) {
-            report.tCash = report.tCash.add(rs.getBigDecimal("cashIncome"));
-            report.tSell = report.tSell.add(rs.getBigDecimal("sellIncome"));
-            report.tOut = report.tOut.add(rs.getBigDecimal("outsell"));
-
-        }
-
-    }
+//    //sending income date values to generate income report in report class
+//    void get_values_of_income(String from, String to) throws Exception {
+//
+//        String chek = "SELECT * FROM bookshop.incomedata WHERE `date` BETWEEN  '" + from + "' AND '" + to + "' ;";
+//
+//        Class.forName("com.mysql.jdbc.Driver");
+//        Connection con = DriverManager.getConnection(url, uname, pass);
+//        Statement st = con.createStatement();
+//
+//        ResultSet rs = st.executeQuery(chek);
+//
+//        while (rs.next()) {
+//            report.tCash = report.tCash.add(rs.getBigDecimal("cashIncome"));
+//            report.tSell = report.tSell.add(rs.getBigDecimal("sellIncome"));
+//            report.tOut = report.tOut.add(rs.getBigDecimal("outsell"));
+//
+//        }
+//
+//    }
 
     boolean stockout() throws Exception {
         boolean out = false;
