@@ -573,8 +573,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="CUTTING STOCKS">
-                <Property name="tabTitle" type="java.lang.String" value="CUTTING STOCKS"/>
+              <JTabbedPaneConstraints tabName="OUT SOURCE">
+                <Property name="tabTitle" type="java.lang.String" value="OUT SOURCE"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

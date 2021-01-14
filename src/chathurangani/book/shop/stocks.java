@@ -369,7 +369,7 @@ public class stocks extends javax.swing.JFrame {
             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
         );
 
-        tablePane.addTab("CUTTING STOCKS", jPanel5);
+        tablePane.addTab("OUT SOURCE", jPanel5);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));

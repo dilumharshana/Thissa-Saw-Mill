@@ -60,7 +60,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     dbConnector connect = new dbConnector();
     static String newPrice = "0.0";// for storing new item price
     static BigDecimal paymentForBill = new BigDecimal("0.0");
-    static BigDecimal balanceForBill = new BigDecimal("0.0");
+    static BigDecimal balanceForBill = new BigDecimal("0.0"); 
+    static BigDecimal advanced = new BigDecimal("0.0");
+    static BigDecimal statTotal = new BigDecimal("0.0");
     static boolean dot = false;//for get notified wen working with floating points
     public static String quan = "1"; //guantity of new item
     static BigDecimal payment;
@@ -90,8 +92,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         balanceShow = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         removeItem = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         borrowersTab = new javax.swing.JButton();
@@ -113,6 +115,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         selltable = new javax.swing.JTable();
+        lbl_advanced = new javax.swing.JLabel();
+        lbl_discount = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TISSA SAW MILL");
@@ -181,6 +185,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 100));
 
         barcode.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        barcode.setText(" ");
         barcode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 51), 1, true));
         barcode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -190,7 +195,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 barcodeKeyTyped(evt);
             }
         });
-        jPanel1.add(barcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 139, 504, 53));
+        jPanel1.add(barcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 380, 53));
 
         jPanel4.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -224,15 +229,15 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         jPanel5.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 82, 406, 10));
         jPanel5.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 164, 406, 10));
 
-        jLabel6.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel6.setText("  Total Price   (  Rs /- ) ");
-        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 212, 31));
-
         jLabel7.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 51, 0));
         jLabel7.setText("  Total Price   (  Rs /- ) ");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 212, 31));
+
+        jLabel8.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 51, 0));
+        jLabel8.setText("  Total Price   (  Rs /- ) ");
+        jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 212, 31));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -347,15 +352,13 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                             .addComponent(settingTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(borrowersTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(addStockTab, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                            .addComponent(stockTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(advancedTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                            .addComponent(stockTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(advancedTab, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bell)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(36, 36, 36))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -370,9 +373,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 .addComponent(advancedTab, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(settingTab, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
-                .addComponent(bell, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                .addComponent(bell)
+                .addContainerGap())
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 100, 170, -1));
@@ -472,7 +475,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         jPanel1.add(paymentBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 582, 65, 42));
 
         staticTotal.setFont(new java.awt.Font("Arial", 0, 44)); // NOI18N
-        jPanel1.add(staticTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(726, 139, 449, 63));
+        jPanel1.add(staticTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 120, 449, 63));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/search--v1.jpg"))); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -480,7 +483,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 jLabel1MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(534, 139, -1, 53));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, -1, 53));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 204));
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -515,6 +518,14 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         jScrollPane1.setViewportView(selltable);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 222, 696, 335));
+
+        lbl_advanced.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lbl_advanced.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(lbl_advanced, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 180, 212, 31));
+
+        lbl_discount.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lbl_discount.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(lbl_discount, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 180, 212, 31));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -569,6 +580,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 BigDecimal updateTotal = (new BigDecimal(total.getText().trim()).add(new BigDecimal(discAmount.getText().trim()))).subtract(removingAmount);
                 total.setText(updateTotal.toString());
                 staticTotal.setText("Rs. "+updateTotal.toString());
+                statTotal = updateTotal;
                 discAmount.setText("0.0");
                 remove.removeRow(row);
             }
@@ -583,14 +595,14 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
     private void proceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedActionPerformed
 
-    DefaultTableModel items = (DefaultTableModel) selltable.getModel();
     int rowCount = selltable.getRowCount();
+    String cusname = "Customer";
     
 
             //cheking if items avaible in table
             if (rowCount > 0) {
-
-                BigDecimal[] values = new BigDecimal[4];
+                cusname = JOptionPane.showInputDialog(null , "Enter Customer Name :");
+                BigDecimal[] values = new BigDecimal[5];
 
                 values[0] = new BigDecimal(total.getText()); // bill amount
                 //total.getText()).trim()).add(new BigDecimal(discAmount.getText().trim()) ->[total bill amount]
@@ -631,9 +643,21 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                     }
                 
                 
+                //IF USER CLICEKD CREATE BILL BUTTON THEN AUTOMATICLY BALANCE WILL BE 0
+                try
+                    {
+                            values[4] = advanced;// balance amount
+                    }
+                catch(Exception e)
+                    {
+                            values[4] = new BigDecimal(String.valueOf(0.00));// balance amount
+                        
+                    }
+                
+                
 
                         try {
-                            connect.storeCashDealsDataIntoBase(values);
+                            connect.storeCashDealsDataIntoBase(values , cusname);
 
                             for (int i = 0; i < rowCount; i++) 
                             
@@ -691,6 +715,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                       }
            
                 //refresh main class window
+                advanced = new BigDecimal("0.0");
                 refreshWindow();
             
 
@@ -1090,6 +1115,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             System.out.println(code);
             try {
                 //searching item from stock
+
                 connect.itemsForSelling(code);
             } catch (Exception ex) {
                 Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
@@ -1136,6 +1162,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
             total.setText(totalIs.toString()); // displayng new total amount to display
             staticTotal.setText("Rs. " + totalIs.toString());
+            statTotal = totalIs;
             newPrice = "0.0";//setting default new price amount to 0.0
             quan = "1"; //setting default quan value 
 
@@ -1153,6 +1180,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         discAmount.setVisible(false);
         balanceLable.setVisible(false);
         balanceShow.setVisible(false);
+        lbl_discount.setVisible(false);
+        lbl_advanced.setVisible(false);
         disc.setEditable(true);
         discountingBtn.setEnabled(true);
         newPrice = "0.0";// for storing new item price
@@ -1172,6 +1201,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         discAmount.setText("0.0");
         paymentAmount.setText("");
         disc.setText("");
+        statTotal = new BigDecimal("0.0");
 
     }
 
@@ -1235,8 +1265,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         while (true) {
             // CODE FOR TIME 
             Calendar cal = Calendar.getInstance();
-            int hour = cal.get(Calendar.HOUR_OF_DAY);
-            int min = cal.get(Calendar.MINUTE);
 
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss aa");
             Date time = cal.getTime();
@@ -1287,8 +1315,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1297,6 +1325,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    public static javax.swing.JLabel lbl_advanced;
+    public static javax.swing.JLabel lbl_discount;
     public static javax.swing.JTextField paymentAmount;
     private javax.swing.JButton paymentBtn;
     public static javax.swing.JButton proceed;

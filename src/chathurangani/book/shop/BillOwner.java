@@ -34,7 +34,7 @@ public class BillOwner extends javax.swing.JFrame {
         next.setEnabled(false);
     }
     
-     public BillOwner(boolean cashier) {
+     public BillOwner(boolean cashier ) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
         lbl_name.setText("Cashier Name");
@@ -44,12 +44,10 @@ public class BillOwner extends javax.swing.JFrame {
         next.setText("ADD");
         changephoneno.setEnabled(false);
         next.setEnabled(false);
-        
         this.who = false;
     }
 
     dbConnector connect = new dbConnector();
-  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,6 +179,14 @@ public class BillOwner extends javax.swing.JFrame {
         lbl_pass.setText("Set a password");
 
         passbox.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        passbox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passboxKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passboxKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -404,6 +410,17 @@ public class BillOwner extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addressKeyTyped
 
+    private void passboxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passboxKeyReleased
+
+    }//GEN-LAST:event_passboxKeyReleased
+
+    private void passboxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passboxKeyTyped
+        
+        if ((passbox.getText().length() == 10) ) {
+           evt.consume();
+        } 
+    }//GEN-LAST:event_passboxKeyTyped
+
     void sendData() throws Exception {
 
        //defng bigdecimal values to send to the database
@@ -434,7 +451,7 @@ public class BillOwner extends javax.swing.JFrame {
                String [] namePhoneNic = {CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() ,passbox.getText()}; // getiing new borrower details
 
                //sending new borrower to database
-               int key = connect.addNewCasher(namePhoneNic ); // storing borrrower to db
+               int key = connect.addNewCasher(namePhoneNic , "cashier_login" ); // storing borrrower to db
 
                //displaying borrower in table
                DefaultTableModel delas = (DefaultTableModel) cashiers.cTable.getModel();

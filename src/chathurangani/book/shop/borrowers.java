@@ -241,7 +241,7 @@ public class borrowers extends javax.swing.JFrame {
             String primary = String.valueOf(dealTable.getValueAt(row, 0));
 
             try {
-                connect.clearBorrows(primary, true);
+                connect.clearBorrows(primary, 0);
             } catch (Exception ex) {
                 Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -281,14 +281,13 @@ public class borrowers extends javax.swing.JFrame {
 
         try {
             if (!(MAIN_FRAME.staticTotal.getText().trim()).equals("")) {
-                DefaultTableModel itemTable = (DefaultTableModel) MAIN_FRAME.selltable.getModel(); // BILLING PANEL ITEMS TABLE
                 DefaultTableModel borrower = (DefaultTableModel) dealTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
 
                 int borrowerRow = dealTable.getSelectedRow();
                 int rowcount = MAIN_FRAME.selltable.getRowCount();
 
                 if (rowcount > 0) {
-                    BigDecimal totalGet = new BigDecimal(MAIN_FRAME.total.getText().trim()); //getting total bill amount from main frame jlable
+                    BigDecimal totalGet = MAIN_FRAME.statTotal; //getting total bill amount from main frame jlable
                     BigDecimal discountGet = new BigDecimal(MAIN_FRAME.discAmount.getText().trim());//getting discount amount from main frame jlable
 
                     //calling to storeBorrowDealsDataIntoBase in dbconnector class to stor borrow deal data in to database
@@ -309,7 +308,7 @@ public class borrowers extends javax.swing.JFrame {
                         if (!cheker.equals("")) {
                             
                             String pk, code, name, quantity, priceget;
-                           BigDecimal price, totalis;
+                            BigDecimal price, totalis;
                                     
                                                 pk = dealTable.getValueAt(borrowerRow,0).toString(); //primarykey
                                                 code = MAIN_FRAME.selltable.getValueAt(i, 0).toString();//itemcode
@@ -321,6 +320,26 @@ public class borrowers extends javax.swing.JFrame {
 
                             //store item details in to databse
                             connect.storeCashDealItemsIntoDataBase(pk, code, name, price, quantity, totalGet);
+                            
+                              //income date databse handling
+                            try {
+                                
+                                    //cheking is date avaible()
+                                    boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()) , false);
+
+                                    //if date is not exsit in database then create new row for the date either update exsising dat row
+                                    if (dateAvailability == true) {
+                                        // adding new sellprice amount to prevois cashprice and sell price amount
+                                        //new  sell price amounts are holded in controller class sellPrice variables
+                                        BigDecimal updated_sellPrice = new BigDecimal(MAIN_FRAME.total.getText().trim()).add(controllers.sellPrice);
+                                        connect.incomedataUpdater( String.valueOf(updated_sellPrice), "borrowing", String.valueOf(java.time.LocalDate.now()));
+                                    } else {
+                                        connect.Strore_incomedata( MAIN_FRAME.total.getText(), "borrowing",  String.valueOf(java.time.LocalDate.now()));
+                                    }
+                                    
+                            } catch (Exception ex) {
+                                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 
                             //decreasing stock of out items
                             int stock = connect.searchItemStock(code); //cheking for current stock
@@ -373,17 +392,22 @@ public class borrowers extends javax.swing.JFrame {
 
     private void dealTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dealTableMouseClicked
 
-        DefaultTableModel borrower = (DefaultTableModel) dealTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
-        int borrowerRow = dealTable.getSelectedRow();
-        cusName.setText(dealTable.getValueAt(borrowerRow, 1).toString());
+        try
+            {
+                DefaultTableModel borrower = (DefaultTableModel) dealTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
+                int borrowerRow = dealTable.getSelectedRow();
+                cusName.setText(dealTable.getValueAt(borrowerRow, 1).toString());
 
-        history.setEnabled(true);
-        update.setEnabled(true);
-        updateFromBill.setEnabled(true);
-        payment.setEnabled(true);
-        delete.setEnabled(true);
-
-
+                history.setEnabled(true);
+                update.setEnabled(true);
+                updateFromBill.setEnabled(true);
+                payment.setEnabled(true);
+                delete.setEnabled(true);
+            }
+        catch(Exception e)
+            {
+            
+            }
     }//GEN-LAST:event_dealTableMouseClicked
 
     private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased

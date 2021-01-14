@@ -6,7 +6,6 @@
 package chathurangani.book.shop;
 
 import java.awt.Toolkit;
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
@@ -442,8 +441,6 @@ public class report extends javax.swing.JFrame {
                     woodpowder.setText("0.00");
                     
                     connect.get_values_of_income(date);
-                    
-//                
 
                 }
             catch(Exception e)

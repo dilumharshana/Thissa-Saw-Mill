@@ -6,19 +6,16 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class cashiers extends javax.swing.JFrame {
+public class emplyoees extends javax.swing.JFrame {
 
-    public cashiers() {
+    public emplyoees() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
         try {
-            connect.search_all_cashiers("cashier_login");
+            connect.search_all_cashiers("emplyoees");
         } catch (Exception ex) {
-            Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        viewItem.setEnabled(false);
-        viewItem.setVisible(false);
     }
 
     dbConnector connect = new dbConnector();
@@ -28,7 +25,6 @@ public class cashiers extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        viewItem = new javax.swing.JButton();
         searchBar = new javax.swing.JTextField();
         search = new javax.swing.JButton();
         delete = new javax.swing.JButton();
@@ -36,25 +32,14 @@ public class cashiers extends javax.swing.JFrame {
         update = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        cTable = new javax.swing.JTable();
+        eTable = new javax.swing.JTable();
         cusName = new javax.swing.JLabel();
-        lock = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Deals");
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 51));
-
-        viewItem.setBackground(new java.awt.Color(153, 255, 153));
-        viewItem.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        viewItem.setForeground(new java.awt.Color(0, 0, 0));
-        viewItem.setText("VIEW ITEM");
-        viewItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewItemActionPerformed(evt);
-            }
-        });
 
         searchBar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -85,7 +70,7 @@ public class cashiers extends javax.swing.JFrame {
         newBorrower.setBackground(new java.awt.Color(153, 0, 255));
         newBorrower.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         newBorrower.setForeground(new java.awt.Color(255, 255, 255));
-        newBorrower.setText("NEW CASHIER");
+        newBorrower.setText("NEW EMPLOYEE");
         newBorrower.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newBorrowerActionPerformed(evt);
@@ -105,44 +90,34 @@ public class cashiers extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Cashiers");
+        jLabel3.setText("Employees");
 
-        cTable.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        cTable.setModel(new javax.swing.table.DefaultTableModel(
+        eTable.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        eTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Index", "Name", "Phone No", "NIC", "Address", "Password", "State"
+                "Index", "Name", "Phone No", "NIC", "Address", "Salary"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        cTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        eTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cTableMouseClicked(evt);
+                eTableMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(cTable);
+        jScrollPane2.setViewportView(eTable);
 
         cusName.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         cusName.setForeground(new java.awt.Color(255, 255, 0));
-
-        lock.setBackground(new java.awt.Color(153, 255, 153));
-        lock.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lock.setForeground(new java.awt.Color(0, 0, 0));
-        lock.setText("LOCK ACCOUNT");
-        lock.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lockActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -153,11 +128,7 @@ public class cashiers extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(viewItem, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(newBorrower, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lock, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -193,13 +164,9 @@ public class cashiers extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(update, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lock, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(newBorrower, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(viewItem, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(update, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newBorrower, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8))
         );
 
@@ -218,36 +185,18 @@ public class cashiers extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void viewItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewItemActionPerformed
-
-        try {
-            DefaultTableModel getRow = (DefaultTableModel) cTable.getModel();
-            int row = cTable.getSelectedRow();
-
-            String primary = (String) getRow.getValueAt(row, 0);
-            String customer = (String) getRow.getValueAt(row, 1);
-
-            paymentHistory open = new paymentHistory(primary, customer);
-
-            open.setVisible(true);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Please select a Cashier !");
-        }
-
-    }//GEN-LAST:event_viewItemActionPerformed
-
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
 
         try {
-            DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
+            DefaultTableModel delas = (DefaultTableModel) eTable.getModel();
 
-            int row = cTable.getSelectedRow();
-            String primary = String.valueOf(cTable.getValueAt(row, 0));
+            int row = eTable.getSelectedRow();
+            String primary = String.valueOf(eTable.getValueAt(row, 0));
 
             try {
-                connect.clearBorrows(primary, 1);
+                connect.clearBorrows(primary, 2);
             } catch (Exception ex) {
-                Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             delas.removeRow(row);
@@ -261,7 +210,7 @@ public class cashiers extends javax.swing.JFrame {
     private void newBorrowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBorrowerActionPerformed
         try
             {
-                BillOwner open = new BillOwner(false);
+                newEmplyoee open = new newEmplyoee(false );
                 open.setVisible(true);
             }
         catch(Exception e)
@@ -272,59 +221,48 @@ public class cashiers extends javax.swing.JFrame {
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         try {
-            DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
-            int row = cTable.getSelectedRow();
+            DefaultTableModel delas = (DefaultTableModel) eTable.getModel();
+            int row = eTable.getSelectedRow();
 
             String pk = String.valueOf(delas.getValueAt(row, 0));
             String name = String.valueOf(delas.getValueAt(row, 1));
             String tp = String.valueOf(delas.getValueAt(row, 2));
             String nice = String.valueOf(delas.getValueAt(row, 3));
             String address = String.valueOf(delas.getValueAt(row, 4));
-            String pass = String.valueOf(delas.getValueAt(row, 5));
+            String salary = String.valueOf(delas.getValueAt(row, 5));
 
-            UpdateBorrowers open = new UpdateBorrowers(pk, name, tp, nice, address, pass);
+            UpdateBorrowers open = new UpdateBorrowers(pk, name, tp, nice, address, salary , 2);
             open.setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Please select a Cashier !");
+            JOptionPane.showMessageDialog(null, "Please select a Employee !");
         }
     }//GEN-LAST:event_updateActionPerformed
 
-    private void cTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cTableMouseClicked
+    private void eTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eTableMouseClicked
 
-        DefaultTableModel borrower = (DefaultTableModel) cTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
-        int borrowerRow = cTable.getSelectedRow();
-        cusName.setText(cTable.getValueAt(borrowerRow, 1).toString());
+        DefaultTableModel borrower = (DefaultTableModel) eTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
+        int borrowerRow = eTable.getSelectedRow();
+        cusName.setText(eTable.getValueAt(borrowerRow, 1).toString());
 
-        viewItem.setEnabled(true);
         update.setEnabled(true);
         delete.setEnabled(true);
-
-        int row = cTable.getSelectedRow();
-
-        if (cTable.getValueAt(row, 6) == "Locked") {
-            lock.setText("Unlock Account");
-        } else {
-            lock.setText("Lock Account");
-        }
-
-
-    }//GEN-LAST:event_cTableMouseClicked
+    }//GEN-LAST:event_eTableMouseClicked
 
     private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased
         String lenth = searchBar.getText().trim();
         if (lenth.length() == 0) {
             clearTable();
             try {
-                connect.search_all_cashiers("cashier_login");
+                connect.search_all_cashiers("emplyoees");
             } catch (Exception ex) {
-                Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         try {
             clearTable();
-            connect.search_every_cashier(lenth , "cashier_login");
+            connect.search_every_cashier(lenth , "emplyoees");
         } catch (Exception ex) {
-            Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_searchBarKeyReleased
 
@@ -333,33 +271,11 @@ public class cashiers extends javax.swing.JFrame {
 
         try {
             clearTable();
-            connect.search_every_cashier(code , "cashier_login");
+            connect.search_every_cashier(code , "emplyoees");
         } catch (Exception ex) {
-            Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_searchActionPerformed
-
-    private void lockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lockActionPerformed
-        try {
-            DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
-            int row = cTable.getSelectedRow();
-
-            if (cTable.getValueAt(row, 6) == "Locked") {
-                boolean if_ok = connect.activeCashier(cTable.getValueAt(row, 0).toString(), 1);
-                JOptionPane.showMessageDialog(null, "Account unlocked !");
-                lock.setText("Lock Account");
-                connect.search_all_cashiers("cashier_login");
-            } else {
-                boolean if_ok = connect.activeCashier(cTable.getValueAt(row, 0).toString(), 0);
-                JOptionPane.showMessageDialog(null, "Account locked !");
-                lock.setText("Lock Account");
-                connect.search_all_cashiers("cashier_login");
-            }
-
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Please select a Cashier !");
-        }
-    }//GEN-LAST:event_lockActionPerformed
 
     /**
      * @param args the command line arguments
@@ -392,13 +308,13 @@ public class cashiers extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new cashiers().setVisible(true);
+                new emplyoees().setVisible(true);
             }
         });
     }
 
     public static void clearTable() {
-        DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
+        DefaultTableModel delas = (DefaultTableModel) eTable.getModel();
 
         while (delas.getRowCount() > 0) {
             delas.removeRow(0);
@@ -407,30 +323,27 @@ public class cashiers extends javax.swing.JFrame {
 
     //THIS METHOD WILL ADD A NEW ROWTO J TABLE USING dealdata ARRAY WHICH IS PASSED BY Search_Every_Field METHOD
     public static void dealItemsToTable(String[] dealData) {
-        DefaultTableModel delas = (DefaultTableModel) cTable.getModel();
+        DefaultTableModel delas = (DefaultTableModel) eTable.getModel();
         delas.addRow(dealData);
 
     }
 
     //btns disabling
     static void brnhandler() {
-        viewItem.setEnabled(false);
         update.setEnabled(false);
         delete.setEnabled(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JTable cTable;
     private javax.swing.JLabel cusName;
     private static javax.swing.JButton delete;
+    public static javax.swing.JTable eTable;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private static javax.swing.JButton lock;
     private javax.swing.JButton newBorrower;
     private javax.swing.JButton search;
     private javax.swing.JTextField searchBar;
     private static javax.swing.JButton update;
-    private static javax.swing.JButton viewItem;
     // End of variables declaration//GEN-END:variables
 }

@@ -67,7 +67,7 @@ public class loanPay extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Borrower Payments");
+        jLabel1.setText("Debt Payments");
         jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
@@ -330,26 +330,22 @@ public class loanPay extends javax.swing.JFrame {
     }//GEN-LAST:event_payActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-      String staticPayment = payAmount.getText().trim(); //customer payment amount
-      String lenth = payAmount.getText().trim(); //customer payment amount
-      payAmount.setText("");
-      
-      
-        if(!lenth.equals(""))
+
+        if(!payAmount.getText().trim().equals(""))
                 {
                         try {
                                 
                             try
                                 {
-                                    payment.setText(String.valueOf(new BigDecimal(lenth) .add(new BigDecimal(payment.getText()))));
+                                    payment.setText(payAmount.getText());
                                 }
                             catch(Exception e)
                                 {
-                                    payment.setText(String.valueOf(new BigDecimal(lenth)));
+                                    payment.setText(String.valueOf(new BigDecimal(payAmount.getText().trim())));
                                 }
                                 
-                                BigDecimal cash = new BigDecimal(staticPayment);
-                                int decision = cash.compareTo(new BigDecimal( total.getText())); //big decimal value comparison  payment & dueAmount
+                                BigDecimal cash = new BigDecimal(payAmount.getText().trim());
+                                int decision = cash.compareTo(due); //big decimal value comparison  payment & dueAmount
 
                                 switch (decision) {
                                     case 0:
@@ -362,7 +358,7 @@ public class loanPay extends javax.swing.JFrame {
 
                                     case 1:
 
-                                        balance.setText(cash.subtract(new BigDecimal( total.getText())).toString());
+                                        balance.setText(cash.subtract(due).toString());
                                         total.setText( "0.0");
                                         payAmount.setText("");
 
@@ -370,7 +366,8 @@ public class loanPay extends javax.swing.JFrame {
 
                                     case -1:
 
-                                        total.setText(new BigDecimal( total.getText()).subtract(cash).toString());
+                                        total.setText(due.subtract(cash).toString());
+                                        
                                         balance.setText("0.0");
 
                                         break;
@@ -383,6 +380,7 @@ public class loanPay extends javax.swing.JFrame {
                             Logger.getLogger(loanPay.class.getName()).log(Level.SEVERE, null, ex);
                         }
                 }
+        payAmount.setText("");
     }//GEN-LAST:event_btnAddActionPerformed
 
     void paymentAmountProcess() throws Exception
@@ -458,10 +456,30 @@ public class loanPay extends javax.swing.JFrame {
                 
             default:
                 break;
-        }
+         }
              
+             //income date databse handling
+                            try {
+                                
+                                    //cheking is date avaible()
+                                    boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()) , true);
+
+                                    //if date is not exsit in database then create new row for the date either update exsising dat row
+                                    if (dateAvailability == true) {
+                                        // adding new sellprice amount to prevois cashprice and sell price amount
+                                        //new  sell price amounts are holded in controller class sellPrice variables
+                                        BigDecimal updated_sellPrice = (new BigDecimal(payment.getText().trim()).subtract(new BigDecimal(balance.getText().trim()))).add(controllers.sellPrice);
+                                        connect.incomedataUpdater( String.valueOf(updated_sellPrice), "sellIncome", String.valueOf(java.time.LocalDate.now()));
+                                    } else {
+                                        connect.Strore_incomedata(String.valueOf(new BigDecimal(payment.getText().trim()).subtract(new BigDecimal(balance.getText().trim()))) , "sellIncome",  String.valueOf(java.time.LocalDate.now()));
+                                    }
+
+                                    
+                            } catch (Exception ex) {
+                                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                            }
              
-        }
+    }
 
     
     

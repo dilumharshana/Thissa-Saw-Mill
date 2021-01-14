@@ -341,7 +341,7 @@ public class advanced extends javax.swing.JFrame {
                     if(rowcount>0)
                         {
                         try {
-                            BigDecimal totalGet = new BigDecimal(MAIN_FRAME.total.getText().trim()); //getting total bill amount from main frame jlable
+                            BigDecimal totalGet = MAIN_FRAME.statTotal; //getting total bill amount from main frame jlable
                             BigDecimal discountGet = new BigDecimal(MAIN_FRAME.discAmount.getText().trim());//getting discount amount from main frame jlable
                             
                             //calling to storeBorrowDealsDataIntoBase in dbconnector class to stor borrow deal data in to database
@@ -425,7 +425,6 @@ public class advanced extends javax.swing.JFrame {
                    try
                         {
                             MAIN_FRAME.refreshWindow();
-                            DefaultTableModel getRow = (DefaultTableModel)advancedTable.getModel();
                             connect.getAdvancetems(advancedTable.getValueAt( row ,0).toString() , false);
                             
                         }
@@ -437,15 +436,21 @@ public class advanced extends javax.swing.JFrame {
                    
             //setting cash amout to billoing panel
             
-     //subtracting advanced from total billa amount       
-      MAIN_FRAME.staticTotal.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString()) .subtract(new BigDecimal(advancedTable.getValueAt( row ,7).toString()))));
-            MAIN_FRAME.total.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString()) .subtract(new BigDecimal(advancedTable.getValueAt( row ,7).toString()))));
-            MAIN_FRAME.discAmount.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,6).toString())));
+     //subtracting advanced from total billa amount     
+            MAIN_FRAME.advanced = new BigDecimal(advancedTable.getValueAt( row ,7).toString());
+            MAIN_FRAME.staticTotal.setText("Rs. "+String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString())));
+            MAIN_FRAME.lbl_advanced.setText(" Advanced : "+ advancedTable.getValueAt( row ,7).toString().toString());
+            MAIN_FRAME.lbl_advanced.setVisible(true);
+            MAIN_FRAME.lbl_discount.setText(" Discounted : "+ advancedTable.getValueAt( row ,6).toString().toString());
+            MAIN_FRAME.lbl_discount.setVisible(true);
+            MAIN_FRAME.total.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString()) .subtract(new BigDecimal(advancedTable.getValueAt( row ,7).toString()).add(new BigDecimal(advancedTable.getValueAt( row ,6).toString())))));
+            MAIN_FRAME.discAmount.setText(advancedTable.getValueAt( row ,6).toString());
+            
+            dispose();
     }//GEN-LAST:event_paymentActionPerformed
 
     private void advancedTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_advancedTableMouseClicked
        
-         DefaultTableModel borrower = (DefaultTableModel) advancedTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
          int borrowerRow = advancedTable.getSelectedRow(); 
          cusName.setText(advancedTable.getValueAt(borrowerRow,1).toString());
         

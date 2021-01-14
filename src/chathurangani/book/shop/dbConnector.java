@@ -98,10 +98,10 @@ public class dbConnector {
     static BigDecimal[] stockitemsInts = new BigDecimal[1];
     static String[] stockitemsString = new String[3];
 
-    public void itemsForSelling(String what) throws Exception {
+    public void itemsForSelling( String what) throws Exception {
 
-        String query1 = "SELECT * from `bookshop`.`stocks` where itemcode= ";
-        String query2 = "SELECT * from `bookshop`.`stocks` where name= ";
+        String query1 = "SELECT * from `bookshop`.`"+"stocks"+"` where itemcode= ";
+        String query2 = "SELECT * from `bookshop`.`"+"stocks"+"` where name= ";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -113,7 +113,6 @@ public class dbConnector {
 
             stockitemsString[0] = rs.getString("itemcode");
             stockitemsString[1] = rs.getString("name");
-
             stockitemsInts[0] = rs.getBigDecimal("sellprice");
 
             //Assigning values in to string array (item set) in controllers class
@@ -132,7 +131,6 @@ public class dbConnector {
 
                 stockitemsString[0] = rs2.getString("itemcode");
                 stockitemsString[1] = rs2.getString("name");
-
                 stockitemsInts[0] = rs2.getBigDecimal("sellprice");
 
                 //Assigning values in to string array (item set) in controllers class
@@ -393,9 +391,9 @@ public class dbConnector {
     }
 
     //CASH DEALS IN TO DATA BASE 
-    public void storeCashDealsDataIntoBase(BigDecimal[] Gotvalues) throws ClassNotFoundException, SQLException {
+    public void storeCashDealsDataIntoBase(BigDecimal[] Gotvalues , String name) throws ClassNotFoundException, SQLException {
 
-        String query = "INSERT INTO `bookshop`.`cashdeals` (`TotaltValue`, `DiscountValue`, `paymentValue`, `BalanceValue` ,`date`) VALUES ('" + Gotvalues[0] + "', '" + Gotvalues[1] + "', '" + Gotvalues[2] + "', '" + Gotvalues[3] + "' ,'" + java.time.LocalDate.now() + "');";
+        String query = "INSERT INTO `bookshop`.`cashdeals` (`TotaltValue`, `DiscountValue`, `paymentValue`, `BalanceValue`, `advanced` ,`date`,`name`) VALUES ('" + Gotvalues[0] + "', '" + Gotvalues[1] + "', '" + Gotvalues[2] + "', '" + Gotvalues[3] + "', '" + Gotvalues[4] + "' ,'" + java.time.LocalDate.now() + "' ,'" + name + "');";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -918,7 +916,7 @@ public class dbConnector {
     }
 
     //removing borrower deals from the database  
-    void clearBorrows(String primaryKey, boolean which) throws Exception {
+    void clearBorrows(String primaryKey, int which) throws Exception {
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -928,14 +926,23 @@ public class dbConnector {
         String query2 = "DELETE FROM `bookshop`.`borrow` WHERE (`dealNo` = '" + primaryKey + "');";
         String query3 = "DELETE FROM `bookshop`.`payments`  WHERE (`dealNo` = '" + primaryKey + "');";
         String query = "DELETE FROM `bookshop`.`cashier_login` WHERE (`no` = '" + primaryKey + "');";
+        String query4 = "DELETE FROM `bookshop`.`emplyoees` WHERE (`no` = '" + primaryKey + "');";
 
-        if (which == true) {
+        if (which == 0) // deleting borrowers
+        {
             st2.executeUpdate(query3);
             st2.executeUpdate(query2);
             JOptionPane.showMessageDialog(null, " Borrower deleted successfully !");
-        } else {
+        } 
+        else if(which == 1) //deleting cashiers
+        {
             st2.executeUpdate(query);
             JOptionPane.showMessageDialog(null, " Cashier deleted successfully !");
+        }
+        else //deleting employees
+        {
+            st2.executeUpdate(query4);
+            JOptionPane.showMessageDialog(null, " Employee deleted successfully !");
         }
 
         st.close();
@@ -1003,22 +1010,31 @@ public class dbConnector {
     }
 
     //UPDATE STOCK METHOD which has string data types
-    public void updateBorrowerData(String colomn, String value, String PrimaryKey, boolean which) throws Exception {
+    public void updateBorrowerData(String colomn, String value, String PrimaryKey, int which) throws Exception {
 
         //borrowers
         String query = "UPDATE `bookshop`.`borrow` SET `" + colomn + "` = '" + value + "' WHERE (`dealNo` = '" + PrimaryKey + "');";
 
         //cashiers
         String query2 = "UPDATE `bookshop`.`cashier_login` SET `" + colomn + "` = '" + value + "' WHERE (`no` = '" + PrimaryKey + "');";
+        
+        //employees
+         String query3 = "UPDATE `bookshop`.`emplyoees` SET `" + colomn + "` = '" + value + "' WHERE (`no` = '" + PrimaryKey + "');";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
         Statement st = con.createStatement();
 
-        if (which == true) {
+        if (which == 0) {
              st.executeUpdate(query);
-        } else {
+        } 
+        else if(which == 1) 
+        {
              st.executeUpdate(query2);
+        }
+        else
+        {
+            st.executeUpdate(query3);
         }
 
         JOptionPane.showMessageDialog(null, "Detail updated successfully !");
@@ -1115,9 +1131,7 @@ public class dbConnector {
 
         String query = "SELECT * FROM bookshop.outgoing WHERE (`date` = '" + date + "');";
         String query2 = "SELECT * FROM bookshop.incomedata WHERE (`date` = '" + date + "');";
-        String query3 = "SELECT * FROM bookshop.borrow WHERE (`date` = '" + date + "');"; 
-        String query4 = "SELECT * FROM bookshop.cashitems WHERE (`itemCode` = '" + "50" + "');";
-        String query5 = "SELECT * FROM bookshop.cashitems WHERE (`itemCode` = '" + "50" + "');";
+        String query3 = "SELECT * FROM bookshop.cashitems WHERE (`itemCode` = '" + "50" + "' AND `date` = '" + date + "');";
         
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
@@ -1132,19 +1146,16 @@ public class dbConnector {
         ResultSet rs2 = st.executeQuery(query2); //execute query 2
         
         if (rs2.next()) {
-            report.totalsell.setText(new BigDecimal(report.totalsell.getText()).add(rs2.getBigDecimal("sellIncome")).toString()); //income amount
+            report.totalsell.setText(rs2.getBigDecimal("sellIncome").toString()); //income amount
+            report.lend.setText(rs2.getBigDecimal("borrowing").toString()); //lending amount
         } else {
             JOptionPane.showMessageDialog(null, " No Date Excist !");
         }
-        
-        ResultSet rs3 = st.executeQuery(query3); //execute query 1
-         while (rs3.next()) {
-            report.lend.setText(new BigDecimal(report.lend.getText()).add(rs3.getBigDecimal("total")).toString()); //lending amount
-        }
+
          
-         ResultSet rs4 = st.executeQuery(query4); //execute query 1
-         while (rs4.next()) {
-            report.woodpowder.setText(new BigDecimal(report.woodpowder.getText()).add(rs4.getBigDecimal("price")).toString()); //wood powder amount
+         ResultSet rs3 = st.executeQuery(query3); //execute query 1
+         while (rs3.next()) {
+            report.woodpowder.setText(new BigDecimal(report.woodpowder.getText()).add(rs3.getBigDecimal("price")).toString()); //wood powder amount
         }
 
 
@@ -1200,17 +1211,27 @@ public class dbConnector {
 
     //Adding new casher to system
     // //BORROW DEALS IN TO DATA BASE 
-    public int addNewCasher(String[] nameContact) throws ClassNotFoundException , SQLException {
+    public int addNewCasher(String[] nameContact , String table) throws ClassNotFoundException , SQLException {
 
         int key = 0;
 
-        String query = "INSERT INTO `bookshop`.`cashier_login` (`name`, `phone`, `id`, `address`, `pass`, `state`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + nameContact[4] + "', '" + 1 + "');";
+        String query = "INSERT INTO `bookshop`.`"+table+"` (`name`, `phone`, `id`, `address`, `pass`, `state`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + nameContact[4] + "', '" + 1 + "');";
 
+        String query2 = "INSERT INTO `bookshop`.`"+table+"` (`name`, `phone`, `nic`, `address`, `salary`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + nameContact[4] + "');";
+       
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
         Statement st = con.createStatement();
 
-        st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS); //inserting values and Getting autoincremented dealno to insert items to item table,
+        if( table=="cashier_login") //inserting cashier data to casher login table
+            {
+                st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS); //inserting values and Getting autoincremented dealno to insert items to item table,
+            }
+        else //inserting emplyoee data to emplyoee 
+            {
+               st.executeUpdate(query2, Statement.RETURN_GENERATED_KEYS); //inserting values and Getting autoincremented dealno to insert items to item table,
+            }
+        
 
         ResultSet rs = st.getGeneratedKeys();
         rs.next();
@@ -1223,10 +1244,10 @@ public class dbConnector {
     }
 
     //SEARCHING FOR BORROWERS
-    public void search_all_cashiers() throws Exception {
+    public void search_all_cashiers(String table) throws Exception {
 
         {
-            String query = "SELECT * FROM bookshop.cashier_login;";
+            String query = "SELECT * FROM bookshop."+table+";";
 
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(url, uname, pass);
@@ -1234,83 +1255,134 @@ public class dbConnector {
             ResultSet rs = st.executeQuery(query);
 
             String[] customer = new String[7];
-            cashiers.clearTable();
+         
+            if( table == "cashier_login") //getting data from cashiers
+                {
+                       cashiers.clearTable();
 
-            while (rs.next()) {
-                customer[0] = rs.getString("no");
-                customer[1] = rs.getString("name");
-                customer[2] = rs.getString("phone");
-                customer[3] = rs.getString("id");
-                customer[4] = rs.getString("address");
-                customer[5] = rs.getString("pass");
+                        while (rs.next()) {
+                            customer[0] = rs.getString("no");
+                            customer[1] = rs.getString("name");
+                            customer[2] = rs.getString("phone");
+                            customer[3] = rs.getString("id");
+                            customer[4] = rs.getString("address");
+                            customer[5] = rs.getString("pass");
 
-                if (rs.getBoolean("state") == true) {
-                    customer[6] = "Active";
-                } else {
-                    customer[6] = "Locked";
+                            if (rs.getBoolean("state") == true) {
+                                customer[6] = "Active";
+                            } else {
+                                customer[6] = "Locked";
+                            }
+
+                           cashiers.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
+                        }
                 }
+            else // getting data from employees
+                {
+                     emplyoees.clearTable();
 
-                cashiers.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
-            }
+                        while (rs.next()) {
+                            customer[0] = rs.getString("no");
+                            customer[1] = rs.getString("name");
+                            customer[2] = rs.getString("phone");
+                            customer[3] = rs.getString("nic");
+                            customer[4] = rs.getString("address");
+                            customer[5] = String.valueOf(rs.getBigDecimal("salary"));
+
+                           emplyoees.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
+                        }
+                }
 
         }
     }
 
     //searching for all cashiers
     // THIS METHOD WILL SEARCH CUSTOMER DETAILS OF borrowers FROM DATABASE 
-    public void search_every_cashier(String code) throws SQLException, ClassNotFoundException {
+    public void search_every_cashier(String code , String table) throws SQLException, ClassNotFoundException {
 
-        String Query1 = "SELECT * FROM bookshop.cashier_login WHERE no = '" + code + "';"; // code means customer name which wants to search from DB
-        String Query2 = "SELECT * FROM bookshop.cashier_login WHERE  name LIKE '%" + code + "%';";
+        String Query1 = "SELECT * FROM bookshop."+table+" WHERE no = '" + code + "';"; // code means customer name which wants to search from DB
+        String Query2 = "SELECT * FROM bookshop."+table+" WHERE  name LIKE '%" + code + "%';";
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection(url, uname, pass);
         Statement st = con.createStatement();
 
-        String[] customer = new String[11]; // result containing list
+        String[] customer = new String[7]; // result containing list
 
         //genereating results from all sugessted fields
         ResultSet rs2 = st.executeQuery(Query2);
 
-        while (rs2.next()) {
+        if(table == "cashier_login") //taking cashier data
+            {
+                      while (rs2.next()) {
 
-            customer[0] = rs2.getString("no");
-            customer[1] = rs2.getString("name");
-            customer[2] = rs2.getString("phone");
-            customer[3] = rs2.getString("id");
-            customer[4] = rs2.getString("address");
-            customer[5] = rs2.getString("pass");
+                        customer[0] = rs2.getString("no");
+                        customer[1] = rs2.getString("name");
+                        customer[2] = rs2.getString("phone");
+                        customer[3] = rs2.getString("id");
+                        customer[4] = rs2.getString("address");
+                        customer[5] = rs2.getString("pass");
 
-            if (rs2.getBoolean("state") == true) {
-                customer[6] = "Active";
-            } else {
-                customer[6] = "Locked";
+                        if (rs2.getBoolean("state") == true) {
+                            customer[6] = "Active";
+                        } else {
+                            customer[6] = "Locked";
+                        }
+
+                        cashiers.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
+                    }
+
+                    ResultSet rs = st.executeQuery(Query1);
+                    if (rs.next()) // IF ITEM CODE AVAILABLe THIS SECTION WILL RUN
+                    {
+
+                        customer[0] = rs.getString("no");
+                        customer[1] = rs.getString("name");
+                        customer[2] = rs.getString("phone");
+                        customer[3] = rs.getString("id");
+                        customer[4] = rs.getString("address");
+                        customer[5] = rs.getString("pass");
+
+                        if (rs.getBoolean("state") == true) {
+                            customer[6] = "Active";
+                        } else {
+                            customer[6] = "Locked";
+                        }
+
+                        cashiers.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
+
+                    }
+
             }
+        else    //taking employee data
+            {
+                       while (rs2.next()) {
 
-            cashiers.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
-        }
+                        customer[0] = rs2.getString("no");
+                        customer[1] = rs2.getString("name");
+                        customer[2] = rs2.getString("phone");
+                        customer[3] = rs2.getString("nic");
+                        customer[4] = rs2.getString("address");
+                        customer[5] = rs2.getString("salary");
 
-        ResultSet rs = st.executeQuery(Query1);
-        if (rs.next()) // IF ITEM CODE AVAILABLe THIS SECTION WILL RUN
-        {
+                        emplyoees.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
+                    }
 
-            customer[0] = rs.getString("no");
-            customer[1] = rs.getString("name");
-            customer[2] = rs.getString("phone");
-            customer[3] = rs.getString("id");
-            customer[4] = rs.getString("address");
-            customer[5] = rs.getString("pass");
+                    ResultSet rs = st.executeQuery(Query1);
+                    if (rs.next()) // IF ITEM CODE AVAILABLe THIS SECTION WILL RUN
+                    {
 
-            if (rs.getBoolean("state") == true) {
-                customer[6] = "Active";
-            } else {
-                customer[6] = "Locked";
+                        customer[0] = rs.getString("no");
+                        customer[1] = rs.getString("name");
+                        customer[2] = rs.getString("phone");
+                        customer[3] = rs.getString("nic");
+                        customer[4] = rs.getString("address");
+                        customer[5] = rs.getString("salary");
+
+                        emplyoees.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
+
+                    }
             }
-
-            cashiers.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
-
-        }
-
     }
 
     //cashier password cheking
