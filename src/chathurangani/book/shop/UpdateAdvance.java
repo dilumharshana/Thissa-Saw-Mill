@@ -432,6 +432,7 @@ public class UpdateAdvance extends javax.swing.JFrame {
                     advanced.clearTable();
                     connect.search_all_advanced();
                     advanced.brnhandler();
+                    
         } catch (Exception ex) {
             Logger.getLogger(UpdateAdvance.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -478,6 +479,7 @@ public class UpdateAdvance extends javax.swing.JFrame {
 
               connect.updateAdvanceData("advanced" , "nic", nic.getText().trim(), primarykeyofdata);
               JOptionPane.showMessageDialog(null, "Detail updated successfully !");
+              recod("Updated NIC of the customer");
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -493,7 +495,7 @@ public class UpdateAdvance extends javax.swing.JFrame {
 
               connect.updateAdvanceData("advanced" ,"name", name.getText().trim(), primarykeyofdata);
               JOptionPane.showMessageDialog(null, "Detail updated successfully !");
-
+              recod("Updated Name of the customer");
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -509,6 +511,7 @@ public class UpdateAdvance extends javax.swing.JFrame {
 
               connect.updateAdvanceData( "advanced" ,"phone", contact.getText().trim(), primarykeyofdata);
               JOptionPane.showMessageDialog(null, "Detail updated successfully !");
+              recod("Updated Contact No of the customer");
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -619,7 +622,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
         try {
 
               connect.updateAdvanceData("advanced","address", address.getText().trim(), primarykeyofdata);
-              JOptionPane.showMessageDialog(null, "Detail updated successfully !");   
+              JOptionPane.showMessageDialog(null, "Detail updated successfully !"); 
+              recod("Updated Address of the customer");
         } catch (Exception ex) {
             Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -664,6 +668,7 @@ public class UpdateAdvance extends javax.swing.JFrame {
 
               connect.updateAdvanceData("advanced","advanced", advanceBox.getText().trim(), primarykeyofdata);
               JOptionPane.showMessageDialog(null, "Detail updated successfully !");
+              recod("Updated Advanced Amount No of the customer");
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -687,6 +692,20 @@ public class UpdateAdvance extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addressKeyTyped
 
+      void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
+      
     /**
      * @param args the command line arguments
      */

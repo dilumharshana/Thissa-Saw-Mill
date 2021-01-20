@@ -44,10 +44,11 @@ public class passget extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
         jLabel1.setText("Enter Password");
 
+        adminpass.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         adminpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 adminpassActionPerformed(evt);
@@ -59,7 +60,7 @@ public class passget extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 0, 0));
+        jButton1.setBackground(new java.awt.Color(0, 153, 204));
         jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jButton1.setText("LOGIN");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

@@ -39,7 +39,7 @@ public class emplyoees extends javax.swing.JFrame {
         setTitle("Deals");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 51));
+        jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
         searchBar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -91,6 +91,12 @@ public class emplyoees extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Employees");
+
+        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane2MouseClicked(evt);
+            }
+        });
 
         eTable.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         eTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -195,6 +201,7 @@ public class emplyoees extends javax.swing.JFrame {
 
             try {
                 connect.clearBorrows(primary, 2);
+                recod("Deleted "+String.valueOf(eTable.getValueAt(row, 0))+"from emplyooes"); 
             } catch (Exception ex) {
                 Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -212,6 +219,7 @@ public class emplyoees extends javax.swing.JFrame {
             {
                 newEmplyoee open = new newEmplyoee(false );
                 open.setVisible(true);
+                recod("Open new employee account creator window"); 
             }
         catch(Exception e)
             {
@@ -233,6 +241,7 @@ public class emplyoees extends javax.swing.JFrame {
 
             UpdateBorrowers open = new UpdateBorrowers(pk, name, tp, nice, address, salary , 2);
             open.setVisible(true);
+            recod("Opend employee data updator window for employee -"+name); 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Employee !");
         }
@@ -243,11 +252,25 @@ public class emplyoees extends javax.swing.JFrame {
         DefaultTableModel borrower = (DefaultTableModel) eTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
         int borrowerRow = eTable.getSelectedRow();
         cusName.setText(eTable.getValueAt(borrowerRow, 1).toString());
-
+        recod("Selected "+eTable.getValueAt(borrowerRow, 1).toString()+"from employees"); 
         update.setEnabled(true);
         delete.setEnabled(true);
     }//GEN-LAST:event_eTableMouseClicked
 
+     void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
+     
     private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased
         String lenth = searchBar.getText().trim();
         if (lenth.length() == 0) {
@@ -261,6 +284,7 @@ public class emplyoees extends javax.swing.JFrame {
         try {
             clearTable();
             connect.search_every_cashier(lenth , "emplyoees");
+            recod("Searched "+lenth+" fro employees");
         } catch (Exception ex) {
             Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -276,6 +300,10 @@ public class emplyoees extends javax.swing.JFrame {
             Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_searchActionPerformed
+
+    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane2MouseClicked
 
     /**
      * @param args the command line arguments

@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class dbConnector {
@@ -15,6 +17,30 @@ public class dbConnector {
     String uname = "root";
     String pass = "papapapa";
     String query, query2;
+    Connection con;
+    
+    //connection
+    void connect() throws Exception 
+    {
+        Class.forName("com.mysql.jdbc.Driver");
+        con = DriverManager.getConnection(url, uname, pass);
+    }
+    
+    
+    //for usage of some methods
+     void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
 
     //THIS METHOD WILL INSERT NEW ITEM DETAILS IN TO DATABASE
     void newItemToBase(String[] details, BigDecimal[] prices) throws Exception {
@@ -22,9 +48,11 @@ public class dbConnector {
         query = "INSERT INTO `bookshop`.`stocks` (`itemcode`, `name`, `stock`) VALUES (?,?,?);";
         query2 = "UPDATE `bookshop`.`stocks` SET `sellprice` = '" + prices[0] + "' WHERE (`itemcode` = '" + details[0] + "');";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
-
+        if(con == null)
+            {
+                connect();
+            }
+        
         PreparedStatement st = con.prepareStatement(query);
         Statement st2 = con.createStatement();
 
@@ -35,21 +63,20 @@ public class dbConnector {
 
         st.executeUpdate();
         st2.executeUpdate(query2);
-
-        st.close();
-        con.close();
-
     }
 
     //SEARCH ITEMS IN STOCKS  
-    public void searchIteminStock(String what) throws SQLException, ClassNotFoundException {
+    public void searchIteminStock(String what) throws Exception {
 
         System.out.println(what + " k");
         String query1 = "SELECT * from `bookshop`.`stocks` WHERE name LIKE '%" + what + "%'; ";
         String query2 = "SELECT * from `bookshop`.`stocks` where itemCode LIKE '%" + what + "%'; ";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery(query1);
 
@@ -90,8 +117,6 @@ public class dbConnector {
             stocks.itemsToTable(itemset, 0);
         }
 
-        st.close();
-        con.close();
     }
 
     //SEARCH ITEMS IN STOCKS  
@@ -103,8 +128,11 @@ public class dbConnector {
         String query1 = "SELECT * from `bookshop`.`"+"stocks"+"` where itemcode= ";
         String query2 = "SELECT * from `bookshop`.`"+"stocks"+"` where name= ";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery(query1 + "'" + what + "'" + ";");
 
@@ -148,8 +176,6 @@ public class dbConnector {
 
         }
 
-        st.close();
-        con.close();
     }
 
     //STOCK PANEL SHOW ALL BTN
@@ -160,8 +186,11 @@ public class dbConnector {
         String query3 = "SELECT * FROM `bookshop`.`cut_stocks` ;";
         String query4 = "SELECT * FROM `bookshop`.`stocks` WHERE `name` = 'kempas';";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         ResultSet rs = st.executeQuery(query); //selling stocks
@@ -176,7 +205,6 @@ public class dbConnector {
         //clearing all stocks table befor sending new data
         stocks.clearTable();
         stocks.clearTable_raw();
-        stocks.clearTable_cut();
         stocks.clear_kempasTable();
 
         while (rs.next()) {
@@ -230,20 +258,20 @@ public class dbConnector {
             String[] itemset = {stockitemsString[0], stockitemsString[1], String.valueOf(stockitemsString[3]), String.valueOf(stockitemsInts[0])};
             stocks.itemsToTable(itemset, 3);
         }
-
-        st.close();
-        con.close();
     }
 
     // SEARCH STOCK RUNNING OUT ITEMS ACCOUDINT TO CASHIER ENTERD VALUE 
-    public void searchForStockOutItems(int smallerthan, int index) throws ClassNotFoundException, SQLException {
+    public void searchForStockOutItems(int smallerthan, int index) throws Exception {
 
         String query = "SELECT * FROM `bookshop`.`stocks` where stock<" + smallerthan + ";";
         String query2 = "SELECT * FROM `bookshop`.`raw_stocks` where stock<" + smallerthan + ";";
         String query3 = "SELECT * FROM `bookshop`.`cut_stocks` where stock<" + smallerthan + ";";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        if(con == null)
+            {
+                connect();
+            }
+        
         Statement st = con.createStatement();
 
         ResultSet rs = st.executeQuery(query);
@@ -290,7 +318,6 @@ public class dbConnector {
 
             case 2: //cutting timber stock
                 ResultSet rs3 = st.executeQuery(query3); //cutting stocks
-                stocks.clearTable_cut(); // clearing cutiing stock table
                 while (rs3.next()) {
 
                     //this will make a emptyline after each result
@@ -305,8 +332,6 @@ public class dbConnector {
             //nothing
         }
 
-        st.close();
-        con.close();
     }
 
     //UPDATE STOCK METHOD which has BIGDECIMAL data types
@@ -316,13 +341,13 @@ public class dbConnector {
             System.out.println(table);
             String query = "UPDATE bookshop."+table+" SET `" + colomn + "` = '" + value + "' WHERE (`itemcode` = '" + PrimaryKey + "');";
 
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, uname, pass);
+            if(con == null)
+            {
+                connect();
+            }
+            
             Statement st = con.createStatement();
             st.executeUpdate(query);
-
-            st.close();
-            con.close();
 
         return stock;
 
@@ -332,52 +357,58 @@ public class dbConnector {
     public void updateStockitemsStrings(String table, String colomn, String value, String PrimaryKey) throws Exception {
         String query = "UPDATE `bookshop`.`"+table+"` SET `" + colomn + "` = '" + value + "' WHERE (`itemcode` = '" + PrimaryKey + "');";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
         st.executeUpdate(query);
-        st.close();
-        con.close();
 
     }
 
     //DELETE DATA FROM STORE
-    public void deleteData(String primaryKey, String tablename ) throws ClassNotFoundException, SQLException {
+    public void deleteData(String primaryKey, String tablename ) throws Exception {
         String query = "DELETE FROM `bookshop`.`"+tablename+"` WHERE (`itemcode` = '" + primaryKey + "');";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
         int updated = st.executeUpdate(query);
         JOptionPane.showMessageDialog(null, "Item Deleted Successfully !");
 
-        st.close();
-        con.close();
     }
 
     //getting item price from db
-    public String searchItemPrice(String what) throws SQLException, ClassNotFoundException {
+    public String searchItemPrice(String what) throws Exception {
 
         String query = "SELECT cashprice from `bookshop`.`stocks` where itemcode=";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery(query + "'" + what + "'" + ";");
         rs.next();
         String findprice = rs.getString("cashprice");
-        st.close();
-        con.close();
+
         return findprice;
     }
 
     //getting item stock from db
-    public int searchItemStock(String what) throws SQLException, ClassNotFoundException {
+    public int searchItemStock(String what) throws Exception {
 
         String query = "SELECT stock from `bookshop`.`stocks` where itemcode=";
         int findStock = 0;
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        if(con == null)
+            {
+                connect();
+            }
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery(query + "'" + what + "'" + ";");
 
@@ -385,18 +416,19 @@ public class dbConnector {
             findStock = rs.getInt("stock");
         }
 
-        st.close();
-        con.close();
         return findStock;
     }
 
     //CASH DEALS IN TO DATA BASE 
-    public void storeCashDealsDataIntoBase(BigDecimal[] Gotvalues , String name) throws ClassNotFoundException, SQLException {
+    public void storeCashDealsDataIntoBase(BigDecimal[] Gotvalues , String name) throws Exception {
 
-        String query = "INSERT INTO `bookshop`.`cashdeals` (`TotaltValue`, `DiscountValue`, `paymentValue`, `BalanceValue`, `advanced` ,`date`,`name`) VALUES ('" + Gotvalues[0] + "', '" + Gotvalues[1] + "', '" + Gotvalues[2] + "', '" + Gotvalues[3] + "', '" + Gotvalues[4] + "' ,'" + java.time.LocalDate.now() + "' ,'" + name + "');";
-
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        String query = "INSERT INTO `bookshop`.`cashdeals` (`subtotatl` , `TotaltValue`, `DiscountValue`, `paymentValue`, `BalanceValue`, `advanced` ,`date`,`name`) VALUES ('" + Gotvalues[5] + "','" + Gotvalues[0] + "', '" + Gotvalues[1] + "', '" + Gotvalues[2] + "', '" + Gotvalues[3] + "', '" + Gotvalues[4] + "' ,'" + java.time.LocalDate.now() + "' ,'" + name + "');";
+        System.out.println(Gotvalues[5]);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS); //inserting values and Getting autoincremented dealno to insert items to item table,
@@ -405,8 +437,6 @@ public class dbConnector {
         rs.next();
         controllers.primaryKeyOfdealsData = String.valueOf(rs.getInt(1)); //stroting returned deal no to use latar.
 
-        st.close();
-        con.close();
     }
 
     //storing income data
@@ -423,8 +453,11 @@ public class dbConnector {
                 query = "INSERT INTO `bookshop`.`incomedata` (`sellIncome`, `date`, `borrowing`) VALUES ('0.0', '"+date+"', '"+sprice+"');";
             }
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         st.executeUpdate(query);
@@ -433,8 +466,10 @@ public class dbConnector {
     //update incomedate
     public void incomedataUpdater(String sprice, String incomeType , String date ) throws Exception {
         String query = "UPDATE `bookshop`.`incomedata` SET `"+incomeType+"` = '" + sprice + "' WHERE (`date` = '" + date + "');";
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
         Statement st = con.createStatement();
 
         st.executeUpdate(query);
@@ -442,26 +477,29 @@ public class dbConnector {
     }
 
     //INSERTING DEAL ITEMS DEATILS ITEM CODE ITEM NAME QUANTITIY PRICE
-    public void storeCashDealItemsIntoDataBase(String primarykey, String icode, String iname, BigDecimal price, String quantity, BigDecimal total) throws ClassNotFoundException, SQLException {
+    public void storeCashDealItemsIntoDataBase(String primarykey, String icode, String iname, BigDecimal price, String quantity, BigDecimal total) throws Exception {
         String query = "INSERT INTO `bookshop`.`cashitems` (`dealNo`, `itemCode`, `itemName`,`itemPrice`, `quantity`, `price`)  VALUES ('" + primarykey + "', '" + icode + "', '" + iname + "', '" + price + "', '" + quantity + "' , '" + total + "');";
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        if(con == null)
+            {
+                connect();
+            }
         Statement st = con.createStatement();
         st.executeUpdate(query);
 
-        st.close();
-        con.close();
     }
 
     // //BORROW DEALS IN TO DATA BASE 
-    public int storeBorrowDealsDataIntoBase(String[] nameContact, BigDecimal[] defaultsValues) throws ClassNotFoundException, SQLException {
+    public int storeBorrowDealsDataIntoBase(String[] nameContact, BigDecimal[] defaultsValues) throws Exception {
 
         int key = 0;
 
         String query = "INSERT INTO `bookshop`.`borrow` (`name`,`tp`,`nic` , `address` , `discount` , `total` ) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + defaultsValues[0] + "', '" + defaultsValues[1] + "');";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS); //inserting values and Getting autoincremented dealno to insert items to item table,
@@ -470,55 +508,54 @@ public class dbConnector {
         rs.next();
         controllers.primaryKeyOfdealsData = String.valueOf(rs.getInt(1)); //stroting returned deal no to use latar.
 
-        st.close();
-        con.close();
-
         return key;
     }
 
     // //Advanced DEALS IN TO DATA BASE     //OVERLOADING
-    public int store_advanced_DealsDataIntoBase(BigDecimal[] values, String pk) throws ClassNotFoundException, SQLException {
+    public int store_advanced_DealsDataIntoBase(BigDecimal[] values, String pk) throws Exception {
 
         int key = 0;
 
         String query = "UPDATE `bookshop`.`advanced` SET `discount` = '" + values[0] + "', `total` = '" + values[1] + "'  WHERE (`dealNo` = '" + pk + "');";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         st.executeUpdate(query); //inserting values and Getting autoincremented dealno to insert items to item table,
-
-        st.close();
-        con.close();
 
         return key;
     }
     
        // //borrower DEALS IN TO DATA BASE     //OVERLOADING
-    public int storeBorrowDealsDataIntoBase(BigDecimal[] values, String pk) throws ClassNotFoundException, SQLException {
+    public int storeBorrowDealsDataIntoBase(BigDecimal[] values, String pk) throws Exception {
 
         int key = 0;
 
         String query = "UPDATE `bookshop`.`borrow` SET `discount` = '" + values[0] + "', `total` = '" + values[1] + "' , `date` = '" + java.time.LocalDate.now().toString() + "'  WHERE (`dealNo` = '" + pk + "');";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        if(con == null)
+            {
+                connect();
+            }
+        
         Statement st = con.createStatement();
 
         st.executeUpdate(query); //inserting values and Getting autoincremented dealno to insert items to item table,
-
-        st.close();
-        con.close();
 
         return key;
     }
 
     //INSERTING DEAL ITEMS DEATILS ITEM CODE ITEM NAME QUANTITIY PRICE
-    public void storeDealItemsIntoDataBase(String primarykey, String icode, String iname, String quantity, BigDecimal price , BigDecimal total) throws ClassNotFoundException, SQLException {
+    public void storeDealItemsIntoDataBase(String primarykey, String icode, String iname, String quantity, BigDecimal price , BigDecimal total) throws Exception {
         String query = "INSERT INTO `bookshop`.`advanceditems` (`dealNo`, `itemCode`, `itemName`, `quantity`, `price` , `total`) VALUES ('" + primarykey + "', '" + icode + "', '" + iname + "', '" + quantity + "', '" + price + "' , '" + total + "');";
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        if(con == null)
+            {
+                connect();
+            }
         Statement st = con.createStatement();
         st.executeUpdate(query);
     }
@@ -562,8 +599,11 @@ public class dbConnector {
         {
             String query = "SELECT * FROM bookshop.borrow;";
 
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, uname, pass);
+             if(con == null)
+            {
+                connect();
+            }
+             
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
 
@@ -581,19 +621,23 @@ public class dbConnector {
                 customer[7] = rs.getString("date");
 
                 borrowers.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
+                
             }
 
         }
     }
 
     // THIS METHOD WILL SEARCH CUSTOMER DETAILS OF borrowers FROM DATABASE 
-    public void search_every_field(String code) throws SQLException, ClassNotFoundException {
+    public void search_every_field(String code) throws Exception {
 
         String Query1 = "SELECT * FROM bookshop.borrow WHERE dealno = '" + code + "';"; // code means customer name which wants to search from DB
         String Query2 = "SELECT * FROM bookshop.borrow WHERE  name LIKE '%" + code + "%';";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         String[] customer = new String[11]; // result containing list
@@ -635,12 +679,15 @@ public class dbConnector {
     }
 
     // THIS METHOD WILL SEARCH CUSTOMER DETAILS FROM DATABASE
-    public void search_every_field_By_Code(String code) throws SQLException, ClassNotFoundException {
+    public void search_every_field_By_Code(String code) throws Exception {
 
         String Query1 = "SELECT * FROM bookshop.cashdeals WHERE dealno = '" + code + "';"; // code means customer name which wants to search from DB
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
         ResultSet rs2 = st.executeQuery(Query1);
         String[] customer = new String[6]; // result containing list
@@ -660,12 +707,15 @@ public class dbConnector {
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void search_for_deals(String code) throws SQLException, ClassNotFoundException {
+    public void search_for_deals(String code) throws Exception {
 
         String Query1 = "SELECT * FROM bookshop.cashdeals WHERE dealNo = '" + code + "';"; // code means customer name which wants to search from DB
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         String[] customer = new String[11]; // result containing list
@@ -688,12 +738,15 @@ public class dbConnector {
     }
 
     //search allresults in databse
-    public void search_for_deals() throws SQLException, ClassNotFoundException {
+    public void search_for_deals() throws Exception {
 
         String Query1 = "SELECT * FROM bookshop.cashdeals ;"; // code means customer name which wants to search from DB
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        if(con == null)
+            {
+                connect();
+            }
+        
         Statement st = con.createStatement();
 
         String[] customer = new String[11]; // result containing list
@@ -716,11 +769,14 @@ public class dbConnector {
     }
 
     //getting each borrowing item accorfing to customer when user select a deal
-    public void getDealItems(String code) throws ClassNotFoundException, SQLException {
+    public void getDealItems(String code) throws Exception {
         String query1 = "SELECT * FROM bookshop.payments WHERE `cusCode`=" + code + ";";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         String[] itemDetails = new String[4];
@@ -744,8 +800,11 @@ public class dbConnector {
 
         String query = "SELECT * FROM bookshop.pass WHERE `pass`= ? ;";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         PreparedStatement st = con.prepareStatement(query);
         st.setString(1, password);
         ResultSet rs = st.executeQuery();
@@ -756,9 +815,6 @@ public class dbConnector {
             passVeryfied = false;
         }
 
-        st.close();
-        con.close();
-
         return passVeryfied;
     }
 
@@ -766,16 +822,16 @@ public class dbConnector {
     void changePass(String oldPass, String newpass) throws Exception {
         String query = " UPDATE `bookshop`.`pass` SET `pass` = '" + newpass + "' WHERE (`Id` = '1');";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         st.executeUpdate(query);
 
         JOptionPane.showMessageDialog(null, " PASSWORD SUCCESSFULLY UPDATE !");
-
-        st.close();
-        con.close();
 
     }
 
@@ -786,8 +842,11 @@ public class dbConnector {
         String query3 = "UPDATE `bookshop`.`pass` SET `question` = '" + question + "' WHERE (`Id` = '1');";
         String query4 = "UPDATE `bookshop`.`pass` SET `answer` = '" + answer + "' WHERE (`Id` = '1');";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        if(con == null)
+            {
+                connect();
+            }
+        
         Statement st = con.createStatement();
 
         st.executeUpdate(query);
@@ -797,9 +856,6 @@ public class dbConnector {
 
         JOptionPane.showMessageDialog(null, " PASSWORD SUCCESSFULLY UPDATE !");
 
-        st.close();
-        con.close();
-
     }
 
     //cheking is password is in active state 
@@ -808,8 +864,11 @@ public class dbConnector {
 
         String query = " SELECT * FROM bookshop.pass;";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         ResultSet rs = st.executeQuery(query);
@@ -823,9 +882,6 @@ public class dbConnector {
             locked = false;
         }
 
-        st.close();
-        con.close();
-
         return locked;
     }
 
@@ -834,8 +890,11 @@ public class dbConnector {
         String query = " UPDATE `bookshop`.`pass` SET `pass` = '' WHERE (`Id` = '1');";
         String query2 = "UPDATE `bookshop`.`pass` SET `passState` = '0' WHERE (`Id` = '1');";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         st.executeUpdate(query);
@@ -843,8 +902,6 @@ public class dbConnector {
 
         JOptionPane.showMessageDialog(null, " PASSWORD REMOVED UPDATE !");
 
-        st.close();
-        con.close();
     }
 
     // CHEKIKNG IS USER GIVEN PASSWORD IS EXSISTS IN DB
@@ -854,8 +911,11 @@ public class dbConnector {
         String query = "SELECT * FROM bookshop.pass WHERE `question`= ? ;";
         String query2 = "SELECT * FROM bookshop.pass WHERE `answer`= ? ;";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        if(con == null)
+            {
+                connect();
+            }
+        
         ResultSet rs = null;
         PreparedStatement st = null;
 
@@ -875,8 +935,6 @@ public class dbConnector {
             qestionVeryfied = false;
         }
 
-        st.close();
-        con.close();
 
         return qestionVeryfied;
     }
@@ -886,8 +944,11 @@ public class dbConnector {
         String query = "SELECT * FROM bookshop.cashdeals;";
         String query_incomeData = "SELECT * FROM bookshop.incomedata;";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement(); // for get primary key
         Statement st2 = con.createStatement(); //for remove data
 
@@ -911,15 +972,16 @@ public class dbConnector {
 
         JOptionPane.showMessageDialog(null, " Deal deleted successfully !");
 
-        st.close();
-        con.close();
     }
 
     //removing borrower deals from the database  
     void clearBorrows(String primaryKey, int which) throws Exception {
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement(); // for get primary key
         Statement st2 = con.createStatement(); //for remove data
 
@@ -945,8 +1007,6 @@ public class dbConnector {
             JOptionPane.showMessageDialog(null, " Employee deleted successfully !");
         }
 
-        st.close();
-        con.close();
     }
 
     boolean chekNewBarCode(int newCode) throws Exception {
@@ -954,8 +1014,11 @@ public class dbConnector {
 
         String query = "SELECT * FROM bookshop.stocks WHERE `itemcode`= ? ;";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         PreparedStatement st = con.prepareStatement(query);
         st.setInt(1, newCode);
         ResultSet rs = st.executeQuery();
@@ -965,9 +1028,6 @@ public class dbConnector {
         } else {
             state = true;
         }
-
-        st.close();
-        con.close();
 
         return state;
     }
@@ -980,8 +1040,11 @@ public class dbConnector {
 
         String query ="SELECT * FROM bookshop.incomedata WHERE `date`= ? ;";
           
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        if(con == null)
+            {
+                connect();
+            }
+        
         PreparedStatement st = con.prepareStatement(query);
         st.setString(1, date);
         ResultSet rs = st.executeQuery();
@@ -1003,9 +1066,6 @@ public class dbConnector {
             dateVeryfied = false;
         }
 
-        st.close();
-        con.close();
-
         return dateVeryfied;
     }
 
@@ -1021,8 +1081,11 @@ public class dbConnector {
         //employees
          String query3 = "UPDATE `bookshop`.`emplyoees` SET `" + colomn + "` = '" + value + "' WHERE (`no` = '" + PrimaryKey + "');";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        if(con == null)
+            {
+                connect();
+            }
+        
         Statement st = con.createStatement();
 
         if (which == 0) {
@@ -1039,8 +1102,6 @@ public class dbConnector {
 
         JOptionPane.showMessageDialog(null, "Detail updated successfully !");
 
-        st.close();
-        con.close();
 
     }
 
@@ -1050,8 +1111,11 @@ public class dbConnector {
 
         String query = "SELECT * FROM bookshop.borrow WHERE `dealNo`= ? ;";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         PreparedStatement st = con.prepareStatement(query);
         st.setString(1, code);
         ResultSet rs = st.executeQuery();
@@ -1060,8 +1124,6 @@ public class dbConnector {
             prices[1] = rs.getBigDecimal("total");
         }
 
-        st.close();
-        con.close();
 
         return prices;
     }
@@ -1072,8 +1134,11 @@ public class dbConnector {
 
         String query = "SELECT * FROM bookshop.advanced WHERE `dealNo`= ? ;";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         PreparedStatement st = con.prepareStatement(query);
         st.setString(1, code);
         ResultSet rs = st.executeQuery();
@@ -1082,9 +1147,6 @@ public class dbConnector {
             prices[1] = rs.getBigDecimal("total");
         }
 
-        st.close();
-        con.close();
-
         return prices;
     }
 
@@ -1092,8 +1154,11 @@ public class dbConnector {
     void borrow_payment_process(BigDecimal value, String primaryKey) throws Exception {
         String query = "UPDATE `bookshop`.`borrow` SET `total` = '" + value + "' WHERE (`dealNo` = '" + primaryKey + "');";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
         st.executeUpdate(query);
 
@@ -1133,8 +1198,11 @@ public class dbConnector {
         String query2 = "SELECT * FROM bookshop.incomedata WHERE (`date` = '" + date + "');";
         String query3 = "SELECT * FROM bookshop.cashitems WHERE (`itemCode` = '" + "50" + "' AND `date` = '" + date + "');";
         
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        if(con == null)
+            {
+                connect();
+            }
+        
         Statement st = con.createStatement();
 
         ResultSet rs = st.executeQuery(query); //execute query 1
@@ -1158,11 +1226,6 @@ public class dbConnector {
             report.woodpowder.setText(new BigDecimal(report.woodpowder.getText()).add(rs3.getBigDecimal("price")).toString()); //wood powder amount
         }
 
-
-       
-
-        st.close();
-        con.close();
     }
 
 //    //sending income date values to generate income report in report class
@@ -1189,8 +1252,12 @@ public class dbConnector {
         boolean out = false;
 
         String query = "SELECT * FROM bookshop.stocks WHERE stock < 10 ;";
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         ResultSet rs = st.executeQuery(query);
@@ -1201,17 +1268,14 @@ public class dbConnector {
         {
             out = false;
         }
-
-        st.close();
-        con.close();
-
+        
         return out;
 
     }
 
     //Adding new casher to system
     // //BORROW DEALS IN TO DATA BASE 
-    public int addNewCasher(String[] nameContact , String table) throws ClassNotFoundException , SQLException {
+    public int addNewCasher(String[] nameContact , String table) throws Exception {
 
         int key = 0;
 
@@ -1219,11 +1283,14 @@ public class dbConnector {
 
         String query2 = "INSERT INTO `bookshop`.`"+table+"` (`name`, `phone`, `nic`, `address`, `salary`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + nameContact[4] + "');";
        
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        if(con == null)
+            {
+                connect();
+            }
+        
         Statement st = con.createStatement();
 
-        if( table=="cashier_login") //inserting cashier data to casher login table
+        if( table =="cashier_login") //inserting cashier data to casher login table
             {
                 st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS); //inserting values and Getting autoincremented dealno to insert items to item table,
             }
@@ -1237,9 +1304,6 @@ public class dbConnector {
         rs.next();
         controllers.primaryKeyOfdealsData = String.valueOf(rs.getInt(1)); //stroting returned deal no to use latar.
 
-        st.close();
-        con.close();
-
         return key;
     }
 
@@ -1249,8 +1313,11 @@ public class dbConnector {
         {
             String query = "SELECT * FROM bookshop."+table+";";
 
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, uname, pass);
+            if(con == null)
+            {
+                connect();
+            }
+             
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
 
@@ -1298,13 +1365,16 @@ public class dbConnector {
 
     //searching for all cashiers
     // THIS METHOD WILL SEARCH CUSTOMER DETAILS OF borrowers FROM DATABASE 
-    public void search_every_cashier(String code , String table) throws SQLException, ClassNotFoundException {
+    public void search_every_cashier(String code , String table) throws Exception {
 
         String Query1 = "SELECT * FROM bookshop."+table+" WHERE no = '" + code + "';"; // code means customer name which wants to search from DB
         String Query2 = "SELECT * FROM bookshop."+table+" WHERE  name LIKE '%" + code + "%';";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         String[] customer = new String[7]; // result containing list
@@ -1392,8 +1462,11 @@ public class dbConnector {
 
         String query = "SELECT * FROM bookshop.cashier_login WHERE name= ? and pass= ? ;";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         PreparedStatement st = con.prepareStatement(query);
         st.setString(1, username);
         st.setString(2, password);
@@ -1414,8 +1487,6 @@ public class dbConnector {
 
         }
 
-        st.close();
-        con.close();
 
         return passVeryfied;
     }
@@ -1424,8 +1495,12 @@ public class dbConnector {
     boolean activeCashier(String index, int what) throws Exception {
 
         String query = " UPDATE `bookshop`.`cashier_login` SET `state` = '" + what + "' WHERE (`no` = '" + index + "');";
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+        
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
         st.executeUpdate(query);
 
@@ -1438,8 +1513,10 @@ public class dbConnector {
 
         String query = "INSERT INTO `bookshop`.`payments` (`cusCode`, `due`, `payment`, `newAmount`, `date`) VALUES (?,?,?,?,?);";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
 
         PreparedStatement st = con.prepareStatement(query);
 
@@ -1459,8 +1536,10 @@ public class dbConnector {
         query = "INSERT INTO `bookshop`.`raw_stocks` (`itemcode`, `name`, `stock`) VALUES (?,?,?);";
         query2 = "INSERT INTO `bookshop`.`cut_stocks` (`itemcode`, `name`, `stock`) VALUES (?,?,?);";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
 
         switch (index) {
             case 1:
@@ -1487,17 +1566,19 @@ public class dbConnector {
                 st2.close();
         }
 
-        con.close();
     }
 
     //SEARCH ITEMS IN RAW STOCKS  
-    public void search_row_IteminStock(String what) throws SQLException, ClassNotFoundException {
+    public void search_row_IteminStock(String what) throws Exception {
 
         String query1 = "SELECT * from `bookshop`.`raw_stocks` WHERE name LIKE '%" + what + "%'; ";
         String query2 = "SELECT * from `bookshop`.`raw_stocks` where itemCode LIKE '%" + what + "%'; ";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         ResultSet rs = st.executeQuery(query1);
@@ -1540,65 +1621,71 @@ public class dbConnector {
         }
     }
 
-    //SEARCH ITEMS IN cutting STOCKS  
-    public void search_cut_IteminStock(String what) throws SQLException, ClassNotFoundException {
-
-        String query1 = "SELECT * from `bookshop`.`cut_stocks` WHERE name LIKE '%" + what + "%'; ";
-        String query2 = "SELECT * from `bookshop`.`cut_stocks` where itemCode LIKE '%" + what + "%'; ";
-
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(query1);
-
-        String[] stockitemsString = new String[4];
-
-        while (rs.next()) {
-            //IF USER SEARCH BY ITEM NAME THIS PART WILL BE RUN
-
-            //this will make a emptyline after each result
-            String[] linebrake = {"", "", ""};
-            stocks.timerStocks_toTable(linebrake, false);
-            //in here by parsing true value then "timerStocks_toTable" knows that to set thises data to raw stock table
-
-            stockitemsString[0] = rs.getString("itemcode");
-            stockitemsString[1] = rs.getString("name");
-            stockitemsString[3] = String.valueOf(rs.getInt("stock")); // casting to int to remove floating points [stocks amount dont have floating poits]
-
-            String[] itemset = {stockitemsString[0], stockitemsString[1], String.valueOf(stockitemsString[3])};
-            stocks.timerStocks_toTable(itemset, false);
-
-        }
-
-        ResultSet rs2 = st.executeQuery(query2);
-        while (rs2.next()) {
-            //IF USER SEARCH BY ITEM NAME THIS PART WILL BE RUN
-
-            //this will make a emptyline after each result
-            String[] linebrake = {"", "", ""};
-            stocks.timerStocks_toTable(linebrake, false);
-            //in here by parsing true value then "timerStocks_toTable" knows that to set thises data to raw stock table
-
-            stockitemsString[0] = rs2.getString("itemcode");
-            stockitemsString[1] = rs2.getString("name");
-            stockitemsString[3] = String.valueOf(rs2.getInt("stock")); // casting to int to remove floating points [stocks amount dont have floating poits]
-
-            String[] itemset = {stockitemsString[0], stockitemsString[1], String.valueOf(stockitemsString[3])};
-            stocks.timerStocks_toTable(itemset, false);
-
-        }
-    }
+//    //SEARCH ITEMS IN cutting STOCKS  
+//    public void search_cut_IteminStock(String what) throws Exception {
+//
+//        String query1 = "SELECT * from `bookshop`.`cut_stocks` WHERE name LIKE '%" + what + "%'; ";
+//        String query2 = "SELECT * from `bookshop`.`cut_stocks` where itemCode LIKE '%" + what + "%'; ";
+//
+//         if(con == null)
+//            {
+//                connect();
+//            }
+//         
+//        Statement st = con.createStatement();
+//        ResultSet rs = st.executeQuery(query1);
+//
+//        String[] stockitemsString = new String[4];
+//
+//        while (rs.next()) {
+//            //IF USER SEARCH BY ITEM NAME THIS PART WILL BE RUN
+//
+//            //this will make a emptyline after each result
+//            String[] linebrake = {"", "", ""};
+//            stocks.timerStocks_toTable(linebrake, false);
+//            //in here by parsing true value then "timerStocks_toTable" knows that to set thises data to raw stock table
+//
+//            stockitemsString[0] = rs.getString("itemcode");
+//            stockitemsString[1] = rs.getString("name");
+//            stockitemsString[3] = String.valueOf(rs.getInt("stock")); // casting to int to remove floating points [stocks amount dont have floating poits]
+//
+//            String[] itemset = {stockitemsString[0], stockitemsString[1], String.valueOf(stockitemsString[3])};
+//            stocks.timerStocks_toTable(itemset, false);
+//
+//        }
+//
+//        ResultSet rs2 = st.executeQuery(query2);
+//        while (rs2.next()) {
+//            //IF USER SEARCH BY ITEM NAME THIS PART WILL BE RUN
+//
+//            //this will make a emptyline after each result
+//            String[] linebrake = {"", "", ""};
+//            stocks.timerStocks_toTable(linebrake, false);
+//            //in here by parsing true value then "timerStocks_toTable" knows that to set thises data to raw stock table
+//
+//            stockitemsString[0] = rs2.getString("itemcode");
+//            stockitemsString[1] = rs2.getString("name");
+//            stockitemsString[3] = String.valueOf(rs2.getInt("stock")); // casting to int to remove floating points [stocks amount dont have floating poits]
+//
+//            String[] itemset = {stockitemsString[0], stockitemsString[1], String.valueOf(stockitemsString[3])};
+//            stocks.timerStocks_toTable(itemset, false);
+//
+//        }
+//    }
     
     
      //Advanced payment DEALS IN TO DATA BASE 
-    public int storeAdvancedDealsDataIntoBase(String[] nameContact, BigDecimal[] defaultsValues) throws ClassNotFoundException, SQLException {
+    public int storeAdvancedDealsDataIntoBase(String[] nameContact, BigDecimal[] defaultsValues) throws Exception {
 
         int key = 0;
 
         String query = "INSERT INTO `bookshop`.`advanced` (`name`,`phone`,`nic` , `address` , `discount` , `total` , `advanced` , `date`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + defaultsValues[0] + "', '" + defaultsValues[1] + "' , '" + defaultsValues[2] + "' , '" + nameContact[4] + "' );";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         st.executeUpdate(query, Statement.RETURN_GENERATED_KEYS); //inserting values and Getting autoincremented dealno to insert items to item table,
@@ -1607,9 +1694,6 @@ public class dbConnector {
         rs.next();
         controllers.primaryKeyOfdealsData = String.valueOf(rs.getInt(1)); //stroting returned deal no to use latar.
 
-        st.close();
-        con.close();
-
         return key;
     }
     
@@ -1617,8 +1701,11 @@ public class dbConnector {
     //removing advanced deals from the database  
     void clearAdvanced(String primaryKey) throws Exception {
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement(); // for get primary key
         Statement st2 = con.createStatement(); //for remove data
 
@@ -1629,18 +1716,19 @@ public class dbConnector {
         st2.executeUpdate(query2);
         JOptionPane.showMessageDialog(null, " Advanced deleted successfully !");
 
-        st.close();
-        con.close();
     }
     
-        //SEARCHING FOR BORROWERS
-        public void search_all_advanced() throws Exception {
+    //SEARCHING FOR BORROWERS
+    public void search_all_advanced() throws Exception {
 
             {
                 String query = "SELECT * FROM bookshop.advanced;";
 
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = DriverManager.getConnection(url, uname, pass);
+            if(con == null)
+            {
+                connect();
+            }
+                 
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery(query);
 
@@ -1670,15 +1758,15 @@ public class dbConnector {
         //borrowers
         String query = "UPDATE `bookshop`.`"+table+"` SET `" + colomn + "` = '" + value + "' WHERE (`dealNo` = '" + PrimaryKey + "');";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
-
+        recod("Updated ");
         int updated = st.executeUpdate(query);
 
-        st.close();
-        con.close();
-        
         return 0;
 
     }
@@ -1686,11 +1774,14 @@ public class dbConnector {
        
      //getting each borrowing item accorfing to customer when user select a deal
       //here which is for data to advance item viwing panel to payment billing panel
-    public void getAdvancetems(String code , boolean which) throws ClassNotFoundException, SQLException { 
+    public void getAdvancetems(String code , boolean which) throws Exception { 
         String query = "SELECT * FROM bookshop.advanceditems WHERE `dealNo`=" + code + ";";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         String[] itemDetails = new String[5];
@@ -1720,13 +1811,16 @@ public class dbConnector {
     
        //searching for all cashiers
     // THIS METHOD WILL SEARCH CUSTOMER DETAILS OF borrowers FROM DATABASE 
-    public void search_every_advanced(String code) throws SQLException, ClassNotFoundException {
+    public void search_every_advanced(String code) throws Exception {
 
         String Query1 = "SELECT * FROM bookshop.advanced WHERE dealno = '" + code + "';"; // code means customer name which wants to search from DB
         String Query2 = "SELECT * FROM bookshop.advanced WHERE  name LIKE '%" + code + "%';";
 
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
         String[] customer = new String[9]; // result containing list
@@ -1773,8 +1867,11 @@ public class dbConnector {
         
         String query = "INSERT INTO `bookshop`.`outgoing` (`outgoing`, `reson`, `date`) VALUES ('"+sprice+"', '"+reson+"', '"+date+"');";
   
-        Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(url, uname, pass);
+         if(con == null)
+            {
+                connect();
+            }
+         
         Statement st = con.createStatement();
 
        int code = st.executeUpdate(query , Statement.RETURN_GENERATED_KEYS);
@@ -1788,8 +1885,11 @@ public class dbConnector {
             {
                 String query = "SELECT * FROM bookshop.outgoing WHERE `date` = '"+date+"' ;";
 
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = DriverManager.getConnection(url, uname, pass);
+            if(con == null)
+            {
+                connect();
+            }
+                 
                 Statement st = con.createStatement();
                 ResultSet rs = st.executeQuery(query);
 
@@ -1812,8 +1912,11 @@ public class dbConnector {
          //removing advanced deals from the database  
         void clearOutGoing(String primaryKey) throws Exception {
 
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(url, uname, pass);
+            if(con == null)
+            {
+                connect();
+            }
+             
             Statement st = con.createStatement(); // for get primary key
             Statement st2 = con.createStatement(); //for remove data
 
@@ -1822,8 +1925,28 @@ public class dbConnector {
             st2.executeUpdate(query);
             JOptionPane.showMessageDialog(null, " Cash Out deleted successfully !");
 
-            st.close();
-            con.close();
         }
+
+        Connection getConnection() throws ClassNotFoundException, SQLException
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url, uname, pass);
+            return con;
+        }
+
+        
+    //casher activity recoding 
+    void recoder(String activity ) throws Exception {
+        
+        if( con == null )
+            {
+                connect();
+            }
+        
+        String query = "INSERT INTO `bookshop`.`activites` (`name`, `activity`, `date`, `time`) VALUES ('"+controllers.cashierName+"', '"+activity+"', '"+java.time.LocalDate.now().toString()+"', '"+MAIN_FRAME.Time.getText()+"');";
+        
+        Statement st = con.createStatement();
+        st.executeUpdate(query);
+    }
 
 }

@@ -49,7 +49,7 @@ public class borrowers extends javax.swing.JFrame {
         setTitle("Deals");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 51));
+        jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
         searchBar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -242,6 +242,7 @@ public class borrowers extends javax.swing.JFrame {
 
             try {
                 connect.clearBorrows(primary, 0);
+                recod("Deleted "+dealTable.getValueAt(row, 1).toString()+" from debtros when due amount was Rs. "+dealTable.getValueAt(row, 5).toString());
             } catch (Exception ex) {
                 Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -257,6 +258,7 @@ public class borrowers extends javax.swing.JFrame {
     private void newBorrowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBorrowerActionPerformed
         BillOwner open = new BillOwner();
         open.setVisible(true);
+        recod("Opend New Debtor window");
     }//GEN-LAST:event_newBorrowerActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
@@ -272,6 +274,7 @@ public class borrowers extends javax.swing.JFrame {
 
             UpdateBorrowers open = new UpdateBorrowers(pk, name, tp, nice, address);
             open.setVisible(true);
+            recod("Opend Debtors pDetails Update window");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Borrower !");
         }
@@ -287,7 +290,7 @@ public class borrowers extends javax.swing.JFrame {
                 int rowcount = MAIN_FRAME.selltable.getRowCount();
 
                 if (rowcount > 0) {
-                    BigDecimal totalGet = MAIN_FRAME.statTotal; //getting total bill amount from main frame jlable
+                    BigDecimal totalGet = new BigDecimal(MAIN_FRAME.total.getText()); //getting total bill amount from main frame jlable
                     BigDecimal discountGet = new BigDecimal(MAIN_FRAME.discAmount.getText().trim());//getting discount amount from main frame jlable
 
                     //calling to storeBorrowDealsDataIntoBase in dbconnector class to stor borrow deal data in to database
@@ -348,6 +351,16 @@ public class borrowers extends javax.swing.JFrame {
                                 if (stock > Integer.valueOf(quantity)) {
                                     stock = stock - Integer.parseInt(quantity); //updatin stock
                                     connect.updateStockitems("stocks","stock", String.valueOf(stock), code);
+                                      boolean out = connect.stockout();
+
+                                                if(out == true)
+                                                    {   
+                                                           MAIN_FRAME.bell.setVisible(true);
+                                                    }
+                                                else
+                                                    {
+                                                            MAIN_FRAME.bell.setVisible(false);
+                                                    }
                                 } else // if customer buys items more than in stock it automaticly set stocl items to 0.
                                 {
                                     connect.updateStockitems("stocks","stock", String.valueOf(0), code);
@@ -359,11 +372,13 @@ public class borrowers extends javax.swing.JFrame {
                     }
 
                     //refreing borrower window to show new updated data as wel
+                    cusName.setText("");
                     connect.search_all_deals();
 
                     //reseting MAIN FRAME window
+                    recod("Aded new Rs. "+MAIN_FRAME.total.getText()+" to "+borrower.getValueAt(borrowerRow, 0).toString()+" account");
                     MAIN_FRAME.refreshWindow();
-                    JOptionPane.showMessageDialog(null, " Item added to borrower successfully !");
+                    JOptionPane.showMessageDialog(null, " Item added to debtor successfully !");
 
                 }
             }
@@ -376,7 +391,6 @@ public class borrowers extends javax.swing.JFrame {
     private void paymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentActionPerformed
 
         try {
-            DefaultTableModel borrower = (DefaultTableModel) dealTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
             int borrowerRow = dealTable.getSelectedRow();
 
             BigDecimal amount = new BigDecimal(dealTable.getValueAt(borrowerRow, 5).toString());
@@ -385,6 +399,7 @@ public class borrowers extends javax.swing.JFrame {
 
             loanPay open = new loanPay(amount, name, code);
             open.setVisible(true);
+             recod("Opened Debtor payment window");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Borrower !");
         }
@@ -423,6 +438,7 @@ public class borrowers extends javax.swing.JFrame {
         try {
             clearTable();
             connect.search_every_field(lenth);
+            recod("Searched for "+lenth);
         } catch (Exception ex) {
             Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -448,8 +464,8 @@ public class borrowers extends javax.swing.JFrame {
                     String customer = (String) getRow.getValueAt(row, 1);
 
                     paymentHistory open = new paymentHistory(primary, customer);
-
                     open.setVisible(true);
+                    recod("Opend Debtors payment History window");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Borrower !");
         }
@@ -514,6 +530,22 @@ public class borrowers extends javax.swing.JFrame {
         payment.setEnabled(false);
         delete.setEnabled(true);
     }
+    
+    
+     void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cusName;

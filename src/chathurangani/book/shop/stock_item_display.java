@@ -5,6 +5,8 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -169,7 +171,7 @@ public class stock_item_display extends javax.swing.JFrame {
         setTitle("Item Viewer");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(0, 51, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -191,6 +193,7 @@ public class stock_item_display extends javax.swing.JFrame {
         jLabel4.setText("Add Stock");
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(102, 102, 102));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Add more stocks ");
 
@@ -603,6 +606,18 @@ public class stock_item_display extends javax.swing.JFrame {
             this.itemData[4] = stockBox.getText().trim();
             ok5.setVisible(true);
             connect.stockItemsShowAll(); 
+            recod("Updated Item stock by -"+stockBox.getText().trim());
+ 
+             boolean out = connect.stockout();
+
+                if(out == true)
+                       {   
+                             MAIN_FRAME.bell.setVisible(true);
+                       }
+                else
+                      {
+                             MAIN_FRAME.bell.setVisible(false);
+                      }
         } catch (Exception ex) {
             //System.out.println(ex);
             System.out.println(ex);
@@ -640,6 +655,17 @@ public class stock_item_display extends javax.swing.JFrame {
                            //geting values from new upted box and current stock box and setting agin to current stock box and sending to databse
                             stockBox.setText(String.valueOf(Integer.parseInt(stockAdder.getText()) + Integer.parseInt(stockBox.getText())));
                             connect.updateStockitems(table,"stock",stockBox.getText().trim(),primarykeyofdata);
+                            recod("Increased stock by - "+stockAdder);
+                            boolean out = connect.stockout();
+
+                            if(out == true)
+                                   {   
+                                         MAIN_FRAME.bell.setVisible(true);
+                                   }
+                            else
+                                  {
+                                         MAIN_FRAME.bell.setVisible(false);
+                                  }
                             
                         } catch (Exception ex) {
                            // JOptionPane.showMessageDialog(null,"Invalid Input !");
@@ -658,6 +684,7 @@ public class stock_item_display extends javax.swing.JFrame {
             this.itemData[1]=itemNameBox.getText().trim();
             ok2.setVisible(true);
             connect.stockItemsShowAll(); 
+            recod("Updated Item name by -"+itemNameBox.getText().trim());
         }
         catch (Exception ex) {
            // JOptionPane.showMessageDialog(null,"THIS ITEM IS ALREADY IN YOUR STOCK ! ");
@@ -691,6 +718,7 @@ public class stock_item_display extends javax.swing.JFrame {
             primarykeyofdata = itemCodeBox.getText().trim(); // setting new primary key
             ok1.setVisible(true);
             connect.stockItemsShowAll(); 
+            recod("Updated Item code by -"+itemCodeBox.getText().trim());
         }
 
              catch (SQLException ex) {
@@ -971,6 +999,7 @@ public class stock_item_display extends javax.swing.JFrame {
             this.itemData[3]=sellingPriceBox.getText().trim();
             ok4.setVisible(true);
             connect.stockItemsShowAll(); 
+            recod("Updated Item price by -"+sellingPriceBox.getText().trim());
             
         } catch (Exception ex) {
           //  JOptionPane.showMessageDialog(null , "Invalid Input !");
@@ -988,6 +1017,7 @@ public class stock_item_display extends javax.swing.JFrame {
         stockAdder.setText(itemData[2]);
         sellingPriceBox.setText(itemData[3]);
         stockBox.setText(itemData[4]);
+        recod("Refreshed stock item updator window");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void stockAddBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockAddBtn1ActionPerformed
@@ -999,6 +1029,17 @@ public class stock_item_display extends javax.swing.JFrame {
                            //geting values from new upted box and current stock box and setting agin to current stock box and sending to databse
                             stockBox.setText(String.valueOf( Integer.parseInt(stockBox.getText()) - Integer.parseInt(stockAdder.getText())));
                             connect.updateStockitems(table,"stock",stockBox.getText().trim(),primarykeyofdata);
+                            recod("Decreased stock by - "+stockAdder);
+                            boolean out = connect.stockout();
+
+                            if(out == true)
+                                   {   
+                                         MAIN_FRAME.bell.setVisible(true);
+                                   }
+                            else
+                                  {
+                                         MAIN_FRAME.bell.setVisible(false);
+                                  }
                             
                         } catch (Exception ex) {
                            // JOptionPane.showMessageDialog(null,"Invalid Input !");
@@ -1014,6 +1055,20 @@ public class stock_item_display extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_stockAddBtn1KeyPressed
 
+      void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
+      
     /**
      * @param args the command line arguments
      */

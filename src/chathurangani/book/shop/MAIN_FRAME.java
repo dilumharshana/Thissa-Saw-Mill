@@ -5,17 +5,24 @@ package chathurangani.book.shop;
 
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -43,6 +50,48 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         discAmount.setVisible(false);
         balanceLable.setVisible(false);
         balanceShow.setVisible(false);
+        bell.setVisible(false);
+        //this is a normal billing window
+
+        try {
+
+            passAvailability = connect.isLocked();
+            this.panelLock = passAvailability;
+            
+            boolean out = connect.stockout();
+
+                if(out == true)
+                       {   
+                             bell.setVisible(true);
+                       }
+                else
+                      {
+                             bell.setVisible(false);
+                      }
+
+        } catch (Exception ex) {
+            Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+      public MAIN_FRAME(boolean cashier) {
+        initComponents();
+        Thread time = new Thread(this);
+        time.start();
+        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
+        
+      
+        
+        //Disabling btns
+        removeItem.setEnabled(false);
+        discLable.setVisible(false);
+        discAmount.setVisible(false);
+        balanceLable.setVisible(false);
+        balanceShow.setVisible(false);
+        settingTab.setVisible(false);
+        bell.setVisible(false);
 
         //this is a normal billing window
 
@@ -50,6 +99,17 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
             passAvailability = connect.isLocked();
             this.panelLock = passAvailability;
+            
+            boolean out = connect.stockout();
+
+                if(out == true)
+                       {   
+                             bell.setVisible(true);
+                       }
+                else
+                      {
+                             bell.setVisible(false);
+                      }
 
         } catch (Exception ex) {
             Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,6 +142,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         Date = new javax.swing.JLabel();
         Time = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         barcode = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -102,6 +163,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         addStockTab = new javax.swing.JButton();
         bell = new javax.swing.JLabel();
         advancedTab = new javax.swing.JButton();
+        emplyooes = new javax.swing.JButton();
         proceed = new javax.swing.JButton();
         paymentAmount = new javax.swing.JTextField();
         disc = new javax.swing.JTextField();
@@ -116,23 +178,22 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         jScrollPane1 = new javax.swing.JScrollPane();
         selltable = new javax.swing.JTable();
         lbl_advanced = new javax.swing.JLabel();
-        lbl_discount = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TISSA SAW MILL");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel2.setBackground(new java.awt.Color(0, 51, 51));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setForeground(new java.awt.Color(0, 0, 0));
 
-        shopName.setBackground(new java.awt.Color(204, 0, 255));
-        shopName.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 42)); // NOI18N
-        shopName.setForeground(new java.awt.Color(0, 0, 0));
+        shopName.setBackground(new java.awt.Color(51, 51, 51));
+        shopName.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 45)); // NOI18N
+        shopName.setForeground(new java.awt.Color(255, 255, 255));
         shopName.setText("THISSA SAW MILL ");
 
         Date.setBackground(new java.awt.Color(255, 255, 102));
@@ -149,18 +210,24 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("- By  EvonApps ... -");
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/png.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel2)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(shopName)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(330, 330, 330)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 624, Short.MAX_VALUE)
+                        .addGap(29, 29, 29)
+                        .addComponent(shopName)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(364, 364, 364)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 501, Short.MAX_VALUE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
@@ -170,21 +237,28 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(shopName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Time, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(shopName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)))
+                .addGap(42, 42, 42))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 100));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 110));
 
+        barcode.setBackground(new java.awt.Color(255, 255, 255));
         barcode.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        barcode.setForeground(new java.awt.Color(0, 0, 0));
         barcode.setText(" ");
         barcode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 51, 51), 1, true));
         barcode.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -202,25 +276,26 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        total.setBackground(new java.awt.Color(255, 255, 255));
         total.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         total.setForeground(new java.awt.Color(255, 0, 0));
         total.setText("0.0");
         jPanel5.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 37, 406, -1));
 
         discLable.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        discLable.setForeground(new java.awt.Color(102, 102, 102));
-        discLable.setText("Discount");
+        discLable.setForeground(new java.awt.Color(153, 153, 153));
+        discLable.setText("Discount   ( Rs /- )");
         jPanel5.add(discLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 98, 212, -1));
 
         discAmount.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        discAmount.setForeground(new java.awt.Color(102, 102, 102));
+        discAmount.setForeground(new java.awt.Color(153, 153, 153));
         discAmount.setText("0.0");
         jPanel5.add(discAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 126, 254, 36));
 
         balanceLable.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         balanceLable.setForeground(new java.awt.Color(51, 51, 51));
-        balanceLable.setText("Balance");
-        jPanel5.add(balanceLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 104, -1));
+        balanceLable.setText("Balance ( Rs /- )");
+        jPanel5.add(balanceLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 150, -1));
 
         balanceShow.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         balanceShow.setForeground(new java.awt.Color(51, 51, 51));
@@ -230,7 +305,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         jPanel5.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 164, 406, 10));
 
         jLabel7.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 51, 0));
+        jLabel7.setForeground(new java.awt.Color(255, 0, 0));
         jLabel7.setText("  Total Price   (  Rs /- ) ");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 212, 31));
 
@@ -270,12 +345,12 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(removeItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 563, 214, 43));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel3.setBackground(new java.awt.Color(0, 51, 51));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         borrowersTab.setBackground(new java.awt.Color(102, 0, 204));
         borrowersTab.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        borrowersTab.setForeground(new java.awt.Color(255, 255, 255));
+        borrowersTab.setForeground(new java.awt.Color(204, 204, 204));
         borrowersTab.setText("Debtors");
         borrowersTab.setToolTipText("Borrowers");
         borrowersTab.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -285,7 +360,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             }
         });
 
-        stockTab.setBackground(new java.awt.Color(0, 255, 0));
+        stockTab.setBackground(new java.awt.Color(255, 102, 0));
         stockTab.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         stockTab.setForeground(new java.awt.Color(255, 255, 255));
         stockTab.setText("Stocks");
@@ -297,9 +372,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             }
         });
 
-        settingTab.setBackground(new java.awt.Color(51, 51, 51));
+        settingTab.setBackground(new java.awt.Color(0, 51, 51));
         settingTab.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        settingTab.setForeground(new java.awt.Color(255, 255, 255));
+        settingTab.setForeground(new java.awt.Color(204, 204, 204));
         settingTab.setText("Settings");
         settingTab.setToolTipText("Settings");
         settingTab.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -311,7 +386,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
         addStockTab.setBackground(new java.awt.Color(51, 51, 255));
         addStockTab.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        addStockTab.setForeground(new java.awt.Color(255, 255, 255));
+        addStockTab.setForeground(new java.awt.Color(204, 204, 204));
         addStockTab.setText("Add Stocks");
         addStockTab.setToolTipText("Add new items to Stocks.");
         addStockTab.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -329,7 +404,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
         advancedTab.setBackground(new java.awt.Color(51, 51, 51));
         advancedTab.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        advancedTab.setForeground(new java.awt.Color(255, 255, 255));
+        advancedTab.setForeground(new java.awt.Color(204, 204, 204));
         advancedTab.setText("Advanced");
         advancedTab.setToolTipText("Settings");
         advancedTab.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -339,26 +414,40 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        emplyooes.setBackground(new java.awt.Color(0, 153, 51));
+        emplyooes.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        emplyooes.setForeground(new java.awt.Color(204, 204, 204));
+        emplyooes.setText("Employees");
+        emplyooes.setToolTipText("Settings");
+        emplyooes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        emplyooes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emplyooesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(settingTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(borrowersTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addStockTab, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                            .addComponent(stockTab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(advancedTab, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bell)
-                .addGap(36, 36, 36))
+                .addGap(37, 37, 37))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(emplyooes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(advancedTab, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(settingTab, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(borrowersTab, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(addStockTab, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                                .addComponent(stockTab, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addGap(21, 21, 21))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,9 +462,11 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 .addComponent(advancedTab, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(settingTab, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(emplyooes, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(bell)
-                .addContainerGap())
+                .addGap(40, 40, 40))
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 100, 170, -1));
@@ -392,7 +483,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(proceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(726, 640, 289, 40));
 
-        paymentAmount.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        paymentAmount.setBackground(new java.awt.Color(255, 255, 204));
+        paymentAmount.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        paymentAmount.setForeground(new java.awt.Color(0, 0, 0));
         paymentAmount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paymentAmountActionPerformed(evt);
@@ -408,7 +501,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(paymentAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(726, 582, 378, 42));
 
-        disc.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        disc.setBackground(new java.awt.Color(255, 255, 204));
+        disc.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        disc.setForeground(new java.awt.Color(0, 0, 0));
         disc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 discActionPerformed(evt);
@@ -452,8 +547,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(borrowProceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(1021, 640, 160, 40));
 
-        discountingBtn.setBackground(new java.awt.Color(255, 255, 255));
+        discountingBtn.setBackground(new java.awt.Color(0, 51, 51));
         discountingBtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        discountingBtn.setForeground(new java.awt.Color(255, 255, 255));
         discountingBtn.setText("ADD");
         discountingBtn.setBorder(null);
         discountingBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -463,8 +559,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(discountingBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 516, 65, 40));
 
-        paymentBtn.setBackground(new java.awt.Color(255, 255, 255));
+        paymentBtn.setBackground(new java.awt.Color(0, 51, 51));
         paymentBtn.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        paymentBtn.setForeground(new java.awt.Color(255, 255, 255));
         paymentBtn.setText("ADD");
         paymentBtn.setBorder(null);
         paymentBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -474,7 +571,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(paymentBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 582, 65, 42));
 
+        staticTotal.setBackground(new java.awt.Color(51, 51, 51));
         staticTotal.setFont(new java.awt.Font("Arial", 0, 44)); // NOI18N
+        staticTotal.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(staticTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 120, 449, 63));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/search--v1.jpg"))); // NOI18N
@@ -485,7 +584,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, -1, 53));
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 204));
+        jScrollPane1.setBackground(new java.awt.Color(102, 102, 102));
+        jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jScrollPane1MouseClicked(evt);
@@ -521,11 +621,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
 
         lbl_advanced.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         lbl_advanced.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(lbl_advanced, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 180, 212, 31));
-
-        lbl_discount.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lbl_discount.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(lbl_discount, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 180, 212, 31));
+        jPanel1.add(lbl_advanced, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 180, 212, 31));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -561,6 +657,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         try {
             stocks open = new stocks();
             open.setVisible(true);
+            recod(" Opened STOCKS window ");//recoding actities
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Cant Open stocks !");
         }
@@ -582,6 +679,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 staticTotal.setText("Rs. "+updateTotal.toString());
                 statTotal = updateTotal;
                 discAmount.setText("0.0");
+                recod("Removed "+selltable.getValueAt(row,1).toString()+"from billing table");//recoding actities
                 remove.removeRow(row);
             }
 
@@ -602,7 +700,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             //cheking if items avaible in table
             if (rowCount > 0) {
                 cusname = JOptionPane.showInputDialog(null , "Enter Customer Name :");
-                BigDecimal[] values = new BigDecimal[5];
+                BigDecimal[] values = new BigDecimal[6];
 
                 values[0] = new BigDecimal(total.getText()); // bill amount
                 //total.getText()).trim()).add(new BigDecimal(discAmount.getText().trim()) ->[total bill amount]
@@ -654,6 +752,16 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                         
                     }
                 
+                 try
+                    {
+                            values[5] = statTotal;// static total price
+                    }
+                catch(Exception e)
+                    {
+                            values[5] = new BigDecimal(String.valueOf(0.00));// static total amount
+                        
+                    }
+                
                 
 
                         try {
@@ -677,11 +785,21 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                                                 price = new BigDecimal(priceget);
 
                                                   //storing deal cash item in to database
-                                                  connect.storeCashDealItemsIntoDataBase(pk, code, name, price, quantity, totalGet);
+                                                 connect.storeCashDealItemsIntoDataBase(pk, code, name, price, quantity, totalGet);
                             
                                                 //updating stocks by calling stockupdate mthod
                                                 stockupdate(code , quantity);
+                                                 //cheking stocks
+                                                boolean out = connect.stockout();
 
+                                                if(out == true)
+                                                    {   
+                                                           bell.setVisible(true);
+                                                    }
+                                                else
+                                                    {
+                                                            bell.setVisible(false);
+                                                    }
                                         }
                             }
 
@@ -707,8 +825,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                                     
                                     
                                   //calling bill printng method
-                                   invoice(rowCount);
-                                    
+                                   invoice();
+                                  recod("Created a bill");//recoding actities
+                                  
                             } catch (Exception ex) {
                                 Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -717,24 +836,31 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 //refresh main class window
                 advanced = new BigDecimal("0.0");
                 refreshWindow();
-            
+               
 
         
     }//GEN-LAST:event_proceedActionPerformed
 
-    void invoice(int rowCount)
+    //bill recipt printing process
+    void invoice()
         {
-             //printing the bill
-                        printer print = new printer();
-                        print.bHeight = Double.valueOf(rowCount);
-                        PrinterJob pj = PrinterJob.getPrinterJob();
-                        pj.setPrintable(new printer() , print.pf(pj));
-                                    
-                        try {
-                            pj.print();
-                        } catch (PrinterException ex) {
-                            Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+          try
+            {   //generating bill by jasper report
+                Connection con = connect.getConnection();
+                HashMap map = new HashMap();
+                map.put( "billNo" , controllers.primaryKeyOfdealsData); 
+                JasperDesign pdf  = JRXmlLoader.load("C:\\Users\\Dilum\\Desktop\\book shop\\Thissa saw mill\\src\\chathurangani\\book\\shop\\bill\\bill.jrxml");
+                JasperReport bill = JasperCompileManager.compileReport(pdf);
+                JasperPrint print = JasperFillManager.fillReport(bill,map,con);
+                
+                JasperViewer.viewReport(print);
+                
+            }
+          catch(Exception e)
+            {
+                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
+            // JOptionPane.showMessageDialog(null , "Sorry something went wrong !");
+            }
         }
     
     //stock updator method
@@ -962,6 +1088,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         // resetting vwindow
         refreshWindow();
+        recod("Cleaned Main Billing Window");//recoding actities
     }//GEN-LAST:event_cancelActionPerformed
 
     private void borrowProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrowProceedActionPerformed
@@ -974,6 +1101,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             //DISPLAYING borrower pannel
             borrowers open = new borrowers();
             open.setVisible(true);
+            recod("Opend DEBTORS window ");//recoding actities
         }
 
     }//GEN-LAST:event_borrowProceedActionPerformed
@@ -985,6 +1113,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         if (!lenth.equals(""))
                 {
                     paymentAmountProcess(); //callling to payment process method
+                    recod("Aded "+lenth+" payment when bill amount was "+ staticTotal.getText());//recoding actities
                 }
     }//GEN-LAST:event_paymentBtnActionPerformed
 
@@ -993,6 +1122,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         if (!lenth.equals(""))
                 {
                     discountProcess(); //calling to discount process
+                    recod("Aded "+lenth+" discount when bill amount was "+ staticTotal.getText());//recoding actities
                 }
     }//GEN-LAST:event_discountingBtnActionPerformed
 
@@ -1000,6 +1130,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         try {
             AddStocks open = new AddStocks(0);
             open.setVisible(true);
+            recod("Opend ADD STOCKS window ");//recoding actities
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Cant open Add Stocks window");
         }
@@ -1010,6 +1141,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         try {
             borrowers open = new borrowers();
             open.setVisible(true);
+            recod("Opend DEBTORS window");//recoding actities
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Cant open returns window 1");
         }
@@ -1051,12 +1183,26 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             {
                 advanced open = new advanced();
                 open.setVisible(true);
+                recod("Opend ADVANCED window");//recoding actities
             }
         catch(Exception e)
             {
             
             }
     }//GEN-LAST:event_advancedTabActionPerformed
+
+    private void emplyooesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emplyooesActionPerformed
+        try
+            {
+                emplyoees open = new emplyoees();
+                open.setVisible(true);
+                recod("Opend EMPLOYEE window");//recoding actities
+            }
+        catch(Exception e)
+            {
+            
+            }
+    }//GEN-LAST:event_emplyooesActionPerformed
 
 //filling jtable with parsed itesm
     public static void searchItemsToTable(String[] stockdatas) {
@@ -1117,6 +1263,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 //searching item from stock
 
                 connect.itemsForSelling(code);
+                recod("Searched Item : "+code);//recoding actities
             } catch (Exception ex) {
                 Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1137,6 +1284,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         try {
             //searching item from stock
             connect.itemsForSelling(code);
+            recod("Searched Item : "+code);//recoding actities
         } catch (Exception ex) {
             Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1180,7 +1328,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         discAmount.setVisible(false);
         balanceLable.setVisible(false);
         balanceShow.setVisible(false);
-        lbl_discount.setVisible(false);
         lbl_advanced.setVisible(false);
         disc.setEditable(true);
         discountingBtn.setEnabled(true);
@@ -1202,28 +1349,28 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         paymentAmount.setText("");
         disc.setText("");
         statTotal = new BigDecimal("0.0");
-
+       
     }
 
-//extra item adding process
-    void ExtraQuanProcess(BigDecimal totalis, BigDecimal money, BigDecimal quantitiy) {
-        BigDecimal totalUpdate = totalis;
-
-        //addinf new row to table
-        String[] newRow = {"xxx", "Item", String.valueOf(money), String.valueOf(quantitiy), String.valueOf(money.multiply(quantitiy))};
-        String[] linebrake = {"", "", "", "", ""};
-
-        DefaultTableModel itemData = (DefaultTableModel) selltable.getModel();
-        itemData.addRow(linebrake);
-        itemData.addRow(newRow);
-
-        
-        totalUpdate = totalUpdate.add(money.multiply(quantitiy)); // adding new item price to total amount of things
-
-            total.setText(totalUpdate.toString()); // displayng new total amount to display
-            staticTotal.setText("Rs. " + totalUpdate.toString()); //displaying static total amount
-            
-    }
+////extra item adding process
+//    void ExtraQuanProcess(BigDecimal totalis, BigDecimal money, BigDecimal quantitiy) {
+//        BigDecimal totalUpdate = totalis;
+//p,
+//        //addinf new row to table
+//        String[] newRow = {"xxx", "Item", String.valueOf(money), String.valueOf(quantitiy), String.valueOf(money.multiply(quantitiy))};
+//        String[] linebrake = {"", "", "", "", ""};
+//
+//        DefaultTableModel itemData = (DefaultTableModel) selltable.getModel();
+//        itemData.addRow(linebrake);
+//        itemData.addRow(newRow);
+//
+//        
+//        totalUpdate = totalUpdate.add(money.multiply(quantitiy)); // adding new item price to total amount of things
+//
+//            total.setText(totalUpdate.toString()); // displayng new total amount to display
+//            staticTotal.setText("Rs. " + totalUpdate.toString()); //displaying static total amount
+//            
+//    }
 
     /**
      * @param args the command line arguments
@@ -1236,7 +1383,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -1260,6 +1407,22 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         });
     }
 
+    void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
+    
+    
+    
     public void run() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         while (true) {
@@ -1276,21 +1439,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             String dateok = date.toString();
             Date.setText(dateok);
 
-            try {
-                //cheking stocks
-                boolean out = connect.stockout();
-                
-                if(out == true)
-                    {   
-                           bell.setVisible(true);
-                    }
-                else
-                    {
-                            bell.setVisible(false);
-                    }
-            } catch (Exception ex) {
-                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }
 
@@ -1303,7 +1451,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     public static javax.swing.JLabel balanceLable;
     public static javax.swing.JLabel balanceShow;
     public static javax.swing.JTextField barcode;
-    private javax.swing.JLabel bell;
+    public static javax.swing.JLabel bell;
     private javax.swing.JButton borrowProceed;
     private javax.swing.JButton borrowersTab;
     protected static javax.swing.JButton cancel;
@@ -1311,7 +1459,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     public static javax.swing.JLabel discAmount;
     public static javax.swing.JLabel discLable;
     public static javax.swing.JButton discountingBtn;
+    private javax.swing.JButton emplyooes;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1326,7 +1476,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JLabel lbl_advanced;
-    public static javax.swing.JLabel lbl_discount;
     public static javax.swing.JTextField paymentAmount;
     private javax.swing.JButton paymentBtn;
     public static javax.swing.JButton proceed;

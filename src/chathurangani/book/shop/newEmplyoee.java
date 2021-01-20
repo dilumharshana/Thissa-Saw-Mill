@@ -433,7 +433,7 @@ public class newEmplyoee extends javax.swing.JFrame {
 
    
     
-  //process of new cashier
+  //process of new employee
      void sendData(boolean cashier) throws Exception {
 
          if(salary.getText().length()>0)
@@ -449,7 +449,7 @@ public class newEmplyoee extends javax.swing.JFrame {
                DefaultTableModel delas = (DefaultTableModel) emplyoees.eTable.getModel();
                String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() ,  salary.getText().trim()};
                delas.addRow(newBorro);
-
+               recod("Registerd an employee name -"+CusNameForBill.getText().trim());
                setVisible(false);
          }
          else
@@ -496,6 +496,20 @@ public class newEmplyoee extends javax.swing.JFrame {
             }
         });
     }
+    
+      void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CusNameForBill;

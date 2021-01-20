@@ -8,9 +8,18 @@ package chathurangani.book.shop;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -376,9 +385,11 @@ public class loanPay extends javax.swing.JFrame {
 
                                         break;
                       }
-                        } catch (Exception ex) {
-                            Logger.getLogger(loanPay.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                            } catch (Exception ex) {
+                                Logger.getLogger(loanPay.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        
+                        recod(" Enterd "+payAmount.getText()+" in to debtor payment box and cheked");//recoding actities
                 }
         payAmount.setText("");
     }//GEN-LAST:event_btnAddActionPerformed
@@ -403,7 +414,7 @@ public class loanPay extends javax.swing.JFrame {
             case 0: //if payment == due amount
                 
                 connect.paymentServer(pk , due , cash , new BigDecimal(total.getText()) , String.valueOf(java.time.LocalDate.now()));
-                
+                recod(name+" Paid Rs. "+cash);//recoding actities
                 due = new BigDecimal(total.getText());
                         
                 total.setText( due.toString() );
@@ -415,7 +426,7 @@ public class loanPay extends javax.swing.JFrame {
                 connect.search_all_deals();// reloading borrower window
                 JOptionPane.showMessageDialog(null,"Done !");
                 payAmount.setText("");
-                
+                           
                 System.gc();
                 dispose();
                 
@@ -423,7 +434,7 @@ public class loanPay extends javax.swing.JFrame {
                 
             case 1: //if payment > due amount
                 connect.paymentServer(pk , due , due , new BigDecimal(total.getText()) , String.valueOf(java.time.LocalDate.now()));
-                
+                recod(name+" Paid Rs. "+due);//recoding actities
                 due = new BigDecimal(total.getText());
                 
                 payment.setText("0.0");
@@ -444,6 +455,7 @@ public class loanPay extends javax.swing.JFrame {
             case -1: //if payment < due amount
                 
                 connect.paymentServer(pk , due , cash , new BigDecimal(total.getText()) , String.valueOf(java.time.LocalDate.now()));
+                recod(name+" Paid Rs. "+cash);//recoding actities
                 connect.borrow_payment_process(new BigDecimal( total.getText().trim()) , pk); //updating due amount of borrower
                 connect.search_all_deals();// reloading borrower window
                 JOptionPane.showMessageDialog(null,"Paymen Ok !");
@@ -479,9 +491,44 @@ public class loanPay extends javax.swing.JFrame {
                                 Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
                             }
              
+                            invoice();
     }
 
+    //bill recipt printing process
+    void invoice()
+        {
+          try
+            {   //generating bill by jasper report
+                Connection con = connect.getConnection();
+                HashMap map = new HashMap();
+                map.put( "borrower" , pk); 
+                JasperDesign pdf  = JRXmlLoader.load("C:\\Users\\Dilum\\Desktop\\book shop\\Thissa saw mill\\src\\chathurangani\\book\\shop\\bill\\lendPay.jrxml");
+                JasperReport bill = JasperCompileManager.compileReport(pdf);
+                JasperPrint print = JasperFillManager.fillReport(bill,map,con);
+                
+                JasperViewer.viewReport(print);
+                
+            }
+          catch(Exception e)
+            {
+                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
+            // JOptionPane.showMessageDialog(null , "Sorry something went wrong !");
+            }
+        }
     
+     void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
     
 
     /**

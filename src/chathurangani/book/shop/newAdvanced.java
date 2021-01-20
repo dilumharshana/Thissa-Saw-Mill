@@ -408,18 +408,18 @@ public class newAdvanced extends javax.swing.JFrame {
                 String [] namePhoneNic = {CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() , String.valueOf(java.time.LocalDate.now())}; // getiing new borrower details
 
                 //sending new borrower to database
-                int key = connect.storeAdvancedDealsDataIntoBase(namePhoneNic , defaultValues); // storing borrrower to db
+                connect.storeAdvancedDealsDataIntoBase(namePhoneNic , defaultValues); // storing borrrower to db
 
                 //displaying borrower in table
                 DefaultTableModel delas = (DefaultTableModel) advanced.advancedTable.getModel();
                 String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim(), "0.0","0.0" , String.valueOf(advanceAmount.getText()) , String.valueOf(java.time.LocalDate.now())};
                 delas.addRow(newBorro);
-
+                recod("Aded new advanced bill customer - "+CusNameForBill.getText().trim());
                 setVisible(false);
          }
         else
             {
-                    JOptionPane.showMessageDialog(null , "Plese insert advanced amound !");
+                    JOptionPane.showMessageDialog(null , "Plese insert advanced amount !");
             }
         
        
@@ -436,19 +436,19 @@ public class newAdvanced extends javax.swing.JFrame {
                String [] namePhoneNic = {CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() ,advanceAmount.getText()}; // getiing new borrower details
 
                //sending new borrower to database
-               int key = connect.addNewCasher(namePhoneNic ); // storing borrrower to db
+               int key = connect.addNewCasher(namePhoneNic , "cashier_login"); // storing borrrower to db
 
                //displaying borrower in table
                DefaultTableModel delas = (DefaultTableModel) cashiers.cTable.getModel();
                String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() ,  advanceAmount.getText().trim() , "Active"};
                delas.addRow(newBorro);
-
+                recod("Registred new cashier name - "+CusNameForBill.getText().trim());
                //setting new advanced value to advanced panel advanced value holding variable
                setVisible(false);
          }
          else
          {
-             JOptionPane.showMessageDialog(null, "Please add a Password !y");
+             JOptionPane.showMessageDialog(null, "Please add a Password !");
          }
         
     }
@@ -490,6 +490,20 @@ public class newAdvanced extends javax.swing.JFrame {
             }
         });
     }
+    
+     void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CusNameForBill;

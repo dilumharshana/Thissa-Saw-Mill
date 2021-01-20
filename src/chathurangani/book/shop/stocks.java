@@ -58,9 +58,6 @@ public class stocks extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         rawtable = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        cuttingTable = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         kempasTable = new javax.swing.JTable();
@@ -80,7 +77,7 @@ public class stocks extends javax.swing.JFrame {
 
         stockname.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 30)); // NOI18N
         stockname.setForeground(new java.awt.Color(255, 255, 0));
-        stockname.setText("Tissa Saw Mill STOCKS");
+        stockname.setText("Tissa Saw Mill Stocks");
 
         refresh.setBackground(new java.awt.Color(51, 51, 51));
         refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/unnamed.png"))); // NOI18N
@@ -324,53 +321,6 @@ public class stocks extends javax.swing.JFrame {
 
         tablePane.addTab("RAW STOCKS", jPanel4);
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        cuttingTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        cuttingTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Item Code", "Item Name", "Stocks"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        cuttingTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cuttingTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cuttingTableMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                cuttingTableMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                cuttingTableMouseExited(evt);
-            }
-        });
-        jScrollPane4.setViewportView(cuttingTable);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
-        );
-
-        tablePane.addTab("OUT SOURCE", jPanel5);
-
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -471,6 +421,7 @@ public class stocks extends javax.swing.JFrame {
 
         try {
             connect.stockItemsShowAll();
+            recod(" Refreshed all stocks ");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -497,11 +448,6 @@ public class stocks extends javax.swing.JFrame {
                         stockcounter.setText("200");
                         break;
 
-                    case 2: //cutting timber stock
-                        Smallerthan = 200;
-                        stockcounter.setText("200");
-                        break;
-
                     case 3: //cempus stock
                         Smallerthan = 250;
                         stockcounter.setText("250");
@@ -519,6 +465,7 @@ public class stocks extends javax.swing.JFrame {
 
         try {
             connect.searchForStockOutItems(Smallerthan, index);
+            recod(" Searched for stock out items less than - "+Smallerthan);
         } catch (Exception ex) {
             Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -553,6 +500,7 @@ public class stocks extends javax.swing.JFrame {
                                 stock_item_display updateitemSet = new stock_item_display(items[0], items[1], items[2], items[3], "stocks");
                                 updateitemSet.setVisible(true);
                                 updatebtn.setEnabled(false);
+                                recod("Opend Selling Stocks Items Update window");
                             } catch (Exception e) {
                                 JOptionPane.showMessageDialog(null, "Please select an item to Update !");
                                 updatebtn.setEnabled(false);
@@ -577,6 +525,7 @@ public class stocks extends javax.swing.JFrame {
                                 stock_item_display updateitemSet = new stock_item_display(items[0], items[1], items[2], "raw_stocks");
                                 updateitemSet.setVisible(true);
                                 updatebtn.setEnabled(false);
+                                recod("Opend Raw Stocks Items Update window");
                             } catch (Exception e) {
                                 JOptionPane.showMessageDialog(null, "Please select an item to Update !");
                                 updatebtn.setEnabled(false);
@@ -588,34 +537,8 @@ public class stocks extends javax.swing.JFrame {
                         
                         clearTable_raw();
                         break;
-                
+                                
                 case 2:
-                    
-                       if (!cuttingTable.getValueAt(cuttingTable.getSelectedRow(), 0).equals("")) {
-
-                            try {
-                                String[] items = new String[3];
-                                for (int i = 0; i < 3; i++) {
-
-                                    items[i] = String.valueOf(cuttingTable.getValueAt(cuttingTable.getSelectedRow(), i));
-                                }
-
-                                stock_item_display updateitemSet = new stock_item_display(items[0], items[1], items[2], "cut_stocks");
-                                updateitemSet.setVisible(true);
-                                updatebtn.setEnabled(false);
-                            } catch (Exception e) {
-                                JOptionPane.showMessageDialog(null, "Please select an item to Update !");
-                                updatebtn.setEnabled(false);
-                                Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Please select a valid row !");
-                        }
-                       
-                        clearTable_cut();
-                        break;
-                
-                case 3:
                     
                        if (!kempasTable.getValueAt(kempasTable.getSelectedRow(), 0).equals("")) {
 
@@ -629,6 +552,7 @@ public class stocks extends javax.swing.JFrame {
                                 stock_item_display updateitemSet = new stock_item_display(items[0], items[1], items[2], items[3], "stocks");
                                 updateitemSet.setVisible(true);
                                 updatebtn.setEnabled(false);
+                                recod("Opend Kempas Stocks Items Update window");
                             } catch (Exception e) {
                                 JOptionPane.showMessageDialog(null, "Please select an item to Update !");
                                 updatebtn.setEnabled(false);
@@ -658,18 +582,10 @@ public class stocks extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_stockcounterKeyTyped
 
-    private void stockitemstableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockitemstableMouseClicked
-        updatebtn.setEnabled(true);
-        delete.setEnabled(true);
-    }//GEN-LAST:event_stockitemstableMouseClicked
-
-    private void stockitemstableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockitemstableMouseExited
-
-    }//GEN-LAST:event_stockitemstableMouseExited
-
     private void add_NewI_tem_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add_NewI_tem_BtnActionPerformed
         AddStocks add_item = new AddStocks(index);
         add_item.setVisible(true);
+        recod("Opend Stocks Add New Item window");
     }//GEN-LAST:event_add_NewI_tem_BtnActionPerformed
 
     private void searchbarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchbarKeyPressed
@@ -685,16 +601,13 @@ public class stocks extends javax.swing.JFrame {
 
         try {
             connect.stockItemsShowAll();
+            recod("Refresed stock window");
         } catch (Exception e) {
             System.out.println(e);
         }
 
 
     }//GEN-LAST:event_refreshActionPerformed
-
-    private void stockitemstableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockitemstableMouseEntered
-
-    }//GEN-LAST:event_stockitemstableMouseEntered
 
     int whichRow; // for delete btn action perfomr table choosing purpose
     DefaultTableModel table_is = null;
@@ -718,12 +631,6 @@ public class stocks extends javax.swing.JFrame {
                 tablename = "raw_stocks";
                 break;
 
-            case 2:
-                table_is = (DefaultTableModel) cuttingTable.getModel(); //selecting table model
-                whichRow = cuttingTable.getSelectedRow(); //cutting stock table
-                tablename = "cut_stocks";
-                break;
-
             case 3:
                 table_is = (DefaultTableModel) kempasTable.getModel(); //selecting table model
                 whichRow = kempasTable.getSelectedRow(); //kempas stock table
@@ -742,6 +649,7 @@ public class stocks extends javax.swing.JFrame {
                 if (deleteok == 0) {
                     //calling to delete method
                     connect.deleteData(table_is.getValueAt(whichRow, 0).toString(), tablename);
+                    recod("Deleted "+table_is.getValueAt(whichRow, 1).toString()+" from "+tablename);
 
                     //refreshing the table
                     clearTable();
@@ -762,123 +670,8 @@ public class stocks extends javax.swing.JFrame {
 
     private void searchbarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchbarKeyReleased
         searchBarProcess();
+        recod("Searched for "+searchbar.getText()+" in stocks");
     }//GEN-LAST:event_searchbarKeyReleased
-
-    private void rawtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rawtableMouseClicked
-        //enabling btns of upating and deleting
-        updatebtn.setEnabled(true);
-        delete.setEnabled(true);
-    }//GEN-LAST:event_rawtableMouseClicked
-
-    private void rawtableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rawtableMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rawtableMouseEntered
-
-    private void rawtableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rawtableMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rawtableMouseExited
-
-    private void cuttingTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuttingTableMouseClicked
-        //enabling btns of upating and deleting
-        updatebtn.setEnabled(true);
-        delete.setEnabled(true);
-    }//GEN-LAST:event_cuttingTableMouseClicked
-
-    private void cuttingTableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuttingTableMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cuttingTableMouseEntered
-
-    private void cuttingTableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cuttingTableMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cuttingTableMouseExited
-
-    private void kempasTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kempasTableMouseClicked
-        //enabling btns of upating and deleting
-        updatebtn.setEnabled(true);
-        delete.setEnabled(true);
-    }//GEN-LAST:event_kempasTableMouseClicked
-
-    private void kempasTableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kempasTableMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_kempasTableMouseEntered
-
-    private void kempasTableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kempasTableMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_kempasTableMouseExited
-
-    private void tablePaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tablePaneStateChanged
-        int count = tablePane.getSelectedIndex();
-        searchbar.setText("");
-
-        switch (count) {
-            case 0: // selling timer stock
-                index = 0;
-                stockname.setText(" Selling Stocks");
-                stockcounter.setText("250");
-
-                showAllstock.setVisible(true);
-                stockcounter.setVisible(true);
-                outofstocks.setVisible(true);
-                add_NewI_tem_Btn.setVisible(true);
-
-                searchbar.setEnabled(true);
-                searchForItem.setEnabled(true);
-
-                break;
-
-            case 1: // row timer stock
-                index = 1;
-                stockname.setText(" Raw Stocks");
-                stockcounter.setText("200");
-
-                showAllstock.setVisible(true);
-                stockcounter.setVisible(true);
-                outofstocks.setVisible(true);
-                add_NewI_tem_Btn.setVisible(true);
-
-                searchbar.setEnabled(true);
-                searchForItem.setEnabled(true);
-
-                break;
-
-            case 2: //cutting timber stock
-                index = 2;
-                stockname.setText(" Cutting Stocks");
-                stockcounter.setText("200");
-
-                showAllstock.setVisible(true);
-                stockcounter.setVisible(true);
-                outofstocks.setVisible(true);
-                add_NewI_tem_Btn.setVisible(true);
-
-                searchbar.setEnabled(true);
-                searchForItem.setEnabled(true);
-
-                break;
-
-            case 3: //cempus stock
-                index = 3;
-                stockname.setText(" Kempas Stocks");
-                stockcounter.setText("250");
-
-                //these btns are not nessery to cempus stock
-                showAllstock.setVisible(false);
-                stockcounter.setVisible(false);
-                outofstocks.setVisible(false);
-                add_NewI_tem_Btn.setVisible(false);
-
-                searchbar.setEnabled(false);
-                searchForItem.setEnabled(false);
-                break;
-
-            default:
-            //nothing    
-        }
-    }//GEN-LAST:event_tablePaneStateChanged
-
-    private void tablePaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePaneMouseClicked
-
-    }//GEN-LAST:event_tablePaneMouseClicked
 
     private void searchbarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchbarKeyTyped
 
@@ -889,6 +682,107 @@ public class stocks extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_searchbarKeyTyped
+
+    private void tablePaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePaneMouseClicked
+
+    }//GEN-LAST:event_tablePaneMouseClicked
+
+    private void tablePaneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tablePaneStateChanged
+        int count = tablePane.getSelectedIndex();
+        searchbar.setText("");
+
+        switch (count) {
+            case 0: // selling timer stock
+            index = 0;
+            stockname.setText(" Selling Stocks");
+            stockcounter.setText("250");
+
+            showAllstock.setVisible(true);
+            stockcounter.setVisible(true);
+            outofstocks.setVisible(true);
+            add_NewI_tem_Btn.setVisible(true);
+
+            searchbar.setEnabled(true);
+            searchForItem.setEnabled(true);
+
+            break;
+
+            case 1: // row timer stock
+            index = 1;
+            stockname.setText(" Raw Stocks");
+            stockcounter.setText("200");
+
+            showAllstock.setVisible(true);
+            stockcounter.setVisible(true);
+            outofstocks.setVisible(true);
+            add_NewI_tem_Btn.setVisible(true);
+
+            searchbar.setEnabled(true);
+            searchForItem.setEnabled(true);
+
+            break;
+
+
+            case 3: //cempus stock
+            index = 3;
+            stockname.setText(" Kempas Stocks");
+            stockcounter.setText("250");
+
+            //these btns are not nessery to cempus stock
+            showAllstock.setVisible(false);
+            stockcounter.setVisible(false);
+            outofstocks.setVisible(false);
+            add_NewI_tem_Btn.setVisible(false);
+
+            searchbar.setEnabled(false);
+            searchForItem.setEnabled(false);
+            break;
+
+            default:
+            //nothing
+        }
+    }//GEN-LAST:event_tablePaneStateChanged
+
+    private void kempasTableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kempasTableMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kempasTableMouseExited
+
+    private void kempasTableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kempasTableMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kempasTableMouseEntered
+
+    private void kempasTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kempasTableMouseClicked
+        //enabling btns of upating and deleting
+        updatebtn.setEnabled(true);
+        delete.setEnabled(true);
+    }//GEN-LAST:event_kempasTableMouseClicked
+
+    private void rawtableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rawtableMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rawtableMouseExited
+
+    private void rawtableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rawtableMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rawtableMouseEntered
+
+    private void rawtableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rawtableMouseClicked
+        //enabling btns of upating and deleting
+        updatebtn.setEnabled(true);
+        delete.setEnabled(true);
+    }//GEN-LAST:event_rawtableMouseClicked
+
+    private void stockitemstableMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockitemstableMouseExited
+
+    }//GEN-LAST:event_stockitemstableMouseExited
+
+    private void stockitemstableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockitemstableMouseEntered
+
+    }//GEN-LAST:event_stockitemstableMouseEntered
+
+    private void stockitemstableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockitemstableMouseClicked
+        updatebtn.setEnabled(true);
+        delete.setEnabled(true);
+    }//GEN-LAST:event_stockitemstableMouseClicked
 
     public static void main(String args[]) {
 
@@ -933,10 +827,7 @@ public class stocks extends javax.swing.JFrame {
         {
             DefaultTableModel stockshow = (DefaultTableModel) rawtable.getModel();
             stockshow.addRow(stock);
-        } else {
-            DefaultTableModel stockshow = (DefaultTableModel) cuttingTable.getModel();
-            stockshow.addRow(stock);
-        }
+        } 
     }
 
     public static void setItemsToTable(String[] stockdata) {
@@ -985,15 +876,6 @@ public class stocks extends javax.swing.JFrame {
         }
     }
 
-    public static void clearTable_cut() // cuttind timber table clear
-    {
-        DefaultTableModel cutstock = (DefaultTableModel) cuttingTable.getModel();
-
-        while (cutstock.getRowCount() > 0) //removeing cutting timber stock table content
-        {
-            cutstock.removeRow(0);
-        }
-    }
 
     //seacr bar process
     void searchBarProcess() {
@@ -1045,33 +927,27 @@ public class stocks extends javax.swing.JFrame {
                 }
                 break;
 
-            case 2: //cutting stock panel
-
-                clearTable_cut();
-
-                if (searchbar.getText().length() == 0) {
-
-                    try {
-                        connect.stockItemsShowAll();
-                    } catch (Exception ex) {
-                        Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    updatebtn.setEnabled(false);
-                    delete.setEnabled(false);
-                    String item = searchbar.getText().trim();
-                    try {
-                        connect.search_cut_IteminStock(item);
-                    } catch (Exception ex) {
-                        Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
         }
 
     }
+    
+        void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
+        
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_NewI_tem_Btn;
-    public static javax.swing.JTable cuttingTable;
     private javax.swing.JButton delete;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1079,11 +955,9 @@ public class stocks extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane2;
+    public static javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     public static javax.swing.JTable kempasTable;
     private javax.swing.JButton outofstocks;

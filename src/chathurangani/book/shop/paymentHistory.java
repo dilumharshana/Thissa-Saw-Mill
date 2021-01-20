@@ -33,7 +33,7 @@ public class paymentHistory extends javax.swing.JFrame {
              try {
                 connect.getDealItems(primaryKey);
             } catch (Exception ex ) {
-                Logger.getLogger(Deal_Item_History.class.getName()).log(Level.SEVERE, null, ex);
+               
             } 
         
     }
@@ -57,7 +57,7 @@ public class paymentHistory extends javax.swing.JFrame {
         setTitle("Deal History");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
         cusName.setBackground(new java.awt.Color(0, 0, 0));
         cusName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
@@ -149,21 +149,15 @@ public class paymentHistory extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Deal_Item_History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Deal_Item_History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Deal_Item_History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Deal_Item_History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            
+        } 
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Deal_Item_History("","").setVisible(true);
+            new paymentHistory("","").setVisible(true);
         });
     }
     

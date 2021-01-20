@@ -43,6 +43,8 @@ public class settings extends javax.swing.JFrame implements Runnable {
         setPanel.setVisible(true);
         changePannel.setVisible(false);
         addpassword.setVisible(false);
+        cashier.setVisible(false);
+        biz.setVisible(false);
 
         this.forgetpass = true; //this will help to the ok btn wich is in password setting panel to re open new admin login window
     }
@@ -99,7 +101,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         cashier = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        biz = new javax.swing.JButton();
 
         jButton3.setBackground(new java.awt.Color(102, 102, 0));
         jButton3.setFont(new java.awt.Font("Calibri Light", 1, 24)); // NOI18N
@@ -157,7 +159,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
         setTitle("Settings");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 51));
+        jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
@@ -508,13 +510,13 @@ public class settings extends javax.swing.JFrame implements Runnable {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 0, 0));
-        jButton2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("ANALIZE MY BIZ");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        biz.setBackground(new java.awt.Color(255, 0, 0));
+        biz.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
+        biz.setForeground(new java.awt.Color(255, 255, 255));
+        biz.setText("ANALIZE MY BIZ");
+        biz.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                bizActionPerformed(evt);
             }
         });
 
@@ -532,7 +534,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
                             .addComponent(analizeBiz, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(5, 5, 5)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(biz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(passPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -571,7 +573,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
                                 .addComponent(analizeBiz))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(biz, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(11, 11, 11)
                                 .addComponent(passPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -833,7 +835,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_ctimeMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void bizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bizActionPerformed
         try
             {
                 report open = new report();
@@ -843,7 +845,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
             {
                 
             }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_bizActionPerformed
 
     /**
      * @param args the command line arguments
@@ -862,6 +864,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton addpassword;
     private javax.swing.JButton analizeBiz;
     private javax.swing.JTextField answer;
+    private javax.swing.JButton biz;
     private javax.swing.JPasswordField c_p_newPass;
     private javax.swing.JPasswordField c_p_retypePass;
     private javax.swing.JButton cashier;
@@ -874,7 +877,6 @@ public class settings extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;

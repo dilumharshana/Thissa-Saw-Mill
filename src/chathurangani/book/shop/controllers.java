@@ -6,12 +6,16 @@
 package chathurangani.book.shop;
 
 import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Dilum
  */
 public class controllers extends stater{
+
+
     
     //callin stater class constructor
     controllers()
@@ -19,10 +23,12 @@ public class controllers extends stater{
              super();
         }
     
+    static String cashierName; //holding casher name
     static String primaryKeyOfdealsData; //holding primary kery after a evry deal
     static boolean QuantityTrue; // this varibale support to flow of the programme by holding a quantitiy enderd or not value
     static boolean passwordis = false; //this varibale support to flow of the programme by holding if password is exsists or not in db
     static BigDecimal borrowing , sellPrice ; // two variable sfor income amount calculation
+    static boolean systemUser; // admin or cashier , when cashier login to system the value o this variable will be true . and for admin it will set false
     
     // for usage of dbconnector class;
     static String[] itemset = new String[3];
@@ -33,4 +39,5 @@ public class controllers extends stater{
             
         }
     
+   
 }

@@ -2,6 +2,8 @@ package chathurangani.book.shop;
 
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -189,6 +191,8 @@ public class cashOuts_resons extends javax.swing.JFrame {
                         //refreshing table
                         outgoing.clearTable();
                         connect.search_all_outgoing(java.time.LocalDate.now().toString());
+                        
+                        recod("Aded new cash out going recod");
                     
                 } //update panel
                 else 
@@ -203,6 +207,7 @@ public class cashOuts_resons extends javax.swing.JFrame {
                         String[] dataList = {String.valueOf(Updatecode), String.valueOf(new BigDecimal(cashAmount.getText())), reson.getText(), String.valueOf(java.time.LocalDate.now())};
                         cashOut.addRow(dataList);
                         //refreshing table
+                        recod("Updated exsiting cash out going recod");
                         outgoing.clearTable();
                         connect.search_all_outgoing(java.time.LocalDate.now().toString());
                 }
@@ -286,7 +291,20 @@ public class cashOuts_resons extends javax.swing.JFrame {
     private void resonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resonMouseClicked
                reson.setEnabled(true);
     }//GEN-LAST:event_resonMouseClicked
-
+    
+     void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
     /**
      * @param args the command line arguments
      */

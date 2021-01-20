@@ -436,7 +436,7 @@ public class BillOwner extends javax.swing.JFrame {
        DefaultTableModel delas = (DefaultTableModel) borrowers.dealTable.getModel();
        String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim(), "0.0","0.0" , String.valueOf(java.time.LocalDate.now())};
        delas.addRow(newBorro);
-       
+       recod("Aded new debtor name - "+CusNameForBill.getText().trim());
        setVisible(false);
     }
     
@@ -457,15 +457,31 @@ public class BillOwner extends javax.swing.JFrame {
                DefaultTableModel delas = (DefaultTableModel) cashiers.cTable.getModel();
                String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() ,  passbox.getText().trim() , "Active"};
                delas.addRow(newBorro);
-
+               recod("Aded new cashier name - "+CusNameForBill.getText().trim() );
                setVisible(false);
          }
          else
          {
-             JOptionPane.showMessageDialog(null, "Please add a Password !y");
+             JOptionPane.showMessageDialog(null, "Please add a Password !");
          }
         
     }
+     
+      void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
+      
+      
 
     /**
      * @param args the command line arguments

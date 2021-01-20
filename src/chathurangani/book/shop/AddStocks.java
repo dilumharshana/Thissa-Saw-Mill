@@ -9,6 +9,8 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -448,7 +450,7 @@ public class AddStocks extends javax.swing.JFrame {
                                 //creating object of database controlling class
                                 //calling newItemToBase methos in dbConnector class
                                 connect.newItemToBase(itemData, prices);
-
+                                recod("Aded "+itemData[1]+" to stocks");
                                 //notifing by lable
                                 itemCount.setText(icount + " Items Added !");
                                 icount++;
@@ -623,6 +625,20 @@ public class AddStocks extends javax.swing.JFrame {
         });
     }
 
+       void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
+       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTextField itemCode;
     private javax.swing.JLabel itemCount;

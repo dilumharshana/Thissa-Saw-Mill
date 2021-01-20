@@ -137,6 +137,12 @@ public class advanced extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Advanced Bills");
 
+        jScrollPane2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane2MouseClicked(evt);
+            }
+        });
+
         advancedTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         advancedTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -255,6 +261,7 @@ public class advanced extends javax.swing.JFrame {
             String customer = (String)getRow.getValueAt(row,1);
 
             advancedItems open = new advancedItems(primary , customer);
+            recod("Opend "+customer+" Advanced items");
 
             open.setVisible(true);
         }
@@ -276,6 +283,7 @@ public class advanced extends javax.swing.JFrame {
 
                 try {
                     connect.clearAdvanced(primary);
+                    recod("Deleted "+advancedTable.getValueAt( row ,1).toString()+"s' Advancede account");
                 } catch (Exception ex) {
                     Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -294,7 +302,8 @@ public class advanced extends javax.swing.JFrame {
         try
             {
                     newAdvanced open = new newAdvanced();
-                     open.setVisible(true);
+                    open.setVisible(true);
+                    recod("Opend new advanced bill crating window ");
              }
          catch(Exception e)
             {
@@ -317,6 +326,7 @@ public class advanced extends javax.swing.JFrame {
 
                 UpdateAdvance open = new UpdateAdvance( pk , name ,tp ,nice , address , advance);
                 open.setVisible(true);
+                recod("Opend Advanced deal updator window for the customer "+name);
             }
          catch(Exception e)
               {
@@ -400,6 +410,7 @@ public class advanced extends javax.swing.JFrame {
                             connect.search_all_advanced();
                             
                             //reseting MAIN FRAME window
+                            recod(" New Rs. "+MAIN_FRAME.staticTotal.getText()+" aded to "+String.valueOf(borrower.getValueAt(dealNo,1))+" account");
                             MAIN_FRAME.refreshWindow();
                             JOptionPane.showMessageDialog(null," Item added to Advanced successfully !");
                             
@@ -426,6 +437,7 @@ public class advanced extends javax.swing.JFrame {
                         {
                             MAIN_FRAME.refreshWindow();
                             connect.getAdvancetems(advancedTable.getValueAt( row ,0).toString() , false);
+                            recod("Took "+advancedTable.getValueAt( row ,1).toString()+" bill to billing pannel from advaced window ");
                             
                         }
                     catch(Exception e)
@@ -439,10 +451,12 @@ public class advanced extends javax.swing.JFrame {
      //subtracting advanced from total billa amount     
             MAIN_FRAME.advanced = new BigDecimal(advancedTable.getValueAt( row ,7).toString());
             MAIN_FRAME.staticTotal.setText("Rs. "+String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString())));
-            MAIN_FRAME.lbl_advanced.setText(" Advanced : "+ advancedTable.getValueAt( row ,7).toString().toString());
+            MAIN_FRAME.statTotal = new BigDecimal(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString())));
+            MAIN_FRAME.lbl_advanced.setText(" Advanced : "+ advancedTable.getValueAt( row ,7).toString());
             MAIN_FRAME.lbl_advanced.setVisible(true);
-            MAIN_FRAME.lbl_discount.setText(" Discounted : "+ advancedTable.getValueAt( row ,6).toString().toString());
-            MAIN_FRAME.lbl_discount.setVisible(true);
+            MAIN_FRAME.discLable.setVisible(true);
+            MAIN_FRAME.discAmount.setText(" Discounted : "+ advancedTable.getValueAt( row ,6).toString());
+            MAIN_FRAME.discAmount.setVisible(true);
             MAIN_FRAME.total.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString()) .subtract(new BigDecimal(advancedTable.getValueAt( row ,7).toString()).add(new BigDecimal(advancedTable.getValueAt( row ,6).toString())))));
             MAIN_FRAME.discAmount.setText(advancedTable.getValueAt( row ,6).toString());
             
@@ -460,11 +474,12 @@ public class advanced extends javax.swing.JFrame {
         payment.setEnabled(true);
         delete.setEnabled(true);
         
-        
+        recod("Selected "+advancedTable.getValueAt(borrowerRow,1).toString()+" from Advanced deal table");
     }//GEN-LAST:event_advancedTableMouseClicked
 
     private void searchBarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBarKeyReleased
         String lenth = searchBar.getText().trim();
+        recod("Searched "+lenth+" from advanced accounts"); 
         if(lenth.length() == 0)
             {
                 clearTable();
@@ -493,9 +508,27 @@ public class advanced extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchActionPerformed
 
+      void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
+      
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchBarActionPerformed
+
+    private void jScrollPane2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane2MouseClicked
 
     /**
      * @param args the command line arguments

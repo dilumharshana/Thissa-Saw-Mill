@@ -61,7 +61,18 @@ public class UpdateBorrowers extends javax.swing.JFrame {
         contactUpdate.setEnabled(false);
         nicUpdate.setEnabled(false);
         addressUpdate.setEnabled(false);
-        passupdate.setEnabled(false);
+        
+        
+        if(controllers.systemUser==true) //password update will not support to cashier
+            {
+                lbl_password.setVisible(false);
+                passbox.setVisible(false);
+                passupdate.setVisible(false);
+            }
+        else
+            {
+                passupdate.setEnabled(false);
+            }
 
         this.primarykeyofdata = code;
         
@@ -554,14 +565,17 @@ public class UpdateBorrowers extends javax.swing.JFrame {
             if(whichPanel == 0)
                 {
                     connect.updateBorrowerData("nic", nic.getText().trim(), primarykeyofdata,0);
+                    recod("Updated Debtor NIC");
                 }
             else if(whichPanel == 1)
                 {
                      connect.updateBorrowerData("id", nic.getText().trim(), primarykeyofdata,1);
+                     recod("Updated Cashier Contact No");
                 }
             else
                 {
                     connect.updateBorrowerData("nic", nic.getText().trim(), primarykeyofdata,2);
+                    recod("Updated Employer Contact No");
                 }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -574,17 +588,20 @@ public class UpdateBorrowers extends javax.swing.JFrame {
 
     private void nameUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameUpdateActionPerformed
         try {
-            if(whichPanel == 0)
+            if(whichPanel == 0)//borrowers
                 {
                     connect.updateBorrowerData("name", name.getText().trim(), primarykeyofdata,0);
+                    recod("Updated Debtor Name");
                 }
-            else if(whichPanel == 1)
+            else if(whichPanel == 1)//cashiers
                 {
                      connect.updateBorrowerData("name", name.getText().trim(), primarykeyofdata,1);
+                     recod("Updated Cashier Name");
                 }
-            else
+            else//employees
                 {
                     connect.updateBorrowerData("name", name.getText().trim(), primarykeyofdata,2);
+                    recod("Updated Employer Name");
                 }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -600,14 +617,17 @@ public class UpdateBorrowers extends javax.swing.JFrame {
             if(whichPanel == 0)
                 {
                     connect.updateBorrowerData("tp", contact.getText().trim(), primarykeyofdata,0);
+                    recod("Updated Debtor Contact No");
                 }
             else if(whichPanel == 1)
                 {
                      connect.updateBorrowerData("phone", contact.getText().trim(), primarykeyofdata,1);
+                     recod("Updated Cashier Contact No");
                 }
             else
                 {
                     connect.updateBorrowerData("phone", contact.getText().trim(), primarykeyofdata,2);
+                    recod("Updated Employer Contact No");
                 }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -721,14 +741,17 @@ public class UpdateBorrowers extends javax.swing.JFrame {
             if(whichPanel == 0)
                 {
                     connect.updateBorrowerData("address", address.getText().trim(), primarykeyofdata,0);
+                    recod("Updated Debtor Address");
                 }
             else if(whichPanel == 1)
                 {
                      connect.updateBorrowerData("address", address.getText().trim(), primarykeyofdata,1);
+                     recod("Updated Cashier Address");
                 }
             else
                 {
                     connect.updateBorrowerData("address", address.getText().trim(), primarykeyofdata,2);
+                    recod("Updated Employer Address");
                 }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -847,6 +870,20 @@ public class UpdateBorrowers extends javax.swing.JFrame {
             }
         });
     }
+    
+       void recod(String activity)
+        {
+            //cheking if this admin or cashier
+            if(controllers.systemUser == true)
+                {
+                try 
+                {
+                    connect.recoder(activity);
+                    } catch (Exception ex) {
+                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CloseUpdatePannel;
