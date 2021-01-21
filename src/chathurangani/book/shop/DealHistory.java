@@ -5,7 +5,11 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+//Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
+
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,7 +32,9 @@ public class DealHistory extends javax.swing.JFrame {
         try {
             connect.search_for_deals();
         } catch (Exception ex) {
-            Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Try to restart your computer - DealHistory#35");
+            connect.recod_error(ex.toString());
+            
         }
     }
     
@@ -172,7 +178,8 @@ public class DealHistory extends javax.swing.JFrame {
             clearTable();
             connect.search_every_field_By_Code(code);
         } catch (Exception ex) {
-            Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#180");
+            connect.recod_error(ex.toString());
         }
     }//GEN-LAST:event_searchActionPerformed
 
@@ -187,7 +194,8 @@ public class DealHistory extends javax.swing.JFrame {
                 clearTable();
                 connect.search_every_field_By_Code(code);
             } catch (Exception ex) {
-                Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#197");
+                connect.recod_error(ex.toString());
             }
         }
     }//GEN-LAST:event_searchBarKeyTyped
@@ -200,7 +208,8 @@ public class DealHistory extends javax.swing.JFrame {
                     clearTable();
                     connect.search_for_deals();
                 } catch (Exception ex) {
-                    Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#211");
+                    connect.recod_error(ex.toString());
                 }
         }
       
@@ -222,15 +231,11 @@ public class DealHistory extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#211");
+            dbConnector connect = new dbConnector();
+            connect.recod_error(ex.toString());
+        } 
         //</editor-fold>
         //</editor-fold>
 

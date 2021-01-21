@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Dilum
  */
-public class outgoing extends javax.swing.JFrame {
+public class activities extends javax.swing.JFrame {
 
     /**
      * Creates new form Deal_Item_History
@@ -27,24 +28,26 @@ public class outgoing extends javax.swing.JFrame {
  dbConnector connect = new dbConnector();
 
 
- public outgoing( ) {
+ public activities( ) {
            
                 initComponents();
                 setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
                 this.dateDisplay.setText("> "+java.time.LocalDate.now().toString());
             
                 try {
-                    connect.search_all_outgoing(java.time.LocalDate.now().toString()); //parsing current date
+                   connect.search_all_activities( "date" , java.time.LocalDate.now().toString()); //parsing current date
                 } catch (Exception ex) {
-                    Logger.getLogger(outgoing.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(activities.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
                 if(controllers.systemUser==true) // hide update and delet btn from cashier
                     {
                         btn_delete.setVisible(false);
-                        btn_update.setVisible(false);
                     }
         
+                TableColumnModel  width = cashOuts.getColumnModel();
+                width.getColumn(0).setPreferredWidth(50);
+                width.getColumn(1).setPreferredWidth(650);
     }
  
     /**
@@ -61,9 +64,12 @@ public class outgoing extends javax.swing.JFrame {
         btn_delete = new javax.swing.JButton();
         cashTable = new javax.swing.JScrollPane();
         cashOuts = new javax.swing.JTable();
-        btn_update = new javax.swing.JButton();
-        btn_add = new javax.swing.JButton();
         dateBox = new com.toedter.calendar.JDateChooser();
+        txtBox_name = new javax.swing.JTextField();
+        btn_delete1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Deal History");
@@ -87,14 +93,14 @@ public class outgoing extends javax.swing.JFrame {
         cashOuts.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         cashOuts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null, null}
             },
             new String [] {
-                "Deal Code", "Cash Amount", "Reson", "Date"
+                "Date", "Activity and Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -102,24 +108,6 @@ public class outgoing extends javax.swing.JFrame {
             }
         });
         cashTable.setViewportView(cashOuts);
-
-        btn_update.setBackground(new java.awt.Color(0, 153, 0));
-        btn_update.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        btn_update.setText("UPDATE");
-        btn_update.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_updateActionPerformed(evt);
-            }
-        });
-
-        btn_add.setBackground(new java.awt.Color(0, 153, 204));
-        btn_add.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        btn_add.setText("ADD NEW");
-        btn_add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_addActionPerformed(evt);
-            }
-        });
 
         dateBox.setForeground(new java.awt.Color(255, 0, 0));
         dateBox.setDateFormatString("yyyy-MM-dd");
@@ -143,41 +131,82 @@ public class outgoing extends javax.swing.JFrame {
             }
         });
 
+        btn_delete1.setBackground(new java.awt.Color(204, 0, 0));
+        btn_delete1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        btn_delete1.setText("SEARCH");
+        btn_delete1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_delete1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Search by Date :");
+
+        jLabel2.setText("Search by name :");
+
+        jLabel3.setText("Search by Index No :");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 51, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 47, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(dateDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(142, 142, 142)
-                        .addComponent(dateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cashTable, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_update, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(50, 50, 50))
+                        .addComponent(dateDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtBox_name, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_delete1))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cashTable, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(55, 55, 55))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(dateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(dateDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtBox_name, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_delete1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(dateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(cashTable, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_add, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_update, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                .addGap(30, 30, 30))
+                .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -202,38 +231,9 @@ public class outgoing extends javax.swing.JFrame {
             connect.clearOutGoing(String.valueOf(delas.getValueAt(row,0)));
             delas.removeRow(row);
         } catch (Exception ex) {
-            Logger.getLogger(outgoing.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(activities.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_deleteActionPerformed
-
-    private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
-         try
-            {
-                DefaultTableModel delas = (DefaultTableModel) cashOuts.getModel();
-                int row = cashOuts.getSelectedRow();
-                
-                cashOuts_resons open = new cashOuts_resons(delas.getValueAt(row, 1).toString() , delas.getValueAt(row, 2).toString() , delas.getValueAt(row, 0).toString());
-                open.setVisible(true);
-            }
-        catch(Exception e)
-            {
-            
-            }
-    }//GEN-LAST:event_btn_updateActionPerformed
-
-    private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
-       
-        try
-            {
-                cashOuts_resons open = new cashOuts_resons();
-                open.setVisible(true);
-                recod("Open new cash out going recoder window");
-            }
-        catch(Exception e)
-            {
-            
-            }
-    }//GEN-LAST:event_btn_addActionPerformed
 
     private void dateBoxAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_dateBoxAncestorAdded
        
@@ -248,7 +248,7 @@ public class outgoing extends javax.swing.JFrame {
 
              dateDisplay.setText("> "+date);
              clearTable();
-             connect.search_all_outgoing(date);
+             connect.search_all_activities("date",date);
              recod("Searched cash out going recods on "+date);
          } catch (Exception ex) {
              date = java.time.LocalDate.now().toString();
@@ -258,6 +258,14 @@ public class outgoing extends javax.swing.JFrame {
     private void dateBoxVetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {//GEN-FIRST:event_dateBoxVetoableChange
 
     }//GEN-LAST:event_dateBoxVetoableChange
+
+    private void btn_delete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_delete1ActionPerformed
+         try {
+                   connect.search_all_activities("no",txtBox_name.getText().trim()); //parsing current date
+                } catch (Exception ex) {
+                    Logger.getLogger(activities.class.getName()).log(Level.SEVERE, null, ex);
+                }
+    }//GEN-LAST:event_btn_delete1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,15 +284,17 @@ public class outgoing extends javax.swing.JFrame {
                 }
             }
         } catch (Exception ex) {
-            java.util.logging.Logger.getLogger(outgoing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(activities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
       
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new outgoing().setVisible(true);
+            new activities().setVisible(true);
         });
     }
     
@@ -307,8 +317,10 @@ public class outgoing extends javax.swing.JFrame {
       //THIS METHOD WILL ADD A NEW ROWTO J TABLE USING dealdata ARRAY WHICH IS PASSED BY Search_Every_Field METHOD
     public static void cashouts_ToTable(String [] dealData)
         {
-            DefaultTableModel delas = (DefaultTableModel) cashOuts.getModel();
-            delas.addRow(dealData);
+            DefaultTableModel deals = (DefaultTableModel) cashOuts.getModel();
+            String [] linebrake = {"",""};
+            deals.addRow(linebrake);
+            deals.addRow(dealData);
         
         }
     
@@ -327,13 +339,16 @@ public class outgoing extends javax.swing.JFrame {
         }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_add;
     private javax.swing.JButton btn_delete;
-    private javax.swing.JButton btn_update;
+    private javax.swing.JButton btn_delete1;
     public static javax.swing.JTable cashOuts;
     private static javax.swing.JScrollPane cashTable;
     private com.toedter.calendar.JDateChooser dateBox;
     private javax.swing.JLabel dateDisplay;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtBox_name;
     // End of variables declaration//GEN-END:variables
 }

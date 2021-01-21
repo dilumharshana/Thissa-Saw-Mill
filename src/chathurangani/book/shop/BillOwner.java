@@ -7,6 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+//Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, e);
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -270,8 +272,8 @@ public class BillOwner extends javax.swing.JFrame {
             //calling processing method name send data;
             sendData();
             } catch (Exception ex) {
-                Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
-               // JOptionPane.showMessageDialog(null,"New Borrower is not available !");
+                JOptionPane.showMessageDialog(null, "Check your input and try again - BillOwner#273");
+                connect.recod_error(ex.toString());
             }
         }
         else
@@ -283,7 +285,9 @@ public class BillOwner extends javax.swing.JFrame {
                 }
             catch(Exception e)
             {
-                Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, e);
+                JOptionPane.showMessageDialog(null, "Your stocks may be running out - AddStocks#286");
+                connect.recod_error(e.toString());
+                
             }
         }
     }//GEN-LAST:event_nextActionPerformed
@@ -321,7 +325,8 @@ public class BillOwner extends javax.swing.JFrame {
                 //calling processing method name send data;
                 sendData();
             } catch (Exception ex) {
-                Logger.getLogger(BillOwner.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Check your input and try again - BillOwner#327");
+                connect.recod_error(ex.toString());
             }
         }
 
@@ -347,7 +352,8 @@ public class BillOwner extends javax.swing.JFrame {
                 lbl_phone.setText("Phone Number : ");
             }
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(null, "Check your input and try again - BillOwner#356");
+            connect.recod_error(e.toString());
         }
 
     }//GEN-LAST:event_cusphoneForBillKeyReleased
@@ -476,7 +482,8 @@ public class BillOwner extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Check your input and try again - BillOwner#485");
+                        connect.recod_error(ex.toString());
                     }
                 }
         }
@@ -499,15 +506,11 @@ public class BillOwner extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BillOwner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BillOwner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BillOwner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BillOwner.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Check your input and try again - BillOwner#273");
+            dbConnector connect = new dbConnector();
+            connect.recod_error(ex.toString());
+        } 
         //</editor-fold>
         //</editor-fold>
 

@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class dbConnector {
@@ -37,7 +35,8 @@ public class dbConnector {
                 {
                     recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null,"Your Storage may be running out !");
+                        recod_error(ex.toString());
                     }
                 }
         }
@@ -1460,7 +1459,7 @@ public class dbConnector {
     public boolean passchek_cashier(String username, String password) throws Exception {
         boolean passVeryfied = false;
 
-        String query = "SELECT * FROM bookshop.cashier_login WHERE name= ? and pass= ? ;";
+        String query = "SELECT * FROM bookshop.cashier_login WHERE no = ? and pass= ? ;";
 
          if(con == null)
             {
@@ -1943,10 +1942,59 @@ public class dbConnector {
                 connect();
             }
         
-        String query = "INSERT INTO `bookshop`.`activites` (`name`, `activity`, `date`, `time`) VALUES ('"+controllers.cashierName+"', '"+activity+"', '"+java.time.LocalDate.now().toString()+"', '"+MAIN_FRAME.Time.getText()+"');";
+        String query = "INSERT INTO `bookshop`.`activites` (`no`, `activity`, `date`, `time`) VALUES ('"+controllers.cashierName+"', '"+activity+"', '"+java.time.LocalDate.now().toString()+"', '"+MAIN_FRAME.Time.getText()+"');";
         
         Statement st = con.createStatement();
         st.executeUpdate(query);
     }
+    
+     //SEARCHING FOR Out going cash
+        public void search_all_activities(String from , String date) throws Exception {
+
+            {
+                String query = "SELECT * FROM bookshop.activites WHERE `"+from+"` = '"+date+"' ;";
+
+            if(con == null)
+            {
+                connect();
+            }
+                 
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery(query);
+
+                String[] customer = new String[2];
+                activities.clearTable();
+
+                while (rs.next()) {
+                    customer[0] = rs.getString("date");
+                    customer[1] = rs.getString("no")+"     "+rs.getString("activity")+" at "+rs.getString("time");
+       
+                    activities.cashouts_ToTable(customer); // calling data items setting to table method in dealHistory class
+                }
+
+            }
+        }
+        
+    //recoding exceptions in all the windows
+     void recod_error(String error) //throws Exception
+        {
+         Statement st = null;
+            try
+                {
+                    if(con == null)
+                        {
+                        connect();
+                        }
+            
+                    String query = "INSERT INTO `bookshop`.`errors` (`error`) VALUES ("+error+"')";
+              
+                    st = con.createStatement();
+                    st.executeQuery(query);
+                }
+            catch(Exception e)
+                {
+                     JOptionPane.showMessageDialog(null,"Your Storage may be running out !");
+                }
+        }
 
 }

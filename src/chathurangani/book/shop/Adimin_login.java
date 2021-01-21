@@ -3,8 +3,6 @@ package chathurangani.book.shop;
 
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,7 +19,7 @@ import javax.swing.JOptionPane;
 //        lbl_userName.setVisible(false);
   //      userName_box.setVisible(false);
     }
-    
+    //Logger.getLogger(Adimin_login.class.getName()).log(Level.SEVERE, null, ex);
     static int passwordok = 0;
     boolean admin = true;
     dbConnector connect = new dbConnector();
@@ -54,7 +52,7 @@ import javax.swing.JOptionPane;
         jPanel3 = new javax.swing.JPanel();
         lbl_userName1 = new javax.swing.JLabel();
         cPass = new javax.swing.JPasswordField();
-        signin1 = new javax.swing.JButton();
+        signin_cashier = new javax.swing.JButton();
         text_user1 = new javax.swing.JLabel();
         img_logo1 = new javax.swing.JLabel();
         forget1 = new javax.swing.JLabel();
@@ -226,7 +224,7 @@ import javax.swing.JOptionPane;
         lbl_userName1.setBackground(new java.awt.Color(255, 255, 255));
         lbl_userName1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         lbl_userName1.setForeground(new java.awt.Color(255, 255, 0));
-        lbl_userName1.setText("User Name :");
+        lbl_userName1.setText("Account Number  :");
 
         cPass.setBackground(new java.awt.Color(255, 255, 204));
         cPass.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -241,13 +239,13 @@ import javax.swing.JOptionPane;
             }
         });
 
-        signin1.setBackground(new java.awt.Color(0, 204, 204));
-        signin1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        signin1.setForeground(new java.awt.Color(255, 255, 255));
-        signin1.setText("Sign In");
-        signin1.addActionListener(new java.awt.event.ActionListener() {
+        signin_cashier.setBackground(new java.awt.Color(0, 204, 204));
+        signin_cashier.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        signin_cashier.setForeground(new java.awt.Color(255, 255, 255));
+        signin_cashier.setText("Sign In");
+        signin_cashier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                signin1ActionPerformed(evt);
+                signin_cashierActionPerformed(evt);
             }
         });
 
@@ -291,7 +289,7 @@ import javax.swing.JOptionPane;
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(85, 85, 85)
-                .addComponent(signin1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(signin_cashier, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(text_user1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -306,10 +304,10 @@ import javax.swing.JOptionPane;
                             .addComponent(lbl_userName1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 38, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(71, 71, 71)
                 .addComponent(img_logo1)
-                .addGap(69, 69, 69))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +325,7 @@ import javax.swing.JOptionPane;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cPass, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19)
-                .addComponent(signin1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(signin_cashier, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(forget1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -376,7 +374,7 @@ import javax.swing.JOptionPane;
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -476,13 +474,20 @@ import javax.swing.JOptionPane;
 
     private void cPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cPassKeyTyped
        
+        char enter = evt.getKeyChar();
+        
         if(cPass.getText().length() == 20)
             {
                 evt.consume();
             }
+        
+        if(enter == KeyEvent.VK_ENTER)
+            {
+                login();
+            }
     }//GEN-LAST:event_cPassKeyTyped
 
-    private void signin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signin1ActionPerformed
+    private void signin_cashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signin_cashierActionPerformed
                 
         try {
             boolean passOk = connect.passchek_cashier(userName_box.getText() , String.valueOf(cPass.getPassword()));
@@ -493,7 +498,7 @@ import javax.swing.JOptionPane;
                 open.setVisible(true);
                 controllers.systemUser = true; // for stop recoding activites
                 controllers.cashierName = userName_box.getText();
-                recod(userName_box.getText()+" Loged into system ");//recoding actities
+                recod(" Loged into system ");//recoding actities
                 dispose();
             }
             else
@@ -503,11 +508,37 @@ import javax.swing.JOptionPane;
                 }
             
         } catch (Exception ex) {
-            Logger.getLogger(Adimin_login.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Sorry unable to open Billing panel , Restart your Computer and try again !");
+            connect.recod_error(ex.toString());
         }
         
-    }//GEN-LAST:event_signin1ActionPerformed
+    }//GEN-LAST:event_signin_cashierActionPerformed
 
+    //login process
+    void login()
+        {
+                    try {
+                        boolean passOk = connect.passchek_cashier(userName_box.getText() , String.valueOf(cPass.getPassword()));
+
+                        if(passOk == true)
+                        {
+                            MAIN_FRAME open = new MAIN_FRAME(true);
+                            open.setVisible(true);
+                            controllers.systemUser = true; // for stop recoding activites
+                            controllers.cashierName = userName_box.getText();
+                            recod(" Loged into system ");//recoding actities
+                            dispose();
+                        }
+                        else
+                            {
+                                userName_box.setText("");
+                                cPass.setText("");
+                            }
+               } catch (Exception ex) {
+                   JOptionPane.showMessageDialog(null, "Sorry unable to open Billing panel , Restart your Computer and try again !");
+                   connect.recod_error(ex.toString());
+               }
+        }
     private void img_logo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_img_logo1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_img_logo1MouseClicked
@@ -521,7 +552,16 @@ import javax.swing.JOptionPane;
     }//GEN-LAST:event_jPanel3MouseClicked
 
     private void userName_boxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userName_boxKeyTyped
-        if(userName_box.getText().length() == 20)
+        char charactor = evt.getKeyChar();
+        
+        if(Character.isDigit(charactor))
+            {
+                if(userName_box.getText().length() == 20)
+                {
+                    evt.consume();
+                }
+            }
+        else
             {
                 evt.consume();
             }
@@ -569,7 +609,8 @@ import javax.swing.JOptionPane;
                                 }
 
                             } catch (Exception ex) {
-                                Logger.getLogger(Adimin_login.class.getName()).log(Level.SEVERE, null, ex);
+                               JOptionPane.showMessageDialog(null,"Something went wrong - Admin-login#612 ");
+                               connect.recod_error(ex.toString());
                             }
                       }
                   else if(passwordok == 1) //user forgot the password ans enter the securty key and trying to chek
@@ -592,7 +633,8 @@ import javax.swing.JOptionPane;
                                             }
                                         
                                     } catch (Exception ex) {
-                                        Logger.getLogger(Adimin_login.class.getName()).log(Level.SEVERE, null, ex);
+                                       JOptionPane.showMessageDialog(null,"Something went wrong - Admin-login#635 ");
+                                       connect.recod_error(ex.toString());
                                     }
                                 }
                   else  //state of ready to chek security answer
@@ -615,7 +657,8 @@ import javax.swing.JOptionPane;
                                             }
                                         
                                     } catch (Exception ex) {
-                                        Logger.getLogger(Adimin_login.class.getName()).log(Level.SEVERE, null, ex);
+                                       JOptionPane.showMessageDialog(null,"Something went wrong - Admin-login#658 ");
+                                       connect.recod_error(ex.toString());
                                     }
                     }
                 }
@@ -630,7 +673,8 @@ import javax.swing.JOptionPane;
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null,"Something went wrong - Admin-login#673 ");
+                        connect.recod_error(ex.toString());
                     }
                 }
         }
@@ -651,17 +695,14 @@ import javax.swing.JOptionPane;
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Adimin_login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Adimin_login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Adimin_login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Adimin_login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null , "Something went wrong admin-login#701");
+            dbConnector connect = new dbConnector();
+            connect.recod_error(ex.toString());
+        } 
         //</editor-fold>
         //</editor-fold>
+        
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -693,7 +734,7 @@ import javax.swing.JOptionPane;
     public static javax.swing.JLabel lbl_userName1;
     private javax.swing.JPasswordField password;
     private javax.swing.JButton signin;
-    private javax.swing.JButton signin1;
+    private javax.swing.JButton signin_cashier;
     private javax.swing.JLabel text_user;
     private javax.swing.JLabel text_user1;
     private javax.swing.JTextField userName_box;

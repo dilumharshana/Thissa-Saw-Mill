@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+//Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, e);
+
 
 public class settings extends javax.swing.JFrame implements Runnable {
 
@@ -102,6 +104,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
         jLabel12 = new javax.swing.JLabel();
         cashier = new javax.swing.JButton();
         biz = new javax.swing.JButton();
+        btn_activities = new javax.swing.JButton();
 
         jButton3.setBackground(new java.awt.Color(102, 102, 0));
         jButton3.setFont(new java.awt.Font("Calibri Light", 1, 24)); // NOI18N
@@ -520,6 +523,16 @@ public class settings extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        btn_activities.setBackground(new java.awt.Color(0, 102, 102));
+        btn_activities.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        btn_activities.setText("Cashier Activities");
+        btn_activities.setBorder(null);
+        btn_activities.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_activitiesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -536,8 +549,9 @@ public class settings extends javax.swing.JFrame implements Runnable {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(biz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(passPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(passPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_activities, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(282, 282, 282)
@@ -577,12 +591,15 @@ public class settings extends javax.swing.JFrame implements Runnable {
                                 .addGap(11, 11, 11)
                                 .addComponent(passPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(cashier, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(cashier, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_activities, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(changePannel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(setPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -689,6 +706,12 @@ public class settings extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_s_p_retypePassActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+      
+        //clearinf input fields before closing panel
+        s_p_newPass.setText("");
+        s_p_retypePass.setText("");
+        question.setText("");
+        answer.setText("");
         setPanel.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -716,7 +739,8 @@ public class settings extends javax.swing.JFrame implements Runnable {
                     setPanel.setVisible(false);
 
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, " Something went wrong Code-Settings604! ");
+                    JOptionPane.showMessageDialog(null, " Something went wrong - Settings#742! ");
+                    connect.recod_error(ex.toString());
                 }
             } else {
                 JOptionPane.showMessageDialog(null, " passwords dosent match ! ");
@@ -761,7 +785,10 @@ public class settings extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_c_p_retypePassKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        changePannel.setVisible(false);
+       currentPass.setText("");
+       c_p_newPass.setText("");
+       c_p_retypePass.setText("");
+       changePannel.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeActionPerformed
@@ -797,7 +824,8 @@ public class settings extends javax.swing.JFrame implements Runnable {
                     JOptionPane.showMessageDialog(null, " Current Password Incorrect ! ");
                 }
             } catch (Exception e) {
-                Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, e);
+                JOptionPane.showMessageDialog(null, " Something went wrong - Settings#828! ");
+                connect.recod_error(e.toString());
             }
 
         } else {
@@ -815,7 +843,8 @@ public class settings extends javax.swing.JFrame implements Runnable {
             connect.removePass();
             MAIN_FRAME.panelLock = false; //updatinf mainframe password on / off variable state to off
         } catch (Exception ex) {
-            Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, " Something went wrong - Settings#847! ");
+            connect.recod_error(ex.toString());
         }
     }//GEN-LAST:event_removePasswordActionPerformed
 
@@ -830,7 +859,8 @@ public class settings extends javax.swing.JFrame implements Runnable {
             try {
                 connect.clearDeals();
             } catch (Exception ex) {
-                Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, " Something went wrong - Settings#863! ");
+                connect.recod_error(ex.toString());
             }
         }
     }//GEN-LAST:event_ctimeMouseClicked
@@ -843,9 +873,23 @@ public class settings extends javax.swing.JFrame implements Runnable {
             }
         catch(Exception e)
             {
-                
+                JOptionPane.showMessageDialog(null, " Sorry unable to open Analize - Settings#876! ");
+                connect.recod_error(e.toString());
             }
     }//GEN-LAST:event_bizActionPerformed
+
+    private void btn_activitiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_activitiesActionPerformed
+        try
+            {
+                activities open = new activities();
+                open.setVisible(true);
+            }
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, " Sorry unable to open Cashier Activites - Settings#889! ");
+                connect.recod_error(e.toString());
+            }
+    }//GEN-LAST:event_btn_activitiesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -865,6 +909,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton analizeBiz;
     private javax.swing.JTextField answer;
     private javax.swing.JButton biz;
+    private javax.swing.JButton btn_activities;
     private javax.swing.JPasswordField c_p_newPass;
     private javax.swing.JPasswordField c_p_retypePass;
     private javax.swing.JButton cashier;
@@ -917,20 +962,28 @@ public class settings extends javax.swing.JFrame implements Runnable {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         while (true) {
             // CODE FOR TIME 
-            Calendar cal = Calendar.getInstance();
-            int hour = cal.get(Calendar.HOUR_OF_DAY);
-            int min = cal.get(Calendar.MINUTE);
-            int sec = cal.get(Calendar.SECOND);
+            try
+                {
+                    Calendar cal = Calendar.getInstance();
+                    int hour = cal.get(Calendar.HOUR_OF_DAY);
+                    int min = cal.get(Calendar.MINUTE);
+                    int sec = cal.get(Calendar.SECOND);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss aa");
-            Date time = cal.getTime();
-            String timeok = sdf.format(time);
-            ctime.setText(timeok);
+                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss aa");
+                    Date time = cal.getTime();
+                    String timeok = sdf.format(time);
+                    ctime.setText(timeok);
 
-            // CODE FOR DATE
-            LocalDate date = LocalDate.now();
-            String dateok = date.toString();
-            cdate.setText(dateok);
+                    // CODE FOR DATE
+                    LocalDate date = LocalDate.now();
+                    String dateok = date.toString();
+                    cdate.setText(dateok);
+                }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, " Sorry unable to open Cashier Activites - Settings#984! ");
+                connect.recod_error(e.toString());
+            }
 
         }
     }

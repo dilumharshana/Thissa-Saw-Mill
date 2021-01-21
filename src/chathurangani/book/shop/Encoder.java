@@ -4,6 +4,7 @@ package chathurangani.book.shop;
 import java.math.BigInteger; 
 import java.security.MessageDigest; 
 import java.security.NoSuchAlgorithmException; 
+import javax.swing.JOptionPane;
 /**
  *
  * @author Dilum
@@ -37,8 +38,11 @@ public class Encoder {
   
         // For specifying wrong message digest algorithms 
         catch (NoSuchAlgorithmException e) { 
-            throw new RuntimeException(e); 
+            JOptionPane.showMessageDialog(null, "Something went wrong - Encoder#41");
+            dbConnector connect = new dbConnector();
+            connect.recod_error(e.toString());
         } 
+        return null;
     } 
   
 }

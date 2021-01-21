@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 public class stocks extends javax.swing.JFrame {
 
@@ -30,6 +31,8 @@ public class stocks extends javax.swing.JFrame {
             Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        //formating table
+      
         this.index = 0;
     }
 
@@ -422,6 +425,7 @@ public class stocks extends javax.swing.JFrame {
         try {
             connect.stockItemsShowAll();
             recod(" Refreshed all stocks ");
+            sizes(stockitemstable.getColumnModel());
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -704,6 +708,7 @@ public class stocks extends javax.swing.JFrame {
 
             searchbar.setEnabled(true);
             searchForItem.setEnabled(true);
+            sizes(stockitemstable.getColumnModel());
 
             break;
 
@@ -719,6 +724,11 @@ public class stocks extends javax.swing.JFrame {
 
             searchbar.setEnabled(true);
             searchForItem.setEnabled(true);
+            
+                TableColumnModel size = (rawtable.getColumnModel());
+                size.getColumn(0).setPreferredWidth(40);
+                size.getColumn(1).setPreferredWidth(300);
+                size.getColumn(2).setPreferredWidth(150);
 
             break;
 
@@ -736,6 +746,7 @@ public class stocks extends javax.swing.JFrame {
 
             searchbar.setEnabled(false);
             searchForItem.setEnabled(false);
+            sizes(kempasTable.getColumnModel());
             break;
 
             default:
@@ -945,6 +956,13 @@ public class stocks extends javax.swing.JFrame {
                 }
         }
         
+        void sizes(TableColumnModel size)
+            {
+                size.getColumn(0).setPreferredWidth(40);
+                size.getColumn(1).setPreferredWidth(300);
+                size.getColumn(2).setPreferredWidth(150);
+                size.getColumn(3).setPreferredWidth(150);
+            }
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_NewI_tem_Btn;

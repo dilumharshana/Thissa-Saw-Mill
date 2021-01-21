@@ -1,5 +1,6 @@
 package chathurangani.book.shop;
 
+import static chathurangani.book.shop.MAIN_FRAME.selltable;
 import java.awt.Toolkit;
 import java.math.BigDecimal;
 import java.util.logging.Level;
@@ -167,7 +168,7 @@ public class advanced extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(advancedTable);
 
-        cusName.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        cusName.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         cusName.setForeground(new java.awt.Color(255, 255, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -187,15 +188,15 @@ public class advanced extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(updateFromBill, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(payment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(payment, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
+                        .addComponent(cusName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -214,11 +215,9 @@ public class advanced extends javax.swing.JFrame {
                         .addGap(12, 12, 12))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -430,9 +429,13 @@ public class advanced extends javax.swing.JFrame {
     }//GEN-LAST:event_updateFromBillActionPerformed
 
     private void paymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentActionPerformed
-
-          int row = advancedTable.getSelectedRow(); //selected row
-        //setting customer advanced items to billing panel table
+            
+           
+           if(MAIN_FRAME.selltable.getRowCount()==0) //cheking if main billing panelisempty ?
+            {
+                
+                    int row = advancedTable.getSelectedRow(); //selected row
+                  //setting customer advanced items to billing panel table
                    try
                         {
                             MAIN_FRAME.refreshWindow();
@@ -446,21 +449,26 @@ public class advanced extends javax.swing.JFrame {
                      
                         }
                    
-            //setting cash amout to billoing panel
-            
-     //subtracting advanced from total billa amount     
-            MAIN_FRAME.advanced = new BigDecimal(advancedTable.getValueAt( row ,7).toString());
-            MAIN_FRAME.staticTotal.setText("Rs. "+String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString())));
-            MAIN_FRAME.statTotal = new BigDecimal(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString())));
-            MAIN_FRAME.lbl_advanced.setText(" Advanced : "+ advancedTable.getValueAt( row ,7).toString());
-            MAIN_FRAME.lbl_advanced.setVisible(true);
-            MAIN_FRAME.discLable.setVisible(true);
-            MAIN_FRAME.discAmount.setText(" Discounted : "+ advancedTable.getValueAt( row ,6).toString());
-            MAIN_FRAME.discAmount.setVisible(true);
-            MAIN_FRAME.total.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString()) .subtract(new BigDecimal(advancedTable.getValueAt( row ,7).toString()).add(new BigDecimal(advancedTable.getValueAt( row ,6).toString())))));
-            MAIN_FRAME.discAmount.setText(advancedTable.getValueAt( row ,6).toString());
-            
-            dispose();
+                    //setting cash amout to billoing panel
+
+             //subtracting advanced from total billa amount     
+                    MAIN_FRAME.advanced = new BigDecimal(advancedTable.getValueAt( row ,7).toString());
+                    MAIN_FRAME.staticTotal.setText("Rs. "+String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString())));
+                    MAIN_FRAME.statTotal = new BigDecimal(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString())));
+                    MAIN_FRAME.lbl_advanced.setText(" Advanced : "+ advancedTable.getValueAt( row ,7).toString());
+                    MAIN_FRAME.lbl_advanced.setVisible(true);
+                    MAIN_FRAME.discLable.setVisible(true);
+                    MAIN_FRAME.discAmount.setText(" Discounted : "+ advancedTable.getValueAt( row ,6).toString());
+                    MAIN_FRAME.discAmount.setVisible(true);
+                    MAIN_FRAME.total.setText(String.valueOf(new BigDecimal(advancedTable.getValueAt( row ,5).toString()) .subtract((new BigDecimal(advancedTable.getValueAt( row ,7).toString()).add(new BigDecimal(advancedTable.getValueAt( row ,6).toString()))))));
+                    MAIN_FRAME.discAmount.setText(advancedTable.getValueAt( row ,6).toString());
+
+                    dispose();
+        }
+    else
+       {
+           JOptionPane.showMessageDialog(null , "Main Billing Window is not empty");
+       }
     }//GEN-LAST:event_paymentActionPerformed
 
     private void advancedTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_advancedTableMouseClicked

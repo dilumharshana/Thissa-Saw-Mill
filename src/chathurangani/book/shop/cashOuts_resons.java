@@ -58,7 +58,7 @@ public class cashOuts_resons extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 51));
+        jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
         cashAmount.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cashAmount.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -80,6 +80,8 @@ public class cashOuts_resons extends javax.swing.JFrame {
             }
         });
 
+        next.setBackground(new java.awt.Color(0, 153, 204));
+        next.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         next.setText("ADD");
         next.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -23,6 +23,9 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+//Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+
+
 
 /**
  *
@@ -56,7 +59,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         try {
 
             passAvailability = connect.isLocked();
-            this.panelLock = passAvailability;
+            MAIN_FRAME.panelLock = passAvailability;
             
             boolean out = connect.stockout();
 
@@ -70,7 +73,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                       }
 
         } catch (Exception ex) {
-            Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, " Something went wrong in Locking Panel - Main_Frame#76! ");
+            connect.recod_error(ex.toString());
         }
 
     }
@@ -112,7 +116,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                       }
 
         } catch (Exception ex) {
-            Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+            connect.recod_error(ex.toString());
         }
 
     }
@@ -178,6 +182,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         jScrollPane1 = new javax.swing.JScrollPane();
         selltable = new javax.swing.JTable();
         lbl_advanced = new javax.swing.JLabel();
+        logout = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("TISSA SAW MILL");
@@ -623,6 +628,14 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         lbl_advanced.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(lbl_advanced, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 180, 212, 31));
 
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/logout.png"))); // NOI18N
+        logout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutMouseClicked(evt);
+            }
+        });
+        jPanel1.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 640, 60, 50));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -642,7 +655,15 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         //CHEKING IF ENTER PRESSED
         char enter = evt.getKeyChar(); //geting youser press key code
 
-        searchProcess(enter);
+        try
+            {
+                searchProcess(enter);
+            }
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, "Sorry something went wrong ! - Main_Frame#664");
+                connect.recod_error(e.toString());
+            }
     }//GEN-LAST:event_barcodeKeyTyped
 
     private void barcodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barcodeKeyPressed
@@ -659,7 +680,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             open.setVisible(true);
             recod(" Opened STOCKS window ");//recoding actities
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Cant Open stocks !");
+            JOptionPane.showMessageDialog(null, "Cant Open stocks ! - Main_Frame#675!");
+            connect.recod_error(ex.toString());
         }
     }//GEN-LAST:event_stockTabActionPerformed
 
@@ -713,6 +735,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 catch(Exception e)
                     {
                              values[1] = new BigDecimal(String.valueOf(0.0));// discounted price
+                             connect.recod_error(e.toString());
                         
                     }
                 
@@ -725,6 +748,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 catch(Exception e)
                     {
                         values[2] = new BigDecimal(total.getText().trim()); // cash amount that customer given
+                        connect.recod_error(e.toString());
                         paymentForBill = values[2];
                         
                     }
@@ -737,6 +761,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 catch(Exception e)
                     {
                             values[3] = new BigDecimal(String.valueOf(0.0));// balance amount
+                            connect.recod_error(e.toString());
                         
                     }
                 
@@ -749,6 +774,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 catch(Exception e)
                     {
                             values[4] = new BigDecimal(String.valueOf(0.00));// balance amount
+                            connect.recod_error(e.toString());
                         
                     }
                 
@@ -759,6 +785,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 catch(Exception e)
                     {
                             values[5] = new BigDecimal(String.valueOf(0.00));// static total amount
+                            connect.recod_error(e.toString());
                         
                     }
                 
@@ -804,7 +831,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                             }
 
                         } catch (Exception ex) {
-                            Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null, "Something went wrong ! - Main_Frame#!826");
+                            connect.recod_error(ex.toString());
                         }
 
                             //income date databse handling
@@ -829,7 +857,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                                   recod("Created a bill");//recoding actities
                                   
                             } catch (Exception ex) {
-                                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                               JOptionPane.showMessageDialog(null, "Some thing went wrong in incomedata process ! - Main_Frame#852!");
+                                connect.recod_error(ex.toString());
                             }
                       }
            
@@ -858,15 +887,15 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             }
           catch(Exception e)
             {
-                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
-            // JOptionPane.showMessageDialog(null , "Sorry something went wrong !");
+               JOptionPane.showMessageDialog(null, "Sorry some thing went wrong ! - Main_Frame#882!");
+               connect.recod_error(e.toString());
             }
         }
     
     //stock updator method
     void stockupdate( String code , String quantity)
         {
-             try {
+                                             try {
 
                                                     //decreasing stock of out items
                                                     int stock = connect.searchItemStock(code); //cheking for current stock
@@ -884,8 +913,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                                                     }
 
                                                 } catch (Exception e) {
-                                                    // JOptionPane.showMessageDialog(null , "Something went wrong(MainFrameE791)!");
-                                                    Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
+                                                   JOptionPane.showMessageDialog(null, "Sorry some thing went wrong ! - Main_Frame#908!");
+                                                    connect.recod_error(e.toString()); 
                                                 }
         }
     
@@ -1066,6 +1095,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             totalAmount = new BigDecimal(String.valueOf(total.getText().trim()));
         } catch (Exception e) {
             totalAmount = new BigDecimal(String.valueOf(total.getText().trim()));
+            connect.recod_error(e.toString());
         }
 
         // DISCOUNT AMOUNT AS A BIG DECIMAL WITH NULL EXCEPTION HANDLING
@@ -1073,6 +1103,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             discamount = new BigDecimal(String.valueOf(disc.getText().trim()));
         } catch (Exception e) {
             discamount = new BigDecimal("0.0");
+            connect.recod_error(e.toString());
         }
 
         int compareValues = discamount.compareTo(totalAmount); // if pAmount > total amount, then this varible will contain " 1 " , if equals then contains " 0 ", small then contain " -1 "
@@ -1132,7 +1163,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             open.setVisible(true);
             recod("Opend ADD STOCKS window ");//recoding actities
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Cant open Add Stocks window");
+            JOptionPane.showMessageDialog(null, "Sorry cant open Add Stocks window right now ! - Main_Frame#1158!");
+            connect.recod_error(e.toString());
         }
     }//GEN-LAST:event_addStockTabActionPerformed
 
@@ -1143,7 +1175,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             open.setVisible(true);
             recod("Opend DEBTORS window");//recoding actities
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Cant open returns window 1");
+            JOptionPane.showMessageDialog(null, "Sorry cant open Debtors window right now ! - Main_Frame#1170!");
+            connect.recod_error(e.toString());
         }
     }//GEN-LAST:event_borrowersTabActionPerformed
 
@@ -1187,7 +1220,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             }
         catch(Exception e)
             {
-            
+                JOptionPane.showMessageDialog(null, "Sorry cant open Advanced Bills window right now ! - Main_Frame#1215!");
+                connect.recod_error(e.toString());
             }
     }//GEN-LAST:event_advancedTabActionPerformed
 
@@ -1200,9 +1234,29 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             }
         catch(Exception e)
             {
-            
+                JOptionPane.showMessageDialog(null, "Sorry cant open Emplyooes window right now ! - Main_Frame#1158!");
+                connect.recod_error(e.toString());
             }
     }//GEN-LAST:event_emplyooesActionPerformed
+
+    private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
+        try
+           {
+               int choice = JOptionPane.showConfirmDialog(null , " Do you want to log out ?","LOG OUT",JOptionPane.YES_NO_CANCEL_OPTION);
+               if(choice == 0)
+                {
+                    Adimin_login open = new Adimin_login();
+                    open.setVisible(true);
+                    recod("Loged out from the system");
+                    dispose();
+                }
+           }
+        catch(Exception e)
+        {
+                JOptionPane.showMessageDialog(null, "Sorry unable to log out Please Close the window and restart the software ! - Main_Frame#1248!");
+                connect.recod_error(e.toString());
+        }
+    }//GEN-LAST:event_logoutMouseClicked
 
 //filling jtable with parsed itesm
     public static void searchItemsToTable(String[] stockdatas) {
@@ -1265,7 +1319,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 connect.itemsForSelling(code);
                 recod("Searched Item : "+code);//recoding actities
             } catch (Exception ex) {
-                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Sorry something went wrong ,unable to find the item ! - Main_Frame#1322!");
+                connect.recod_error(ex.toString());
             }
 
             //make sure that continue search preocess is ready to run
@@ -1286,7 +1341,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             connect.itemsForSelling(code);
             recod("Searched Item : "+code);//recoding actities
         } catch (Exception ex) {
-            Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Sorry something went wrong ,unable to find the item ! - Main_Frame#1344!");
+            connect.recod_error(ex.toString());
         }
 
         //make sure that continue search preocess is ready to run
@@ -1317,7 +1373,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             barcode.setText("");
 
         } catch (Exception ex) {
-            Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Sorry something went wrong ,unable to load the item! - Main_Frame#1375!");
+            dbConnector connect = new dbConnector();
+            connect.recod_error(ex.toString());
         }
     }
 
@@ -1388,15 +1446,11 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MAIN_FRAME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MAIN_FRAME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MAIN_FRAME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MAIN_FRAME.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+           JOptionPane.showMessageDialog(null, "Sorry something went wrong  - Main_Frame#1450!");
+            dbConnector connect = new dbConnector();
+            connect.recod_error(ex.toString());
+        } 
         //</editor-fold>
 
         /* Create and display the form */
@@ -1416,7 +1470,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Your stocks may be running out - Main_Frame#1472!");
+                        connect.recod_error(ex.toString());
                     }
                 }
         }
@@ -1476,6 +1531,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JLabel lbl_advanced;
+    private javax.swing.JLabel logout;
     public static javax.swing.JTextField paymentAmount;
     private javax.swing.JButton paymentBtn;
     public static javax.swing.JButton proceed;

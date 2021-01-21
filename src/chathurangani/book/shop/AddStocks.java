@@ -12,13 +12,15 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+///java.util.logging.Logger.getLogger(AddStocks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
 public class AddStocks extends javax.swing.JFrame {
 
     /**
      * Creates new form AddStocks
+     * @param index
      */
+    
     public AddStocks(int index) {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
@@ -468,6 +470,7 @@ public class AddStocks extends javax.swing.JFrame {
                                 filledChek[1]=false;
                                 filledChek[2]=false;
                                 filledChek[3]=false;
+                                connect.recod_error(e.toString());
                             }
 
                             catch(Exception e)
@@ -478,6 +481,8 @@ public class AddStocks extends javax.swing.JFrame {
                                 filledChek[1]=false;
                                 filledChek[2]=false;
                                 filledChek[3]=false;
+                                connect.recod_error(e.toString());
+                                
                             }
 
                             break;
@@ -508,6 +513,7 @@ public class AddStocks extends javax.swing.JFrame {
                             filledChek[0]=false;
                             filledChek[1]=false;
                             filledChek[3]=false;
+                            connect.recod_error(e.toString());
                         }
 
                         catch(Exception e)
@@ -517,6 +523,7 @@ public class AddStocks extends javax.swing.JFrame {
                             filledChek[0]=false;
                             filledChek[1]=false;
                             filledChek[3]=false;
+                            connect.recod_error(e.toString());
                         }
 
                         break;
@@ -547,6 +554,7 @@ public class AddStocks extends javax.swing.JFrame {
                             filledChek[0]=false;
                             filledChek[1]=false;
                             filledChek[3]=false;
+                            connect.recod_error(e.toString());
                         }
 
                         catch(Exception e)
@@ -556,6 +564,7 @@ public class AddStocks extends javax.swing.JFrame {
                             filledChek[0]=false;
                             filledChek[1]=false;
                             filledChek[3]=false;
+                            connect.recod_error(e.toString());
                         }
 
                         break;
@@ -572,7 +581,8 @@ public class AddStocks extends javax.swing.JFrame {
         try {
             connect.stockItemsShowAll();
         } catch (Exception ex) {
-            
+            JOptionPane.showMessageDialog(null, "Restart your Computer -AddStocks#584");
+            connect.recod_error(ex.toString());
         }
         submit.setEnabled(false);
         
@@ -606,15 +616,12 @@ public class AddStocks extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddStocks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddStocks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddStocks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddStocks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Restart your Computer -AddStocks#584");
+            dbConnector connect = new dbConnector();
+            connect.recod_error(ex.toString());
+            
+        } 
         //</editor-fold>
 
         /* Create and display the form */
@@ -634,7 +641,8 @@ public class AddStocks extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                         JOptionPane.showMessageDialog(null, "Your stocks may be running out - AddStocks#644");
+                         connect.recod_error(ex.toString());
                     }
                 }
         }

@@ -5,8 +5,8 @@
  */
 package chathurangani.book.shop;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -15,30 +15,20 @@ import java.util.logging.Logger;
 public class stater {
 
     public stater() {
-
-            try {
-
-                this.lock = connect.isLocked();
-
-            } catch (Exception ex) {
-                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
-            }
     }
 
-    static boolean lock;
-
-    dbConnector connect = new dbConnector();
+    static boolean lock;  
             public static void main(String[] args) {
 
-                //try to runny own constructor 
-                controllers call = new controllers();
-                 
-                if (lock == true) {
+              try
+                {
                     Adimin_login open = new Adimin_login();
                     open.setVisible(true);
-                } else {
-                    MAIN_FRAME open = new MAIN_FRAME();
-                    open.setVisible(true);
+                    
+                }
+              catch(Exception e)
+                {
+                    JOptionPane.showMessageDialog(null,"Sorry , Login Screen cant be open !");
                 }
 
             }
