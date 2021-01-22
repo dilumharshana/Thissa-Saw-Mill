@@ -1,8 +1,7 @@
 package chathurangani.book.shop;
 
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -33,7 +32,8 @@ public class paymentHistory extends javax.swing.JFrame {
              try {
                 connect.getDealItems(primaryKey);
             } catch (Exception ex ) {
-               
+               JOptionPane.showMessageDialog(null, "Something went wrong - paymentHistory#35 !");
+               connect.recod_error(ex.toString()+" - paymentHistory 35");
             } 
         
     }
@@ -142,6 +142,8 @@ public class paymentHistory extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -150,7 +152,8 @@ public class paymentHistory extends javax.swing.JFrame {
                 }
             }
         } catch (Exception ex) {
-            
+               JOptionPane.showMessageDialog(null, "Something went wrong - paymentHistory#35 !");
+               connect.recod_error(ex.toString()+" - paymentHistory 35");
         } 
         //</editor-fold>
         //</editor-fold>

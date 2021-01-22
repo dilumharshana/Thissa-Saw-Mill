@@ -9,8 +9,6 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 ///java.util.logging.Logger.getLogger(AddStocks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
@@ -470,7 +468,7 @@ public class AddStocks extends javax.swing.JFrame {
                                 filledChek[1]=false;
                                 filledChek[2]=false;
                                 filledChek[3]=false;
-                                connect.recod_error(e.toString());
+                                connect.recod_error(e.toString()+"this is duplicate primary key error");
                             }
 
                             catch(Exception e)
@@ -642,7 +640,7 @@ public class AddStocks extends javax.swing.JFrame {
                     connect.recoder(activity);
                     } catch (Exception ex) {
                          JOptionPane.showMessageDialog(null, "Your stocks may be running out - AddStocks#644");
-                         connect.recod_error(ex.toString());
+                         connect.recod_error(ex.toString()+"- AddStocks#644");
                     }
                 }
         }

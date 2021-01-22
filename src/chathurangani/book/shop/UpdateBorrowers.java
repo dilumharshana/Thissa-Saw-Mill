@@ -1,9 +1,12 @@
+
 package chathurangani.book.shop;
 
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+//Logger.getLogger(UpdateBorrowers.class.getName()).log(Level.SEVERE, null, ex);
 
 
 public class UpdateBorrowers extends javax.swing.JFrame {
@@ -169,7 +172,7 @@ public class UpdateBorrowers extends javax.swing.JFrame {
         panel_name.setBackground(new java.awt.Color(255, 255, 255));
         panel_name.setFont(new java.awt.Font("Comic Sans MS", 1, 24)); // NOI18N
         panel_name.setForeground(new java.awt.Color(0, 0, 0));
-        panel_name.setText("Borrower Update");
+        panel_name.setText("Update Debtors");
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -520,7 +523,8 @@ public class UpdateBorrowers extends javax.swing.JFrame {
                     emplyoees.brnhandler();
                 }
         } catch (Exception ex) {
-            Logger.getLogger(UpdateBorrowers.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateBorrowers#525");
+            connect.recod_error(ex.toString()+" - UpdateBorrowers 438");
         }
         setVisible(false);
 
@@ -578,7 +582,8 @@ public class UpdateBorrowers extends javax.swing.JFrame {
                     recod("Updated Employer Contact No");
                 }
         } catch (Exception ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateBorrowers#585");
+            connect.recod_error(ex.toString()+" - UpdateBorrowers 585");
         }
 
         nicUpdate.setEnabled(false);
@@ -604,7 +609,8 @@ public class UpdateBorrowers extends javax.swing.JFrame {
                     recod("Updated Employer Name");
                 }
         } catch (Exception ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateBorrowers#612");
+            connect.recod_error(ex.toString()+" - UpdateBorrowers 612");
         }
 
         nameUpdate.setEnabled(false);
@@ -630,7 +636,8 @@ public class UpdateBorrowers extends javax.swing.JFrame {
                     recod("Updated Employer Contact No");
                 }
         } catch (Exception ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateBorrowers#638");
+            connect.recod_error(ex.toString()+" - UpdateBorrowers 638");
         }
 
         contact.setEditable(false);
@@ -754,7 +761,8 @@ public class UpdateBorrowers extends javax.swing.JFrame {
                     recod("Updated Employer Address");
                 }
         } catch (Exception ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateBorrowers#763");
+            connect.recod_error(ex.toString()+" - UpdateBorrowers 763");
         }
 
         address.setEditable(false);
@@ -795,7 +803,8 @@ public class UpdateBorrowers extends javax.swing.JFrame {
                     connect.updateBorrowerData("salary", passbox.getText().trim(), primarykeyofdata,2);
                 }
         } catch (Exception ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateBorrowers#805");
+            connect.recod_error(ex.toString()+" - UpdateBorrowers 805");
         }
 
         address.setEditable(false);
@@ -840,6 +849,7 @@ public class UpdateBorrowers extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -847,15 +857,10 @@ public class UpdateBorrowers extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateBorrowers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateBorrowers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateBorrowers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateBorrowers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateBorrowers#859");
+            connect.recod_error(ex.toString()+" - UpdateBorrowers 859");
+        } 
         //</editor-fold>
         //</editor-fold>
 
@@ -865,7 +870,8 @@ public class UpdateBorrowers extends javax.swing.JFrame {
                 try {
                     new UpdateBorrowers("", "", "","","").setVisible(true);
                 } catch (Exception e) {
-
+                    JOptionPane.showMessageDialog(null, "Something went wrong - UpdateBorrowers#612");
+                    connect.recod_error(e.toString()+" - UpdateBorrowers 612");
                 }
             }
         });
@@ -880,7 +886,8 @@ public class UpdateBorrowers extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Your storage may be running out - UpdateBorrowers#889");
+                        connect.recod_error(ex.toString()+" - UpdateBorrowers 889");
                     }
                 }
         }

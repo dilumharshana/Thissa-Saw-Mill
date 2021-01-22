@@ -1,9 +1,9 @@
 package chathurangani.book.shop;
 
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+//Logger.getLogger(advancedItems.class.getName()).log(Level.SEVERE, null, ex);
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,7 +33,8 @@ public class advancedItems extends javax.swing.JFrame {
              try {
                 connect.getAdvancetems(primaryKey , true); // sending to true for take fetchng data to advance item viwing panel
             } catch (Exception ex ) {
-                Logger.getLogger(advancedItems.class.getName()).log(Level.SEVERE, null, ex);
+                 JOptionPane.showMessageDialog(null, "Something went wrong - advanced Items#36");
+                 connect.recod_error(ex.toString()+" - advancedOtems 36");
             } 
         
     }
@@ -142,6 +143,7 @@ public class advancedItems extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -149,15 +151,10 @@ public class advancedItems extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(advancedItems.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(advancedItems.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(advancedItems.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(advancedItems.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something went wrong - advanced Items#155");
+            connect.recod_error(ex.toString()+" - advancedOtems 155");
+        } 
         //</editor-fold>
         //</editor-fold>
 

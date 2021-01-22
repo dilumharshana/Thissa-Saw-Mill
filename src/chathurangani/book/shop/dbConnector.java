@@ -36,7 +36,7 @@ public class dbConnector {
                     recoder(activity);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null,"Your Storage may be running out !");
-                        recod_error(ex.toString());
+                        recod_error(ex.toString()+" - dbConnector 39");
                     }
                 }
         }

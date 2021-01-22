@@ -3,8 +3,6 @@ package chathurangani.book.shop;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 //Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, e);
@@ -273,7 +271,7 @@ public class BillOwner extends javax.swing.JFrame {
             sendData();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Check your input and try again - BillOwner#273");
-                connect.recod_error(ex.toString());
+                connect.recod_error(ex.toString()+" Bill Owner 273");
             }
         }
         else
@@ -286,7 +284,7 @@ public class BillOwner extends javax.swing.JFrame {
             catch(Exception e)
             {
                 JOptionPane.showMessageDialog(null, "Your stocks may be running out - AddStocks#286");
-                connect.recod_error(e.toString());
+                connect.recod_error(e.toString()+" Bill Owner 286");
                 
             }
         }
@@ -326,7 +324,7 @@ public class BillOwner extends javax.swing.JFrame {
                 sendData();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Check your input and try again - BillOwner#327");
-                connect.recod_error(ex.toString());
+                connect.recod_error(ex.toString()+" Bill Owner 327");
             }
         }
 
@@ -353,7 +351,7 @@ public class BillOwner extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Check your input and try again - BillOwner#356");
-            connect.recod_error(e.toString());
+            connect.recod_error(e.toString()+" Bill Owner 356");
         }
 
     }//GEN-LAST:event_cusphoneForBillKeyReleased
@@ -483,7 +481,7 @@ public class BillOwner extends javax.swing.JFrame {
                     connect.recoder(activity);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Check your input and try again - BillOwner#485");
-                        connect.recod_error(ex.toString());
+                        connect.recod_error(ex.toString()+" Bill Owner 485");
                     }
                 }
         }
@@ -509,7 +507,7 @@ public class BillOwner extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Check your input and try again - BillOwner#273");
             dbConnector connect = new dbConnector();
-            connect.recod_error(ex.toString());
+            connect.recod_error(ex.toString()+" Bill Owner 273");
         } 
         //</editor-fold>
         //</editor-fold>

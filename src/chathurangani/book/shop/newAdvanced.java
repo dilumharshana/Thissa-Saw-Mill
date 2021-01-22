@@ -3,8 +3,6 @@ package chathurangani.book.shop;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -215,7 +213,9 @@ public class newAdvanced extends javax.swing.JFrame {
                 //calling processing method name send data;
                 sendData();
             } catch (Exception ex) {
-                Logger.getLogger(newAdvanced.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Something went wrong - newAdvanced#218 !");
+                connect.recod_error(ex.toString()+" - newAdvanced 218");
+               // Logger.getLogger(newAdvanced.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         else
@@ -227,7 +227,9 @@ public class newAdvanced extends javax.swing.JFrame {
                 }
             catch(Exception e)
             {
-                Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, e);
+                JOptionPane.showMessageDialog(null, "Something went wrong - newAdvANCED#232 !");
+                connect.recod_error(e.toString()+" - newAdvanced 232");
+               // Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }//GEN-LAST:event_nextActionPerformed
@@ -265,7 +267,9 @@ public class newAdvanced extends javax.swing.JFrame {
                 //calling processing method name send data;
                 sendData();
             } catch (Exception ex) {
-                Logger.getLogger(newAdvanced.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Something went wrong - newadvanced#270 !");
+                connect.recod_error(ex.toString()+" - newAdvanced 270");
+                //Logger.getLogger(newAdvanced.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -291,7 +295,8 @@ public class newAdvanced extends javax.swing.JFrame {
                 lbl_phone.setText("Phone Number : ");
             }
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(null, "Something went wrong - newAdvanced#298 !");
+            connect.recod_error(e.toString()+" - newAdvanced 298");
         }
 
     }//GEN-LAST:event_cusphoneForBillKeyReleased
@@ -462,6 +467,7 @@ public class newAdvanced extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -469,15 +475,11 @@ public class newAdvanced extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(newAdvanced.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(newAdvanced.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(newAdvanced.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(newAdvanced.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something went wrong - LoanPay#479 !");
+            connect.recod_error(ex.toString()+" - newAdvanced 479");
+            //java.util.logging.Logger.getLogger(newAdvanced.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -500,7 +502,9 @@ public class newAdvanced extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Something went wrong - LoanPay#505 !");
+                        connect.recod_error(ex.toString()+" - newAdvanced 505");
+                        //Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
         }

@@ -1,12 +1,10 @@
 package chathurangani.book.shop;
 
-import static chathurangani.book.shop.MAIN_FRAME.selltable;
 import java.awt.Toolkit;
 import java.math.BigDecimal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+///Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
 
 public class advanced extends javax.swing.JFrame {
 
@@ -16,7 +14,8 @@ public class advanced extends javax.swing.JFrame {
         try {
             connect.search_all_advanced();
         } catch (Exception ex) {
-            Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - advanced#18");
+            connect.recod_error(ex.toString()+" - advanced 18");
         }
         
         viewItem.setEnabled(false);
@@ -267,6 +266,7 @@ public class advanced extends javax.swing.JFrame {
         catch(Exception e)
               {
                  JOptionPane.showMessageDialog(null , "Please select a Advance !");
+                 connect.recod_error(e.toString()+" this is not a error, advanced 18");
               }
         
     }//GEN-LAST:event_viewItemActionPerformed
@@ -284,7 +284,8 @@ public class advanced extends javax.swing.JFrame {
                     connect.clearAdvanced(primary);
                     recod("Deleted "+advancedTable.getValueAt( row ,1).toString()+"s' Advancede account");
                 } catch (Exception ex) {
-                    Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Something went wrong - advanced#287");
+                    connect.recod_error(ex.toString()+" - advanced 287");
                 }
 
                  delas.removeRow(row);
@@ -293,6 +294,7 @@ public class advanced extends javax.swing.JFrame {
          catch(Exception e)
               {
                  JOptionPane.showMessageDialog(null , "Please select a Advance !");
+                 connect.recod_error(e.toString()+" this is not a error , advanced 297");
               }
                    
     }//GEN-LAST:event_deleteActionPerformed
@@ -306,7 +308,8 @@ public class advanced extends javax.swing.JFrame {
              }
          catch(Exception e)
             {
-                
+                JOptionPane.showMessageDialog(null, "Sorry unable to open New Advanced Account - advanced#311");
+                connect.recod_error(e.toString()+" - advanced 312");
             }
     }//GEN-LAST:event_newBorrowerActionPerformed
 
@@ -330,6 +333,7 @@ public class advanced extends javax.swing.JFrame {
          catch(Exception e)
               {
                  JOptionPane.showMessageDialog(null , "Please select a Advance !");
+                 connect.recod_error(e.toString()+" this is not a error , advanced 336");
               }
     }//GEN-LAST:event_updateActionPerformed
 
@@ -414,7 +418,8 @@ public class advanced extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null," Item added to Advanced successfully !");
                             
                         } catch (Exception ex) {
-                            Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null, "Something went wrong - advanced#422");
+                            connect.recod_error(ex.toString()+" - advanced 422");
                         }
 
 
@@ -446,7 +451,7 @@ public class advanced extends javax.swing.JFrame {
                     catch(Exception e)
                         {
                            JOptionPane.showMessageDialog(null , "Please select a Advance !");
-                     
+                           connect.recod_error(e.toString()+" this is not a error, advanced 454");
                         }
                    
                     //setting cash amout to billoing panel
@@ -494,14 +499,16 @@ public class advanced extends javax.swing.JFrame {
                try {
                    connect.search_all_advanced();
                } catch (Exception ex) {
-                   Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
+                   JOptionPane.showMessageDialog(null, "Something went wrong - advanced#503");
+                   connect.recod_error(ex.toString()+" - advanced 503");     
                }
             }
           try {
             clearTable();
             connect.search_every_advanced(lenth);
         } catch (Exception ex) {
-            Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - advanced#511");
+            connect.recod_error(ex.toString()+" - advanced 511");
         }
     }//GEN-LAST:event_searchBarKeyReleased
 
@@ -512,7 +519,8 @@ public class advanced extends javax.swing.JFrame {
             clearTable();
             connect.search_every_field(code);
         } catch (Exception ex) {
-            Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - advanced#523");
+            connect.recod_error(ex.toString()+" - advanced 523");
         }
     }//GEN-LAST:event_searchActionPerformed
 
@@ -525,7 +533,8 @@ public class advanced extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Something went wrong - advanced#537");
+                        connect.recod_error(ex.toString()+" - advanced 537");
                     }
                 }
         }
@@ -547,6 +556,7 @@ public class advanced extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -554,15 +564,10 @@ public class advanced extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+             JOptionPane.showMessageDialog(null, "Something went wrong - advanced#568");
+             connect.recod_error(ex.toString()+" - advanced 568");
+        } 
         //</editor-fold>
         //</editor-fold>
 

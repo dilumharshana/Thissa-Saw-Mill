@@ -40,7 +40,7 @@ public class Encoder {
         catch (NoSuchAlgorithmException e) { 
             JOptionPane.showMessageDialog(null, "Something went wrong - Encoder#41");
             dbConnector connect = new dbConnector();
-            connect.recod_error(e.toString());
+            connect.recod_error(e.toString()+" Encoder 41");
         } 
         return null;
     } 

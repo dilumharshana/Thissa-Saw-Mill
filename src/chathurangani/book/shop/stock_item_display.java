@@ -619,8 +619,8 @@ public class stock_item_display extends javax.swing.JFrame {
                              MAIN_FRAME.bell.setVisible(false);
                       }
         } catch (Exception ex) {
-            //System.out.println(ex);
-            System.out.println(ex);
+           JOptionPane.showMessageDialog(null, " Something went wrong - StockUpdate#622! ");
+           connect.recod_error(ex.toString()+"- stockItemUpdate 622 ");
         }
 
         stockupdate.setEnabled(false);
@@ -668,8 +668,8 @@ public class stock_item_display extends javax.swing.JFrame {
                                   }
                             
                         } catch (Exception ex) {
-                           // JOptionPane.showMessageDialog(null,"Invalid Input !");
-                           System.out.println(ex);
+                           JOptionPane.showMessageDialog(null, " Something went wrong - StockUpdate#671! ");
+                           connect.recod_error(ex.toString()+"- stockItemUpdate 671 ");
                         }
                 
             }
@@ -687,10 +687,8 @@ public class stock_item_display extends javax.swing.JFrame {
             recod("Updated Item name by -"+itemNameBox.getText().trim());
         }
         catch (Exception ex) {
-           // JOptionPane.showMessageDialog(null,"THIS ITEM IS ALREADY IN YOUR STOCK ! ");
-           // itemCodeBox.setText(itemData[1]);
-           
-           System.out.println(ex);
+           JOptionPane.showMessageDialog(null, " Something went wrong - StockUpdate#690! ");
+           connect.recod_error(ex.toString()+"- stockItemUpdate 622 ");
         }
 
         nameupdate.setEnabled(false);
@@ -724,11 +722,13 @@ public class stock_item_display extends javax.swing.JFrame {
              catch (SQLException ex) {
                  JOptionPane.showMessageDialog(null, "Please select another ITEM CODE , This Item Code is already in your stocks !", "Same Item Code Found ",JOptionPane.WARNING_MESSAGE);
                  itemCodeBox.setText(" ");
+                 connect.recod_error(ex.toString()+" this is not a error ,  stockItemUpdate 725 ");
         }
         
         catch(Exception e)
         {
                 JOptionPane.showMessageDialog(null , "Enter valid data !");
+                connect.recod_error(e.toString()+" this is not a error , stockItemUpdate 622 ");
         }        
         
         
@@ -776,7 +776,8 @@ public class stock_item_display extends javax.swing.JFrame {
             connect.stockItemsShowAll();
            
         } catch (Exception e) {
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null, " Something went wrong - StockUpdate#779! ");
+            connect.recod_error(e.toString()+"- stockItemUpdate 779 ");
         }
         
          setVisible(false);
@@ -892,7 +893,7 @@ public class stock_item_display extends javax.swing.JFrame {
     }//GEN-LAST:event_stockAdderActionPerformed
 
     private void itemNameBoxKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemNameBoxKeyTyped
-        char character = evt.getKeyChar();
+
         String lenth = itemNameBox.getText();
 
         if(lenth.length()==100)
@@ -1002,8 +1003,8 @@ public class stock_item_display extends javax.swing.JFrame {
             recod("Updated Item price by -"+sellingPriceBox.getText().trim());
             
         } catch (Exception ex) {
-          //  JOptionPane.showMessageDialog(null , "Invalid Input !");
-          System.out.println(ex);
+          JOptionPane.showMessageDialog(null, " Something went wrong - StockUpdate#1006! ");
+          connect.recod_error(ex.toString()+"- stockItemUpdate 1006 ");
         }
 
         spriceupdate.setEnabled(false);
@@ -1042,8 +1043,8 @@ public class stock_item_display extends javax.swing.JFrame {
                                   }
                             
                         } catch (Exception ex) {
-                           // JOptionPane.showMessageDialog(null,"Invalid Input !");
-                           System.out.println(ex);
+                           JOptionPane.showMessageDialog(null, " Something went wrong - StockUpdate#1046! ");
+                           connect.recod_error(ex.toString()+"- stockItemUpdate 1046 ");
                         }
                 
             }
@@ -1064,7 +1065,9 @@ public class stock_item_display extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                         JOptionPane.showMessageDialog(null, " Your storage may be running out - StockUpdate#1068! ");
+                         connect.recod_error(ex.toString()+"- stockItemUpdate 1069 ");
+                        //Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
         }
@@ -1078,6 +1081,8 @@ public class stock_item_display extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        dbConnector connect = new dbConnector();
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -1085,14 +1090,11 @@ public class stock_item_display extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(stock_item_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(stock_item_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(stock_item_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(stock_item_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            
+            JOptionPane.showMessageDialog(null, " Something went wrong - StockUpdate#1095! ");
+            connect.recod_error(ex.toString()+"- stockItemUpdate 1095 ");
+            //java.util.logging.Logger.getLogger(stock_item_display.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1106,7 +1108,8 @@ public class stock_item_display extends javax.swing.JFrame {
                    }
                 catch(Exception e)
                     {
-                    
+                        JOptionPane.showMessageDialog(null, " Something went wrong - StockUpdate#1111! ");
+                        connect.recod_error(e.toString()+"- stockItemUpdate 1111 ");
                     }
             }
         });

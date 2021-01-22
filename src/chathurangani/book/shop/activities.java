@@ -5,8 +5,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+//Logger.getLogger(activities.class.getName()).log(Level.SEVERE, null, ex);
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -37,7 +39,8 @@ public class activities extends javax.swing.JFrame {
                 try {
                    connect.search_all_activities( "date" , java.time.LocalDate.now().toString()); //parsing current date
                 } catch (Exception ex) {
-                    Logger.getLogger(activities.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Something went wrong - activities#42");
+                    connect.recod_error(ex.toString()+" - activities 42");
                 }
                 
                 if(controllers.systemUser==true) // hide update and delet btn from cashier
@@ -231,7 +234,8 @@ public class activities extends javax.swing.JFrame {
             connect.clearOutGoing(String.valueOf(delas.getValueAt(row,0)));
             delas.removeRow(row);
         } catch (Exception ex) {
-            Logger.getLogger(activities.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - activities#237");
+            connect.recod_error(ex.toString()+" - activities 237");
         }
     }//GEN-LAST:event_btn_deleteActionPerformed
 
@@ -252,6 +256,7 @@ public class activities extends javax.swing.JFrame {
              recod("Searched cash out going recods on "+date);
          } catch (Exception ex) {
              date = java.time.LocalDate.now().toString();
+             connect.recod_error(ex.toString()+"this is not a error activites 259");
          }
     }//GEN-LAST:event_dateBoxPropertyChange
 
@@ -263,7 +268,8 @@ public class activities extends javax.swing.JFrame {
          try {
                    connect.search_all_activities("no",txtBox_name.getText().trim()); //parsing current date
                 } catch (Exception ex) {
-                    Logger.getLogger(activities.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Something went wrong - activities#271");
+                    connect.recod_error(ex.toString()+" - activities 271");
                 }
     }//GEN-LAST:event_btn_delete1ActionPerformed
 
@@ -276,6 +282,7 @@ public class activities extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -284,8 +291,8 @@ public class activities extends javax.swing.JFrame {
                 }
             }
         } catch (Exception ex) {
-            java.util.logging.Logger.getLogger(activities.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-      
+            JOptionPane.showMessageDialog(null, "Something went wrong - activities#294");
+            connect.recod_error(ex.toString()+" - activities 294");
         }
         //</editor-fold>
         //</editor-fold>
@@ -333,7 +340,8 @@ public class activities extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                       JOptionPane.showMessageDialog(null, "Your storage may be running out - activities#343");
+                       connect.recod_error(ex.toString()+" - activities 343");
                     }
                 }
         }

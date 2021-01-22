@@ -2,9 +2,8 @@ package chathurangani.book.shop;
 
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+//Logger.getLogger(UpdateAdvance.class.getName()).log(Level.SEVERE, null, ex);
 
 
 public class UpdateAdvance extends javax.swing.JFrame {
@@ -434,7 +433,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
                     advanced.brnhandler();
                     
         } catch (Exception ex) {
-            Logger.getLogger(UpdateAdvance.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateAdvance#438");
+            connect.recod_error(ex.toString()+" - UpdateAdvance 436");
         }
         setVisible(false);
 
@@ -481,7 +481,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
               JOptionPane.showMessageDialog(null, "Detail updated successfully !");
               recod("Updated NIC of the customer");
         } catch (Exception ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateAdvance#485");
+            connect.recod_error(ex.toString()+" - UpdateAdvance 485");
         }
 
 
@@ -497,7 +498,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
               JOptionPane.showMessageDialog(null, "Detail updated successfully !");
               recod("Updated Name of the customer");
         } catch (Exception ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateAdvance#504");
+            connect.recod_error(ex.toString()+" - UpdateAdvance 504");
         }
 
         nameUpdate.setEnabled(false);
@@ -513,7 +515,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
               JOptionPane.showMessageDialog(null, "Detail updated successfully !");
               recod("Updated Contact No of the customer");
         } catch (Exception ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateAdvance#521");
+            connect.recod_error(ex.toString()+" - UpdateAdvance 521");
         }
 
         contact.setEditable(false);
@@ -625,7 +628,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
               JOptionPane.showMessageDialog(null, "Detail updated successfully !"); 
               recod("Updated Address of the customer");
         } catch (Exception ex) {
-            Logger.getLogger(advanced.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateAdvance#634");
+            connect.recod_error(ex.toString()+" - UpdateAdvance 634");
         }
 
 
@@ -670,7 +674,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
               JOptionPane.showMessageDialog(null, "Detail updated successfully !");
               recod("Updated Advanced Amount No of the customer");
         } catch (Exception ex) {
-            System.out.println(ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - UpdateAdvance#679");
+            connect.recod_error(ex.toString()+" - UpdateAdvance 679");
         }
 
         advanceBox.setEditable(false);
@@ -701,7 +706,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Your storage may be running out - UpdateAdvance#711");
+                        connect.recod_error(ex.toString()+" - UpdateAdvance 711");
                     }
                 }
         }
@@ -722,15 +728,11 @@ public class UpdateAdvance extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateAdvance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateAdvance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateAdvance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateAdvance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+           JOptionPane.showMessageDialog(null, "Something went wrong - UpdateAdvance#732");
+           dbConnector connect = new dbConnector();
+            connect.recod_error(ex.toString()+" - UpdateAdvance 732");
+        } 
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -742,7 +744,9 @@ public class UpdateAdvance extends javax.swing.JFrame {
                 try {
                     new UpdateAdvance("", "", "","","","").setVisible(true);
                 } catch (Exception e) {
-
+                    dbConnector connect = new dbConnector();
+                    JOptionPane.showMessageDialog(null, "Something went wrong - UpdateAdvance#750");
+                    connect.recod_error(e.toString()+" - UpdateAdvance 750");
                 }
             }
         });

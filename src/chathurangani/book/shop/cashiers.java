@@ -1,10 +1,10 @@
 package chathurangani.book.shop;
 
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+//Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+
 
 public class cashiers extends javax.swing.JFrame {
 
@@ -14,7 +14,8 @@ public class cashiers extends javax.swing.JFrame {
         try {
             connect.search_all_cashiers("cashier_login");
         } catch (Exception ex) {
-            Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - cashier#17");
+            connect.recod_error(ex.toString()+" - cashier 17");
         }
 
         viewItem.setEnabled(false);
@@ -232,6 +233,7 @@ public class cashiers extends javax.swing.JFrame {
             open.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Cashier !");
+            connect.recod_error(e.toString()+" this is not a error, cashier 236");
         }
 
     }//GEN-LAST:event_viewItemActionPerformed
@@ -247,13 +249,15 @@ public class cashiers extends javax.swing.JFrame {
             try {
                 connect.clearBorrows(primary, 1);
             } catch (Exception ex) {
-                Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Something went wrong -cashier#253 !");
+                connect.recod_error(ex.toString()+" - cashier 253");
             }
 
             delas.removeRow(row);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Cashier !");
+            connect.recod_error(e.toString()+" this is not a error , cashier 260");
         }
 
     }//GEN-LAST:event_deleteActionPerformed
@@ -267,6 +271,7 @@ public class cashiers extends javax.swing.JFrame {
         catch(Exception e)
             {
                 JOptionPane.showMessageDialog(null, "Please select a Cashier !");
+                connect.recod_error(e.toString()+" this is not a error , cashier 274");
             }
     }//GEN-LAST:event_newBorrowerActionPerformed
 
@@ -286,12 +291,12 @@ public class cashiers extends javax.swing.JFrame {
             open.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Cashier !");
+            connect.recod_error(e.toString()+" this is not a error , cashier 294");
         }
     }//GEN-LAST:event_updateActionPerformed
 
     private void cTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cTableMouseClicked
 
-        DefaultTableModel borrower = (DefaultTableModel) cTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
         int borrowerRow = cTable.getSelectedRow();
         cusName.setText(cTable.getValueAt(borrowerRow, 1).toString());
 
@@ -317,14 +322,16 @@ public class cashiers extends javax.swing.JFrame {
             try {
                 connect.search_all_cashiers("cashier_login");
             } catch (Exception ex) {
-                Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Something went wrong - cashier#328 !");
+                connect.recod_error(ex.toString()+" this is not a error, cashier 328");
             }
         }
         try {
             clearTable();
             connect.search_every_cashier(lenth , "cashier_login");
         } catch (Exception ex) {
-            Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - cashier#336 !");
+            connect.recod_error(ex.toString()+" this is not a error");
         }
     }//GEN-LAST:event_searchBarKeyReleased
 
@@ -335,7 +342,8 @@ public class cashiers extends javax.swing.JFrame {
             clearTable();
             connect.search_every_cashier(code , "cashier_login");
         } catch (Exception ex) {
-            Logger.getLogger(cashiers.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - cashier#348 !");
+            connect.recod_error(ex.toString()+" this is not a error");
         }
     }//GEN-LAST:event_searchActionPerformed
 
@@ -358,6 +366,7 @@ public class cashiers extends javax.swing.JFrame {
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Please select a Cashier !");
+            connect.recod_error(ex.toString()+" this is not a error , cashier 369");
         }
     }//GEN-LAST:event_lockActionPerformed
 
@@ -370,6 +379,8 @@ public class cashiers extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -377,15 +388,10 @@ public class cashiers extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something went wrong - cashier#393 !");
+            connect.recod_error(ex.toString()+" this is not a error , cashier 393");
+        } 
         //</editor-fold>
         //</editor-fold>
 

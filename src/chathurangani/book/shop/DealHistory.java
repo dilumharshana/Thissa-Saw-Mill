@@ -3,8 +3,6 @@ package chathurangani.book.shop;
 
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 //Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
@@ -33,7 +31,7 @@ public class DealHistory extends javax.swing.JFrame {
             connect.search_for_deals();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Try to restart your computer - DealHistory#35");
-            connect.recod_error(ex.toString());
+            connect.recod_error(ex.toString()+" Deal History 35");
             
         }
     }
@@ -179,7 +177,7 @@ public class DealHistory extends javax.swing.JFrame {
             connect.search_every_field_By_Code(code);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#180");
-            connect.recod_error(ex.toString());
+            connect.recod_error(ex.toString()+" Deal History 180");
         }
     }//GEN-LAST:event_searchActionPerformed
 
@@ -195,7 +193,7 @@ public class DealHistory extends javax.swing.JFrame {
                 connect.search_every_field_By_Code(code);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#197");
-                connect.recod_error(ex.toString());
+                connect.recod_error(ex.toString()+" Deal History 197");
             }
         }
     }//GEN-LAST:event_searchBarKeyTyped
@@ -209,7 +207,7 @@ public class DealHistory extends javax.swing.JFrame {
                     connect.search_for_deals();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#211");
-                    connect.recod_error(ex.toString());
+                    connect.recod_error(ex.toString()+" Deal History 211");
                 }
         }
       
@@ -234,7 +232,7 @@ public class DealHistory extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#211");
             dbConnector connect = new dbConnector();
-            connect.recod_error(ex.toString());
+            connect.recod_error(ex.toString()+" Deal History 211");
         } 
         //</editor-fold>
         //</editor-fold>

@@ -2,10 +2,9 @@ package chathurangani.book.shop;
 
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+//java.util.logging.Logger.getLogger(outgoing.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
 
 /**
  *
@@ -223,7 +222,8 @@ public class cashOuts_resons extends javax.swing.JFrame {
             
             
         } catch (Exception e) {
-            java.util.logging.Logger.getLogger(outgoing.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
+            JOptionPane.showMessageDialog(null, "Something went wrong - cashOut_reson#226");
+            connect.recod_error(e.toString()+" - cashout resons 226");
         }
     }//GEN-LAST:event_nextActionPerformed
 
@@ -303,7 +303,8 @@ public class cashOuts_resons extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Something went wrong - cashOut_reson#308");
+                        connect.recod_error(ex.toString()+" - cashout resons 308");
                     }
                 }
         }
@@ -316,6 +317,8 @@ public class cashOuts_resons extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -323,14 +326,9 @@ public class cashOuts_resons extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(cashOuts_resons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(cashOuts_resons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(cashOuts_resons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(cashOuts_resons.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something went wrong - cashOut_reson#332");
+            connect.recod_error(ex.toString()+" - cashout resons 332");
         }
         //</editor-fold>
         //</editor-fold>

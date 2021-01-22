@@ -140,6 +140,7 @@ public class passget extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -147,15 +148,12 @@ public class passget extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(passget.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(passget.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(passget.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(passget.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+           
+                JOptionPane.showMessageDialog(null, "Something went wrong - passget#153 !");
+                connect.recod_error(ex.toString()+" - passget 153");
+                // java.util.logging.Logger.getLogger(passget.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
         //</editor-fold>
 
         /* Create and display the form */
@@ -189,7 +187,9 @@ public class passget extends javax.swing.JFrame {
 
                      passMatched = connect.passchek(hash);
                  } catch (Exception ex) {
-                     Logger.getLogger(passget.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Something went wrong - passget#190 !");
+                    connect.recod_error(ex.toString()+" - passget 190");
+                    // Logger.getLogger(passget.class.getName()).log(Level.SEVERE, null, ex);
                  }
 
                  if( passMatched == true)

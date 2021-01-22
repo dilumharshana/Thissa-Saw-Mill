@@ -59,6 +59,7 @@ import javax.swing.JOptionPane;
         apasslogo1 = new javax.swing.JLabel();
         userName_box = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         Clogbtn.setText("Sign In");
         Clogbtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -81,6 +82,7 @@ import javax.swing.JOptionPane;
                 jPanel1MouseClicked(evt);
             }
         });
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 0));
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 28)); // NOI18N
@@ -92,10 +94,12 @@ import javax.swing.JOptionPane;
                 jLabel1MouseClicked(evt);
             }
         });
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 453, 576, 46));
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("- By Evon Apps ... -");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(352, 511, 171, -1));
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 0));
         jLabel6.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
@@ -107,10 +111,12 @@ import javax.swing.JOptionPane;
                 jLabel6MouseClicked(evt);
             }
         });
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 401, 588, 46));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Evon Apps");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 20, 222, 24));
 
         jTabbedPane1.setBackground(new java.awt.Color(0, 153, 0));
 
@@ -333,59 +339,14 @@ import javax.swing.JOptionPane;
 
         jTabbedPane1.addTab("Cashier", jPanel3);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/logo.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addGap(28, 28, 28))
-        );
-
+        jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 51, -1, 474));
         jTabbedPane1.getAccessibleContext().setAccessibleName("Admin");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/logo.png"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 56, 391, 339));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/login backgorund.jpeg"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 970, 570));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -509,7 +470,7 @@ import javax.swing.JOptionPane;
             
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Sorry unable to open Billing panel , Restart your Computer and try again !");
-            connect.recod_error(ex.toString());
+            connect.recod_error(ex.toString()+" admin login 510");
         }
         
     }//GEN-LAST:event_signin_cashierActionPerformed
@@ -536,7 +497,7 @@ import javax.swing.JOptionPane;
                             }
                } catch (Exception ex) {
                    JOptionPane.showMessageDialog(null, "Sorry unable to open Billing panel , Restart your Computer and try again !");
-                   connect.recod_error(ex.toString());
+                   connect.recod_error(ex.toString()+" admin login 539");
                }
         }
     private void img_logo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_img_logo1MouseClicked
@@ -610,7 +571,7 @@ import javax.swing.JOptionPane;
 
                             } catch (Exception ex) {
                                JOptionPane.showMessageDialog(null,"Something went wrong - Admin-login#612 ");
-                               connect.recod_error(ex.toString());
+                               connect.recod_error(ex.toString()+" admin login 613");
                             }
                       }
                   else if(passwordok == 1) //user forgot the password ans enter the securty key and trying to chek
@@ -634,7 +595,7 @@ import javax.swing.JOptionPane;
                                         
                                     } catch (Exception ex) {
                                        JOptionPane.showMessageDialog(null,"Something went wrong - Admin-login#635 ");
-                                       connect.recod_error(ex.toString());
+                                       connect.recod_error(ex.toString()+" admin login 637");
                                     }
                                 }
                   else  //state of ready to chek security answer
@@ -658,7 +619,7 @@ import javax.swing.JOptionPane;
                                         
                                     } catch (Exception ex) {
                                        JOptionPane.showMessageDialog(null,"Something went wrong - Admin-login#658 ");
-                                       connect.recod_error(ex.toString());
+                                       connect.recod_error(ex.toString()+" admin login 661");
                                     }
                     }
                 }
@@ -674,7 +635,7 @@ import javax.swing.JOptionPane;
                     connect.recoder(activity);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null,"Something went wrong - Admin-login#673 ");
-                        connect.recod_error(ex.toString());
+                        connect.recod_error(ex.toString()+" admin login 677");
                     }
                 }
         }
@@ -698,7 +659,7 @@ import javax.swing.JOptionPane;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null , "Something went wrong admin-login#701");
             dbConnector connect = new dbConnector();
-            connect.recod_error(ex.toString());
+            connect.recod_error(ex.toString()+" admin login 701");
         } 
         //</editor-fold>
         //</editor-fold>
@@ -723,6 +684,7 @@ import javax.swing.JOptionPane;
     private javax.swing.JLabel img_logo1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;

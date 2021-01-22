@@ -19,7 +19,7 @@ public class stater {
 
     static boolean lock;  
             public static void main(String[] args) {
-
+               dbConnector connect  = new dbConnector();
               try
                 {
                     Adimin_login open = new Adimin_login();
@@ -29,6 +29,7 @@ public class stater {
               catch(Exception e)
                 {
                     JOptionPane.showMessageDialog(null,"Sorry , Login Screen cant be open !");
+                    connect.recod_error(e.toString()+"- stater 31");
                 }
 
             }

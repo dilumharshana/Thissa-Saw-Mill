@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -191,7 +192,7 @@ public class quantitiyBox extends javax.swing.JFrame {
                 }
                catch(Exception e)
                 {
-                    //nothing
+                    connect.recod_error(e.toString()+" - quantityBox 193");
                 }
               
            
@@ -246,7 +247,9 @@ public class quantitiyBox extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Your storage may be running out - quantityBox#250 !");
+                        connect.recod_error(ex.toString()+" - quantityBox 250");
+                        //Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
         }
@@ -285,6 +288,7 @@ public class quantitiyBox extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -292,15 +296,12 @@ public class quantitiyBox extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(quantitiyBox.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(quantitiyBox.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(quantitiyBox.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(quantitiyBox.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            
+             JOptionPane.showMessageDialog(null, "Your storage may be running out - quantityBox#250 !");
+             connect.recod_error(ex.toString()+" - quantityBox 250");
+            //java.util.logging.Logger.getLogger(quantitiyBox.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
         //</editor-fold>
 
         /* Create and display the form */

@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -36,7 +37,9 @@ public class outgoing extends javax.swing.JFrame {
                 try {
                     connect.search_all_outgoing(java.time.LocalDate.now().toString()); //parsing current date
                 } catch (Exception ex) {
-                    Logger.getLogger(outgoing.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Something went wrong - outGoing#40 !");
+                    connect.recod_error(ex.toString()+" - outGoing 41");
+                    //Logger.getLogger(outgoing.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
                 if(controllers.systemUser==true) // hide update and delet btn from cashier
@@ -202,7 +205,9 @@ public class outgoing extends javax.swing.JFrame {
             connect.clearOutGoing(String.valueOf(delas.getValueAt(row,0)));
             delas.removeRow(row);
         } catch (Exception ex) {
-            Logger.getLogger(outgoing.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - outGoing#208 !");
+            connect.recod_error(ex.toString()+" - outGoing 208");
+            //Logger.getLogger(outgoing.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_deleteActionPerformed
 
@@ -217,7 +222,8 @@ public class outgoing extends javax.swing.JFrame {
             }
         catch(Exception e)
             {
-            
+                JOptionPane.showMessageDialog(null, "Something went wrong - outGoing#225 !");
+                connect.recod_error(e.toString()+" - outGoing 225");
             }
     }//GEN-LAST:event_btn_updateActionPerformed
 
@@ -231,7 +237,8 @@ public class outgoing extends javax.swing.JFrame {
             }
         catch(Exception e)
             {
-            
+                JOptionPane.showMessageDialog(null, "Something went wrong - outGoing#240 !");
+                connect.recod_error(e.toString()+" - outGoing 241");
             }
     }//GEN-LAST:event_btn_addActionPerformed
 
@@ -252,6 +259,7 @@ public class outgoing extends javax.swing.JFrame {
              recod("Searched cash out going recods on "+date);
          } catch (Exception ex) {
              date = java.time.LocalDate.now().toString();
+             connect.recod_error(ex.toString()+" this is not a error , outGoing 262");
          }
     }//GEN-LAST:event_dateBoxPropertyChange
 
@@ -268,6 +276,7 @@ public class outgoing extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -276,7 +285,9 @@ public class outgoing extends javax.swing.JFrame {
                 }
             }
         } catch (Exception ex) {
-            java.util.logging.Logger.getLogger(outgoing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - outGoing#288 !");
+            connect.recod_error(ex.toString()+" - outGoing 288");
+           // java.util.logging.Logger.getLogger(outgoing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
       
         }
         //</editor-fold>
@@ -321,7 +332,10 @@ public class outgoing extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        
+                        JOptionPane.showMessageDialog(null, "Something went wrong - outGoing#336 !");
+                        connect.recod_error(ex.toString()+" - outGoing 337");
+                        //Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
         }

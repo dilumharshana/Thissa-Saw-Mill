@@ -10,8 +10,6 @@ import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -332,7 +330,8 @@ public class loanPay extends javax.swing.JFrame {
                         paymentAmountProcess();
                     }
         } catch (Exception ex) {
-         
+                JOptionPane.showMessageDialog(null, "Something went wrong - LoanPay#335 !");
+                connect.recod_error(ex.toString()+" - loan pay 335");      
         }
         
         
@@ -351,6 +350,8 @@ public class loanPay extends javax.swing.JFrame {
                             catch(Exception e)
                                 {
                                     payment.setText(String.valueOf(new BigDecimal(payAmount.getText().trim())));
+                                    JOptionPane.showMessageDialog(null, "Something went wrong - Employees#354 !");
+                                     connect.recod_error(e.toString()+" this is not a error , loan pay 354");
                                 }
                                 
                                 BigDecimal cash = new BigDecimal(payAmount.getText().trim());
@@ -386,7 +387,8 @@ public class loanPay extends javax.swing.JFrame {
                                         break;
                       }
                             } catch (Exception ex) {
-                                Logger.getLogger(loanPay.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(null, "Something went wrong - LoanPay#391 !");
+                                 connect.recod_error(ex.toString()+" - loan pay 391");
                             }
                         
                         recod(" Enterd "+payAmount.getText()+" in to debtor payment box and cheked");//recoding actities
@@ -405,6 +407,7 @@ public class loanPay extends javax.swing.JFrame {
              catch(Exception e)
                 {
                     cash = new BigDecimal("0.0");
+                    connect.recod_error(e.toString()+"this is not a error ,  loan pay 410");         
                 }
               
        
@@ -488,7 +491,8 @@ public class loanPay extends javax.swing.JFrame {
 
                                     
                             } catch (Exception ex) {
-                                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(null, "Something went wrong - LoanPay#495 !");
+                                connect.recod_error(ex.toString()+" - loan pay 495");
                             }
              
                             invoice();
@@ -511,8 +515,8 @@ public class loanPay extends javax.swing.JFrame {
             }
           catch(Exception e)
             {
-                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
-            // JOptionPane.showMessageDialog(null , "Sorry something went wrong !");
+                JOptionPane.showMessageDialog(null, "Something went wrong - LoanPay#518 !");
+                connect.recod_error(e.toString()+" - loan pay 518");
             }
         }
     
@@ -525,7 +529,8 @@ public class loanPay extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Your stocks may be running out - LoanPay#335 !");
+                        connect.recod_error(ex.toString());
                     }
                 }
         }
@@ -540,6 +545,7 @@ public class loanPay extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -547,15 +553,10 @@ public class loanPay extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(loanPay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(loanPay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(loanPay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(loanPay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something went wrong - LoanPay#357 !");
+            connect.recod_error(ex.toString()+" - loan pay 357");
+        } 
         //</editor-fold>
 
         /* Create and display the form */

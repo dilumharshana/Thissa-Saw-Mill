@@ -1,10 +1,10 @@
+
 package chathurangani.book.shop;
 
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+//Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
 
 public class emplyoees extends javax.swing.JFrame {
 
@@ -14,7 +14,8 @@ public class emplyoees extends javax.swing.JFrame {
         try {
             connect.search_all_cashiers("emplyoees");
         } catch (Exception ex) {
-            Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - Employees#19 !");
+            connect.recod_error(ex.toString()+" - employees 19");
         }
     }
 
@@ -203,13 +204,15 @@ public class emplyoees extends javax.swing.JFrame {
                 connect.clearBorrows(primary, 2);
                 recod("Deleted "+String.valueOf(eTable.getValueAt(row, 0))+"from emplyooes"); 
             } catch (Exception ex) {
-                Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Something went wrong - Employees#209 !");
+                connect.recod_error(ex.toString()+" - employees 209");
             }
 
             delas.removeRow(row);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Cashier !");
+            connect.recod_error(e.toString()+" this is not a error , employees 215");
         }
 
     }//GEN-LAST:event_deleteActionPerformed
@@ -224,6 +227,7 @@ public class emplyoees extends javax.swing.JFrame {
         catch(Exception e)
             {
                 JOptionPane.showMessageDialog(null, "Please select a Cashier !");
+                connect.recod_error(e.toString()+" this is not a error , employees 230");
             }
     }//GEN-LAST:event_newBorrowerActionPerformed
 
@@ -244,6 +248,7 @@ public class emplyoees extends javax.swing.JFrame {
             recod("Opend employee data updator window for employee -"+name); 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Employee !");
+            connect.recod_error(e.toString()+" this is not a error , employees 251");
         }
     }//GEN-LAST:event_updateActionPerformed
 
@@ -266,7 +271,8 @@ public class emplyoees extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Your storage may be running out - Employees#275 !");
+                        connect.recod_error(ex.toString()+" - employees 275");
                     }
                 }
         }
@@ -278,7 +284,8 @@ public class emplyoees extends javax.swing.JFrame {
             try {
                 connect.search_all_cashiers("emplyoees");
             } catch (Exception ex) {
-                Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Something went wrong - Employees#288 !");
+                connect.recod_error(ex.toString()+" - employees 288");
             }
         }
         try {
@@ -286,7 +293,8 @@ public class emplyoees extends javax.swing.JFrame {
             connect.search_every_cashier(lenth , "emplyoees");
             recod("Searched "+lenth+" fro employees");
         } catch (Exception ex) {
-            Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - Employees#297 !");
+            connect.recod_error(ex.toString()+" - employees 297");
         }
     }//GEN-LAST:event_searchBarKeyReleased
 
@@ -297,7 +305,8 @@ public class emplyoees extends javax.swing.JFrame {
             clearTable();
             connect.search_every_cashier(code , "emplyoees");
         } catch (Exception ex) {
-            Logger.getLogger(emplyoees.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - Employees#308 !");
+            connect.recod_error(ex.toString()+" - employees 308");
         }
     }//GEN-LAST:event_searchActionPerformed
 
@@ -314,6 +323,8 @@ public class emplyoees extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -321,15 +332,10 @@ public class emplyoees extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something went wrong - Employees#336 !");
+            connect.recod_error(ex.toString()+" this is not a error , employees 336");
+        } 
         //</editor-fold>
         //</editor-fold>
 

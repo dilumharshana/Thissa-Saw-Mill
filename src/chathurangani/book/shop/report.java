@@ -410,6 +410,7 @@ public class report extends javax.swing.JFrame {
        catch(Exception e)
             {
                   JOptionPane.showMessageDialog(null ,"Day report not available !");
+                   connect.recod_error(e.toString()+" this is not a error , report 413");
             }
     }//GEN-LAST:event_cashoutActionPerformed
 
@@ -423,6 +424,7 @@ public class report extends javax.swing.JFrame {
        catch(Exception e)
         {
               date = java.time.LocalDate.now().toString();
+              connect.recod_error(e.toString()+" this is not a error, report 427");
         }
 
         cashTransitionTake(date);
@@ -445,7 +447,7 @@ public class report extends javax.swing.JFrame {
                 }
             catch(Exception e)
                 {
-                    System.out.println(e);
+                      connect.recod_error(e.toString()+" - report 449");
                 }
         }
     /**
@@ -457,6 +459,7 @@ public class report extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -464,15 +467,11 @@ public class report extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(null, "Your storage may be running out - report#471 !");
+                 connect.recod_error(ex.toString()+" - report 471");
+                // java.util.logging.Logger.getLogger(report.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
         //</editor-fold>
 
         /* Create and display the form */

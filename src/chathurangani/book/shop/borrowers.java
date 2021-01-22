@@ -2,10 +2,9 @@ package chathurangani.book.shop;
 
 import java.awt.Toolkit;
 import java.math.BigDecimal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+//Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
 
 public class borrowers extends javax.swing.JFrame {
 
@@ -15,7 +14,8 @@ public class borrowers extends javax.swing.JFrame {
         try {
             connect.search_all_deals();
         } catch (Exception ex) {
-            Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#18");
+            connect.recod_error(ex.toString()+" - borrowers 18");
         }
 
         history.setEnabled(false);
@@ -244,13 +244,15 @@ public class borrowers extends javax.swing.JFrame {
                 connect.clearBorrows(primary, 0);
                 recod("Deleted "+dealTable.getValueAt(row, 1).toString()+" from debtros when due amount was Rs. "+dealTable.getValueAt(row, 5).toString());
             } catch (Exception ex) {
-                Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#249");
+                connect.recod_error(ex.toString()+" - borrowers 249");
             }
 
             delas.removeRow(row);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Borrower !");
+            connect.recod_error(e.toString()+" this is not a error , borrowers 255");
         }
 
     }//GEN-LAST:event_deleteActionPerformed
@@ -277,6 +279,7 @@ public class borrowers extends javax.swing.JFrame {
             recod("Opend Debtors pDetails Update window");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Borrower !");
+            connect.recod_error(e.toString()+" this is not a error  - borrowers 282");
         }
     }//GEN-LAST:event_updateActionPerformed
 
@@ -341,7 +344,8 @@ public class borrowers extends javax.swing.JFrame {
                                     }
                                     
                             } catch (Exception ex) {
-                                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#349");
+                                 connect.recod_error(ex.toString()+" - borrowers 349");
                             }
 
                             //decreasing stock of out items
@@ -383,8 +387,8 @@ public class borrowers extends javax.swing.JFrame {
                 }
             }
         } catch (Exception e) {
-            Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, e);
-            //JOptionPane.showMessageDialog(null, "Please select a Borrower !");
+            JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#392");
+            connect.recod_error(e.toString()+" - borrowers 392");
         }
     }//GEN-LAST:event_updateFromBillActionPerformed
 
@@ -402,6 +406,7 @@ public class borrowers extends javax.swing.JFrame {
              recod("Opened Debtor payment window");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Borrower !");
+            connect.recod_error(e.toString()+" this is not a error , borrowers 409");
         }
     }//GEN-LAST:event_paymentActionPerformed
 
@@ -421,7 +426,8 @@ public class borrowers extends javax.swing.JFrame {
             }
         catch(Exception e)
             {
-            
+                JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#431");
+                connect.recod_error(e.toString()+" - borrowers 431");
             }
     }//GEN-LAST:event_dealTableMouseClicked
 
@@ -432,7 +438,8 @@ public class borrowers extends javax.swing.JFrame {
             try {
                 connect.search_all_deals();
             } catch (Exception ex) {
-                Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#443");
+                connect.recod_error(ex.toString()+" - borrowers 443");
             }
         }
         try {
@@ -440,7 +447,8 @@ public class borrowers extends javax.swing.JFrame {
             connect.search_every_field(lenth);
             recod("Searched for "+lenth);
         } catch (Exception ex) {
-            Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#452");
+           connect.recod_error(ex.toString()+" - borrowers 452");
         }
     }//GEN-LAST:event_searchBarKeyReleased
 
@@ -451,7 +459,8 @@ public class borrowers extends javax.swing.JFrame {
             clearTable();
             connect.search_every_field(code);
         } catch (Exception ex) {
-            Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#464");
+            connect.recod_error(ex.toString()+" - borrowers 464");
         }
     }//GEN-LAST:event_searchActionPerformed
 
@@ -468,6 +477,7 @@ public class borrowers extends javax.swing.JFrame {
                     recod("Opend Debtors payment History window");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Borrower !");
+            connect.recod_error(e.toString()+" this is not a error , borrowers 480");
         }
     }//GEN-LAST:event_historyActionPerformed
 
@@ -480,6 +490,7 @@ public class borrowers extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -487,15 +498,10 @@ public class borrowers extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DealHistory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#18");
+            connect.recod_error(ex.toString());
+        } 
         //</editor-fold>
         //</editor-fold>
 
@@ -541,7 +547,8 @@ public class borrowers extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                       JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#551");
+                       connect.recod_error(ex.toString()+" - borrowers 551");     
                     }
                 }
         }

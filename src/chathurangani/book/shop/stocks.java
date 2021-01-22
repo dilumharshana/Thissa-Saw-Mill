@@ -1,3 +1,4 @@
+
 package chathurangani.book.shop;
 
 import java.awt.Toolkit;
@@ -28,7 +29,9 @@ public class stocks extends javax.swing.JFrame {
         try {
             connect.stockItemsShowAll();
         } catch (Exception ex) {
-            Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
+          JOptionPane.showMessageDialog(null, " Something went wrong - Stocks#32! ");
+          connect.recod_error(ex.toString()+"- stocks 32 ");
+           // Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         //formating table
@@ -427,7 +430,8 @@ public class stocks extends javax.swing.JFrame {
             recod(" Refreshed all stocks ");
             sizes(stockitemstable.getColumnModel());
         } catch (Exception e) {
-            System.out.println(e);
+          JOptionPane.showMessageDialog(null, " Something went wrong - Stocks#433! ");
+          connect.recod_error(e.toString()+"- stocks 433 ");
         }
 
     }//GEN-LAST:event_showAllstockActionPerformed
@@ -465,13 +469,16 @@ public class stocks extends javax.swing.JFrame {
 
             Smallerthan = 200;
             stockcounter.setText("200");
+            connect.recod_error(e.toString()+" this is not a error ,  stocks 472 ");
         }
 
         try {
             connect.searchForStockOutItems(Smallerthan, index);
             recod(" Searched for stock out items less than - "+Smallerthan);
         } catch (Exception ex) {
-            Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, " Something went wrong - Stocks#479! ");
+            connect.recod_error(ex.toString()+"- stocks 479 ");
+            //Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_outofstocksActionPerformed
@@ -508,7 +515,9 @@ public class stocks extends javax.swing.JFrame {
                             } catch (Exception e) {
                                 JOptionPane.showMessageDialog(null, "Please select an item to Update !");
                                 updatebtn.setEnabled(false);
-                                Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
+
+                                connect.recod_error(e.toString()+" this is not a error ,  stocks 519 ");
+                                //Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "Please select a valid row !");
@@ -533,7 +542,9 @@ public class stocks extends javax.swing.JFrame {
                             } catch (Exception e) {
                                 JOptionPane.showMessageDialog(null, "Please select an item to Update !");
                                 updatebtn.setEnabled(false);
-                                Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
+                                
+                                 connect.recod_error(e.toString()+" this is not a error , stocks 546 ");
+                                //Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "Please select a valid row !");
@@ -560,7 +571,9 @@ public class stocks extends javax.swing.JFrame {
                             } catch (Exception e) {
                                 JOptionPane.showMessageDialog(null, "Please select an item to Update !");
                                 updatebtn.setEnabled(false);
-                                Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
+
+                                connect.recod_error(e.toString()+"- stocks 575 ");
+                               // Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "Please select a valid row !");
@@ -607,7 +620,8 @@ public class stocks extends javax.swing.JFrame {
             connect.stockItemsShowAll();
             recod("Refresed stock window");
         } catch (Exception e) {
-            System.out.println(e);
+          JOptionPane.showMessageDialog(null, " Something went wrong - Stocks#623! ");
+          connect.recod_error(e.toString()+"- stocks 623 ");
         }
 
 
@@ -661,7 +675,9 @@ public class stocks extends javax.swing.JFrame {
                 }
 
             } catch (Exception ex) {
-                Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
+               JOptionPane.showMessageDialog(null, " Something went wrong - Stocks#679! ");
+               connect.recod_error(ex.toString()+"- stocks 679 ");
+               // Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             delete.setEnabled(false);
@@ -798,13 +814,14 @@ public class stocks extends javax.swing.JFrame {
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
+            dbConnector connect = new dbConnector();
             public void run() {
                 try {
                     new stocks().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, " Something went wrong - Stocks#822! ");
+                    connect.recod_error(ex.toString()+"- stocks 823 ");
+                    //Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -901,7 +918,9 @@ public class stocks extends javax.swing.JFrame {
                     try {
                         connect.stockItemsShowAll();
                     } catch (Exception ex) {
-                        Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, " Something went wrong - Stocks#921 ");
+                        connect.recod_error(ex.toString()+"- stocks 32 ");
+                       // Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
                     updatebtn.setEnabled(false);
@@ -910,7 +929,9 @@ public class stocks extends javax.swing.JFrame {
                     try {
                         connect.searchIteminStock(item);
                     } catch (Exception ex) {
-                        Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, " Something went wrong - Stocks#932! ");
+                        connect.recod_error(ex.toString()+"- stocks 932 ");
+                        //Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
 
@@ -924,7 +945,9 @@ public class stocks extends javax.swing.JFrame {
                     try {
                         connect.stockItemsShowAll();
                     } catch (Exception ex) {
-                        Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, " Something went wrong - Stocks#948! ");
+                        connect.recod_error(ex.toString()+"- stocks 948 ");
+                        //Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
                     updatebtn.setEnabled(false);
@@ -933,7 +956,9 @@ public class stocks extends javax.swing.JFrame {
                     try {
                         connect.search_row_IteminStock(item);
                     } catch (Exception ex) {
-                        Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, " Something went wrong - Stocks#958! ");
+                        connect.recod_error(ex.toString()+"- stocks 960 ");
+                       // Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
                 break;
@@ -951,7 +976,9 @@ public class stocks extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, " Something went wrong - Stocks#979! ");
+                        connect.recod_error(ex.toString()+"- stocks 979 ");
+                        //Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
         }
