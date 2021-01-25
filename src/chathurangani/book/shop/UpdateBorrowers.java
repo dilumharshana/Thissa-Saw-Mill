@@ -526,7 +526,9 @@ public class UpdateBorrowers extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Something went wrong - UpdateBorrowers#525");
             connect.recod_error(ex.toString()+" - UpdateBorrowers 438");
         }
-        setVisible(false);
+        
+        System.gc();
+        this.dispose();
 
     }//GEN-LAST:event_CloseUpdatePannelActionPerformed
 

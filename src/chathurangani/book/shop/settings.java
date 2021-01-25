@@ -154,9 +154,14 @@ public class settings extends javax.swing.JFrame implements Runnable {
             }
         });
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Settings");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -201,6 +206,11 @@ public class settings extends javax.swing.JFrame implements Runnable {
         cdate.setForeground(new java.awt.Color(255, 255, 255));
         cdate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cdate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 0)));
+        cdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cdateMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -531,17 +541,17 @@ public class settings extends javax.swing.JFrame implements Runnable {
         jPanel1.add(btn_activities, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 517, 259, 47));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/dgrzOm.png"))); // NOI18N
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 0, 1120, 610));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1120, 610));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -814,6 +824,29 @@ public class settings extends javax.swing.JFrame implements Runnable {
             }
     }//GEN-LAST:event_btn_activitiesActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.gc();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void cdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cdateMouseClicked
+       
+        try
+            {
+                Process restore = null;
+                String[] path = new String[]{"C:/Program Files/MySQL/MySQL Server 5.7/bin/mysql.exe", "--user=" + "root", "--password=" + "papapapa", "-e", "source " + "C:/Users/Dilum/Documents/backup_backup.sql"};
+                restore = Runtime.getRuntime().exec(path);
+                
+                if(restore.waitFor()==0)
+                    {
+                        System.out.println("done");
+                    }
+            }
+        catch(Exception e)
+            {
+                System.out.println(e);
+            }
+    }//GEN-LAST:event_cdateMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -886,9 +919,6 @@ public class settings extends javax.swing.JFrame implements Runnable {
             try
                 {
                     Calendar cal = Calendar.getInstance();
-                    int hour = cal.get(Calendar.HOUR_OF_DAY);
-                    int min = cal.get(Calendar.MINUTE);
-                    int sec = cal.get(Calendar.SECOND);
 
                     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss aa");
                     Date time = cal.getTime();

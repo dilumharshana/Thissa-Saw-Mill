@@ -4,8 +4,6 @@ package chathurangani.book.shop;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -77,6 +75,11 @@ public class stocks extends javax.swing.JFrame {
         setTitle("Thissa Saw Mill - Stocks");
         setBackground(new java.awt.Color(255, 204, 204));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -810,6 +813,10 @@ public class stocks extends javax.swing.JFrame {
         updatebtn.setEnabled(true);
         delete.setEnabled(true);
     }//GEN-LAST:event_stockitemstableMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.gc();
+    }//GEN-LAST:event_formWindowClosing
 
     public static void main(String args[]) {
 

@@ -188,7 +188,8 @@ public class quantitiyBox extends javax.swing.JFrame {
                             QUANTITIY_BOX.setText("");
                             MAIN_FRAME.searchItemsToTable(controllers.itemset);
                             MAIN_FRAME.ContinueSearch();
-                            setVisible(false);
+                            System.gc();
+                            dispose();
                 }
                catch(Exception e)
                 {
@@ -258,7 +259,8 @@ public class quantitiyBox extends javax.swing.JFrame {
     }//GEN-LAST:event_QUANTITIY_BOXKeyReleased
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        dispose();
+       System.gc();
+       dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     

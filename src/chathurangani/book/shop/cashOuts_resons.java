@@ -213,6 +213,7 @@ public class cashOuts_resons extends javax.swing.JFrame {
                         connect.search_all_outgoing(java.time.LocalDate.now().toString());
                 }
                     
+                System.gc();
                 dispose(); //closing window
             } 
             else {
@@ -282,6 +283,7 @@ public class cashOuts_resons extends javax.swing.JFrame {
     }//GEN-LAST:event_resonKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.gc();
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -436,7 +436,8 @@ public class UpdateAdvance extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Something went wrong - UpdateAdvance#438");
             connect.recod_error(ex.toString()+" - UpdateAdvance 436");
         }
-        setVisible(false);
+        System.gc();
+        this.dispose();
 
     }//GEN-LAST:event_CloseUpdatePannelActionPerformed
 

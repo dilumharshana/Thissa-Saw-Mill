@@ -460,7 +460,8 @@ import javax.swing.JOptionPane;
                 controllers.systemUser = true; // for stop recoding activites
                 controllers.cashierName = userName_box.getText();
                 recod(" Loged into system ");//recoding actities
-                dispose();
+                System.gc();
+                System.exit(0);
             }
             else
                 {
@@ -561,6 +562,7 @@ import javax.swing.JOptionPane;
                                     MAIN_FRAME open = new MAIN_FRAME();
                                     open.setVisible(true);
                                     controllers.systemUser = false; // for stop recoding activites
+                                    System.gc();
                                     dispose();
                                 }
                                 else

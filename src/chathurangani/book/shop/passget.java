@@ -196,7 +196,8 @@ public class passget extends javax.swing.JFrame {
                      {
                          settings open = new settings(true);
                          open.setVisible(true);
-                         setVisible(false);
+                         System.gc();
+                         dispose();
                      }
                  else
                      {

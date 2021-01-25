@@ -24,7 +24,7 @@ public class stater {
                 {
                     Adimin_login open = new Adimin_login();
                     open.setVisible(true);
-                    
+                    System.gc();
                 }
               catch(Exception e)
                 {

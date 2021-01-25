@@ -420,7 +420,8 @@ public class newAdvanced extends javax.swing.JFrame {
                 String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim(), "0.0","0.0" , String.valueOf(advanceAmount.getText()) , String.valueOf(java.time.LocalDate.now())};
                 delas.addRow(newBorro);
                 recod("Aded new advanced bill customer - "+CusNameForBill.getText().trim());
-                setVisible(false);
+                System.gc();
+                this.dispose();
          }
         else
             {
@@ -449,7 +450,8 @@ public class newAdvanced extends javax.swing.JFrame {
                delas.addRow(newBorro);
                 recod("Registred new cashier name - "+CusNameForBill.getText().trim());
                //setting new advanced value to advanced panel advanced value holding variable
-               setVisible(false);
+               System.gc();
+               dispose();
          }
          else
          {

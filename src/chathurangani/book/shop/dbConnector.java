@@ -68,8 +68,8 @@ public class dbConnector {
     public void searchIteminStock(String what) throws Exception {
 
         System.out.println(what + " k");
-        String query1 = "SELECT * from `bookshop`.`stocks` WHERE name LIKE '%" + what + "%'; ";
-        String query2 = "SELECT * from `bookshop`.`stocks` where itemCode LIKE '%" + what + "%'; ";
+        query = "SELECT * from `bookshop`.`stocks` WHERE name LIKE '%" + what + "%'; ";
+        query2 = "SELECT * from `bookshop`.`stocks` where itemCode LIKE '%" + what + "%'; ";
 
          if(con == null)
             {
@@ -77,7 +77,7 @@ public class dbConnector {
             }
          
         Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(query1);
+        ResultSet rs = st.executeQuery(query);
 
         BigDecimal[] stockitemsInts = new BigDecimal[1];
         String[] stockitemsString = new String[4];
@@ -124,8 +124,8 @@ public class dbConnector {
 
     public void itemsForSelling( String what) throws Exception {
 
-        String query1 = "SELECT * from `bookshop`.`"+"stocks"+"` where itemcode= ";
-        String query2 = "SELECT * from `bookshop`.`"+"stocks"+"` where name= ";
+        query = "SELECT * from `bookshop`.`"+"stocks"+"` where itemcode= ";
+        query2 = "SELECT * from `bookshop`.`"+"stocks"+"` where name= ";
 
          if(con == null)
             {
@@ -133,7 +133,7 @@ public class dbConnector {
             }
          
         Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(query1 + "'" + what + "'" + ";");
+        ResultSet rs = st.executeQuery(query + "'" + what + "'" + ";");
 
         if (rs.next()) {
             //IF USER SEARCH BY ITEM NAME THIS PART WILL BE RUN
@@ -180,8 +180,8 @@ public class dbConnector {
     //STOCK PANEL SHOW ALL BTN
     public void stockItemsShowAll() throws Exception {
 
-        String query = "SELECT * FROM `bookshop`.`stocks` ;";
-        String query2 = "SELECT * FROM `bookshop`.`raw_stocks` ;";
+        query = "SELECT * FROM `bookshop`.`stocks` ;";
+        query2 = "SELECT * FROM `bookshop`.`raw_stocks` ;";
         String query3 = "SELECT * FROM `bookshop`.`cut_stocks` ;";
         String query4 = "SELECT * FROM `bookshop`.`stocks` WHERE `name` = 'kempas';";
 
@@ -262,8 +262,8 @@ public class dbConnector {
     // SEARCH STOCK RUNNING OUT ITEMS ACCOUDINT TO CASHIER ENTERD VALUE 
     public void searchForStockOutItems(int smallerthan, int index) throws Exception {
 
-        String query = "SELECT * FROM `bookshop`.`stocks` where stock<" + smallerthan + ";";
-        String query2 = "SELECT * FROM `bookshop`.`raw_stocks` where stock<" + smallerthan + ";";
+        query = "SELECT * FROM `bookshop`.`stocks` where stock<" + smallerthan + ";";
+        query2 = "SELECT * FROM `bookshop`.`raw_stocks` where stock<" + smallerthan + ";";
         String query3 = "SELECT * FROM `bookshop`.`cut_stocks` where stock<" + smallerthan + ";";
 
         if(con == null)
@@ -337,8 +337,7 @@ public class dbConnector {
     public int updateStockitems(String table ,String colomn, String value, String PrimaryKey) throws Exception {
         int stock = 0;
 
-            System.out.println(table);
-            String query = "UPDATE bookshop."+table+" SET `" + colomn + "` = '" + value + "' WHERE (`itemcode` = '" + PrimaryKey + "');";
+            query = "UPDATE bookshop."+table+" SET `" + colomn + "` = '" + value + "' WHERE (`itemcode` = '" + PrimaryKey + "');";
 
             if(con == null)
             {
@@ -354,7 +353,7 @@ public class dbConnector {
 
     //UPDATE STOCK METHOD which has string data types
     public void updateStockitemsStrings(String table, String colomn, String value, String PrimaryKey) throws Exception {
-        String query = "UPDATE `bookshop`.`"+table+"` SET `" + colomn + "` = '" + value + "' WHERE (`itemcode` = '" + PrimaryKey + "');";
+        query = "UPDATE `bookshop`.`"+table+"` SET `" + colomn + "` = '" + value + "' WHERE (`itemcode` = '" + PrimaryKey + "');";
 
          if(con == null)
             {
@@ -368,7 +367,7 @@ public class dbConnector {
 
     //DELETE DATA FROM STORE
     public void deleteData(String primaryKey, String tablename ) throws Exception {
-        String query = "DELETE FROM `bookshop`.`"+tablename+"` WHERE (`itemcode` = '" + primaryKey + "');";
+        query = "DELETE FROM `bookshop`.`"+tablename+"` WHERE (`itemcode` = '" + primaryKey + "');";
 
          if(con == null)
             {
@@ -376,7 +375,7 @@ public class dbConnector {
             }
          
         Statement st = con.createStatement();
-        int updated = st.executeUpdate(query);
+        st.executeUpdate(query);
         JOptionPane.showMessageDialog(null, "Item Deleted Successfully !");
 
     }
@@ -384,7 +383,7 @@ public class dbConnector {
     //getting item price from db
     public String searchItemPrice(String what) throws Exception {
 
-        String query = "SELECT cashprice from `bookshop`.`stocks` where itemcode=";
+        query = "SELECT cashprice from `bookshop`.`stocks` where itemcode=";
 
          if(con == null)
             {
@@ -402,7 +401,7 @@ public class dbConnector {
     //getting item stock from db
     public int searchItemStock(String what) throws Exception {
 
-        String query = "SELECT stock from `bookshop`.`stocks` where itemcode=";
+        query = "SELECT stock from `bookshop`.`stocks` where itemcode=";
         int findStock = 0;
         if(con == null)
             {
@@ -421,8 +420,8 @@ public class dbConnector {
     //CASH DEALS IN TO DATA BASE 
     public void storeCashDealsDataIntoBase(BigDecimal[] Gotvalues , String name) throws Exception {
 
-        String query = "INSERT INTO `bookshop`.`cashdeals` (`subtotatl` , `TotaltValue`, `DiscountValue`, `paymentValue`, `BalanceValue`, `advanced` ,`date`,`name`) VALUES ('" + Gotvalues[5] + "','" + Gotvalues[0] + "', '" + Gotvalues[1] + "', '" + Gotvalues[2] + "', '" + Gotvalues[3] + "', '" + Gotvalues[4] + "' ,'" + java.time.LocalDate.now() + "' ,'" + name + "');";
-        System.out.println(Gotvalues[5]);
+        query = "INSERT INTO `bookshop`.`cashdeals` (`subtotatl` , `TotaltValue`, `DiscountValue`, `paymentValue`, `BalanceValue`, `advanced` ,`date`,`name`) VALUES ('" + Gotvalues[5] + "','" + Gotvalues[0] + "', '" + Gotvalues[1] + "', '" + Gotvalues[2] + "', '" + Gotvalues[3] + "', '" + Gotvalues[4] + "' ,'" + java.time.LocalDate.now() + "' ,'" + name + "');";
+        
          if(con == null)
             {
                 connect();
@@ -440,9 +439,7 @@ public class dbConnector {
 
     //storing income data
     public void Strore_incomedata(String sprice, String incomeType , String date) throws Exception {
-        
-        String query = "";
-        
+                
         if( incomeType != "borrowing" )
             {
                query = "INSERT INTO `bookshop`.`incomedata` (`sellIncome`, `date`, `borrowing`) VALUES ('"+sprice+"', '"+date+"', '0.0');";
@@ -464,7 +461,7 @@ public class dbConnector {
 
     //update incomedate
     public void incomedataUpdater(String sprice, String incomeType , String date ) throws Exception {
-        String query = "UPDATE `bookshop`.`incomedata` SET `"+incomeType+"` = '" + sprice + "' WHERE (`date` = '" + date + "');";
+        query = "UPDATE `bookshop`.`incomedata` SET `"+incomeType+"` = '" + sprice + "' WHERE (`date` = '" + date + "');";
          if(con == null)
             {
                 connect();
@@ -476,8 +473,8 @@ public class dbConnector {
     }
 
     //INSERTING DEAL ITEMS DEATILS ITEM CODE ITEM NAME QUANTITIY PRICE
-    public void storeCashDealItemsIntoDataBase(String primarykey, String icode, String iname, BigDecimal price, String quantity, BigDecimal total) throws Exception {
-        String query = "INSERT INTO `bookshop`.`cashitems` (`dealNo`, `itemCode`, `itemName`,`itemPrice`, `quantity`, `price`)  VALUES ('" + primarykey + "', '" + icode + "', '" + iname + "', '" + price + "', '" + quantity + "' , '" + total + "');";
+    public void storeCashDealItemsIntoDataBase(String primarykey, String icode, String iname, BigDecimal price, String quantity, BigDecimal total ,String date) throws Exception {
+        query = "INSERT INTO `bookshop`.`cashitems` (`dealNo`, `itemCode`, `itemName`,`itemPrice`, `quantity`, `price` , `date`)  VALUES ('" + primarykey + "', '" + icode + "', '" + iname + "', '" + price + "', '" + quantity + "' , '" + total + "', '" + date + "');";
         if(con == null)
             {
                 connect();
@@ -492,7 +489,7 @@ public class dbConnector {
 
         int key = 0;
 
-        String query = "INSERT INTO `bookshop`.`borrow` (`name`,`tp`,`nic` , `address` , `discount` , `total` ) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + defaultsValues[0] + "', '" + defaultsValues[1] + "');";
+        query = "INSERT INTO `bookshop`.`borrow` (`name`,`tp`,`nic` , `address` , `discount` , `total` ) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + defaultsValues[0] + "', '" + defaultsValues[1] + "');";
 
          if(con == null)
             {
@@ -534,7 +531,7 @@ public class dbConnector {
 
         int key = 0;
 
-        String query = "UPDATE `bookshop`.`borrow` SET `discount` = '" + values[0] + "', `total` = '" + values[1] + "' , `date` = '" + java.time.LocalDate.now().toString() + "'  WHERE (`dealNo` = '" + pk + "');";
+        query = "UPDATE `bookshop`.`borrow` SET `discount` = '" + values[0] + "', `total` = '" + values[1] + "' , `date` = '" + java.time.LocalDate.now().toString() + "'  WHERE (`dealNo` = '" + pk + "');";
 
         if(con == null)
             {
@@ -550,7 +547,7 @@ public class dbConnector {
 
     //INSERTING DEAL ITEMS DEATILS ITEM CODE ITEM NAME QUANTITIY PRICE
     public void storeDealItemsIntoDataBase(String primarykey, String icode, String iname, String quantity, BigDecimal price , BigDecimal total) throws Exception {
-        String query = "INSERT INTO `bookshop`.`advanceditems` (`dealNo`, `itemCode`, `itemName`, `quantity`, `price` , `total`) VALUES ('" + primarykey + "', '" + icode + "', '" + iname + "', '" + quantity + "', '" + price + "' , '" + total + "');";
+        query = "INSERT INTO `bookshop`.`advanceditems` (`dealNo`, `itemCode`, `itemName`, `quantity`, `price` , `total`) VALUES ('" + primarykey + "', '" + icode + "', '" + iname + "', '" + quantity + "', '" + price + "' , '" + total + "');";
         if(con == null)
             {
                 connect();
@@ -596,7 +593,7 @@ public class dbConnector {
     public void search_all_deals() throws Exception {
 
         {
-            String query = "SELECT * FROM bookshop.borrow;";
+            query = "SELECT * FROM bookshop.borrow;";
 
              if(con == null)
             {
@@ -629,8 +626,8 @@ public class dbConnector {
     // THIS METHOD WILL SEARCH CUSTOMER DETAILS OF borrowers FROM DATABASE 
     public void search_every_field(String code) throws Exception {
 
-        String Query1 = "SELECT * FROM bookshop.borrow WHERE dealno = '" + code + "';"; // code means customer name which wants to search from DB
-        String Query2 = "SELECT * FROM bookshop.borrow WHERE  name LIKE '%" + code + "%';";
+        query = "SELECT * FROM bookshop.borrow WHERE dealno = '" + code + "';"; // code means customer name which wants to search from DB
+        query2 = "SELECT * FROM bookshop.borrow WHERE  name LIKE '%" + code + "%';";
 
          if(con == null)
             {
@@ -642,7 +639,7 @@ public class dbConnector {
         String[] customer = new String[11]; // result containing list
 
         //genereating results from all sugessted fields
-        ResultSet rs2 = st.executeQuery(Query2);
+        ResultSet rs2 = st.executeQuery(query2);
 
         while (rs2.next()) {
 
@@ -658,7 +655,7 @@ public class dbConnector {
             borrowers.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
         }
 
-        ResultSet rs = st.executeQuery(Query1);
+        ResultSet rs = st.executeQuery(query);
         if (rs.next()) // IF ITEM CODE AVAILABLe THIS SECTION WILL RUN
         {
 
@@ -680,7 +677,7 @@ public class dbConnector {
     // THIS METHOD WILL SEARCH CUSTOMER DETAILS FROM DATABASE
     public void search_every_field_By_Code(String code) throws Exception {
 
-        String Query1 = "SELECT * FROM bookshop.cashdeals WHERE dealno = '" + code + "';"; // code means customer name which wants to search from DB
+        query = "SELECT * FROM bookshop.cashdeals WHERE dealno = '" + code + "';"; // code means customer name which wants to search from DB
 
          if(con == null)
             {
@@ -688,7 +685,7 @@ public class dbConnector {
             }
          
         Statement st = con.createStatement();
-        ResultSet rs2 = st.executeQuery(Query1);
+        ResultSet rs2 = st.executeQuery(query);
         String[] customer = new String[6]; // result containing list
 
         if (rs2.next()) {
@@ -708,7 +705,7 @@ public class dbConnector {
 
     public void search_for_deals(String code) throws Exception {
 
-        String Query1 = "SELECT * FROM bookshop.cashdeals WHERE dealNo = '" + code + "';"; // code means customer name which wants to search from DB
+        query = "SELECT * FROM bookshop.cashdeals WHERE dealNo = '" + code + "';"; // code means customer name which wants to search from DB
 
          if(con == null)
             {
@@ -720,7 +717,7 @@ public class dbConnector {
         String[] customer = new String[11]; // result containing list
 
         //genereating results from all sugessted fields
-        ResultSet rs = st.executeQuery(Query1);
+        ResultSet rs = st.executeQuery(query);
 
         while (rs.next()) // IF ITEM CODE AVAILABLe THIS SECTION WILL RUN
         {
@@ -739,7 +736,7 @@ public class dbConnector {
     //search allresults in databse
     public void search_for_deals() throws Exception {
 
-        String Query1 = "SELECT * FROM bookshop.cashdeals ;"; // code means customer name which wants to search from DB
+        query = "SELECT * FROM bookshop.cashdeals ;"; // code means customer name which wants to search from DB
 
         if(con == null)
             {
@@ -751,7 +748,7 @@ public class dbConnector {
         String[] customer = new String[11]; // result containing list
 
         //genereating results from all sugessted fields
-        ResultSet rs = st.executeQuery(Query1);
+        ResultSet rs = st.executeQuery(query);
 
         while (rs.next()) // IF ITEM CODE AVAILABLe THIS SECTION WILL RUN
         {
@@ -769,7 +766,7 @@ public class dbConnector {
 
     //getting each borrowing item accorfing to customer when user select a deal
     public void getDealItems(String code) throws Exception {
-        String query1 = "SELECT * FROM bookshop.payments WHERE `cusCode`=" + code + ";";
+        query = "SELECT * FROM bookshop.payments WHERE `cusCode`=" + code + ";";
 
          if(con == null)
             {
@@ -780,7 +777,7 @@ public class dbConnector {
 
         String[] itemDetails = new String[4];
 
-        ResultSet rs = st.executeQuery(query1);
+        ResultSet rs = st.executeQuery(query);
 
         while (rs.next()) {
             itemDetails[0] = rs.getString("date");
@@ -797,7 +794,7 @@ public class dbConnector {
     public boolean passchek(String password) throws Exception {
         boolean passVeryfied;
 
-        String query = "SELECT * FROM bookshop.pass WHERE `pass`= ? ;";
+        query = "SELECT * FROM bookshop.pass WHERE `pass`= ? ;";
 
          if(con == null)
             {
@@ -819,7 +816,7 @@ public class dbConnector {
 
     //CHANGING PASSWORD    
     void changePass(String oldPass, String newpass) throws Exception {
-        String query = " UPDATE `bookshop`.`pass` SET `pass` = '" + newpass + "' WHERE (`Id` = '1');";
+        query = " UPDATE `bookshop`.`pass` SET `pass` = '" + newpass + "' WHERE (`Id` = '1');";
 
          if(con == null)
             {
@@ -836,8 +833,8 @@ public class dbConnector {
 
     //ADDING NEW PASSWROD (SETTING A PASSWORD)
     void changePass(String newpass, String question, String answer) throws Exception {
-        String query = " UPDATE `bookshop`.`pass` SET `pass` = '" + newpass + "' WHERE (`Id` = '1');";
-        String query2 = "UPDATE `bookshop`.`pass` SET `passState` = '1' WHERE (`Id` = '1');";
+        query = " UPDATE `bookshop`.`pass` SET `pass` = '" + newpass + "' WHERE (`Id` = '1');";
+        query2 = "UPDATE `bookshop`.`pass` SET `passState` = '1' WHERE (`Id` = '1');";
         String query3 = "UPDATE `bookshop`.`pass` SET `question` = '" + question + "' WHERE (`Id` = '1');";
         String query4 = "UPDATE `bookshop`.`pass` SET `answer` = '" + answer + "' WHERE (`Id` = '1');";
 
@@ -861,7 +858,7 @@ public class dbConnector {
     boolean isLocked() throws Exception {
         boolean locked;
 
-        String query = " SELECT * FROM bookshop.pass;";
+        query = " SELECT * FROM bookshop.pass;";
 
          if(con == null)
             {
@@ -886,8 +883,8 @@ public class dbConnector {
 
     //removing passord and setting password active state to off
     void removePass() throws Exception {
-        String query = " UPDATE `bookshop`.`pass` SET `pass` = '' WHERE (`Id` = '1');";
-        String query2 = "UPDATE `bookshop`.`pass` SET `passState` = '0' WHERE (`Id` = '1');";
+        query = " UPDATE `bookshop`.`pass` SET `pass` = '' WHERE (`Id` = '1');";
+        query2 = "UPDATE `bookshop`.`pass` SET `passState` = '0' WHERE (`Id` = '1');";
 
          if(con == null)
             {
@@ -907,8 +904,8 @@ public class dbConnector {
     public boolean questionchek(String what, int which) throws Exception {
         boolean qestionVeryfied;
 
-        String query = "SELECT * FROM bookshop.pass WHERE `question`= ? ;";
-        String query2 = "SELECT * FROM bookshop.pass WHERE `answer`= ? ;";
+        query = "SELECT * FROM bookshop.pass WHERE `question`= ? ;";
+        query2 = "SELECT * FROM bookshop.pass WHERE `answer`= ? ;";
 
         if(con == null)
             {
@@ -940,8 +937,8 @@ public class dbConnector {
 
     // removing cash deals from the databse
     void clearDeals() throws Exception {
-        String query = "SELECT * FROM bookshop.cashdeals;";
-        String query_incomeData = "SELECT * FROM bookshop.incomedata;";
+        query = "SELECT * FROM bookshop.cashdeals;";
+        query2 = "SELECT * FROM bookshop.incomedata;";
 
          if(con == null)
             {
@@ -956,12 +953,12 @@ public class dbConnector {
         while (rs.next()) {
             int primaryKey = rs.getInt("dealNo");
             String query2 = "DELETE FROM `bookshop`.`cashdeals` WHERE (`dealNo` = '" + primaryKey + "');";
-            String query3 = "DELETE FROM `bookshop`.`cashitems` WHERE (`dealNo` = '" + primaryKey + "');";
+            String query3 = "DELETE FROM `bookshop`.`cashitems` WHERE (`itemCode` = '" + primaryKey + "');";
             st2.executeUpdate(query2);
             st2.executeUpdate(query3);
         }
 
-        ResultSet rs2 = st.executeQuery(query_incomeData);
+        ResultSet rs2 = st.executeQuery(query2);
 
         while (rs2.next()) {
             int primaryKey = rs2.getInt("incomeCode");
@@ -981,12 +978,12 @@ public class dbConnector {
                 connect();
             }
          
-        Statement st = con.createStatement(); // for get primary key
+        con.createStatement(); // for get primary key
         Statement st2 = con.createStatement(); //for remove data
 
-        String query2 = "DELETE FROM `bookshop`.`borrow` WHERE (`dealNo` = '" + primaryKey + "');";
+        query2 = "DELETE FROM `bookshop`.`borrow` WHERE (`dealNo` = '" + primaryKey + "');";
         String query3 = "DELETE FROM `bookshop`.`payments`  WHERE (`dealNo` = '" + primaryKey + "');";
-        String query = "DELETE FROM `bookshop`.`cashier_login` WHERE (`no` = '" + primaryKey + "');";
+        query = "DELETE FROM `bookshop`.`cashier_login` WHERE (`no` = '" + primaryKey + "');";
         String query4 = "DELETE FROM `bookshop`.`emplyoees` WHERE (`no` = '" + primaryKey + "');";
 
         if (which == 0) // deleting borrowers
@@ -1011,7 +1008,7 @@ public class dbConnector {
     boolean chekNewBarCode(int newCode) throws Exception {
         boolean state = false;
 
-        String query = "SELECT * FROM bookshop.stocks WHERE `itemcode`= ? ;";
+        query = "SELECT * FROM bookshop.stocks WHERE `itemcode`= ? ;";
 
          if(con == null)
             {
@@ -1037,7 +1034,7 @@ public class dbConnector {
     public boolean passdate(String date , boolean cashincome) throws Exception {
         boolean dateVeryfied;
 
-        String query ="SELECT * FROM bookshop.incomedata WHERE `date`= ? ;";
+        query ="SELECT * FROM bookshop.incomedata WHERE `date`= ? ;";
           
         if(con == null)
             {
@@ -1072,10 +1069,10 @@ public class dbConnector {
     public void updateBorrowerData(String colomn, String value, String PrimaryKey, int which) throws Exception {
 
         //borrowers
-        String query = "UPDATE `bookshop`.`borrow` SET `" + colomn + "` = '" + value + "' WHERE (`dealNo` = '" + PrimaryKey + "');";
+        query = "UPDATE `bookshop`.`borrow` SET `" + colomn + "` = '" + value + "' WHERE (`dealNo` = '" + PrimaryKey + "');";
 
         //cashiers
-        String query2 = "UPDATE `bookshop`.`cashier_login` SET `" + colomn + "` = '" + value + "' WHERE (`no` = '" + PrimaryKey + "');";
+        query2 = "UPDATE `bookshop`.`cashier_login` SET `" + colomn + "` = '" + value + "' WHERE (`no` = '" + PrimaryKey + "');";
         
         //employees
          String query3 = "UPDATE `bookshop`.`emplyoees` SET `" + colomn + "` = '" + value + "' WHERE (`no` = '" + PrimaryKey + "');";
@@ -1131,7 +1128,7 @@ public class dbConnector {
     public BigDecimal[] advanced_amount_Upater(String code) throws Exception {
         BigDecimal[] prices = new BigDecimal[3];
 
-        String query = "SELECT * FROM bookshop.advanced WHERE `dealNo`= ? ;";
+        query = "SELECT * FROM bookshop.advanced WHERE `dealNo`= ? ;";
 
          if(con == null)
             {
@@ -1151,7 +1148,7 @@ public class dbConnector {
 
     //updating income data database borrower data databse
     void borrow_payment_process(BigDecimal value, String primaryKey) throws Exception {
-        String query = "UPDATE `bookshop`.`borrow` SET `total` = '" + value + "' WHERE (`dealNo` = '" + primaryKey + "');";
+        query = "UPDATE `bookshop`.`borrow` SET `total` = '" + value + "' WHERE (`dealNo` = '" + primaryKey + "');";
 
          if(con == null)
             {
@@ -1193,9 +1190,9 @@ public class dbConnector {
     //sending income date values of specific date to generate income report in report class
     void get_values_of_income(String date) throws Exception {
 
-        String query = "SELECT * FROM bookshop.outgoing WHERE (`date` = '" + date + "');";
-        String query2 = "SELECT * FROM bookshop.incomedata WHERE (`date` = '" + date + "');";
-        String query3 = "SELECT * FROM bookshop.cashitems WHERE (`itemCode` = '" + "50" + "' AND `date` = '" + date + "');";
+        query = "SELECT * FROM bookshop.outgoing WHERE (`date` = '" + date + "');";
+        query2 = "SELECT * FROM bookshop.incomedata WHERE (`date` = '" + date + "');";
+        String query3 = "SELECT * FROM bookshop.cashitems WHERE (`itemCode` = '50' AND `date` = '" + date + "');";
         
         if(con == null)
             {
@@ -1250,7 +1247,7 @@ public class dbConnector {
     boolean stockout() throws Exception {
         boolean out = false;
 
-        String query = "SELECT * FROM bookshop.stocks WHERE stock < 10 ;";
+        query = "SELECT * FROM bookshop.stocks WHERE stock < 10 ;";
         
          if(con == null)
             {
@@ -1278,9 +1275,9 @@ public class dbConnector {
 
         int key = 0;
 
-        String query = "INSERT INTO `bookshop`.`"+table+"` (`name`, `phone`, `id`, `address`, `pass`, `state`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + nameContact[4] + "', '" + 1 + "');";
+        query = "INSERT INTO `bookshop`.`"+table+"` (`name`, `phone`, `id`, `address`, `pass`, `state`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + nameContact[4] + "', '" + 1 + "');";
 
-        String query2 = "INSERT INTO `bookshop`.`"+table+"` (`name`, `phone`, `nic`, `address`, `salary`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + nameContact[4] + "');";
+        query2 = "INSERT INTO `bookshop`.`"+table+"` (`name`, `phone`, `nic`, `address`, `salary`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + nameContact[4] + "');";
        
         if(con == null)
             {
@@ -1310,7 +1307,7 @@ public class dbConnector {
     public void search_all_cashiers(String table) throws Exception {
 
         {
-            String query = "SELECT * FROM bookshop."+table+";";
+            query = "SELECT * FROM bookshop."+table+";";
 
             if(con == null)
             {
@@ -1366,8 +1363,8 @@ public class dbConnector {
     // THIS METHOD WILL SEARCH CUSTOMER DETAILS OF borrowers FROM DATABASE 
     public void search_every_cashier(String code , String table) throws Exception {
 
-        String Query1 = "SELECT * FROM bookshop."+table+" WHERE no = '" + code + "';"; // code means customer name which wants to search from DB
-        String Query2 = "SELECT * FROM bookshop."+table+" WHERE  name LIKE '%" + code + "%';";
+        query = "SELECT * FROM bookshop."+table+" WHERE no = '" + code + "';"; // code means customer name which wants to search from DB
+        query2 = "SELECT * FROM bookshop."+table+" WHERE  name LIKE '%" + code + "%';";
 
          if(con == null)
             {
@@ -1379,7 +1376,7 @@ public class dbConnector {
         String[] customer = new String[7]; // result containing list
 
         //genereating results from all sugessted fields
-        ResultSet rs2 = st.executeQuery(Query2);
+        ResultSet rs2 = st.executeQuery(query2);
 
         if(table == "cashier_login") //taking cashier data
             {
@@ -1401,7 +1398,7 @@ public class dbConnector {
                         cashiers.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
                     }
 
-                    ResultSet rs = st.executeQuery(Query1);
+                    ResultSet rs = st.executeQuery(query);
                     if (rs.next()) // IF ITEM CODE AVAILABLe THIS SECTION WILL RUN
                     {
 
@@ -1437,7 +1434,7 @@ public class dbConnector {
                         emplyoees.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
                     }
 
-                    ResultSet rs = st.executeQuery(Query1);
+                    ResultSet rs = st.executeQuery(query);
                     if (rs.next()) // IF ITEM CODE AVAILABLe THIS SECTION WILL RUN
                     {
 
@@ -1459,7 +1456,7 @@ public class dbConnector {
     public boolean passchek_cashier(String username, String password) throws Exception {
         boolean passVeryfied = false;
 
-        String query = "SELECT * FROM bookshop.cashier_login WHERE no = ? and pass= ? ;";
+        query = "SELECT * FROM bookshop.cashier_login WHERE no = ? and pass= ? ;";
 
          if(con == null)
             {
@@ -1493,7 +1490,7 @@ public class dbConnector {
     //cashier account unlock
     boolean activeCashier(String index, int what) throws Exception {
 
-        String query = " UPDATE `bookshop`.`cashier_login` SET `state` = '" + what + "' WHERE (`no` = '" + index + "');";
+        query = " UPDATE `bookshop`.`cashier_login` SET `state` = '" + what + "' WHERE (`no` = '" + index + "');";
         
          if(con == null)
             {
@@ -1510,7 +1507,7 @@ public class dbConnector {
     //saving borrower payment in to database
     void paymentServer(String cuscode, BigDecimal due, BigDecimal payments, BigDecimal balance, String date) throws Exception {
 
-        String query = "INSERT INTO `bookshop`.`payments` (`cusCode`, `due`, `payment`, `newAmount`, `date`) VALUES (?,?,?,?,?);";
+       query = "INSERT INTO `bookshop`.`payments` (`cusCode`, `due`, `payment`, `newAmount`, `date`) VALUES (?,?,?,?,?);";
 
          if(con == null)
             {
@@ -1570,8 +1567,8 @@ public class dbConnector {
     //SEARCH ITEMS IN RAW STOCKS  
     public void search_row_IteminStock(String what) throws Exception {
 
-        String query1 = "SELECT * from `bookshop`.`raw_stocks` WHERE name LIKE '%" + what + "%'; ";
-        String query2 = "SELECT * from `bookshop`.`raw_stocks` where itemCode LIKE '%" + what + "%'; ";
+        query = "SELECT * from `bookshop`.`raw_stocks` WHERE name LIKE '%" + what + "%'; ";
+        query = "SELECT * from `bookshop`.`raw_stocks` where itemCode LIKE '%" + what + "%'; ";
 
          if(con == null)
             {
@@ -1580,7 +1577,7 @@ public class dbConnector {
          
         Statement st = con.createStatement();
 
-        ResultSet rs = st.executeQuery(query1);
+        ResultSet rs = st.executeQuery(query);
 
         String[] stockitemsString = new String[4];
 
@@ -1678,7 +1675,7 @@ public class dbConnector {
 
         int key = 0;
 
-        String query = "INSERT INTO `bookshop`.`advanced` (`name`,`phone`,`nic` , `address` , `discount` , `total` , `advanced` , `date`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + defaultsValues[0] + "', '" + defaultsValues[1] + "' , '" + defaultsValues[2] + "' , '" + nameContact[4] + "' );";
+        query = "INSERT INTO `bookshop`.`advanced` (`name`,`phone`,`nic` , `address` , `discount` , `total` , `advanced` , `date`) VALUES ('" + nameContact[0] + "' , '" + nameContact[1] + "' , '" + nameContact[2] + "' , '" + nameContact[3] + "', '" + defaultsValues[0] + "', '" + defaultsValues[1] + "' , '" + defaultsValues[2] + "' , '" + nameContact[4] + "' );";
 
          if(con == null)
             {
@@ -1708,11 +1705,11 @@ public class dbConnector {
         Statement st = con.createStatement(); // for get primary key
         Statement st2 = con.createStatement(); //for remove data
 
-        String query2 = "DELETE FROM `bookshop`.`advanced` WHERE (`dealNo` = '" + primaryKey + "');";
+        query = "DELETE FROM `bookshop`.`advanced` WHERE (`dealNo` = '" + primaryKey + "');";
         String query3 = "DELETE FROM `bookshop`.`advanceditems`  WHERE (`dealNo` = '" + primaryKey + "');";
 
         st2.executeUpdate(query3);
-        st2.executeUpdate(query2);
+        st2.executeUpdate(query);
         JOptionPane.showMessageDialog(null, " Advanced deleted successfully !");
 
     }
@@ -1755,7 +1752,7 @@ public class dbConnector {
         public int updateAdvanceData(String table , String colomn, String value, String PrimaryKey) throws Exception {
 
         //borrowers
-        String query = "UPDATE `bookshop`.`"+table+"` SET `" + colomn + "` = '" + value + "' WHERE (`dealNo` = '" + PrimaryKey + "');";
+        query = "UPDATE `bookshop`.`"+table+"` SET `" + colomn + "` = '" + value + "' WHERE (`dealNo` = '" + PrimaryKey + "');";
 
          if(con == null)
             {
@@ -1764,7 +1761,7 @@ public class dbConnector {
          
         Statement st = con.createStatement();
         recod("Updated ");
-        int updated = st.executeUpdate(query);
+        st.executeUpdate(query);
 
         return 0;
 
@@ -1774,7 +1771,7 @@ public class dbConnector {
      //getting each borrowing item accorfing to customer when user select a deal
       //here which is for data to advance item viwing panel to payment billing panel
     public void getAdvancetems(String code , boolean which) throws Exception { 
-        String query = "SELECT * FROM bookshop.advanceditems WHERE `dealNo`=" + code + ";";
+        query = "SELECT * FROM bookshop.advanceditems WHERE `dealNo`=" + code + ";";
 
          if(con == null)
             {
@@ -1812,8 +1809,8 @@ public class dbConnector {
     // THIS METHOD WILL SEARCH CUSTOMER DETAILS OF borrowers FROM DATABASE 
     public void search_every_advanced(String code) throws Exception {
 
-        String Query1 = "SELECT * FROM bookshop.advanced WHERE dealno = '" + code + "';"; // code means customer name which wants to search from DB
-        String Query2 = "SELECT * FROM bookshop.advanced WHERE  name LIKE '%" + code + "%';";
+        query = "SELECT * FROM bookshop.advanced WHERE dealno = '" + code + "';"; // code means customer name which wants to search from DB
+        query2 = "SELECT * FROM bookshop.advanced WHERE  name LIKE '%" + code + "%';";
 
          if(con == null)
             {
@@ -1825,7 +1822,7 @@ public class dbConnector {
         String[] customer = new String[9]; // result containing list
 
         //genereating results from all sugessted fields
-        ResultSet rs = st.executeQuery(Query1);
+        ResultSet rs = st.executeQuery(query);
 
         while (rs.next()) {
 
@@ -1842,7 +1839,7 @@ public class dbConnector {
                     advanced.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
                 }
         
-        ResultSet rs2 = st.executeQuery(Query2);
+        ResultSet rs2 = st.executeQuery(query2);
         
           while (rs2.next()) {
 
@@ -1864,7 +1861,7 @@ public class dbConnector {
      //storing income data
     public int Strore_outGoingdata(String sprice, String reson , String date) throws Exception {
         
-        String query = "INSERT INTO `bookshop`.`outgoing` (`outgoing`, `reson`, `date`) VALUES ('"+sprice+"', '"+reson+"', '"+date+"');";
+        query = "INSERT INTO `bookshop`.`outgoing` (`outgoing`, `reson`, `date`) VALUES ('"+sprice+"', '"+reson+"', '"+date+"');";
   
          if(con == null)
             {
@@ -1882,7 +1879,7 @@ public class dbConnector {
         public void search_all_outgoing(String date) throws Exception {
 
             {
-                String query = "SELECT * FROM bookshop.outgoing WHERE `date` = '"+date+"' ;";
+                query = "SELECT * FROM bookshop.outgoing WHERE `date` = '"+date+"' ;";
 
             if(con == null)
             {
@@ -1916,10 +1913,10 @@ public class dbConnector {
                 connect();
             }
              
-            Statement st = con.createStatement(); // for get primary key
+           // Statement st = con.createStatement(); // for get primary key
             Statement st2 = con.createStatement(); //for remove data
 
-            String query = "DELETE FROM `bookshop`.`outgoing` WHERE (`dealNo` = '" + primaryKey + "');";
+            query = "DELETE FROM `bookshop`.`outgoing` WHERE (`dealNo` = '" + primaryKey + "');";
 
             st2.executeUpdate(query);
             JOptionPane.showMessageDialog(null, " Cash Out deleted successfully !");
@@ -1942,7 +1939,7 @@ public class dbConnector {
                 connect();
             }
         
-        String query = "INSERT INTO `bookshop`.`activites` (`no`, `activity`, `date`, `time`) VALUES ('"+controllers.cashierName+"', '"+activity+"', '"+java.time.LocalDate.now().toString()+"', '"+MAIN_FRAME.Time.getText()+"');";
+        query = "INSERT INTO `bookshop`.`activites` (`no`, `activity`, `date`, `time`) VALUES ('"+controllers.cashierName+"', '"+activity+"', '"+java.time.LocalDate.now().toString()+"', '"+MAIN_FRAME.Time.getText()+"');";
         
         Statement st = con.createStatement();
         st.executeUpdate(query);
@@ -1952,7 +1949,7 @@ public class dbConnector {
         public void search_all_activities(String from , String date) throws Exception {
 
             {
-                String query = "SELECT * FROM bookshop.activites WHERE `"+from+"` = '"+date+"' ;";
+                query = "SELECT * FROM bookshop.activites WHERE `"+from+"` = '"+date+"' ;";
 
             if(con == null)
             {
@@ -1986,14 +1983,16 @@ public class dbConnector {
                         connect();
                         }
             
-                    String query = "INSERT INTO `bookshop`.`errors` (`error`) VALUES ("+error+"')";
+                    query = "INSERT INTO `bookshop`.`errors` (`error`) VALUES ('"+error+"');";
               
                     st = con.createStatement();
-                    st.executeQuery(query);
+                    st.executeUpdate(query);
                 }
             catch(Exception e)
                 {
-                     JOptionPane.showMessageDialog(null,"Your Storage may be running out !");
+                    System.out.println(e);
+                    //Logger.getLogger(Adimin_login.class.getName()).log(Level.SEVERE, null, e);
+                    JOptionPane.showMessageDialog(null,"Your Storage may be running out !");
                 }
         }
 

@@ -456,7 +456,8 @@ public class newEmplyoee extends javax.swing.JFrame {
                String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() ,  salary.getText().trim()};
                delas.addRow(newBorro);
                recod("Registerd an employee name -"+CusNameForBill.getText().trim());
-               setVisible(false);
+               System.gc();
+               dispose();
          }
          else
          {

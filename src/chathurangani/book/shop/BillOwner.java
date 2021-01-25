@@ -441,7 +441,8 @@ public class BillOwner extends javax.swing.JFrame {
        String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim(), "0.0","0.0" , String.valueOf(java.time.LocalDate.now())};
        delas.addRow(newBorro);
        recod("Aded new debtor name - "+CusNameForBill.getText().trim());
-       setVisible(false);
+       System.gc();
+       this.dispose();
     }
     
     
@@ -462,7 +463,8 @@ public class BillOwner extends javax.swing.JFrame {
                String [] newBorro = {controllers.primaryKeyOfdealsData , CusNameForBill.getText().trim(), cusphoneForBill.getText().trim(), nic.getText().trim() , address.getText().trim() ,  passbox.getText().trim() , "Active"};
                delas.addRow(newBorro);
                recod("Aded new cashier name - "+CusNameForBill.getText().trim() );
-               setVisible(false);
+               System.gc();
+               this.dispose();
          }
          else
          {

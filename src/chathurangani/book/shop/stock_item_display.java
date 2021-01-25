@@ -170,6 +170,11 @@ public class stock_item_display extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Item Viewer");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -589,7 +594,7 @@ public class stock_item_display extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1124, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1124, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -780,7 +785,8 @@ public class stock_item_display extends javax.swing.JFrame {
             connect.recod_error(e.toString()+"- stockItemUpdate 779 ");
         }
         
-         setVisible(false);
+         System.gc();
+         dispose();
 
     }//GEN-LAST:event_CloseUpdatePannelActionPerformed
 
@@ -1055,6 +1061,10 @@ public class stock_item_display extends javax.swing.JFrame {
     private void stockAddBtn1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stockAddBtn1KeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_stockAddBtn1KeyPressed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.gc();
+    }//GEN-LAST:event_formWindowClosing
 
       void recod(String activity)
         {

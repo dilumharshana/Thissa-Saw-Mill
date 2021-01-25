@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -186,6 +188,11 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         setTitle("TISSA SAW MILL");
         setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -642,7 +649,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 688, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -806,7 +815,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                                                 price = new BigDecimal(priceget);
 
                                                   //storing deal cash item in to database
-                                                 connect.storeCashDealItemsIntoDataBase(pk, code, name, price, quantity, totalGet);
+                                                 connect.storeCashDealItemsIntoDataBase(pk, code, name, price, quantity, totalGet,java.time.LocalDate.now().toString());
                             
                                                 //updating stocks by calling stockupdate mthod
                                                 stockupdate(code , quantity);
@@ -881,8 +890,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             }
           catch(Exception e)
             {
-               JOptionPane.showMessageDialog(null, "Sorry some thing went wrong ! - Main_Frame#882!");
-               connect.recod_error(e.toString()+" Main Frame 882");
+              // JOptionPane.showMessageDialog(null, "Sorry some thing went wrong ! - Main_Frame#882!");
+               //connect.recod_error(e.toString()+" Main Frame 882");
+                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     
@@ -1242,8 +1252,12 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                     Adimin_login open = new Adimin_login();
                     open.setVisible(true);
                     recod("Loged out from the system");
-                    dispose();
+                    saveDB();
+                    System.gc();
+                    this.dispose();
                 }
+               
+            
            }
         catch(Exception e)
         {
@@ -1251,6 +1265,10 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 connect.recod_error(e.toString()+" Main Frame 1248");
         }
     }//GEN-LAST:event_logoutMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        saveDB();
+    }//GEN-LAST:event_formWindowClosing
 
 //filling jtable with parsed itesm
     public static void searchItemsToTable(String[] stockdatas) {
@@ -1313,8 +1331,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 connect.itemsForSelling(code);
                 recod("Searched Item : "+code);//recoding actities
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Sorry something went wrong ,unable to find the item ! - Main_Frame#1322!");
-                connect.recod_error(ex.toString()+" Main Frame 1322");
+                JOptionPane.showMessageDialog(null, "Sorry something went wrong ,unable to find the item ! - Main_Frame#1339!");
+                connect.recod_error(ex.toString()+" Main Frame 1339");
             }
 
             //make sure that continue search preocess is ready to run
@@ -1335,8 +1353,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             connect.itemsForSelling(code);
             recod("Searched Item : "+code);//recoding actities
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Sorry something went wrong ,unable to find the item ! - Main_Frame#1344!");
-            connect.recod_error(ex.toString()+" Main Frame 1344");
+            JOptionPane.showMessageDialog(null, "Sorry something went wrong ,unable to find the item ! - Main_Frame#1360!");
+            connect.recod_error(ex.toString()+" Main Frame 1360");
         }
 
         //make sure that continue search preocess is ready to run
@@ -1367,9 +1385,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             barcode.setText("");
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Sorry something went wrong ,unable to load the item! - Main_Frame#1375!");
+            JOptionPane.showMessageDialog(null, "Sorry something went wrong ,unable to load the item! - Main_Frame#1394!");
             dbConnector connect = new dbConnector();
-            connect.recod_error(ex.toString()+" Main Frame 1375");
+            connect.recod_error(ex.toString()+" Main Frame 1394");
         }
     }
 
@@ -1402,6 +1420,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         disc.setText("");
         statTotal = new BigDecimal("0.0");
        
+        System.gc();
     }
 
 ////extra item adding process
@@ -1441,9 +1460,9 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 }
             }
         } catch (Exception ex) {
-           JOptionPane.showMessageDialog(null, "Sorry something went wrong  - Main_Frame#1450!");
+           JOptionPane.showMessageDialog(null, "Sorry something went wrong  - Main_Frame#1468!");
             dbConnector connect = new dbConnector();
-            connect.recod_error(ex.toString()+" Main Frame 1450");
+            connect.recod_error(ex.toString()+" Main Frame 1468");
         } 
         //</editor-fold>
 
@@ -1464,8 +1483,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "Your stocks may be running out - Main_Frame#1472!");
-                        connect.recod_error(ex.toString()+" Main Frame 1472");
+                        JOptionPane.showMessageDialog(null, "Your stocks may be running out - Main_Frame#1490!");
+                        connect.recod_error(ex.toString()+" Main Frame 1490");
                     }
                 }
         }
@@ -1491,6 +1510,25 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         }
     }
 
+    //backup databse
+    void saveDB(){
+    
+                 //backup database  
+               try
+                {
+
+                    Process backup = null;
+                    Runtime getDB = Runtime.getRuntime();
+                    
+  backup = getDB.exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump.exe -uroot -ppapapapa --add-drop-database -B bookshop -r C:/Users/Dilum/Documents/backup_backup.sql");
+                
+                }
+               catch(Exception e)
+                    {
+                            connect.recod_error(e.toString()+" Main Frame 1277");
+                    }
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JLabel Date;

@@ -134,9 +134,9 @@ FROM
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cashdeals_date}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="23" y="2" width="55" height="44" uuid="6f46cccb-a30f-4dfd-9b6a-9abe7f51d1ec"/>
-				<imageExpression><![CDATA["C:\\Users\\Dilum\\Desktop\\Save-Our-Woods-Download.jpg"]]></imageExpression>
+			<image scaleImage="FillFrame">
+				<reportElement x="19" y="2" width="50" height="45" uuid="cf641aab-df2c-4580-9e68-f448e9872c11"/>
+				<imageExpression><![CDATA["C:\\Users\\Dilum\\Desktop\\book shop\\Thissa saw mill\\src\\chathurangani\\book\\shop\\bill\\logo.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

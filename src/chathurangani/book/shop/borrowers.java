@@ -48,6 +48,11 @@ public class borrowers extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Deals");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
@@ -221,7 +226,7 @@ public class borrowers extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,7 +330,7 @@ public class borrowers extends javax.swing.JFrame {
                                                 price = new BigDecimal(priceget);
 
                             //store item details in to databse
-                            connect.storeCashDealItemsIntoDataBase(pk, code, name, price, quantity, totalGet);
+                            connect.storeCashDealItemsIntoDataBase(pk, code, name, price, quantity, totalGet , java.time.LocalDate.now().toString());
                             
                               //income date databse handling
                             try {
@@ -480,6 +485,10 @@ public class borrowers extends javax.swing.JFrame {
             connect.recod_error(e.toString()+" this is not a error , borrowers 480");
         }
     }//GEN-LAST:event_historyActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+         System.gc();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
