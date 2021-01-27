@@ -247,6 +247,11 @@ public class stock_item_display extends javax.swing.JFrame {
 
         stockBox.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         stockBox.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        stockBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stockBoxActionPerformed(evt);
+            }
+        });
         stockBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 stockBoxKeyReleased(evt);
@@ -652,7 +657,7 @@ public class stock_item_display extends javax.swing.JFrame {
 
     private void stockAddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockAddBtnActionPerformed
 
-        if(stockAdder.getText().length() > 0 || stockAdder.getText().length() > 0)
+        if(stockAdder.getText().length() > 0 )
             {
             
                        try {
@@ -660,7 +665,7 @@ public class stock_item_display extends javax.swing.JFrame {
                            //geting values from new upted box and current stock box and setting agin to current stock box and sending to databse
                             stockBox.setText(String.valueOf(Integer.parseInt(stockAdder.getText()) + Integer.parseInt(stockBox.getText())));
                             connect.updateStockitems(table,"stock",stockBox.getText().trim(),primarykeyofdata);
-                            recod("Increased stock by - "+stockAdder);
+                            recod("Increased stock by - "+stockAdder.getText());
                             boolean out = connect.stockout();
 
                             if(out == true)
@@ -675,6 +680,7 @@ public class stock_item_display extends javax.swing.JFrame {
                         } catch (Exception ex) {
                            JOptionPane.showMessageDialog(null, " Something went wrong - StockUpdate#671! ");
                            connect.recod_error(ex.toString()+"- stockItemUpdate 671 ");
+                           //Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
                         }
                 
             }
@@ -1051,6 +1057,7 @@ public class stock_item_display extends javax.swing.JFrame {
                         } catch (Exception ex) {
                            JOptionPane.showMessageDialog(null, " Something went wrong - StockUpdate#1046! ");
                            connect.recod_error(ex.toString()+"- stockItemUpdate 1046 ");
+                           
                         }
                 
             }
@@ -1066,6 +1073,10 @@ public class stock_item_display extends javax.swing.JFrame {
         System.gc();
     }//GEN-LAST:event_formWindowClosing
 
+    private void stockBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stockBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stockBoxActionPerformed
+
       void recod(String activity)
         {
             //cheking if this admin or cashier
@@ -1075,8 +1086,8 @@ public class stock_item_display extends javax.swing.JFrame {
                 {
                     connect.recoder(activity);
                     } catch (Exception ex) {
-                         JOptionPane.showMessageDialog(null, " Your storage may be running out - StockUpdate#1068! ");
-                         connect.recod_error(ex.toString()+"- stockItemUpdate 1069 ");
+                         JOptionPane.showMessageDialog(null, " Your storage may be running out - StockUpdate#1080! ");
+                         connect.recod_error(ex.toString()+"- stockItemUpdate 1080 ");
                         //Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }

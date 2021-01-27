@@ -14,7 +14,7 @@ public class dbConnector {
     String url = "jdbc:mysql://localhost:3306/bookshop";
     String uname = "root";
     String pass = "papapapa";
-    String query, query2;
+    String query, query2 , query3 , query4;
     Connection con;
     
     //connection
@@ -673,39 +673,19 @@ public class dbConnector {
         }
 
     }
-
-    // THIS METHOD WILL SEARCH CUSTOMER DETAILS FROM DATABASE
-    public void search_every_field_By_Code(String code) throws Exception {
-
-        query = "SELECT * FROM bookshop.cashdeals WHERE dealno = '" + code + "';"; // code means customer name which wants to search from DB
-
-         if(con == null)
-            {
-                connect();
-            }
-         
-        Statement st = con.createStatement();
-        ResultSet rs2 = st.executeQuery(query);
-        String[] customer = new String[6]; // result containing list
-
-        if (rs2.next()) {
-            customer[0] = rs2.getString("dealno");
-            customer[1] = rs2.getString("TotaltValue");
-            customer[2] = rs2.getString("DiscountValue");
-            customer[3] = rs2.getString("paymentValue");
-            customer[4] = rs2.getString("paymentValue");
-            customer[5] = rs2.getString("date");
-
-            DealHistory.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
-        }
-        //genereating results from all sugessted fields
-
-    }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public void search_for_deals(String code) throws Exception {
+    public void search_for_deals(String code , String what) throws Exception {
 
-        query = "SELECT * FROM bookshop.cashdeals WHERE dealNo = '" + code + "';"; // code means customer name which wants to search from DB
+        if(what == "code")
+            {
+                query = "SELECT * FROM bookshop.cashdeals WHERE dealNo = '" + code + "';"; // code means customer name which wants to search from DB
+            }
+        else
+            {
+ 
+                query = "SELECT * FROM bookshop.cashdeals WHERE date = '" + code + "';"; // code means customer name which wants to search from DB
+            }
 
          if(con == null)
             {
@@ -714,22 +694,23 @@ public class dbConnector {
          
         Statement st = con.createStatement();
 
-        String[] customer = new String[11]; // result containing list
+        String[] customer = new String[8]; // result containing list
 
         //genereating results from all sugessted fields
         ResultSet rs = st.executeQuery(query);
 
         while (rs.next()) // IF ITEM CODE AVAILABLe THIS SECTION WILL RUN
         {
-
             customer[0] = String.valueOf(rs.getInt("dealNo"));
-            customer[1] = String.valueOf(rs.getBigDecimal("TotaltValue"));
-            customer[2] = String.valueOf(rs.getBigDecimal("DiscountValue"));
-            customer[3] = String.valueOf(rs.getBigDecimal("DiscountValue"));
-            customer[4] = String.valueOf(rs.getBigDecimal("BalanceValue"));
-            customer[5] = String.valueOf(rs.getBigDecimal("date"));
-
-            borrowers.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
+            customer[1] = String.valueOf(rs.getString("name"));
+            customer[2] = String.valueOf(rs.getBigDecimal("TotaltValue"));
+            customer[3] = String.valueOf(rs.getBigDecimal("advanced"));
+            customer[4] = String.valueOf(rs.getBigDecimal("DiscountValue"));
+            customer[5] = String.valueOf(rs.getBigDecimal("DiscountValue"));
+            customer[6] = String.valueOf(rs.getBigDecimal("BalanceValue"));
+            customer[7] = String.valueOf(rs.getString("date"));
+            
+            DealHistory.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
         }
     }
 
@@ -745,7 +726,7 @@ public class dbConnector {
         
         Statement st = con.createStatement();
 
-        String[] customer = new String[11]; // result containing list
+        String[] customer = new String[8]; // result containing list
 
         //genereating results from all sugessted fields
         ResultSet rs = st.executeQuery(query);
@@ -754,15 +735,18 @@ public class dbConnector {
         {
 
             customer[0] = String.valueOf(rs.getInt("dealNo"));
-            customer[1] = String.valueOf(rs.getBigDecimal("TotaltValue"));
-            customer[2] = String.valueOf(rs.getBigDecimal("DiscountValue"));
-            customer[3] = String.valueOf(rs.getBigDecimal("paymentValue"));
-            customer[4] = String.valueOf(rs.getBigDecimal("BalanceValue"));
-            customer[5] = rs.getString("date");
-
+            customer[1] = String.valueOf(rs.getString("name"));
+            customer[2] = String.valueOf(rs.getBigDecimal("TotaltValue"));
+            customer[3] = String.valueOf(rs.getBigDecimal("advanced"));
+            customer[4] = String.valueOf(rs.getBigDecimal("DiscountValue"));
+            customer[5] = String.valueOf(rs.getBigDecimal("DiscountValue"));
+            customer[6] = String.valueOf(rs.getBigDecimal("BalanceValue"));
+            customer[7] = String.valueOf(rs.getString("date"));
             DealHistory.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
         }
     }
+    
+    
 
     //getting each borrowing item accorfing to customer when user select a deal
     public void getDealItems(String code) throws Exception {
@@ -1990,10 +1974,106 @@ public class dbConnector {
                 }
             catch(Exception e)
                 {
-                    System.out.println(e);
                     //Logger.getLogger(Adimin_login.class.getName()).log(Level.SEVERE, null, e);
                     JOptionPane.showMessageDialog(null,"Your Storage may be running out !");
                 }
+        }
+     
+     
+  //clearing deals
+     void cleardeal(String primaryKey) throws Exception {
+  
+          if(con == null)
+            {
+                connect();
+            }
+          
+          Statement st , st2 , st3  = null;
+          
+          Object [] option = {"YES , RESTOR MY STOCKS " , "NOT NOW"};
+          
+          int choice = JOptionPane.showOptionDialog(null,"DO YOU WANT TO RESTORE YOUR STOCKS ? ", "STOCK MANAGER ?" , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
+         
+          //getting sure confirmation
+          while(choice == -1)
+            {
+                choice = JOptionPane.showOptionDialog(null,"DO YOU WANT TO RESTORE YOUR STOCKS ? ", "STOCK MANAGER.." , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
+            }
+          
+          query = "SELECT * FROM bookshop.cashitems "
+                  + "WHERE (`dealNo` = '"+primaryKey+"');";;
+          query2 = "DELETE FROM `bookshop`.`cashitems` WHERE (`dealNo` = '"+primaryKey+"');";
+          query3 = "DELETE FROM `bookshop`.`cashdeals` WHERE (`dealNo` = '"+primaryKey+"');";
+          
+          
+          st = con.createStatement(); //getting items
+          st2 = con.createStatement(); //deleting items
+          
+          ResultSet rs = st.executeQuery(query);
+          while(rs.next())
+            {
+                //restoring stocks
+                if(choice == 0)
+                    {
+                        int amount = getStock(rs.getInt("itemCode".toString()) , "stock" , "stocks") + rs.getInt("quantity");
+                        updateStockitems("stocks","stock",String.valueOf(amount),rs.getString("itemCode"));
+                    }
+                
+                st2.executeUpdate(query2);
+            }
+          
+         option[0] = "YES , REDUCE SALES AMOUNT FROM THE SALES ";
+         option[1] = "NOT NOW";
+         choice  = JOptionPane.showOptionDialog(null,"DO YOU WANT REDUCE THE SALE AMOUNT ? ", "SALES MANAGER.." , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
+            //getting sure confirmation
+            
+          while(choice == -1)
+            {
+                choice = JOptionPane.showOptionDialog(null,"DO YOU WANT REDUCE THE SALE AMOUNT ? ? ", "STOCK MANAGER ?" , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
+            }
+          
+          //reducing sales amount
+          if(choice == 0)
+            {
+                 BigDecimal amount = 
+            }
+          
+          query = "DELETE FROM `bookshop`.`cashdeals` WHERE (`dealNo` = '"+primaryKey+"');";
+          st3 = con.createStatement();
+          st3.executeUpdate(query3);
+     }  
+     
+     
+     
+    //geting stocks for quick operaions
+     int getStock(int id , String what ,String where) throws Exception
+        {
+            int amount=0;
+            BigDecimal sale;
+            
+            String query = "SELECT "+what+" FROM bookshop."+where+" WHERE (`itemcode` = '"+id+"')";
+            
+            if(con == null)
+                {
+                    connect();
+                }
+            Statement st = con.createStatement();
+            
+            ResultSet rs = st.executeQuery(query);
+            
+            if(rs.next())
+                {
+                    if(where == "stock")
+                        {
+                            amount = rs.getInt("stock");
+                        }
+                    else
+                        {
+                            sale = rs.getBigDecimal("stock");
+                        }
+                }
+            return amount;
+            
         }
 
 }

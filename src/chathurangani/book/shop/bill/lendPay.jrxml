@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="414" pageHeight="576" columnWidth="374" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6f2fae7a-b747-4996-9248-48e1cdbc9ff5">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="11"/>
+	<property name="ireport.y" value="181"/>
 	<parameter name="borrower" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -24,7 +24,7 @@
      payments.`date` AS payments_date
 FROM
      `borrow` borrow INNER JOIN 
-     `payments` payments ON  borrow.`dealNo` = payments.`cusCode` WHERE borrow.`dealNo` = $P{borrower}]]>
+     `payments` payments ON  borrow.`dealNo` = payments.`cusCode` WHERE payments.`date` = $P{borrower}]]>
 	</queryString>
 	<field name="borrow_dealNo" class="java.lang.Integer"/>
 	<field name="borrow_name" class="java.lang.String"/>
@@ -87,21 +87,6 @@ FROM
 				</textElement>
 				<text><![CDATA[Date :]]></text>
 			</staticText>
-			<image>
-				<reportElement x="23" y="2" width="55" height="44" uuid="7324ffe8-2612-499b-8f49-fc39d97e0cac"/>
-				<imageExpression><![CDATA["C:\\Users\\Dilum\\Desktop\\Save-Our-Woods-Download.jpg"]]></imageExpression>
-			</image>
-			<image scaleImage="FillFrame" hAlign="Center" isUsingCache="false">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="49" width="374" height="30" uuid="f7ce7b3b-250e-4403-b26b-4f5335122f6b"/>
-				<imageExpression><![CDATA["C:\\Users\\Dilum\\Desktop\\under logo.jpg"]]></imageExpression>
-			</image>
-			<staticText>
-				<reportElement x="23" y="67" width="152" height="13" forecolor="#FFFFFF" uuid="3e53c286-4723-4ccf-9723-9cd02431953b"/>
-				<textElement>
-					<font fontName="Harlow Solid Italic" size="9"/>
-				</textElement>
-				<text><![CDATA[Wholesale & retail for all kinfs of timber]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="8" y="99" width="100" height="14" uuid="b875f4b0-e70a-4725-b00c-6dd496357292"/>
 				<textElement verticalAlignment="Middle">
@@ -131,13 +116,6 @@ FROM
 				<text><![CDATA[ñysÿ;ekak " ÿ,auqr " ;,d;=Th']]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="234" y="67" width="142" height="12" forecolor="#FFFFFF" uuid="48bea5f3-3b86-4dbb-afd1-1580eb8bb400"/>
-				<textElement>
-					<font fontName="FMDerana"/>
-				</textElement>
-				<text><![CDATA[ish¨u j¾.fha oej lemSu iy úls“u ']]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="316" y="101" width="39" height="14" uuid="a7b0fa02-c980-4117-9493-cd93635b47a7"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="9"/>
@@ -158,6 +136,28 @@ FROM
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{borrow_dealNo}]]></textFieldExpression>
 			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="1" y="53" width="373" height="32" uuid="9435ddc1-70b6-46fb-b530-67fda77a0b27"/>
+				<imageExpression><![CDATA["C:\\ProgramData\\bill\\under logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="22" y="72" width="152" height="13" forecolor="#FFFFFF" uuid="3e53c286-4723-4ccf-9723-9cd02431953b"/>
+				<textElement>
+					<font fontName="Harlow Solid Italic" size="9"/>
+				</textElement>
+				<text><![CDATA[Wholesale & retail for all kinfs of timber]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="233" y="72" width="142" height="12" forecolor="#FFFFFF" uuid="48bea5f3-3b86-4dbb-afd1-1580eb8bb400"/>
+				<textElement>
+					<font fontName="FMDerana"/>
+				</textElement>
+				<text><![CDATA[ish¨u j¾.fha oej lemSu iy úls“u ']]></text>
+			</staticText>
+			<image>
+				<reportElement x="21" y="3" width="50" height="50" uuid="b20b3206-b23b-41a6-871f-5946fb74a570"/>
+				<imageExpression><![CDATA["C:\\ProgramData\\bill\\logo.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -239,7 +239,7 @@ FROM
 				<textFieldExpression><![CDATA[$F{payments_date}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="27" width="374" height="1" uuid="6a43546a-0200-45d3-aa25-d5ce547e457f"/>
+				<reportElement x="0" y="-8" width="374" height="1" uuid="6a43546a-0200-45d3-aa25-d5ce547e457f"/>
 				<graphicElement>
 					<pen lineStyle="Dashed"/>
 				</graphicElement>
@@ -252,22 +252,54 @@ FROM
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<staticText>
-				<reportElement x="3" y="30" width="371" height="12" uuid="afa66638-66f3-4e8a-b6a1-6bcedaa47a87"/>
+				<reportElement x="3" y="34" width="371" height="12" uuid="afa66638-66f3-4e8a-b6a1-6bcedaa47a87"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Contact - 076 6 324 349  | evonapps@gmail.com | www.EvonApps.com]]></text>
+				<text><![CDATA[Contact - 076 6 324 349  |  evon.customers@gmail.com  |  www.EvonApps.com]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="14" width="373" height="14" uuid="9bfcdc30-db42-46c7-8fff-2af231d45c47"/>
+				<reportElement x="1" y="18" width="373" height="14" uuid="9bfcdc30-db42-46c7-8fff-2af231d45c47"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial Rounded MT Bold"/>
 				</textElement>
 				<text><![CDATA[System By - Evon Apps ]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="6" width="374" height="1" uuid="ca7287b9-4ffe-44b8-b089-1b27d8ca4995"/>
+				<graphicElement>
+					<pen lineStyle="Double"/>
+				</graphicElement>
+			</line>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="81" splitType="Stretch">
+			<textField>
+				<reportElement x="287" y="21" width="85" height="20" uuid="28615077-519a-4953-871a-4a9915869585"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Black" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{borrow_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="170" y="21" width="142" height="20" uuid="cb228417-cc78-4ac3-b241-00707aa93bd0"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Black" size="9"/>
+				</textElement>
+				<text><![CDATA[Available Due Amount  Rs. ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="3" y="11" width="371" height="1" uuid="d6acf277-fbe6-4043-81eb-3614d6f630bc"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="1" y="67" width="374" height="14" uuid="8c9d2500-cde2-42c5-8e58-78198d5dca51"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Thank You Come Again !]]></text>
+			</staticText>
+		</band>
 	</summary>
 </jasperReport>

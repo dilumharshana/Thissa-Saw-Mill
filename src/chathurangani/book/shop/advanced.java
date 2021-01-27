@@ -2,8 +2,18 @@ package chathurangani.book.shop;
 
 import java.awt.Toolkit;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 ///Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, ex);
 
 public class advanced extends javax.swing.JFrame {
@@ -347,13 +357,12 @@ public class advanced extends javax.swing.JFrame {
         
                 if(!(MAIN_FRAME.staticTotal.getText().trim()).equals(""))
                 {
-                    if(true)
-                        {
+  
                            // DefaultTableModel itemTable = (DefaultTableModel) MAIN_FRAME.selltable.getModel(); // BILLING PANEL ITEMS TABLE
                             DefaultTableModel borrower = (DefaultTableModel) advancedTable.getModel(); // BORROWER PANEL BORRWER DATA SHOWIG TABLE 
 
-                    int dealNo = advancedTable.getSelectedRow(); 
-                    int rowcount = MAIN_FRAME.selltable.getRowCount();
+                            int dealNo = advancedTable.getSelectedRow(); 
+                            int rowcount = MAIN_FRAME.selltable.getRowCount();
 
 
                     if(rowcount>0)
@@ -410,6 +419,8 @@ public class advanced extends javax.swing.JFrame {
                                     
                                     //store item details in to databse
                                     connect.storeDealItemsIntoDataBase(pk,code, name, quantity, price , total);
+                                    
+                                    invoice();
   
                                 }
                             }
@@ -422,10 +433,10 @@ public class advanced extends javax.swing.JFrame {
                             MAIN_FRAME.refreshWindow();
                             JOptionPane.showMessageDialog(null," Item added to Advanced successfully !");
                             
-                        } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(null, "Something went wrong - advanced#422");
-                            connect.recod_error(ex.toString()+" - advanced 422");
-                        }
+                            } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null, "Something went wrong - advanced#422");
+                                connect.recod_error(ex.toString()+" - advanced 422");
+                            }
 
 
                         }
@@ -434,10 +445,41 @@ public class advanced extends javax.swing.JFrame {
                         {
                             JOptionPane.showMessageDialog(null , "Please create a new advanced payment account !");
                         }
-                }
+                
       
     }//GEN-LAST:event_updateFromBillActionPerformed
-
+ //bill recipt printing process
+    void invoice()
+        {
+          try
+            {   //generating bill by jasper report
+                Connection con = connect.getConnection();
+                HashMap map = new HashMap();
+                map.put( "billNo" , controllers.primaryKeyOfdealsData); 
+                JasperDesign pdf  = null;
+                  try
+                        {
+                            pdf = JRXmlLoader.load("C:\\ProgramData\\bill\\advanced.jrxml");
+                        }
+                  catch(Exception e)
+                        {
+                            pdf = JRXmlLoader.load("C:\\ProgramData\\bill2\\advanced.jrxml");
+                            JOptionPane.showMessageDialog(null,"Your fills have been deleted please restore files !");
+                        }
+                JasperReport bill = JasperCompileManager.compileReport(pdf);
+               JasperPrint print = JasperFillManager.fillReport(bill,map,con);
+                JasperPrintManager.printReport(print, false);
+               JasperViewer.viewReport(print);
+                
+            }
+          catch(Exception e)
+            {
+              JOptionPane.showMessageDialog(null, "Sorry some thing went wrong ! - advanced#477!");
+              connect.recod_error(e.toString()+" Main Frame 893");
+                //Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+    
     private void paymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paymentActionPerformed
             
            

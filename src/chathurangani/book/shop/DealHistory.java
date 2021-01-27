@@ -1,10 +1,14 @@
+
 package chathurangani.book.shop;
 
 
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 //Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
 
 
@@ -27,13 +31,17 @@ public class DealHistory extends javax.swing.JFrame {
     public DealHistory() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
-        try {
-            connect.search_for_deals();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Try to restart your computer - DealHistory#35");
-            connect.recod_error(ex.toString()+" Deal History 35");
-            
-        }
+        delete.setEnabled(false);
+        
+          TableColumnModel size = (dealTable.getColumnModel());
+                size.getColumn(0).setPreferredWidth(40);
+                size.getColumn(1).setPreferredWidth(200);
+                size.getColumn(2).setPreferredWidth(150);
+                size.getColumn(3).setPreferredWidth(150);
+                size.getColumn(4).setPreferredWidth(150);
+                size.getColumn(5).setPreferredWidth(150);
+                size.getColumn(6).setPreferredWidth(150);
+                size.getColumn(7).setPreferredWidth(80);
     }
     
     dbConnector connect = new dbConnector();
@@ -48,11 +56,14 @@ public class DealHistory extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         searchBar = new javax.swing.JTextField();
         search = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        dateBox = new com.toedter.calendar.JDateChooser();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        delete = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         dealTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -66,31 +77,6 @@ public class DealHistory extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
-        jPanel2.setBackground(new java.awt.Color(0, 51, 51));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
-        jLabel1.setText("Deals");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         searchBar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 searchBarKeyReleased(evt);
@@ -100,32 +86,66 @@ public class DealHistory extends javax.swing.JFrame {
             }
         });
 
-        search.setText("SEARCH BY DEAL NO");
+        search.setBackground(new java.awt.Color(0, 153, 153));
+        search.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        search.setText("SEARCH BILL NO");
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchActionPerformed(evt);
             }
         });
 
+        dateBox.setDateFormatString("yyyy-MM-dd");
+        dateBox.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dateBoxPropertyChange(evt);
+            }
+        });
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Search By Date :");
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Search By Bill No:");
+
+        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Sales");
+
+        delete.setBackground(new java.awt.Color(153, 0, 0));
+        delete.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        delete.setText("DELETE SALE");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+
+        dealTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         dealTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Deal No", "Bill Amount", "Discouted amount", "Payment Amount", "Balance", "Date"
+                "Deal No", "Name", "Sub Total", "advanced", "Discount", "Payment", "Balance", "Date"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(dealTable);
+        dealTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dealTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(dealTable);
         if (dealTable.getColumnModel().getColumnCount() > 0) {
-            dealTable.getColumnModel().getColumn(4).setResizable(false);
+            dealTable.getColumnModel().getColumn(1).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -133,37 +153,61 @@ public class DealHistory extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(547, 547, 547)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(search, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                        .addComponent(searchBar, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(dateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1)))
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,10 +223,10 @@ public class DealHistory extends javax.swing.JFrame {
         
         try {
             clearTable();
-            connect.search_every_field_By_Code(code);
+            connect.search_for_deals(code , "code");
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#180");
-            connect.recod_error(ex.toString()+" Deal History 180");
+            JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#214");
+            connect.recod_error(ex.toString()+" Deal History 214");
         }
     }//GEN-LAST:event_searchActionPerformed
 
@@ -195,10 +239,10 @@ public class DealHistory extends javax.swing.JFrame {
         
             try {
                 clearTable();
-                connect.search_every_field_By_Code(code);
+                connect.search_for_deals(code , "code");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#197");
-                connect.recod_error(ex.toString()+" Deal History 197");
+               JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#230");
+               connect.recod_error(ex.toString()+" Deal History 230");
             }
         }
     }//GEN-LAST:event_searchBarKeyTyped
@@ -211,8 +255,8 @@ public class DealHistory extends javax.swing.JFrame {
                     clearTable();
                     connect.search_for_deals();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#211");
-                    connect.recod_error(ex.toString()+" Deal History 211");
+                    JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#244");
+                    connect.recod_error(ex.toString()+" Deal History 244");
                 }
         }
       
@@ -221,6 +265,56 @@ public class DealHistory extends javax.swing.JFrame {
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
          System.gc();
     }//GEN-LAST:event_formWindowClosing
+
+    private void dateBoxPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateBoxPropertyChange
+
+        try
+        {
+            clearTable();
+             DateFormat d1 = new SimpleDateFormat("yyyy-MM-dd");
+             connect.search_for_deals(d1.format(dateBox.getDate()) , "date");
+        }
+       catch(Exception e)
+        {
+            try {
+                connect.search_for_deals();
+            } catch (Exception ex) {
+                connect.recod_error(e.toString()+" this is not a error, Deal History 267");
+               // Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
+    }//GEN-LAST:event_dateBoxPropertyChange
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+            DefaultTableModel delas = (DefaultTableModel) dealTable.getModel();
+
+            int row = dealTable.getSelectedRow();
+
+            if(!dealTable.getValueAt(row, 0).toString().isEmpty())
+                {
+                       try {
+                                connect.cleardeal(dealTable.getValueAt(row, 0).toString()); 
+                                 delas.removeRow(row);
+                            } 
+                       catch (Exception ex) 
+                            {
+                                JOptionPane.showMessageDialog(null, "Something went wrong - Deal History#275 !");
+                                connect.recod_error(ex.toString()+" - deal bistory 275");
+                               // Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                }
+            else
+                {
+                    
+                    JOptionPane.showMessageDialog(null, "Please select a Sale !");
+                }
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void dealTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dealTableMouseClicked
+        delete.setEnabled(true);
+    }//GEN-LAST:event_dealTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -239,9 +333,9 @@ public class DealHistory extends javax.swing.JFrame {
                 }
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#211");
+            JOptionPane.showMessageDialog(null, "Something went wrong - DealHistory#292");
             dbConnector connect = new dbConnector();
-            connect.recod_error(ex.toString()+" Deal History 211");
+            connect.recod_error(ex.toString()+" Deal History 292");
         } 
         //</editor-fold>
         //</editor-fold>
@@ -267,17 +361,22 @@ public class DealHistory extends javax.swing.JFrame {
     //THIS METHOD WILL ADD A NEW ROWTO J TABLE USING dealdata ARRAY WHICH IS PASSED BY Search_Every_Field METHOD
     public static void dealItemsToTable(String [] dealData)
         {
-            DefaultTableModel delas = (DefaultTableModel) dealTable.getModel();
-            delas.addRow(dealData);
+            DefaultTableModel deals = (DefaultTableModel) dealTable.getModel();
+            String [] lb = {"","","","","","","",""};
+            deals.addRow(lb);
+            deals.addRow(dealData);
         
         }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser dateBox;
     public static javax.swing.JTable dealTable;
+    private javax.swing.JButton delete;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton search;
     private javax.swing.JTextField searchBar;
     // End of variables declaration//GEN-END:variables

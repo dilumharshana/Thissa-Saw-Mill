@@ -77,8 +77,8 @@ public class BillOwner extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jPanel1.setBackground(new java.awt.Color(0, 51, 51));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
         cusphoneForBill.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -126,15 +126,18 @@ public class BillOwner extends javax.swing.JFrame {
 
         lbl_phone.setBackground(new java.awt.Color(255, 255, 255));
         lbl_phone.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lbl_phone.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_phone.setForeground(new java.awt.Color(255, 255, 255));
         lbl_phone.setText("Customer Phone Number");
 
         lbl_name.setBackground(new java.awt.Color(255, 255, 255));
         lbl_name.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lbl_name.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_name.setForeground(new java.awt.Color(255, 255, 255));
         lbl_name.setText("Customer Name");
 
+        changephoneno.setBackground(new java.awt.Color(0, 51, 51));
+        changephoneno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         changephoneno.setText("Change");
+        changephoneno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         changephoneno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 changephonenoActionPerformed(evt);
@@ -158,12 +161,12 @@ public class BillOwner extends javax.swing.JFrame {
 
         lbl_nic.setBackground(new java.awt.Color(255, 255, 255));
         lbl_nic.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lbl_nic.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_nic.setForeground(new java.awt.Color(255, 255, 255));
         lbl_nic.setText("Customer NIC");
 
         lbl_address.setBackground(new java.awt.Color(255, 255, 255));
         lbl_address.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lbl_address.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_address.setForeground(new java.awt.Color(255, 255, 255));
         lbl_address.setText("Customer Address");
 
         address.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -175,7 +178,7 @@ public class BillOwner extends javax.swing.JFrame {
 
         lbl_pass.setBackground(new java.awt.Color(255, 255, 255));
         lbl_pass.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lbl_pass.setForeground(new java.awt.Color(102, 102, 102));
+        lbl_pass.setForeground(new java.awt.Color(255, 255, 255));
         lbl_pass.setText("Set a password");
 
         passbox.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -220,7 +223,7 @@ public class BillOwner extends javax.swing.JFrame {
                                         .addComponent(lbl_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lbl_address, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(142, 142, 142))))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +246,7 @@ public class BillOwner extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(changephoneno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cusphoneForBill, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(lbl_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(passbox, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -384,21 +387,47 @@ public class BillOwner extends javax.swing.JFrame {
     }//GEN-LAST:event_nicKeyReleased
 
     private void nicKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nicKeyTyped
-        String lenth = nic.getText().trim();
+      String lenth = nic.getText().trim();
         char charactor = evt.getKeyChar();
-         
+        
+        //maximum charactors of input
         if(lenth.length()==12)
             {
                 evt.consume();
             }
         
-        if((Character.isDigit(charactor)) || (Character.isISOControl(charactor)) ||  (charactor==KeyEvent.VK_V ))
+        
+        if((Character.isDigit(charactor)) || (Character.isISOControl(charactor)) || charactor==KeyEvent.VK_V)
         {
+               //letting enter " V " at the right position
+                if(charactor==KeyEvent.VK_V)
+                  {
+                      if(lenth.length() == 9)
+                        {
+                            nic.setEditable(true);  
+                        }
+                      else
+                        {
+                            evt.consume();
+                        }    
+                  }
+                
             nic.setEditable(true);
         }
        else
         {
             evt.consume();
+        }
+       
+        
+      //stopping enter other charactors
+       if(nic.getText().contains("V"))
+        {
+            evt.consume();
+        }
+       else
+        {
+            nic.setEditable(true);
         }
     }//GEN-LAST:event_nicKeyTyped
 

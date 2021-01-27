@@ -12,13 +12,12 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -157,7 +156,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         balanceShow = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         removeItem = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -290,17 +288,17 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         total.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         total.setForeground(new java.awt.Color(255, 0, 0));
         total.setText("0.0");
-        jPanel5.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 37, 406, -1));
+        jPanel5.add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 400, 40));
 
         discLable.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         discLable.setForeground(new java.awt.Color(153, 153, 153));
         discLable.setText("Discount   ( Rs /- )");
-        jPanel5.add(discLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 98, 212, -1));
+        jPanel5.add(discLable, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 212, -1));
 
         discAmount.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         discAmount.setForeground(new java.awt.Color(153, 153, 153));
         discAmount.setText("0.0");
-        jPanel5.add(discAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 126, 254, 36));
+        jPanel5.add(discAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 254, 36));
 
         balanceLable.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         balanceLable.setForeground(new java.awt.Color(51, 51, 51));
@@ -314,15 +312,10 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         jPanel5.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 82, 406, 10));
         jPanel5.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 164, 406, 10));
 
-        jLabel7.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel7.setText("  Total Price   (  Rs /- ) ");
-        jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 212, 31));
-
         jLabel8.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel8.setText("  Total Price   (  Rs /- ) ");
-        jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 212, 31));
+        jLabel8.setText("  Net Payment   (  Rs /- ) ");
+        jPanel5.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 190, 20));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -529,9 +522,11 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(disc, new org.netbeans.lib.awtextra.AbsoluteConstraints(726, 516, 378, 40));
 
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Discount");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(726, 497, 256, -1));
 
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Payment");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(726, 562, 296, 14));
 
@@ -649,9 +644,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 688, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
 
         pack();
@@ -881,18 +874,27 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 Connection con = connect.getConnection();
                 HashMap map = new HashMap();
                 map.put( "billNo" , controllers.primaryKeyOfdealsData); 
-                JasperDesign pdf  = JRXmlLoader.load("C:\\Users\\Dilum\\Desktop\\book shop\\Thissa saw mill\\src\\chathurangani\\book\\shop\\bill\\bill.jrxml");
+                JasperDesign pdf  = null;
+                  try
+                        {
+                            pdf = JRXmlLoader.load("C:\\ProgramData\\bill\\bill.jrxml");
+                        }
+                  catch(Exception e)
+                        {
+                            pdf = JRXmlLoader.load("C:\\ProgramData\\bill2\\bill.jrxml");
+                            JOptionPane.showMessageDialog(null,"Your fills have been deleted please restore files !");
+                        }
                 JasperReport bill = JasperCompileManager.compileReport(pdf);
-                JasperPrint print = JasperFillManager.fillReport(bill,map,con);
-                
-                JasperViewer.viewReport(print);
+               JasperPrint print = JasperFillManager.fillReport(bill,map,con);
+                JasperPrintManager.printReport(print, false);
+               JasperViewer.viewReport(print);
                 
             }
           catch(Exception e)
             {
-              // JOptionPane.showMessageDialog(null, "Sorry some thing went wrong ! - Main_Frame#882!");
-               //connect.recod_error(e.toString()+" Main Frame 882");
-                Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
+              JOptionPane.showMessageDialog(null, "Sorry some thing went wrong ! - Main_Frame#893!");
+              connect.recod_error(e.toString()+" Main Frame 893");
+                //Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     
@@ -1520,7 +1522,8 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                     Process backup = null;
                     Runtime getDB = Runtime.getRuntime();
                     
-  backup = getDB.exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump.exe -uroot -ppapapapa --add-drop-database -B bookshop -r C:/Users/Dilum/Documents/backup_backup.sql");
+  backup = getDB.exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump.exe -uroot -ppapapapa --add-drop-database -B bookshop -r C:/Users/Dilum/Documents/backup.sql");
+  backup = getDB.exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump.exe -uroot -ppapapapa --add-drop-database -B bookshop -r C:/ProgramData/backup.sql");
                 
                 }
                catch(Exception e)
@@ -1552,7 +1555,6 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

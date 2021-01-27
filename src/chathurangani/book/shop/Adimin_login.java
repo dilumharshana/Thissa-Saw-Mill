@@ -461,7 +461,7 @@ import javax.swing.JOptionPane;
                 controllers.cashierName = userName_box.getText();
                 recod(" Loged into system ");//recoding actities
                 System.gc();
-                System.exit(0);
+                dispose();
             }
             else
                 {

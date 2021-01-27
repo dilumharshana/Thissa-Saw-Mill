@@ -8,7 +8,6 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 //Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, e);
 
-
 public class settings extends javax.swing.JFrame implements Runnable {
 
     public settings() {
@@ -18,8 +17,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
         setPanel.setVisible(false);
         changePannel.setVisible(false);
-        removePassword.setVisible(false);
-        changePassword.setVisible(false);
+
     }
 
     public settings(boolean loked) {
@@ -31,8 +29,8 @@ public class settings extends javax.swing.JFrame implements Runnable {
         changePannel.setVisible(false);
         addpassword.setVisible(false);
     }
-    
-     public settings(int change) {
+
+    public settings(int change) {
         initComponents();
         Thread time = new Thread(this);
         time.start();
@@ -45,6 +43,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
         addpassword.setVisible(false);
         cashier.setVisible(false);
         biz.setVisible(false);
+        btn_activities.setVisible(false);
 
         this.forgetpass = true; //this will help to the ok btn wich is in password setting panel to re open new admin login window
     }
@@ -69,19 +68,9 @@ public class settings extends javax.swing.JFrame implements Runnable {
         cdate = new javax.swing.JLabel();
         passPanel = new javax.swing.JPanel();
         changePassword = new javax.swing.JButton();
-        removePassword = new javax.swing.JButton();
         addpassword = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        changePannel = new javax.swing.JPanel();
-        Change = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        c_p_retypePass = new javax.swing.JPasswordField();
-        c_p_newPass = new javax.swing.JPasswordField();
-        currentPass = new javax.swing.JPasswordField();
+        cashier = new javax.swing.JButton();
         setPanel = new javax.swing.JPanel();
         setPassword = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -95,11 +84,21 @@ public class settings extends javax.swing.JFrame implements Runnable {
         answer = new javax.swing.JTextField();
         question = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
+        changePannel = new javax.swing.JPanel();
+        Change = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        c_p_retypePass = new javax.swing.JPasswordField();
+        c_p_newPass = new javax.swing.JPasswordField();
+        currentPass = new javax.swing.JPasswordField();
         analizeBiz = new javax.swing.JButton();
         delasstock = new javax.swing.JButton();
-        cashier = new javax.swing.JButton();
         biz = new javax.swing.JButton();
         btn_activities = new javax.swing.JButton();
+        notify = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
 
         jButton3.setBackground(new java.awt.Color(102, 102, 0));
@@ -154,7 +153,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
             }
         });
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Settings");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -170,16 +169,14 @@ public class settings extends javax.swing.JFrame implements Runnable {
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Admin Settings");
-        jLabel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 31, 358, -1));
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jPanel2.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel2.setBackground(new java.awt.Color(21, 22, 26));
 
         ctime.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         ctime.setForeground(new java.awt.Color(255, 255, 255));
         ctime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ctime.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 0)));
         ctime.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ctimeMouseClicked(evt);
@@ -197,15 +194,15 @@ public class settings extends javax.swing.JFrame implements Runnable {
             .addComponent(ctime, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 30, -1, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 20, -1, -1));
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel3.setBackground(new java.awt.Color(21, 21, 23));
+        jPanel3.setForeground(new java.awt.Color(37, 34, 39));
 
         cdate.setBackground(new java.awt.Color(255, 255, 255));
         cdate.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         cdate.setForeground(new java.awt.Color(255, 255, 255));
         cdate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cdate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 0)));
         cdate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cdateMouseClicked(evt);
@@ -223,11 +220,13 @@ public class settings extends javax.swing.JFrame implements Runnable {
             .addComponent(cdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 30, -1, 36));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 20, -1, 36));
 
-        passPanel.setBackground(new java.awt.Color(0, 204, 51));
+        passPanel.setBackground(new java.awt.Color(0, 51, 51));
+        passPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        passPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        changePassword.setBackground(new java.awt.Color(0, 153, 153));
+        changePassword.setBackground(new java.awt.Color(0, 51, 51));
         changePassword.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         changePassword.setForeground(new java.awt.Color(255, 255, 255));
         changePassword.setText("Change password");
@@ -241,23 +240,9 @@ public class settings extends javax.swing.JFrame implements Runnable {
                 changePasswordActionPerformed(evt);
             }
         });
+        passPanel.add(changePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 235, 53));
 
-        removePassword.setBackground(new java.awt.Color(0, 153, 153));
-        removePassword.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        removePassword.setForeground(new java.awt.Color(255, 255, 255));
-        removePassword.setText("Remove password");
-        removePassword.setToolTipText("Remove your password");
-        removePassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        removePassword.setBorderPainted(false);
-        removePassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        removePassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        removePassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removePasswordActionPerformed(evt);
-            }
-        });
-
-        addpassword.setBackground(new java.awt.Color(0, 153, 153));
+        addpassword.setBackground(new java.awt.Color(0, 51, 51));
         addpassword.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
         addpassword.setForeground(new java.awt.Color(255, 255, 255));
         addpassword.setText("ADD PASSWORD");
@@ -271,35 +256,107 @@ public class settings extends javax.swing.JFrame implements Runnable {
                 addpasswordActionPerformed(evt);
             }
         });
+        passPanel.add(addpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 235, 53));
 
-        javax.swing.GroupLayout passPanelLayout = new javax.swing.GroupLayout(passPanel);
-        passPanel.setLayout(passPanelLayout);
-        passPanelLayout.setHorizontalGroup(
-            passPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(passPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(passPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(changePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(removePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        passPanelLayout.setVerticalGroup(
-            passPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(passPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(addpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(changePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(removePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        jPanel1.add(passPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 232, -1, -1));
+        jPanel1.add(passPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 260, 70));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 0));
 
-        changePannel.setBackground(new java.awt.Color(0, 204, 51));
+        cashier.setBackground(new java.awt.Color(0, 51, 51));
+        cashier.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        cashier.setForeground(new java.awt.Color(255, 255, 255));
+        cashier.setText("Manage Cashiers");
+        cashier.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        cashier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashierActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cashier, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 259, 47));
+
+        setPanel.setBackground(new java.awt.Color(0, 51, 51));
+        setPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        setPassword.setBackground(new java.awt.Color(255, 0, 0));
+        setPassword.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        setPassword.setForeground(new java.awt.Color(255, 255, 255));
+        setPassword.setText("ADD");
+        setPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setPasswordActionPerformed(evt);
+            }
+        });
+        setPanel.add(setPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 377, 157, 44));
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("SET A PASSWORD");
+        setPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 17, 294, -1));
+
+        jButton6.setBackground(new java.awt.Color(51, 51, 51));
+        jButton6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("CLOSE");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        setPanel.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 377, 107, 44));
+
+        jLabel8.setText("New Password :");
+        setPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 49, 172, 14));
+
+        jLabel9.setText("Re-Type Password :");
+        setPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 125, 172, 14));
+
+        s_p_retypePass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                s_p_retypePassActionPerformed(evt);
+            }
+        });
+        s_p_retypePass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                s_p_retypePassKeyTyped(evt);
+            }
+        });
+        setPanel.add(s_p_retypePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 149, 270, 44));
+
+        s_p_newPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                s_p_newPassKeyTyped(evt);
+            }
+        });
+        setPanel.add(s_p_newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 270, 44));
+
+        jLabel13.setText("Security question");
+        setPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 235, 172, 14));
+
+        jLabel14.setText("Answer :");
+        setPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 302, 172, 14));
+
+        answer.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                answerKeyTyped(evt);
+            }
+        });
+        setPanel.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 322, 270, 43));
+
+        question.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                questionActionPerformed(evt);
+            }
+        });
+        question.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                questionKeyTyped(evt);
+            }
+        });
+        setPanel.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 255, 270, 41));
+
+        jLabel15.setText("Security Question helps you to recover your password ");
+        setPanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 205, -1, -1));
+
+        changePannel.setBackground(new java.awt.Color(0, 51, 51));
 
         Change.setBackground(new java.awt.Color(255, 0, 0));
         Change.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -396,92 +453,9 @@ public class settings extends javax.swing.JFrame implements Runnable {
                 .addContainerGap())
         );
 
-        jPanel1.add(changePannel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 180, -1, -1));
+        setPanel.add(changePannel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        setPanel.setBackground(new java.awt.Color(0, 204, 51));
-        setPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        setPassword.setBackground(new java.awt.Color(255, 0, 0));
-        setPassword.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        setPassword.setForeground(new java.awt.Color(255, 255, 255));
-        setPassword.setText("ADD");
-        setPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                setPasswordActionPerformed(evt);
-            }
-        });
-        setPanel.add(setPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 377, 157, 44));
-
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("SET A PASSWORD");
-        setPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 17, 294, -1));
-
-        jButton6.setBackground(new java.awt.Color(51, 51, 51));
-        jButton6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("CLOSE");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        setPanel.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 377, 107, 44));
-
-        jLabel8.setText("New Password :");
-        setPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 49, 172, 14));
-
-        jLabel9.setText("Re-Type Password :");
-        setPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 125, 172, 14));
-
-        s_p_retypePass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                s_p_retypePassActionPerformed(evt);
-            }
-        });
-        s_p_retypePass.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                s_p_retypePassKeyTyped(evt);
-            }
-        });
-        setPanel.add(s_p_retypePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 149, 270, 44));
-
-        s_p_newPass.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                s_p_newPassKeyTyped(evt);
-            }
-        });
-        setPanel.add(s_p_newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 270, 44));
-
-        jLabel13.setText("Security question");
-        setPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 235, 172, 14));
-
-        jLabel14.setText("Answer :");
-        setPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 302, 172, 14));
-
-        answer.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                answerKeyTyped(evt);
-            }
-        });
-        setPanel.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 322, 270, 43));
-
-        question.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                questionActionPerformed(evt);
-            }
-        });
-        question.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                questionKeyTyped(evt);
-            }
-        });
-        setPanel.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 255, 270, 41));
-
-        jLabel15.setText("Security Question helps you to recover your password ");
-        setPanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 205, -1, -1));
-
-        jPanel1.add(setPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 90, -1, 432));
+        jPanel1.add(setPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, -1, 432));
 
         analizeBiz.setBackground(new java.awt.Color(0, 153, 255));
         analizeBiz.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
@@ -507,17 +481,6 @@ public class settings extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(delasstock, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 129, 0, 48));
 
-        cashier.setBackground(new java.awt.Color(0, 153, 204));
-        cashier.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        cashier.setText("Manage Cashiers");
-        cashier.setBorder(null);
-        cashier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cashierActionPerformed(evt);
-            }
-        });
-        jPanel1.add(cashier, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 458, 259, 47));
-
         biz.setBackground(new java.awt.Color(255, 0, 0));
         biz.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         biz.setForeground(new java.awt.Color(255, 255, 255));
@@ -529,19 +492,30 @@ public class settings extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(biz, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 156, 259, 65));
 
-        btn_activities.setBackground(new java.awt.Color(0, 102, 102));
+        btn_activities.setBackground(new java.awt.Color(0, 51, 51));
         btn_activities.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        btn_activities.setForeground(new java.awt.Color(255, 255, 255));
         btn_activities.setText("Cashier Activities");
-        btn_activities.setBorder(null);
+        btn_activities.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btn_activities.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_activitiesActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_activities, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 517, 259, 47));
+        jPanel1.add(btn_activities, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 259, 47));
 
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/dgrzOm.png"))); // NOI18N
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1120, 610));
+        notify.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        notify.setForeground(new java.awt.Color(255, 255, 255));
+        notify.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                notifyMouseClicked(evt);
+            }
+        });
+        jPanel1.add(notify, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, 330, 20));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/evon apps.jpg"))); // NOI18N
+        jLabel16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 640));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -594,8 +568,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
     private void questionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_questionKeyTyped
 
         int lenth = question.getText().toString().length();
-        if(lenth ==254)
-        {
+        if (lenth == 254) {
 
             evt.consume();
         }
@@ -608,8 +581,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
     private void answerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_answerKeyTyped
 
         int lenth = answer.getText().toString().length();
-        if(lenth ==254)
-        {
+        if (lenth == 254) {
 
             evt.consume();
         }
@@ -618,8 +590,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
     private void s_p_newPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_s_p_newPassKeyTyped
 
         int lenth = String.copyValueOf(s_p_newPass.getPassword()).length();
-        if(lenth ==20)
-        {
+        if (lenth == 20) {
 
             evt.consume();
         }
@@ -627,8 +598,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
 
     private void s_p_retypePassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_s_p_retypePassKeyTyped
         int lenth = String.copyValueOf(s_p_retypePass.getPassword()).length();
-        if(lenth ==20)
-        {
+        if (lenth == 20) {
 
             evt.consume();
         }
@@ -639,7 +609,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_s_p_retypePassActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-      
+
         //clearinf input fields before closing panel
         s_p_newPass.setText("");
         s_p_retypePass.setText("");
@@ -661,7 +631,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
 
                     Encoder encode = new Encoder();
                     String hash = encode.getMd5(String.valueOf(s_p_retypePass.getPassword()));
-                    connect.changePass(hash , questionis , answeris);
+                    connect.changePass(hash, questionis, answeris);
 
                     s_p_newPass.setText("");
                     s_p_retypePass.setText("");
@@ -673,7 +643,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
 
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, " Something went wrong - Settings#740! ");
-                    connect.recod_error(ex.toString()+"- Settings 740 ");
+                    connect.recod_error(ex.toString() + "- Settings 740 ");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, " passwords dosent match ! ");
@@ -682,8 +652,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
             JOptionPane.showMessageDialog(null, " Please fill every field ! ");
         }
 
-        if(forgetpass == true)
-        {
+        if (forgetpass == true) {
             Adimin_login open = new Adimin_login();
             open.setVisible(true);
             dispose();
@@ -692,8 +661,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
 
     private void currentPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_currentPassKeyTyped
         int lenth = String.copyValueOf(currentPass.getPassword()).length();
-        if(lenth ==254)
-        {
+        if (lenth == 254) {
 
             evt.consume();
         }
@@ -701,8 +669,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
 
     private void c_p_newPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_c_p_newPassKeyTyped
         int lenth = String.copyValueOf(c_p_newPass.getPassword()).length();
-        if(lenth ==254)
-        {
+        if (lenth == 254) {
 
             evt.consume();
         }
@@ -710,18 +677,17 @@ public class settings extends javax.swing.JFrame implements Runnable {
 
     private void c_p_retypePassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_c_p_retypePassKeyTyped
         int lenth = String.copyValueOf(c_p_retypePass.getPassword()).length();
-        if(lenth ==254)
-        {
+        if (lenth == 254) {
 
             evt.consume();
         }
     }//GEN-LAST:event_c_p_retypePassKeyTyped
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       currentPass.setText("");
-       c_p_newPass.setText("");
-       c_p_retypePass.setText("");
-       changePannel.setVisible(false);
+        currentPass.setText("");
+        c_p_newPass.setText("");
+        c_p_retypePass.setText("");
+        changePannel.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeActionPerformed
@@ -758,7 +724,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, " Something went wrong - Settings#825! ");
-                connect.recod_error(e.toString()+"- Settings 826 ");
+                connect.recod_error(e.toString() + "- Settings 826 ");
             }
 
         } else {
@@ -770,17 +736,6 @@ public class settings extends javax.swing.JFrame implements Runnable {
         setPanel.setVisible(true);
     }//GEN-LAST:event_addpasswordActionPerformed
 
-    private void removePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removePasswordActionPerformed
-        //calling to passwrod removeing method
-        try {
-            connect.removePass();
-            MAIN_FRAME.panelLock = false; //updatinf mainframe password on / off variable state to off
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, " Something went wrong - Settings#847! ");
-            connect.recod_error(ex.toString()+"- Settings 847 ");
-        }
-    }//GEN-LAST:event_removePasswordActionPerformed
-
     private void changePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordActionPerformed
         changePannel.setVisible(true);
     }//GEN-LAST:event_changePasswordActionPerformed
@@ -790,38 +745,36 @@ public class settings extends javax.swing.JFrame implements Runnable {
 
         if (clearOk == 0) {
             try {
+                //creating a backup
+                MAIN_FRAME backup = new MAIN_FRAME();
+                backup.saveDB();
                 connect.clearDeals();
+                notify.setText("Done !");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, " Something went wrong - Settings#863! ");
-                connect.recod_error(ex.toString()+"- Settings 860 ");
+                connect.recod_error(ex.toString() + "- Settings 860 ");
             }
         }
     }//GEN-LAST:event_ctimeMouseClicked
 
     private void bizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bizActionPerformed
-        try
-            {
-                report open = new report();
-                open.setVisible(true);
-            }
-        catch(Exception e)
-            {
-                JOptionPane.showMessageDialog(null, " Sorry unable to open Analize - Settings#874! ");
-                connect.recod_error(e.toString()+"- Settings 874 ");
-            }
+        try {
+            report open = new report();
+            open.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, " Sorry unable to open Analize - Settings#874! ");
+            connect.recod_error(e.toString() + "- Settings 874 ");
+        }
     }//GEN-LAST:event_bizActionPerformed
 
     private void btn_activitiesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_activitiesActionPerformed
-        try
-            {
-                activities open = new activities();
-                open.setVisible(true);
-            }
-        catch(Exception e)
-            {
-                JOptionPane.showMessageDialog(null, " Sorry unable to open Cashier Activites - Settings#887! ");
-                connect.recod_error(e.toString()+"- Settings 887 ");
-            }
+        try {
+            activities open = new activities();
+            open.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, " Sorry unable to open Cashier Activites - Settings#887! ");
+            connect.recod_error(e.toString() + "- Settings 887 ");
+        }
     }//GEN-LAST:event_btn_activitiesActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -829,23 +782,37 @@ public class settings extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_formWindowClosing
 
     private void cdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cdateMouseClicked
-       
-        try
-            {
-                Process restore = null;
-                String[] path = new String[]{"C:/Program Files/MySQL/MySQL Server 5.7/bin/mysql.exe", "--user=" + "root", "--password=" + "papapapa", "-e", "source " + "C:/Users/Dilum/Documents/backup_backup.sql"};
-                restore = Runtime.getRuntime().exec(path);
-                
-                if(restore.waitFor()==0)
-                    {
-                        System.out.println("done");
-                    }
+
+        try {
+            Process restore = null;
+            String[] path = new String[]{"C:/Program Files/MySQL/MySQL Server 5.7/bin/mysql.exe", "--user=" + "root", "--password=" + "papapapa", "-e", "source " + "C:/Users/Dilum/Documents/backup_backup.sql"};
+            restore = Runtime.getRuntime().exec(path);
+
+            if (restore.waitFor() == 0) {
+                notify.setText("Restored !");
             }
-        catch(Exception e)
-            {
-                System.out.println(e);
-            }
+            else
+             {//trying to access other backup
+                    path = new String[]{"C:/Program Files/MySQL/MySQL Server 5.7/bin/mysql.exe", "--user=" + "root", "--password=" + "papapapa", "-e", "source " + "C:/ProgramData/backup.sql"};
+                    restore = Runtime.getRuntime().exec(path);
+
+                    if (restore.waitFor() == 0) {
+                          notify.setText("Restored !");
+                     }
+                    else
+                        {
+                            notify.setText("Sorry unable to backup your data !");
+                        }
+             }
+        } catch (Exception e) {
+            
+                notify.setText("Sorry unable to backup your data !, restart your PC and try again .");    
+         }
     }//GEN-LAST:event_cdateMouseClicked
+
+    private void notifyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notifyMouseClicked
+        notify.setText("");
+    }//GEN-LAST:event_notifyMouseClicked
 
     /**
      * @param args the command line arguments
@@ -898,9 +865,9 @@ public class settings extends javax.swing.JFrame implements Runnable {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel notify;
     private javax.swing.JPanel passPanel;
     private javax.swing.JTextField question;
-    private javax.swing.JButton removePassword;
     private javax.swing.JPasswordField s_p_newPass;
     private javax.swing.JPasswordField s_p_retypePass;
     private javax.swing.JPanel setPanel;
@@ -916,24 +883,21 @@ public class settings extends javax.swing.JFrame implements Runnable {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         while (true) {
             // CODE FOR TIME 
-            try
-                {
-                    Calendar cal = Calendar.getInstance();
+            try {
+                Calendar cal = Calendar.getInstance();
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss aa");
-                    Date time = cal.getTime();
-                    String timeok = sdf.format(time);
-                    ctime.setText(timeok);
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss aa");
+                Date time = cal.getTime();
+                String timeok = sdf.format(time);
+                ctime.setText(timeok);
 
-                    // CODE FOR DATE
-                    LocalDate date = LocalDate.now();
-                    String dateok = date.toString();
-                    cdate.setText(dateok);
-                }
-            catch(Exception e)
-            {
+                // CODE FOR DATE
+                LocalDate date = LocalDate.now();
+                String dateok = date.toString();
+                cdate.setText(dateok);
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, " Something went wrong - Settings#984! ");
-                connect.recod_error(e.toString()+"- Settings 982 ");
+                connect.recod_error(e.toString() + "- Settings 982 ");
             }
 
         }

@@ -441,7 +441,6 @@ public class stocks extends javax.swing.JFrame {
 
     private void outofstocksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outofstocksActionPerformed
 
-        DefaultTableModel stockshow = (DefaultTableModel) stockitemstable.getModel();
         int Smallerthan;
         try { //cheking if user enters a null value !
             Smallerthan = Integer.parseInt(stockcounter.getText());

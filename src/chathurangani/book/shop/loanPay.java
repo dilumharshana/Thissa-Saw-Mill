@@ -10,10 +10,13 @@ import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -505,18 +508,28 @@ public class loanPay extends javax.swing.JFrame {
             {   //generating bill by jasper report
                 Connection con = connect.getConnection();
                 HashMap map = new HashMap();
-                map.put( "borrower" , pk); 
-                JasperDesign pdf  = JRXmlLoader.load("C:\\Users\\Dilum\\Desktop\\book shop\\Thissa saw mill\\src\\chathurangani\\book\\shop\\bill\\lendPay.jrxml");
+                map.put( "borrower" , java.time.LocalDate.now().toString()); 
+                JasperDesign pdf  = null;
+                    try
+                        {
+                            pdf = JRXmlLoader.load("C:\\ProgramData\\bill\\lendPay.jrxml");
+                        }
+                    catch(Exception e)
+                        {
+                            pdf = JRXmlLoader.load("C:\\ProgramData\\bill2\\lendPay.jrxml");
+                            JOptionPane.showMessageDialog(null,"Your fills have been deleted please restore files !");
+                        }
                 JasperReport bill = JasperCompileManager.compileReport(pdf);
                 JasperPrint print = JasperFillManager.fillReport(bill,map,con);
-                
+                JasperPrintManager.printReport(print, false);
                 JasperViewer.viewReport(print);
                 
             }
           catch(Exception e)
             {
-                JOptionPane.showMessageDialog(null, "Something went wrong - LoanPay#518 !");
-                connect.recod_error(e.toString()+" - loan pay 518");
+                //Logger.getLogger(loanPay.class.getName()).log(Level.SEVERE, null, e);
+                JOptionPane.showMessageDialog(null, "Something went wrong - LoanPay#531 !");
+                connect.recod_error(e.toString()+" - loan pay 531");
             }
         }
     
