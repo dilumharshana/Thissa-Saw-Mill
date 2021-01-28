@@ -6,6 +6,8 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -182,9 +184,9 @@ public class DealHistory extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2))
                         .addGap(8, 8, 8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(dateBox, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -302,7 +304,7 @@ public class DealHistory extends javax.swing.JFrame {
                             {
                                 JOptionPane.showMessageDialog(null, "Something went wrong - Deal History#275 !");
                                 connect.recod_error(ex.toString()+" - deal bistory 275");
-                               // Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
                             }
                 }
             else

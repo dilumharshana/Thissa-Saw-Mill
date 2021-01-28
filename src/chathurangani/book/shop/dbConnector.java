@@ -1988,9 +1988,12 @@ public class dbConnector {
                 connect();
             }
           
-          Statement st , st2 , st3  = null;
+          Statement st , st2 , st3 , st4 = null;
           
           Object [] option = {"YES , RESTOR MY STOCKS " , "NOT NOW"};
+          
+          twoObs objects = new twoObs();
+          
           
           int choice = JOptionPane.showOptionDialog(null,"DO YOU WANT TO RESTORE YOUR STOCKS ? ", "STOCK MANAGER ?" , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
          
@@ -2000,14 +2003,14 @@ public class dbConnector {
                 choice = JOptionPane.showOptionDialog(null,"DO YOU WANT TO RESTORE YOUR STOCKS ? ", "STOCK MANAGER.." , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
             }
           
-          query = "SELECT * FROM bookshop.cashitems "
-                  + "WHERE (`dealNo` = '"+primaryKey+"');";;
+          query = "SELECT * FROM bookshop.cashitems WHERE (`dealNo` = '"+primaryKey+"');";
           query2 = "DELETE FROM `bookshop`.`cashitems` WHERE (`dealNo` = '"+primaryKey+"');";
-          query3 = "DELETE FROM `bookshop`.`cashdeals` WHERE (`dealNo` = '"+primaryKey+"');";
-          
+          query3 = "DELETE FROM `bookshop`.`cashdeals` WHERE (`dealNo` = '"+primaryKey+"');";          
           
           st = con.createStatement(); //getting items
           st2 = con.createStatement(); //deleting items
+          st3 = con.createStatement();
+          st4 = con.createStatement();
           
           ResultSet rs = st.executeQuery(query);
           while(rs.next())
@@ -2015,15 +2018,18 @@ public class dbConnector {
                 //restoring stocks
                 if(choice == 0)
                     {
-                        int amount = getStock(rs.getInt("itemCode".toString()) , "stock" , "stocks") + rs.getInt("quantity");
+                        objects.getStock(rs.getString("itemCode".toString()) , "stock" , "stocks" , "itemcode");
+                        int amount = objects.sendAmount()+rs.getInt("quantity");
                         updateStockitems("stocks","stock",String.valueOf(amount),rs.getString("itemCode"));
                     }
                 
+                query4 = "SELECT * FROM bookshop.`cashdeals` WHERE (`date` = '"+rs.getString("date")+"');";
                 st2.executeUpdate(query2);
             }
           
          option[0] = "YES , REDUCE SALES AMOUNT FROM THE SALES ";
          option[1] = "NOT NOW";
+         
          choice  = JOptionPane.showOptionDialog(null,"DO YOU WANT REDUCE THE SALE AMOUNT ? ", "SALES MANAGER.." , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
             //getting sure confirmation
             
@@ -2031,49 +2037,72 @@ public class dbConnector {
             {
                 choice = JOptionPane.showOptionDialog(null,"DO YOU WANT REDUCE THE SALE AMOUNT ? ? ", "STOCK MANAGER ?" , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
             }
-          
+
           //reducing sales amount
           if(choice == 0)
             {
-                 BigDecimal amount = 
+                 ResultSet rs2 = st4.executeQuery(query4);
+                 if(rs2.next())
+                    {
+                        objects.getStock(rs2.getString("date") , "sellIncome" , "incomedata" , "date");
+                        System.out.println(objects.sendSale()+" "+rs2.getBigDecimal("TotaltValue"));
+                        BigDecimal amount = objects.sendSale().subtract(rs2.getBigDecimal("TotaltValue"));
+                        incomedataUpdater( String.valueOf(amount), "sellIncome", rs2.getString("date"));
+                    }
             }
           
           query = "DELETE FROM `bookshop`.`cashdeals` WHERE (`dealNo` = '"+primaryKey+"');";
-          st3 = con.createStatement();
+          
           st3.executeUpdate(query3);
      }  
      
      
-     
-    //geting stocks for quick operaions
-     int getStock(int id , String what ,String where) throws Exception
-        {
-            int amount=0;
-            BigDecimal sale;
+}
+
+
+class twoObs
+{
+      int amount=0;
+      BigDecimal sale;
+     //geting stocks for quick operaions
+      
+      dbConnector connect = new dbConnector();
+      
+     void getStock(String id , String what ,String where , String colomn) throws Exception
+        {   
+            String query = "SELECT "+what+" FROM bookshop."+where+" WHERE (`"+colomn+"` = '"+id+"')";
             
-            String query = "SELECT "+what+" FROM bookshop."+where+" WHERE (`itemcode` = '"+id+"')";
-            
-            if(con == null)
+            if(connect.con == null)
                 {
-                    connect();
+                    connect.connect();
                 }
-            Statement st = con.createStatement();
+            Statement st = connect.con.createStatement();
             
             ResultSet rs = st.executeQuery(query);
             
             if(rs.next())
                 {
-                    if(where == "stock")
+                    if(where == "stocks")
                         {
                             amount = rs.getInt("stock");
                         }
                     else
                         {
-                            sale = rs.getBigDecimal("stock");
+                            sale = rs.getBigDecimal("sellIncome");
                         }
-                }
-            return amount;
-            
+                }    
         }
-
+     
+                 
+       int sendAmount()
+                {
+                    return amount;
+                }
+        
+        
+       BigDecimal sendSale()
+                {
+                    return sale;
+                }
+                
 }

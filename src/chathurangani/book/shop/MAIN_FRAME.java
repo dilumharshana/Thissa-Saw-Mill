@@ -849,7 +849,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                                     
                                     
                                   //calling bill printng method
-                                   invoice();
+                                 //  invoice();
                                   recod("Created a bill");//recoding actities
                                   
                             } catch (Exception ex) {
