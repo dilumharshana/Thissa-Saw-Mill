@@ -79,9 +79,9 @@ public class outgoing extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
-        dateDisplay.setBackground(new java.awt.Color(0, 51, 102));
+        dateDisplay.setBackground(new java.awt.Color(0, 51, 51));
         dateDisplay.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
-        dateDisplay.setForeground(new java.awt.Color(0, 0, 0));
+        dateDisplay.setForeground(new java.awt.Color(255, 255, 255));
 
         btn_delete.setBackground(new java.awt.Color(204, 0, 0));
         btn_delete.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
@@ -265,7 +265,7 @@ public class outgoing extends javax.swing.JFrame {
              recod("Searched cash out going recods on "+date);
          } catch (Exception ex) {
              date = java.time.LocalDate.now().toString();
-             connect.recod_error(ex.toString()+" this is not a error , outGoing 262");
+            // connect.recod_error(ex.toString()+" this is not a error , outGoing 262");
          }
     }//GEN-LAST:event_dateBoxPropertyChange
 

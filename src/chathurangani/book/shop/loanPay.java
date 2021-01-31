@@ -354,7 +354,7 @@ public class loanPay extends javax.swing.JFrame {
                                 {
                                     payment.setText(String.valueOf(new BigDecimal(payAmount.getText().trim())));
                                     JOptionPane.showMessageDialog(null, "Something went wrong - Employees#354 !");
-                                     connect.recod_error(e.toString()+" this is not a error , loan pay 354");
+                                    // connect.recod_error(e.toString()+" this is not a error , loan pay 354");
                                 }
                                 
                                 BigDecimal cash = new BigDecimal(payAmount.getText().trim());
@@ -410,7 +410,7 @@ public class loanPay extends javax.swing.JFrame {
              catch(Exception e)
                 {
                     cash = new BigDecimal("0.0");
-                    connect.recod_error(e.toString()+"this is not a error ,  loan pay 410");         
+                    //connect.recod_error(e.toString()+"this is not a error ,  loan pay 410");         
                 }
               
        

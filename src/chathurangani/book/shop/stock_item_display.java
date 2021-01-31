@@ -733,13 +733,13 @@ public class stock_item_display extends javax.swing.JFrame {
              catch (SQLException ex) {
                  JOptionPane.showMessageDialog(null, "Please select another ITEM CODE , This Item Code is already in your stocks !", "Same Item Code Found ",JOptionPane.WARNING_MESSAGE);
                  itemCodeBox.setText(" ");
-                 connect.recod_error(ex.toString()+" this is not a error ,  stockItemUpdate 725 ");
+                 //connect.recod_error(ex.toString()+" this is not a error ,  stockItemUpdate 725 ");
         }
         
         catch(Exception e)
         {
                 JOptionPane.showMessageDialog(null , "Enter valid data !");
-                connect.recod_error(e.toString()+" this is not a error , stockItemUpdate 622 ");
+               // connect.recod_error(e.toString()+" this is not a error , stockItemUpdate 622 ");
         }        
         
         

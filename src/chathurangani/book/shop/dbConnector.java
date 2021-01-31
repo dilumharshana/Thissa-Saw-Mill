@@ -748,8 +748,8 @@ public class dbConnector {
     
     
 
-    //getting each borrowing item accorfing to customer when user select a deal
-    public void getDealItems(String code) throws Exception {
+    //getting debtors payment histry
+    public void getPaymentHistory(String code) throws Exception {
         query = "SELECT * FROM bookshop.payments WHERE `cusCode`=" + code + ";";
 
          if(con == null)
@@ -770,6 +770,32 @@ public class dbConnector {
             itemDetails[3] = rs.getBigDecimal("newAmount").toString();
 
             paymentHistory.dealItemsToTable(itemDetails);
+        }
+
+    }
+    
+      //getting each borrowing item accorfing to customer when user select a deal
+    public void getDealItems(String code) throws Exception {
+        query = "SELECT * FROM bookshop.cashitems WHERE `dealNo`=" + code + ";";
+
+         if(con == null)
+            {
+                connect();
+            }
+         
+        Statement st = con.createStatement();
+
+        String[] itemDetails = new String[4];
+
+        ResultSet rs = st.executeQuery(query);
+
+        while (rs.next()) {
+            itemDetails[0] = rs.getString("itemName");
+            itemDetails[1] = rs.getBigDecimal("itemPrice").toString();
+            itemDetails[2] = rs.getBigDecimal("quantity").toString();
+            itemDetails[3] = rs.getBigDecimal("price").toString();
+
+            Deal_Item_History.dealItemsToTable(itemDetails);
         }
 
     }
@@ -921,6 +947,7 @@ public class dbConnector {
 
     // removing cash deals from the databse
     void clearDeals() throws Exception {
+        
         query = "SELECT * FROM bookshop.cashdeals;";
         query2 = "SELECT * FROM bookshop.incomedata;";
 
@@ -929,25 +956,36 @@ public class dbConnector {
                 connect();
             }
          
-        Statement st = con.createStatement(); // for get primary key
-        Statement st2 = con.createStatement(); //for remove data
-
+        Statement st = con.createStatement(); // for get primary key of cash deal
+        Statement st2 = con.createStatement();
         ResultSet rs = st.executeQuery(query);
+        
+        while(rs.next())
+            {
+                int dealno = rs.getInt("dealNo");
+                query3 = "SELECT * FROM bookshop.cashitems  WHERE (`dealNo` = '" + dealno + "')"; //geting cash items of the deal
+                query4 = "DELETE FROM `bookshop`.`cashitems` WHERE (`dealNo` = '" + dealno + "');"; //deleting cash item 
+                
+                Statement st3 = con.createStatement(); // delete item
+                ResultSet rs2 = st2.executeQuery(query3); //getting item
+                while(rs2.next())
+                    {
+                        st3.executeUpdate(query4);
+                    }
+                
+                query3 = "DELETE FROM `bookshop`.`cashdeals` WHERE (`dealNo` = '"+dealno+"');";
+                st3.executeUpdate(query3);
+            }
+        
+        //removing income data
+        Statement st4 = con.createStatement(); // fetching data from income data
+        Statement st5 = con.createStatement();
+        ResultSet rs3 = st4.executeQuery(query2);
 
-        while (rs.next()) {
-            int primaryKey = rs.getInt("dealNo");
-            String query2 = "DELETE FROM `bookshop`.`cashdeals` WHERE (`dealNo` = '" + primaryKey + "');";
-            String query3 = "DELETE FROM `bookshop`.`cashitems` WHERE (`itemCode` = '" + primaryKey + "');";
-            st2.executeUpdate(query2);
-            st2.executeUpdate(query3);
-        }
-
-        ResultSet rs2 = st.executeQuery(query2);
-
-        while (rs2.next()) {
-            int primaryKey = rs2.getInt("incomeCode");
+        while (rs3.next()) {
+            int primaryKey = rs3.getInt("incomeCode");
             String query2 = "DELETE FROM `bookshop`.`incomedata` WHERE (`incomeCode` = '" + primaryKey + "');";
-            st2.executeUpdate(query2);
+            st5.executeUpdate(query2);
         }
 
         JOptionPane.showMessageDialog(null, " Deal deleted successfully !");
@@ -1988,11 +2026,11 @@ public class dbConnector {
                 connect();
             }
           
-          Statement st , st2 , st3 , st4 = null;
+          Statement st , st2 , st3 , st4 = null; 
           
-          Object [] option = {"YES , RESTOR MY STOCKS " , "NOT NOW"};
+          Object [] option = {"YES , RESTOR MY STOCKS " , "NOT NOW"}; //for customised JOptiopane box button display texts
           
-          twoObs objects = new twoObs();
+          twoObs objects = new twoObs(); // class for return two objects > sales stok & > income amounts
           
           
           int choice = JOptionPane.showOptionDialog(null,"DO YOU WANT TO RESTORE YOUR STOCKS ? ", "STOCK MANAGER ?" , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
@@ -2003,9 +2041,10 @@ public class dbConnector {
                 choice = JOptionPane.showOptionDialog(null,"DO YOU WANT TO RESTORE YOUR STOCKS ? ", "STOCK MANAGER.." , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
             }
           
-          query = "SELECT * FROM bookshop.cashitems WHERE (`dealNo` = '"+primaryKey+"');";
+          query = "SELECT * FROM bookshop.cashitems WHERE (`dealNo` = '"+primaryKey+"');"; 
           query2 = "DELETE FROM `bookshop`.`cashitems` WHERE (`dealNo` = '"+primaryKey+"');";
-          query3 = "DELETE FROM `bookshop`.`cashdeals` WHERE (`dealNo` = '"+primaryKey+"');";          
+          query3 = "DELETE FROM `bookshop`.`cashdeals` WHERE (`dealNo` = '"+primaryKey+"');";   
+          query4 = "SELECT * FROM bookshop.`cashdeals` WHERE (`dealNo` = '"+primaryKey+"');";
           
           st = con.createStatement(); //getting items
           st2 = con.createStatement(); //deleting items
@@ -2022,17 +2061,18 @@ public class dbConnector {
                         int amount = objects.sendAmount()+rs.getInt("quantity");
                         updateStockitems("stocks","stock",String.valueOf(amount),rs.getString("itemCode"));
                     }
-                
-                query4 = "SELECT * FROM bookshop.`cashdeals` WHERE (`date` = '"+rs.getString("date")+"');";
+             
+                //deleting cash item
                 st2.executeUpdate(query2);
             }
-          
+         
+          //reusing above declared arry to use sale amount reduce confirmation JOptipon pane box
          option[0] = "YES , REDUCE SALES AMOUNT FROM THE SALES ";
          option[1] = "NOT NOW";
          
          choice  = JOptionPane.showOptionDialog(null,"DO YOU WANT REDUCE THE SALE AMOUNT ? ", "SALES MANAGER.." , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
-            //getting sure confirmation
             
+          //getting sure confirmation
           while(choice == -1)
             {
                 choice = JOptionPane.showOptionDialog(null,"DO YOU WANT REDUCE THE SALE AMOUNT ? ? ", "STOCK MANAGER ?" , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
@@ -2044,22 +2084,46 @@ public class dbConnector {
                  ResultSet rs2 = st4.executeQuery(query4);
                  if(rs2.next())
                     {
+                        //calling getStock method in two objects class by parsing values to fetch the sell income
                         objects.getStock(rs2.getString("date") , "sellIncome" , "incomedata" , "date");
-                        System.out.println(objects.sendSale()+" "+rs2.getBigDecimal("TotaltValue"));
+                        //calling to sellincome parsing method which cretun bigdecimal value and  reducing value
                         BigDecimal amount = objects.sendSale().subtract(rs2.getBigDecimal("TotaltValue"));
+                        //updating sellincome of that day
                         incomedataUpdater( String.valueOf(amount), "sellIncome", rs2.getString("date"));
                     }
             }
           
-          query = "DELETE FROM `bookshop`.`cashdeals` WHERE (`dealNo` = '"+primaryKey+"');";
           
+          //deleting cash deal from databse
           st3.executeUpdate(query3);
      }  
+     
+    //getting system erros
+    public void getErrors() throws Exception {
+        query = "SELECT * FROM bookshop.errors;";
+
+         if(con == null)
+            {
+                connect();
+            }
+         
+        Statement st = con.createStatement();
+
+        String[] itemDetails = new String[4];
+
+        ResultSet rs = st.executeQuery(query);
+
+        while (rs.next()) {
+            itemDetails[0] = rs.getString("error");
+            errors.dealItemsToTable(itemDetails);
+        }
+
+    }
      
      
 }
 
-
+/////////////////////// class for return stock and income amount for sale delete method
 class twoObs
 {
       int amount=0;

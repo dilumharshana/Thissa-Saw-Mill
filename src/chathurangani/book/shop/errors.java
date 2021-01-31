@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Dilum
  */
-public class paymentHistory extends javax.swing.JFrame {
+public class errors extends javax.swing.JFrame {
 
     /**
      * Creates new form Deal_Item_History
@@ -23,14 +23,14 @@ public class paymentHistory extends javax.swing.JFrame {
  String primaryKey;
  dbConnector connect = new dbConnector();
  
- public paymentHistory(String primaryKey , String cusname) {
+ public errors() {
            
                 initComponents();
                 setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
-                this.cusName.setText(cusname+" Payment History");
+                this.cusName.setText("Recorded System Exceptions >");
             
              try {
-                connect.getPaymentHistory(primaryKey);
+                connect.getErrors();
             } catch (Exception ex ) {
                JOptionPane.showMessageDialog(null, "Something went wrong - paymentHistory#35 !");
                connect.recod_error(ex.toString()+" - paymentHistory 35");
@@ -65,19 +65,19 @@ public class paymentHistory extends javax.swing.JFrame {
 
         cusName.setBackground(new java.awt.Color(0, 0, 0));
         cusName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
-        cusName.setForeground(new java.awt.Color(0, 0, 0));
+        cusName.setForeground(new java.awt.Color(255, 255, 255));
 
         payTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         payTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null}
             },
             new String [] {
-                "Date", "Due Amount", "Payment", "New Due Amount"
+                "Error"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -153,14 +153,16 @@ public class paymentHistory extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new paymentHistory("","").setVisible(true);
+            new errors().setVisible(true);
         });
     }
     
      public static void dealItemsToTable(String [] dealData)
         {
-            DefaultTableModel delas = (DefaultTableModel) payTable.getModel();
-            delas.addRow(dealData);
+            DefaultTableModel deals = (DefaultTableModel) payTable.getModel();
+            String [] linebrake = {""};
+            deals.addRow(linebrake);
+            deals.addRow(dealData);
         
         }
 

@@ -471,7 +471,7 @@ public class stocks extends javax.swing.JFrame {
 
             Smallerthan = 200;
             stockcounter.setText("200");
-            connect.recod_error(e.toString()+" this is not a error ,  stocks 472 ");
+            //connect.recod_error(e.toString()+" this is not a error ,  stocks 472 ");
         }
 
         try {
@@ -518,7 +518,7 @@ public class stocks extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null, "Please select an item to Update !");
                                 updatebtn.setEnabled(false);
 
-                                connect.recod_error(e.toString()+" this is not a error ,  stocks 519 ");
+                                //connect.recod_error(e.toString()+" this is not a error ,  stocks 519 ");
                                 //Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
                             }
                         } else {
@@ -545,7 +545,7 @@ public class stocks extends javax.swing.JFrame {
                                 JOptionPane.showMessageDialog(null, "Please select an item to Update !");
                                 updatebtn.setEnabled(false);
                                 
-                                 connect.recod_error(e.toString()+" this is not a error , stocks 546 ");
+                                // connect.recod_error(e.toString()+" this is not a error , stocks 546 ");
                                 //Logger.getLogger(stocks.class.getName()).log(Level.SEVERE, null, e);
                             }
                         } else {

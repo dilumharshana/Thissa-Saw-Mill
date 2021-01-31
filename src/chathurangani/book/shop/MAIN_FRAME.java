@@ -731,7 +731,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 catch(Exception e)
                     {
                              values[1] = new BigDecimal(String.valueOf(0.0));// discounted price
-                             connect.recod_error(e.toString()+"this is not a eror ,  Main Frame 761");
+                           //  connect.recod_error(e.toString()+"this is not a eror ,  Main Frame 761");
                         
                     }
                 
@@ -744,7 +744,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 catch(Exception e)
                     {
                         values[2] = new BigDecimal(total.getText().trim()); // cash amount that customer given
-                        connect.recod_error(e.toString()+"this is not a error ,  Main Frame 745");
+                       // connect.recod_error(e.toString()+"this is not a error ,  Main Frame 745");
                         paymentForBill = values[2];
                         
                     }
@@ -757,7 +757,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 catch(Exception e)
                     {
                             values[3] = new BigDecimal(String.valueOf(0.0));// balance amount
-                            connect.recod_error(e.toString()+"this is not a error ,  Main Frame 758");
+                           // connect.recod_error(e.toString()+"this is not a error ,  Main Frame 758");
                         
                     }
                 
@@ -770,7 +770,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 catch(Exception e)
                     {
                             values[4] = new BigDecimal(String.valueOf(0.00));// balance amount
-                            connect.recod_error(e.toString()+"this is not a error ,  Main Frame 771");
+                            //connect.recod_error(e.toString()+"this is not a error ,  Main Frame 771");
                         
                     }
                 
@@ -781,7 +781,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                 catch(Exception e)
                     {
                             values[5] = new BigDecimal(String.valueOf(0.00));// static total amount
-                            connect.recod_error(e.toString()+"this is not a error ,  Main Frame 782");
+                           // connect.recod_error(e.toString()+"this is not a error ,  Main Frame 782");
                         
                     }
                 
@@ -849,7 +849,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
                                     
                                     
                                   //calling bill printng method
-                                 //  invoice();
+                                   invoice();
                                   recod("Created a bill");//recoding actities
                                   
                             } catch (Exception ex) {
@@ -894,7 +894,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             {
               JOptionPane.showMessageDialog(null, "Sorry some thing went wrong ! - Main_Frame#893!");
               connect.recod_error(e.toString()+" Main Frame 893");
-                //Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
+               // Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     
@@ -1101,7 +1101,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             totalAmount = new BigDecimal(String.valueOf(total.getText().trim()));
         } catch (Exception e) {
             totalAmount = new BigDecimal(String.valueOf(total.getText().trim()));
-            connect.recod_error(e.toString()+" this is not a error , Main Frame 828");
+           // connect.recod_error(e.toString()+" this is not a error , Main Frame 828");
         }
 
         // DISCOUNT AMOUNT AS A BIG DECIMAL WITH NULL EXCEPTION HANDLING
@@ -1109,7 +1109,7 @@ public class MAIN_FRAME extends javax.swing.JFrame implements Runnable {
             discamount = new BigDecimal(String.valueOf(disc.getText().trim()));
         } catch (Exception e) {
             discamount = new BigDecimal("0.0");
-            connect.recod_error(e.toString()+"this is not a error , Main Frame 828");
+           // connect.recod_error(e.toString()+"this is not a error , Main Frame 828");
         }
 
         int compareValues = discamount.compareTo(totalAmount); // if pAmount > total amount, then this varible will contain " 1 " , if equals then contains " 0 ", small then contain " -1 "

@@ -234,7 +234,7 @@ public class emplyoees extends javax.swing.JFrame {
         catch(Exception e)
             {
                 JOptionPane.showMessageDialog(null, "Please select a Cashier !");
-                connect.recod_error(e.toString()+" this is not a error , employees 230");
+               // connect.recod_error(e.toString()+" this is not a error , employees 230");
             }
     }//GEN-LAST:event_newBorrowerActionPerformed
 
@@ -255,7 +255,7 @@ public class emplyoees extends javax.swing.JFrame {
             recod("Opend employee data updator window for employee -"+name); 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Employee !");
-            connect.recod_error(e.toString()+" this is not a error , employees 251");
+            //connect.recod_error(e.toString()+" this is not a error , employees 251");
         }
     }//GEN-LAST:event_updateActionPerformed
 
@@ -345,7 +345,7 @@ public class emplyoees extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Something went wrong - Employees#336 !");
-            connect.recod_error(ex.toString()+" this is not a error , employees 336");
+           // connect.recod_error(ex.toString()+" this is not a error , employees 336");
         } 
         //</editor-fold>
         //</editor-fold>

@@ -1,8 +1,10 @@
 package chathurangani.book.shop;
 
 import java.awt.Toolkit;
-import javax.swing.JOptionPane;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Dilum
  */
-public class paymentHistory extends javax.swing.JFrame {
+public class Deal_Item_History extends javax.swing.JFrame {
 
     /**
      * Creates new form Deal_Item_History
@@ -23,18 +25,23 @@ public class paymentHistory extends javax.swing.JFrame {
  String primaryKey;
  dbConnector connect = new dbConnector();
  
- public paymentHistory(String primaryKey , String cusname) {
+ public Deal_Item_History(String primaryKey , String cusname) {
            
                 initComponents();
                 setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
-                this.cusName.setText(cusname+" Payment History");
+                this.cusName.setText(cusname+" - Items");
             
-             try {
-                connect.getPaymentHistory(primaryKey);
+           try {
+                connect.getDealItems(primaryKey);
             } catch (Exception ex ) {
-               JOptionPane.showMessageDialog(null, "Something went wrong - paymentHistory#35 !");
-               connect.recod_error(ex.toString()+" - paymentHistory 35");
+                Logger.getLogger(Deal_Item_History.class.getName()).log(Level.SEVERE, null, ex);
             } 
+           
+           TableColumnModel size = itemTable.getColumnModel();
+           size.getColumn(0).setPreferredWidth(250);
+           size.getColumn(1).setPreferredWidth(80);
+           size.getColumn(2).setPreferredWidth(100);
+           size.getColumn(3).setPreferredWidth(150);
         
     }
  
@@ -49,8 +56,9 @@ public class paymentHistory extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         cusName = new javax.swing.JLabel();
-        itemTable = new javax.swing.JScrollPane();
-        payTable = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        itemTable = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Deal History");
@@ -64,37 +72,45 @@ public class paymentHistory extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
         cusName.setBackground(new java.awt.Color(0, 0, 0));
-        cusName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
-        cusName.setForeground(new java.awt.Color(0, 0, 0));
+        cusName.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        cusName.setForeground(new java.awt.Color(255, 153, 0));
 
-        payTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        payTable.setModel(new javax.swing.table.DefaultTableModel(
+        jScrollPane1.setBackground(new java.awt.Color(0, 51, 0));
+
+        itemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
-                "Date", "Due Amount", "Payment", "New Due Amount"
+                "Item Name", "Price" ,"Quantity", "Total Price",
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, false
-            };
+        ));
+        jScrollPane1.setViewportView(itemTable);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        jButton1.setBackground(new java.awt.Color(204, 0, 0));
+        jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("CLOSE PANEL");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
-        itemTable.setViewportView(payTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(itemTable, javax.swing.GroupLayout.PREFERRED_SIZE, 912, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(35, 35, 35)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 914, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -103,8 +119,10 @@ public class paymentHistory extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(itemTable, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -126,6 +144,11 @@ public class paymentHistory extends javax.swing.JFrame {
         System.gc();
     }//GEN-LAST:event_formWindowClosing
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.gc();
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -135,8 +158,6 @@ public class paymentHistory extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        
-        dbConnector connect = new dbConnector();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -144,30 +165,40 @@ public class paymentHistory extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (Exception ex) {
-               JOptionPane.showMessageDialog(null, "Something went wrong - paymentHistory#35 !");
-               connect.recod_error(ex.toString()+" - paymentHistory 35");
-        } 
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Deal_Item_History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Deal_Item_History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Deal_Item_History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Deal_Item_History.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new paymentHistory("","").setVisible(true);
+            new Deal_Item_History("","").setVisible(true);
         });
     }
     
      public static void dealItemsToTable(String [] dealData)
         {
-            DefaultTableModel delas = (DefaultTableModel) payTable.getModel();
+            DefaultTableModel delas = (DefaultTableModel) itemTable.getModel();
+            String[] linebrake = {"","","",""};
+            delas.addRow(linebrake);
             delas.addRow(dealData);
         
         }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cusName;
-    private static javax.swing.JScrollPane itemTable;
+    private static javax.swing.JTable itemTable;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    public static javax.swing.JTable payTable;
+    protected static javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

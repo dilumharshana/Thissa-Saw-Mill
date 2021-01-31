@@ -1,10 +1,13 @@
 package chathurangani.book.shop;
 
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 //Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, e);
 
@@ -17,7 +20,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
         setPanel.setVisible(false);
         changePannel.setVisible(false);
-
+        saveDB();
     }
 
     public settings(boolean loked) {
@@ -95,11 +98,13 @@ public class settings extends javax.swing.JFrame implements Runnable {
         c_p_newPass = new javax.swing.JPasswordField();
         currentPass = new javax.swing.JPasswordField();
         analizeBiz = new javax.swing.JButton();
+        notify = new javax.swing.JLabel();
         delasstock = new javax.swing.JButton();
         biz = new javax.swing.JButton();
         btn_activities = new javax.swing.JButton();
-        notify = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        health = new javax.swing.JLabel();
+        developerPass = new javax.swing.JPasswordField();
+        evonpass = new javax.swing.JLabel();
 
         jButton3.setBackground(new java.awt.Color(102, 102, 0));
         jButton3.setFont(new java.awt.Font("Calibri Light", 1, 24)); // NOI18N
@@ -166,9 +171,9 @@ public class settings extends javax.swing.JFrame implements Runnable {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Admin Settings");
+        jLabel1.setText("Hi Admin ... ");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 31, 358, -1));
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -240,7 +245,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
                 changePasswordActionPerformed(evt);
             }
         });
-        passPanel.add(changePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 235, 53));
+        passPanel.add(changePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 235, 50));
 
         addpassword.setBackground(new java.awt.Color(0, 51, 51));
         addpassword.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
@@ -469,6 +474,15 @@ public class settings extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(analizeBiz, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 182, 0, -1));
 
+        notify.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        notify.setForeground(new java.awt.Color(255, 255, 255));
+        notify.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                notifyMouseClicked(evt);
+            }
+        });
+        jPanel1.add(notify, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, 450, 20));
+
         delasstock.setBackground(new java.awt.Color(204, 0, 0));
         delasstock.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         delasstock.setForeground(new java.awt.Color(255, 255, 255));
@@ -504,18 +518,24 @@ public class settings extends javax.swing.JFrame implements Runnable {
         });
         jPanel1.add(btn_activities, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 259, 47));
 
-        notify.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        notify.setForeground(new java.awt.Color(255, 255, 255));
-        notify.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                notifyMouseClicked(evt);
+        health.setText("System Health ");
+        jPanel1.add(health, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 610, 80, -1));
+
+        developerPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                developerPassActionPerformed(evt);
             }
         });
-        jPanel1.add(notify, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 600, 330, 20));
+        developerPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                developerPassKeyTyped(evt);
+            }
+        });
+        jPanel1.add(developerPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 570, 130, 30));
 
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/evon apps.jpg"))); // NOI18N
-        jLabel16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 640));
+        evonpass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/evon apps.jpg"))); // NOI18N
+        evonpass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jPanel1.add(evonpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1170, 640));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -746,13 +766,14 @@ public class settings extends javax.swing.JFrame implements Runnable {
         if (clearOk == 0) {
             try {
                 //creating a backup
-                MAIN_FRAME backup = new MAIN_FRAME();
-                backup.saveDB();
+                notify.setText("Creating Backup ... !");
                 connect.clearDeals();
                 notify.setText("Done !");
+                
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, " Something went wrong - Settings#863! ");
                 connect.recod_error(ex.toString() + "- Settings 860 ");
+                Logger.getLogger(settings.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_ctimeMouseClicked
@@ -782,10 +803,10 @@ public class settings extends javax.swing.JFrame implements Runnable {
     }//GEN-LAST:event_formWindowClosing
 
     private void cdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cdateMouseClicked
-
+                
         try {
             Process restore = null;
-            String[] path = new String[]{"C:/Program Files/MySQL/MySQL Server 5.7/bin/mysql.exe", "--user=" + "root", "--password=" + "papapapa", "-e", "source " + "C:/Users/Dilum/Documents/backup_backup.sql"};
+            String[] path = new String[]{"C:/Program Files/MySQL/MySQL Server 5.7/bin/mysql.exe", "--user=" + "root", "--password=" + "papapapa", "-e", "source " + "C:/Users/Dilum/Documents/backup.sql"};
             restore = Runtime.getRuntime().exec(path);
 
             if (restore.waitFor() == 0) {
@@ -813,6 +834,42 @@ public class settings extends javax.swing.JFrame implements Runnable {
     private void notifyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notifyMouseClicked
         notify.setText("");
     }//GEN-LAST:event_notifyMouseClicked
+
+    private void developerPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_developerPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_developerPassActionPerformed
+
+    private void developerPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_developerPassKeyTyped
+
+        char enter = evt.getKeyChar();
+            if(developerPass.getPassword().toString().length() == 50)
+                {
+                    evt.consume();
+                }
+            
+            if(enter == KeyEvent.VK_ENTER)
+                {
+                      Encoder convert = new Encoder();
+                            try 
+                            {
+                                boolean passOk = connect.passchek(convert.getMd5(String.valueOf(developerPass.getPassword())));
+
+                                if(passOk == true)
+                                {
+                                    errors open = new errors();
+                                    open.setVisible(true);
+                                    developerPass.setText("");
+                                    developerPass.setVisible(false);
+                                }
+                            }
+                            catch(Exception e)
+                                {
+                                    connect.recod_error(e.toString());
+                                }
+                }
+            
+                           
+    }//GEN-LAST:event_developerPassKeyTyped
 
     /**
      * @param args the command line arguments
@@ -842,6 +899,9 @@ public class settings extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel ctime;
     private javax.swing.JPasswordField currentPass;
     private javax.swing.JButton delasstock;
+    private javax.swing.JPasswordField developerPass;
+    private javax.swing.JLabel evonpass;
+    private javax.swing.JLabel health;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton14;
@@ -852,7 +912,6 @@ public class settings extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -876,6 +935,27 @@ public class settings extends javax.swing.JFrame implements Runnable {
 
     private void DateFormat(String hhmmssaa) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+        //backup databse
+    void saveDB(){
+    
+                 //backup database  
+               try
+                {
+
+                    Process backup = null;
+                    Runtime getDB = Runtime.getRuntime();
+                    
+  backup = getDB.exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump.exe -uroot -ppapapapa --add-drop-database -B bookshop -r C:/Users/Dilum/Documents/backup.sql");
+  backup = getDB.exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump.exe -uroot -ppapapapa --add-drop-database -B bookshop -r C:/ProgramData/backup.sql");
+                
+                }
+               catch(Exception e)
+                    {
+                            connect.recod_error(e.toString()+" Main Frame 1277");
+                    }
+        
     }
 
     @Override

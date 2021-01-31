@@ -60,6 +60,7 @@ public class cashOuts_resons extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 51, 51));
 
         cashAmount.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cashAmount.setText(" ");
         cashAmount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cashAmountMouseClicked(evt);
@@ -101,6 +102,7 @@ public class cashOuts_resons extends javax.swing.JFrame {
         reson.setColumns(20);
         reson.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         reson.setRows(5);
+        reson.setText(" ");
         reson.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 resonMouseClicked(evt);

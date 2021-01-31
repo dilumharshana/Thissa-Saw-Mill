@@ -6,8 +6,6 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -33,7 +31,8 @@ public class DealHistory extends javax.swing.JFrame {
     public DealHistory() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
-        delete.setEnabled(false);
+        btn_delete.setEnabled(false);
+        btn_item.setEnabled(false);
         
           TableColumnModel size = (dealTable.getColumnModel());
                 size.getColumn(0).setPreferredWidth(40);
@@ -64,9 +63,10 @@ public class DealHistory extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        delete = new javax.swing.JButton();
+        btn_delete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         dealTable = new javax.swing.JTable();
+        btn_item = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Deals");
@@ -88,8 +88,9 @@ public class DealHistory extends javax.swing.JFrame {
             }
         });
 
-        search.setBackground(new java.awt.Color(0, 153, 153));
-        search.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        search.setBackground(new java.awt.Color(51, 153, 255));
+        search.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 12)); // NOI18N
+        search.setForeground(new java.awt.Color(255, 255, 255));
         search.setText("SEARCH BILL NO");
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,12 +115,13 @@ public class DealHistory extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Sales");
 
-        delete.setBackground(new java.awt.Color(153, 0, 0));
-        delete.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        delete.setText("DELETE SALE");
-        delete.addActionListener(new java.awt.event.ActionListener() {
+        btn_delete.setBackground(new java.awt.Color(153, 0, 0));
+        btn_delete.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        btn_delete.setForeground(new java.awt.Color(255, 255, 255));
+        btn_delete.setText("DELETE SALE");
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
+                btn_deleteActionPerformed(evt);
             }
         });
 
@@ -150,6 +152,16 @@ public class DealHistory extends javax.swing.JFrame {
             dealTable.getColumnModel().getColumn(1).setResizable(false);
         }
 
+        btn_item.setBackground(new java.awt.Color(0, 153, 204));
+        btn_item.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btn_item.setForeground(new java.awt.Color(255, 255, 255));
+        btn_item.setText("VIEW ITEMS");
+        btn_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_itemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -174,8 +186,10 @@ public class DealHistory extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(btn_item, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -199,7 +213,9 @@ public class DealHistory extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_delete, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(btn_item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -289,34 +305,61 @@ public class DealHistory extends javax.swing.JFrame {
         
     }//GEN-LAST:event_dateBoxPropertyChange
 
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+    private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
             DefaultTableModel delas = (DefaultTableModel) dealTable.getModel();
 
             int row = dealTable.getSelectedRow();
+            
+       try {
+                if(!dealTable.getValueAt(row, 0).toString().isEmpty())
+                    {
 
-            if(!dealTable.getValueAt(row, 0).toString().isEmpty())
-                {
-                       try {
-                                connect.cleardeal(dealTable.getValueAt(row, 0).toString()); 
-                                 delas.removeRow(row);
-                            } 
-                       catch (Exception ex) 
-                            {
-                                JOptionPane.showMessageDialog(null, "Something went wrong - Deal History#275 !");
-                                connect.recod_error(ex.toString()+" - deal bistory 275");
-                                Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                }
-            else
-                {
-                    
-                    JOptionPane.showMessageDialog(null, "Please select a Sale !");
-                }
-    }//GEN-LAST:event_deleteActionPerformed
+                                    connect.cleardeal(dealTable.getValueAt(row, 0).toString()); 
+                                    delas.removeRow(row);
+                                    btn_delete.setEnabled(false);
+                    }
+                else
+                    {
+
+                        JOptionPane.showMessageDialog(null, "Please select a Sale !");
+                    }
+        }
+     catch (Exception ex) 
+           {
+                JOptionPane.showMessageDialog(null, "Something went wrong - Deal History#275 !");
+                connect.recod_error(ex.toString()+" - deal bistory 275");
+                //Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void dealTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dealTableMouseClicked
-        delete.setEnabled(true);
+        btn_delete.setEnabled(true);
+        btn_item.setEnabled(true);
     }//GEN-LAST:event_dealTableMouseClicked
+
+    private void btn_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_itemActionPerformed
+      int row = dealTable.getSelectedRow();
+        
+      if(!dealTable.getValueAt(row,0).toString().isEmpty())
+        {
+            try
+            {
+                
+                Deal_Item_History open = new Deal_Item_History(dealTable.getValueAt(row,0).toString() , dealTable.getValueAt(row,1).toString());
+                open.setVisible(true);
+                btn_item.setEnabled(false);
+            }
+        catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, "Something went wrong - Deal Item History#343");
+                connect.recod_error(e.toString() +"-  Deal Item History 343" );
+            }
+        }
+      else
+        {
+                JOptionPane.showMessageDialog(null, "Please Select a Sale !");
+        }
+    }//GEN-LAST:event_btn_itemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -358,6 +401,9 @@ public class DealHistory extends javax.swing.JFrame {
                 {
                     delas.removeRow(0);
                 }
+            
+            btn_item.setEnabled(false);
+            btn_delete.setEnabled(false);
         }
     
     //THIS METHOD WILL ADD A NEW ROWTO J TABLE USING dealdata ARRAY WHICH IS PASSED BY Search_Every_Field METHOD
@@ -371,9 +417,10 @@ public class DealHistory extends javax.swing.JFrame {
         }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static javax.swing.JButton btn_delete;
+    private static javax.swing.JButton btn_item;
     private com.toedter.calendar.JDateChooser dateBox;
     public static javax.swing.JTable dealTable;
-    private javax.swing.JButton delete;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -238,7 +238,7 @@ public class cashiers extends javax.swing.JFrame {
             open.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Cashier !");
-            connect.recod_error(e.toString()+" this is not a error, cashier 236");
+            //connect.recod_error(e.toString()+" this is not a error, cashier 236");
         }
 
     }//GEN-LAST:event_viewItemActionPerformed
@@ -262,7 +262,7 @@ public class cashiers extends javax.swing.JFrame {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Cashier !");
-            connect.recod_error(e.toString()+" this is not a error , cashier 260");
+           // connect.recod_error(e.toString()+" this is not a error , cashier 260");
         }
 
     }//GEN-LAST:event_deleteActionPerformed
@@ -276,7 +276,7 @@ public class cashiers extends javax.swing.JFrame {
         catch(Exception e)
             {
                 JOptionPane.showMessageDialog(null, "Please select a Cashier !");
-                connect.recod_error(e.toString()+" this is not a error , cashier 274");
+               // connect.recod_error(e.toString()+" this is not a error , cashier 274");
             }
     }//GEN-LAST:event_newBorrowerActionPerformed
 
@@ -296,7 +296,7 @@ public class cashiers extends javax.swing.JFrame {
             open.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please select a Cashier !");
-            connect.recod_error(e.toString()+" this is not a error , cashier 294");
+          //  connect.recod_error(e.toString()+" this is not a error , cashier 294");
         }
     }//GEN-LAST:event_updateActionPerformed
 
@@ -328,7 +328,7 @@ public class cashiers extends javax.swing.JFrame {
                 connect.search_all_cashiers("cashier_login");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Something went wrong - cashier#328 !");
-                connect.recod_error(ex.toString()+" this is not a error, cashier 328");
+               // connect.recod_error(ex.toString()+" this is not a error, cashier 328");
             }
         }
         try {
@@ -336,7 +336,7 @@ public class cashiers extends javax.swing.JFrame {
             connect.search_every_cashier(lenth , "cashier_login");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Something went wrong - cashier#336 !");
-            connect.recod_error(ex.toString()+" this is not a error");
+           // connect.recod_error(ex.toString()+" this is not a error");
         }
     }//GEN-LAST:event_searchBarKeyReleased
 
@@ -348,7 +348,7 @@ public class cashiers extends javax.swing.JFrame {
             connect.search_every_cashier(code , "cashier_login");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Something went wrong - cashier#348 !");
-            connect.recod_error(ex.toString()+" this is not a error");
+           // connect.recod_error(ex.toString()+" this is not a error");
         }
     }//GEN-LAST:event_searchActionPerformed
 
@@ -371,7 +371,7 @@ public class cashiers extends javax.swing.JFrame {
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Please select a Cashier !");
-            connect.recod_error(ex.toString()+" this is not a error , cashier 369");
+           // connect.recod_error(ex.toString()+" this is not a error , cashier 369");
         }
     }//GEN-LAST:event_lockActionPerformed
 
@@ -399,7 +399,7 @@ public class cashiers extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Something went wrong - cashier#393 !");
-            connect.recod_error(ex.toString()+" this is not a error , cashier 393");
+           // connect.recod_error(ex.toString()+" this is not a error , cashier 393");
         } 
         //</editor-fold>
         //</editor-fold>

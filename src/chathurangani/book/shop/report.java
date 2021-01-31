@@ -430,7 +430,7 @@ public class report extends javax.swing.JFrame {
        catch(Exception e)
             {
                   JOptionPane.showMessageDialog(null ,"Day report not available !");
-                   connect.recod_error(e.toString()+" this is not a error , report 413");
+                 //  connect.recod_error(e.toString()+" this is not a error , report 413");
             }
     }//GEN-LAST:event_cashoutActionPerformed
 
@@ -439,15 +439,16 @@ public class report extends javax.swing.JFrame {
        try
         {
              DateFormat d1 = new SimpleDateFormat("yyyy-MM-dd");
-              date = d1.format(dateBox.getDate());
+             date = d1.format(dateBox.getDate());
+             cashTransitionTake(date);
         }
        catch(Exception e)
         {
               date = java.time.LocalDate.now().toString();
-              connect.recod_error(e.toString()+" this is not a error, report 427");
+             // connect.recod_error(e.toString()+" this is not a error, report 427");
         }
 
-        cashTransitionTake(date);
+        
     }//GEN-LAST:event_dateBoxPropertyChange
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
