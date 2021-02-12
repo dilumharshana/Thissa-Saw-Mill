@@ -65,7 +65,7 @@ public class paymentHistory extends javax.swing.JFrame {
 
         cusName.setBackground(new java.awt.Color(0, 0, 0));
         cusName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
-        cusName.setForeground(new java.awt.Color(0, 0, 0));
+        cusName.setForeground(new java.awt.Color(255, 255, 255));
 
         payTable.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         payTable.setModel(new javax.swing.table.DefaultTableModel(

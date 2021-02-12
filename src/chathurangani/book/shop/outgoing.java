@@ -3,8 +3,6 @@ package chathurangani.book.shop;
 import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -85,7 +83,9 @@ public class outgoing extends javax.swing.JFrame {
 
         btn_delete.setBackground(new java.awt.Color(204, 0, 0));
         btn_delete.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        btn_delete.setForeground(new java.awt.Color(255, 255, 255));
         btn_delete.setText("DELETE");
+        btn_delete.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btn_delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_deleteActionPerformed(evt);
@@ -113,7 +113,9 @@ public class outgoing extends javax.swing.JFrame {
 
         btn_update.setBackground(new java.awt.Color(0, 153, 0));
         btn_update.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        btn_update.setForeground(new java.awt.Color(255, 255, 255));
         btn_update.setText("UPDATE");
+        btn_update.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btn_update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_updateActionPerformed(evt);
@@ -122,7 +124,9 @@ public class outgoing extends javax.swing.JFrame {
 
         btn_add.setBackground(new java.awt.Color(0, 153, 204));
         btn_add.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        btn_add.setForeground(new java.awt.Color(255, 255, 255));
         btn_add.setText("ADD NEW");
+        btn_add.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         btn_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addActionPerformed(evt);

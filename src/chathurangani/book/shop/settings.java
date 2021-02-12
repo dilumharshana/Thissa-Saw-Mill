@@ -30,7 +30,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
         setPanel.setVisible(false);
         changePannel.setVisible(false);
-        addpassword.setVisible(false);
+        //addpassword.setVisible(false);
     }
 
     public settings(int change) {
@@ -43,7 +43,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
         passPanel.setVisible(false);
         setPanel.setVisible(true);
         changePannel.setVisible(false);
-        addpassword.setVisible(false);
+        //addpassword.setVisible(false);
         cashier.setVisible(false);
         biz.setVisible(false);
         btn_activities.setVisible(false);
@@ -71,9 +71,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
         cdate = new javax.swing.JLabel();
         passPanel = new javax.swing.JPanel();
         changePassword = new javax.swing.JButton();
-        addpassword = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        cashier = new javax.swing.JButton();
         setPanel = new javax.swing.JPanel();
         setPassword = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -87,6 +85,14 @@ public class settings extends javax.swing.JFrame implements Runnable {
         answer = new javax.swing.JTextField();
         question = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
+        cashier = new javax.swing.JButton();
+        analizeBiz = new javax.swing.JButton();
+        notify = new javax.swing.JLabel();
+        delasstock = new javax.swing.JButton();
+        biz = new javax.swing.JButton();
+        btn_activities = new javax.swing.JButton();
+        health = new javax.swing.JLabel();
+        developerPass = new javax.swing.JPasswordField();
         changePannel = new javax.swing.JPanel();
         Change = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -97,13 +103,6 @@ public class settings extends javax.swing.JFrame implements Runnable {
         c_p_retypePass = new javax.swing.JPasswordField();
         c_p_newPass = new javax.swing.JPasswordField();
         currentPass = new javax.swing.JPasswordField();
-        analizeBiz = new javax.swing.JButton();
-        notify = new javax.swing.JLabel();
-        delasstock = new javax.swing.JButton();
-        biz = new javax.swing.JButton();
-        btn_activities = new javax.swing.JButton();
-        health = new javax.swing.JLabel();
-        developerPass = new javax.swing.JPasswordField();
         evonpass = new javax.swing.JLabel();
 
         jButton3.setBackground(new java.awt.Color(102, 102, 0));
@@ -245,40 +244,13 @@ public class settings extends javax.swing.JFrame implements Runnable {
                 changePasswordActionPerformed(evt);
             }
         });
-        passPanel.add(changePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 235, 50));
-
-        addpassword.setBackground(new java.awt.Color(0, 51, 51));
-        addpassword.setFont(new java.awt.Font("Arial", 1, 22)); // NOI18N
-        addpassword.setForeground(new java.awt.Color(255, 255, 255));
-        addpassword.setText("ADD PASSWORD");
-        addpassword.setToolTipText("Set a password to the system");
-        addpassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        addpassword.setBorderPainted(false);
-        addpassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        addpassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        addpassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addpasswordActionPerformed(evt);
-            }
-        });
-        passPanel.add(addpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 12, 235, 53));
+        passPanel.add(changePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 230, 50));
 
         jPanel1.add(passPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 260, 70));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 0));
 
-        cashier.setBackground(new java.awt.Color(0, 51, 51));
-        cashier.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        cashier.setForeground(new java.awt.Color(255, 255, 255));
-        cashier.setText("Manage Cashiers");
-        cashier.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        cashier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cashierActionPerformed(evt);
-            }
-        });
-        jPanel1.add(cashier, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 259, 47));
-
         setPanel.setBackground(new java.awt.Color(0, 51, 51));
+        setPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0)));
         setPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         setPassword.setBackground(new java.awt.Color(255, 0, 0));
@@ -293,6 +265,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
         setPanel.add(setPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 377, 157, 44));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("SET A PASSWORD");
         setPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 17, 294, -1));
@@ -308,9 +281,11 @@ public class settings extends javax.swing.JFrame implements Runnable {
         });
         setPanel.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 377, 107, 44));
 
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("New Password :");
         setPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 49, 172, 14));
 
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Re-Type Password :");
         setPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 125, 172, 14));
 
@@ -324,18 +299,20 @@ public class settings extends javax.swing.JFrame implements Runnable {
                 s_p_retypePassKeyTyped(evt);
             }
         });
-        setPanel.add(s_p_retypePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 149, 270, 44));
+        setPanel.add(s_p_retypePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 153, 270, 40));
 
         s_p_newPass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 s_p_newPassKeyTyped(evt);
             }
         });
-        setPanel.add(s_p_newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 270, 44));
+        setPanel.add(s_p_newPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 270, 40));
 
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Security question");
         setPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 235, 172, 14));
 
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Answer :");
         setPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 302, 172, 14));
 
@@ -344,7 +321,7 @@ public class settings extends javax.swing.JFrame implements Runnable {
                 answerKeyTyped(evt);
             }
         });
-        setPanel.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 322, 270, 43));
+        setPanel.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 325, 270, 40));
 
         question.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -356,111 +333,25 @@ public class settings extends javax.swing.JFrame implements Runnable {
                 questionKeyTyped(evt);
             }
         });
-        setPanel.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 255, 270, 41));
+        setPanel.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 256, 270, 40));
 
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Security Question helps you to recover your password ");
         setPanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 205, -1, -1));
 
-        changePannel.setBackground(new java.awt.Color(0, 51, 51));
+        jPanel1.add(setPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, -1, 432));
 
-        Change.setBackground(new java.awt.Color(255, 0, 0));
-        Change.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        Change.setForeground(new java.awt.Color(255, 255, 255));
-        Change.setText("CHANGE");
-        Change.addActionListener(new java.awt.event.ActionListener() {
+        cashier.setBackground(new java.awt.Color(0, 51, 51));
+        cashier.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        cashier.setForeground(new java.awt.Color(255, 255, 255));
+        cashier.setText("Manage Cashiers");
+        cashier.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        cashier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ChangeActionPerformed(evt);
+                cashierActionPerformed(evt);
             }
         });
-
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("CHANGE PASSWORD");
-
-        jButton1.setBackground(new java.awt.Color(51, 51, 51));
-        jButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("CLOSE");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Current Password :");
-
-        jLabel6.setText("New Password :");
-
-        jLabel7.setText("Re-Type Password :");
-
-        c_p_retypePass.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                c_p_retypePassKeyTyped(evt);
-            }
-        });
-
-        c_p_newPass.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                c_p_newPassKeyTyped(evt);
-            }
-        });
-
-        currentPass.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                currentPassKeyTyped(evt);
-            }
-        });
-
-        javax.swing.GroupLayout changePannelLayout = new javax.swing.GroupLayout(changePannel);
-        changePannel.setLayout(changePannelLayout);
-        changePannelLayout.setHorizontalGroup(
-            changePannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePannelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(changePannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(currentPass)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, changePannelLayout.createSequentialGroup()
-                        .addComponent(Change, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                    .addComponent(c_p_retypePass, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, changePannelLayout.createSequentialGroup()
-                        .addGroup(changePannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(c_p_newPass, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap())
-        );
-        changePannelLayout.setVerticalGroup(
-            changePannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePannelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(currentPass, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(c_p_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(c_p_retypePass, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(changePannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Change, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        setPanel.add(changePannel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
-
-        jPanel1.add(setPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 150, -1, 432));
+        jPanel1.add(cashier, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 259, 47));
 
         analizeBiz.setBackground(new java.awt.Color(0, 153, 255));
         analizeBiz.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
@@ -532,6 +423,110 @@ public class settings extends javax.swing.JFrame implements Runnable {
             }
         });
         jPanel1.add(developerPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 570, 130, 30));
+
+        changePannel.setBackground(new java.awt.Color(0, 51, 51));
+        changePannel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0)));
+
+        Change.setBackground(new java.awt.Color(255, 0, 0));
+        Change.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        Change.setForeground(new java.awt.Color(255, 255, 255));
+        Change.setText("CHANGE");
+        Change.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChangeActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("CHANGE PASSWORD");
+
+        jButton1.setBackground(new java.awt.Color(51, 51, 51));
+        jButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("CLOSE");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Current Password :");
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("New Password :");
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Re-Type Password :");
+
+        c_p_retypePass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                c_p_retypePassKeyTyped(evt);
+            }
+        });
+
+        c_p_newPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                c_p_newPassKeyTyped(evt);
+            }
+        });
+
+        currentPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                currentPassKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout changePannelLayout = new javax.swing.GroupLayout(changePannel);
+        changePannel.setLayout(changePannelLayout);
+        changePannelLayout.setHorizontalGroup(
+            changePannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePannelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(changePannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(currentPass)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, changePannelLayout.createSequentialGroup()
+                        .addComponent(Change, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                    .addComponent(c_p_retypePass, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, changePannelLayout.createSequentialGroup()
+                        .addGroup(changePannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(c_p_newPass, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap())
+        );
+        changePannelLayout.setVerticalGroup(
+            changePannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePannelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(currentPass, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(c_p_newPass, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(c_p_retypePass, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(changePannelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Change, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jPanel1.add(changePannel, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 120, -1, -1));
 
         evonpass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/evon apps.jpg"))); // NOI18N
         evonpass.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
@@ -752,10 +747,6 @@ public class settings extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_ChangeActionPerformed
 
-    private void addpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addpasswordActionPerformed
-        setPanel.setVisible(true);
-    }//GEN-LAST:event_addpasswordActionPerformed
-
     private void changePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordActionPerformed
         changePannel.setVisible(true);
     }//GEN-LAST:event_changePasswordActionPerformed
@@ -885,7 +876,6 @@ public class settings extends javax.swing.JFrame implements Runnable {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Change;
-    private javax.swing.JButton addpassword;
     private javax.swing.JButton analizeBiz;
     private javax.swing.JTextField answer;
     private javax.swing.JButton biz;

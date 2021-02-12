@@ -108,7 +108,7 @@ public class advanced extends javax.swing.JFrame {
         });
 
         newBorrower.setBackground(new java.awt.Color(153, 0, 255));
-        newBorrower.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        newBorrower.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         newBorrower.setForeground(new java.awt.Color(255, 255, 255));
         newBorrower.setText("NEW ADVANCE");
         newBorrower.addActionListener(new java.awt.event.ActionListener() {
@@ -117,8 +117,8 @@ public class advanced extends javax.swing.JFrame {
             }
         });
 
-        updateFromBill.setBackground(new java.awt.Color(255, 0, 51));
-        updateFromBill.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        updateFromBill.setBackground(new java.awt.Color(255, 0, 0));
+        updateFromBill.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         updateFromBill.setForeground(new java.awt.Color(255, 255, 255));
         updateFromBill.setText("UPDATE FROM BILL");
         updateFromBill.addActionListener(new java.awt.event.ActionListener() {
@@ -127,8 +127,8 @@ public class advanced extends javax.swing.JFrame {
             }
         });
 
-        payment.setBackground(new java.awt.Color(0, 204, 204));
-        payment.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        payment.setBackground(new java.awt.Color(0, 153, 204));
+        payment.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         payment.setForeground(new java.awt.Color(255, 255, 255));
         payment.setText("PAY");
         payment.addActionListener(new java.awt.event.ActionListener() {
@@ -182,7 +182,7 @@ public class advanced extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(advancedTable);
 
-        cusName.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        cusName.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         cusName.setForeground(new java.awt.Color(255, 255, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -194,23 +194,23 @@ public class advanced extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(viewItem, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newBorrower, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(viewItem, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateFromBill, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(payment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(payment, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                        .addComponent(newBorrower, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(updateFromBill, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cusName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
                         .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -219,33 +219,26 @@ public class advanced extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cusName, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(updateFromBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                        .addComponent(update, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(newBorrower, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(viewItem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(2, 2, 2))))
-                .addGap(9, 9, 9))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(updateFromBill, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                        .addComponent(newBorrower, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(payment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(update, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(viewItem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -287,30 +280,39 @@ public class advanced extends javax.swing.JFrame {
     }//GEN-LAST:event_viewItemActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        
-       try
-        {
-             DefaultTableModel delas = (DefaultTableModel) advancedTable.getModel();
-        
-                int row = advancedTable.getSelectedRow();
-                String primary = String.valueOf(advancedTable.getValueAt(row , 0));
 
-                try {
-                    connect.clearAdvanced(primary);
-                    recod("Deleted "+advancedTable.getValueAt( row ,1).toString()+"s' Advancede account");
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Something went wrong - advanced#287");
-                    connect.recod_error(ex.toString()+" - advanced 287");
-                }
+  String[] option = {"YES , DELETE THIS ADVANCED ACCOUNT " , "NO NOT NOW"};
+       
+        int choice  = JOptionPane.showOptionDialog(null,"ARE YOU SURE TO DELETE THIS ADVANCED ACCOUNT ? ", "SALES MANAGER.." , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
+        
+        if( choice == 0)
+            {        
+                try
+                 {
+                      saveDB(); //creating backup of db
+                     
+                      DefaultTableModel delas = (DefaultTableModel) advancedTable.getModel();
 
-                 delas.removeRow(row);
-         
-        }
-         catch(Exception e)
-              {
-                 JOptionPane.showMessageDialog(null , "Please select a Advance !");
-                 connect.recod_error(e.toString()+" this is not a error , advanced 297");
-              }
+                         int row = advancedTable.getSelectedRow();
+                         String primary = String.valueOf(advancedTable.getValueAt(row , 0));
+
+                         try {
+                             connect.clearAdvanced(primary);
+                             recod("Deleted "+advancedTable.getValueAt( row ,1).toString()+" Advanced account when bill amount was "+advancedTable.getValueAt( row ,5).toString()+"and advanced amount was "+advancedTable.getValueAt( row ,7).toString());
+                         } catch (Exception ex) {
+                             JOptionPane.showMessageDialog(null, "Something went wrong - advanced#287");
+                             connect.recod_error(ex.toString()+" - advanced 287");
+                         }
+
+                          delas.removeRow(row);
+
+                 }
+                catch(Exception e)
+                   {
+                      JOptionPane.showMessageDialog(null , "Please select a Advance !");
+                      connect.recod_error(e.toString()+" this is not a error , advanced 297");
+                   }
+            }
                    
     }//GEN-LAST:event_deleteActionPerformed
 
@@ -354,7 +356,14 @@ public class advanced extends javax.swing.JFrame {
 
     private void updateFromBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateFromBillActionPerformed
       
+       String[] option = {"YES , UPDATE THIS ACCOUNT FROM THE BILL " , "NO NOT NOW"};
+       
+        int choice  = JOptionPane.showOptionDialog(null,"DO YOU WANT UPDATE THIS ACCOUNT FROM THE BILL ? ", "SALES MANAGER.." , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
         
+        if( choice == 0)
+            {
+            boolean situation = true; // for print bill to know is this bill is for new account or existing one cuz it need to take advanced id for its procedd
+                
                 if(!(MAIN_FRAME.staticTotal.getText().trim()).equals(""))
                 {
   
@@ -384,7 +393,7 @@ public class advanced extends javax.swing.JFrame {
                             
                              //cheking if at one time if this user hasbeen update by cheking bill amount
                              int preUpdatedUser = new BigDecimal(String.valueOf(borrower.getValueAt(dealNo,5))).compareTo(new BigDecimal("0.0"));
-                             if(preUpdatedUser == 0 )
+                             if(preUpdatedUser == 0 ) //in bigdecimal cmparison 0 means equal
                                 {
                                      boolean dateAvailability = connect.passdate(String.valueOf(java.time.LocalDate.now()) , true);
                             
@@ -393,11 +402,14 @@ public class advanced extends javax.swing.JFrame {
                                             // adding new sellprice amount to prevois  sell price amount
                                             //new sell price amounts are holded in controller class sellPrice variables
                                             BigDecimal updated_sellPrice = new BigDecimal(borrower.getValueAt(dealNo,7).toString()).add(controllers.sellPrice);
-                                            System.out.println("hihiha");
                                             connect.incomedataUpdater(String.valueOf(updated_sellPrice), "sellIncome" , String.valueOf(java.time.LocalDate.now()));
                                         } else {
                                             connect.Strore_incomedata( borrower.getValueAt(dealNo,7).toString(), "sellIncome" ,String.valueOf(java.time.LocalDate.now()));
                                         }
+                                }
+                             else
+                                {
+                                    situation = false;
                                 }
                             
                             // loop for send each borrow item to database frim MAiN FRAME panel
@@ -420,7 +432,14 @@ public class advanced extends javax.swing.JFrame {
                                     //store item details in to databse
                                     connect.storeDealItemsIntoDataBase(pk,code, name, quantity, price , total);
                                     
-                                    invoice();
+                                    if(situation)//here situation is a boolean value which is represnt this bill is for new debtor or exixsint one.
+                                        {
+                                            invoice(controllers.primaryKeyOfdealsData);
+                                        }
+                                    else{
+                                            invoice(pk);
+                                        }
+                                     
   
                                 }
                             }
@@ -445,17 +464,18 @@ public class advanced extends javax.swing.JFrame {
                         {
                             JOptionPane.showMessageDialog(null , "Please create a new advanced payment account !");
                         }
+            }
                 
       
     }//GEN-LAST:event_updateFromBillActionPerformed
  //bill recipt printing process
-    void invoice()
+    void invoice(String advanced_id)
         {
           try
             {   //generating bill by jasper report
                 Connection con = connect.getConnection();
                 HashMap map = new HashMap();
-                map.put( "billNo" , controllers.primaryKeyOfdealsData); 
+                map.put( "billNo" , advanced_id); 
                 JasperDesign pdf  = null;
                   try
                         {
@@ -466,16 +486,15 @@ public class advanced extends javax.swing.JFrame {
                             pdf = JRXmlLoader.load("C:\\ProgramData\\bill2\\advanced.jrxml");
                             JOptionPane.showMessageDialog(null,"Your fills have been deleted please restore files !");
                         }
-                JasperReport bill = JasperCompileManager.compileReport(pdf);
+               JasperReport bill = JasperCompileManager.compileReport(pdf);
                JasperPrint print = JasperFillManager.fillReport(bill,map,con);
-                JasperPrintManager.printReport(print, false);
-               JasperViewer.viewReport(print);
+               JasperPrintManager.printReport(print, false);
                 
             }
           catch(Exception e)
             {
               JOptionPane.showMessageDialog(null, "Sorry some thing went wrong ! - advanced#477!");
-              connect.recod_error(e.toString()+" Main Frame 893");
+              connect.recod_error(e.toString()+" Main Frame 477");
                 //Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
             }
         }
@@ -657,6 +676,28 @@ public class advanced extends javax.swing.JFrame {
             delete.setEnabled(true);
         }
 
+    
+ //database backup
+        void saveDB(){
+    
+                 //backup database  
+               try
+                {
+
+                    Process backup = null;
+                    Runtime getDB = Runtime.getRuntime();
+                    
+  backup = getDB.exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump.exe -uroot -ppapapapa --add-drop-database -B bookshop -r C:/Users/Dilum/Documents/backup.sql");
+  backup = getDB.exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump.exe -uroot -ppapapapa --add-drop-database -B bookshop -r C:/ProgramData/backup.sql");
+                
+                }
+               catch(Exception e)
+                    {
+                            connect.recod_error(e.toString()+" Main Frame 1277");
+                    }
+        
+    }
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable advancedTable;
     private javax.swing.JLabel cusName;

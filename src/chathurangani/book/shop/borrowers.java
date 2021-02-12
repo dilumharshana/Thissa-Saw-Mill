@@ -2,8 +2,17 @@ package chathurangani.book.shop;
 
 import java.awt.Toolkit;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 //Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, ex);
 
 public class borrowers extends javax.swing.JFrame {
@@ -54,7 +63,7 @@ public class borrowers extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(0, 51, 51));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 0));
 
         searchBar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -83,7 +92,7 @@ public class borrowers extends javax.swing.JFrame {
         });
 
         newBorrower.setBackground(new java.awt.Color(153, 0, 255));
-        newBorrower.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        newBorrower.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         newBorrower.setForeground(new java.awt.Color(255, 255, 255));
         newBorrower.setText("NEW DEBTOR");
         newBorrower.addActionListener(new java.awt.event.ActionListener() {
@@ -92,8 +101,8 @@ public class borrowers extends javax.swing.JFrame {
             }
         });
 
-        updateFromBill.setBackground(new java.awt.Color(255, 0, 51));
-        updateFromBill.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        updateFromBill.setBackground(new java.awt.Color(255, 0, 0));
+        updateFromBill.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         updateFromBill.setForeground(new java.awt.Color(255, 255, 255));
         updateFromBill.setText("UPDATE FROM BILL");
         updateFromBill.addActionListener(new java.awt.event.ActionListener() {
@@ -102,8 +111,8 @@ public class borrowers extends javax.swing.JFrame {
             }
         });
 
-        payment.setBackground(new java.awt.Color(0, 204, 204));
-        payment.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        payment.setBackground(new java.awt.Color(0, 153, 204));
+        payment.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         payment.setForeground(new java.awt.Color(255, 255, 255));
         payment.setText("PAY");
         payment.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +142,7 @@ public class borrowers extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Deal No", "Customer", "Phone No", "NIC", "Address", "Bill Amount", "Discounted", "Date & Time"
+                "Deal No", "Customer", "Phone No", "NIC", "Address", "Bill Amount", "Discounted", "Date "
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -152,7 +161,7 @@ public class borrowers extends javax.swing.JFrame {
         jScrollPane2.setViewportView(dealTable);
 
         cusName.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
-        cusName.setForeground(new java.awt.Color(255, 255, 0));
+        cusName.setForeground(new java.awt.Color(255, 255, 255));
 
         history.setBackground(new java.awt.Color(204, 255, 204));
         history.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
@@ -173,21 +182,21 @@ public class borrowers extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(history, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newBorrower, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(history, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateFromBill, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(payment, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                        .addComponent(newBorrower, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(updateFromBill, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -198,28 +207,25 @@ public class borrowers extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(updateFromBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                        .addComponent(update, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(newBorrower, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(2, 2, 2)))
-                    .addComponent(history, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9))
+                    .addComponent(update, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(history, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(payment, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(newBorrower, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(updateFromBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -239,27 +245,35 @@ public class borrowers extends javax.swing.JFrame {
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
 
-        try {
-            DefaultTableModel delas = (DefaultTableModel) dealTable.getModel();
+  String[] option = {"YES , DELETE THIS DEBTOR ACCOUNT " , "NO NOT NOW"};
+       
+        int choice  = JOptionPane.showOptionDialog(null,"ARE YOU SURE TO DELETE THIS DEBTOR ACCOUNT ? ", "SALES MANAGER.." , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
+        
+        if( choice == 0)
+            {  
+        
+                try {
+                    saveDB(); //creating a database backup
+                    DefaultTableModel delas = (DefaultTableModel) dealTable.getModel();
 
-            int row = dealTable.getSelectedRow();
-            String primary = String.valueOf(dealTable.getValueAt(row, 0));
+                    int row = dealTable.getSelectedRow();
+                    String primary = String.valueOf(dealTable.getValueAt(row, 0));
 
-            try {
-                connect.clearBorrows(primary, 0);
-                recod("Deleted "+dealTable.getValueAt(row, 1).toString()+" from debtros when due amount was Rs. "+dealTable.getValueAt(row, 5).toString());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#249");
-                connect.recod_error(ex.toString()+" - borrowers 249");
+                    try {
+                        connect.clearBorrows(primary, 0);
+                        recod("Deleted "+dealTable.getValueAt(row, 1).toString()+" from debtros when due amount was Rs. "+dealTable.getValueAt(row, 5).toString());
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#249");
+                        connect.recod_error(ex.toString()+" - borrowers 249");
+                    }
+
+                    delas.removeRow(row);
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Please select a Borrower !");
+                    connect.recod_error(e.toString()+" this is not a error , borrowers 255");
+                }
             }
-
-            delas.removeRow(row);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Please select a Borrower !");
-            connect.recod_error(e.toString()+" this is not a error , borrowers 255");
-        }
-
     }//GEN-LAST:event_deleteActionPerformed
 
     private void newBorrowerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBorrowerActionPerformed
@@ -381,6 +395,7 @@ public class borrowers extends javax.swing.JFrame {
                     }
 
                     //refreing borrower window to show new updated data as wel
+                    invoice(dealTable.getValueAt(borrowerRow,0).toString());
                     cusName.setText("");
                     connect.search_all_deals();
 
@@ -394,6 +409,7 @@ public class borrowers extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Something went wrong - Borrowers#392");
             connect.recod_error(e.toString()+" - borrowers 392");
+           // Logger.getLogger(borrowers.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_updateFromBillActionPerformed
 
@@ -529,6 +545,39 @@ public class borrowers extends javax.swing.JFrame {
             delas.removeRow(0);
         }
     }
+    
+    
+      //bill recipt printing process
+    void invoice(String pk)
+        {
+          try
+            {   //generating bill by jasper report
+                Connection con = connect.getConnection();
+                HashMap map = new HashMap();
+                map.put( "billNo" , pk); 
+                JasperDesign pdf  = null;
+                  try
+                        {
+                            pdf = JRXmlLoader.load("C:\\ProgramData\\bill\\debtors.jrxml");
+                        }
+                  catch(Exception e)
+                        {
+                            pdf = JRXmlLoader.load("C:\\ProgramData\\bill2\\debtors.jrxml");
+                            JOptionPane.showMessageDialog(null,"Your fills have been deleted please restore files !");
+                        }
+                JasperReport bill = JasperCompileManager.compileReport(pdf);
+                JasperPrint print = JasperFillManager.fillReport(bill,map,con);
+                JasperPrintManager.printReport(print, false);
+               //JasperViewer.viewReport(print);
+                
+            }
+          catch(Exception e)
+            {
+              JOptionPane.showMessageDialog(null, "Sorry some thing went wrong ! - Main_Frame#893!");
+              connect.recod_error(e.toString()+" Main Frame 893");
+              // Logger.getLogger(MAIN_FRAME.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
 
     //THIS METHOD WILL ADD A NEW ROWTO J TABLE USING dealdata ARRAY WHICH IS PASSED BY Search_Every_Field METHOD
     public static void dealItemsToTable(String[] dealData) {
@@ -562,6 +611,27 @@ public class borrowers extends javax.swing.JFrame {
                 }
         }
     
+   
+   //database backup  
+   void saveDB(){
+    
+                 //backup database  
+               try
+                {
+
+                    Process backup = null;
+                    Runtime getDB = Runtime.getRuntime();
+                    
+  backup = getDB.exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump.exe -uroot -ppapapapa --add-drop-database -B bookshop -r C:/Users/Dilum/Documents/backup.sql");
+  backup = getDB.exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump.exe -uroot -ppapapapa --add-drop-database -B bookshop -r C:/ProgramData/backup.sql");
+                
+                }
+               catch(Exception e)
+                    {
+                            connect.recod_error(e.toString()+" Main Frame 1277");
+                    }
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel cusName;

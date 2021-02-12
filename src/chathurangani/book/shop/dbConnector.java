@@ -706,7 +706,7 @@ public class dbConnector {
             customer[2] = String.valueOf(rs.getBigDecimal("TotaltValue"));
             customer[3] = String.valueOf(rs.getBigDecimal("advanced"));
             customer[4] = String.valueOf(rs.getBigDecimal("DiscountValue"));
-            customer[5] = String.valueOf(rs.getBigDecimal("DiscountValue"));
+            customer[5] = String.valueOf(rs.getBigDecimal("paymentValue"));
             customer[6] = String.valueOf(rs.getBigDecimal("BalanceValue"));
             customer[7] = String.valueOf(rs.getString("date"));
             
@@ -736,10 +736,10 @@ public class dbConnector {
 
             customer[0] = String.valueOf(rs.getInt("dealNo"));
             customer[1] = String.valueOf(rs.getString("name"));
-            customer[2] = String.valueOf(rs.getBigDecimal("TotaltValue"));
+            customer[2] = String.valueOf(rs.getBigDecimal("subtotatl"));
             customer[3] = String.valueOf(rs.getBigDecimal("advanced"));
             customer[4] = String.valueOf(rs.getBigDecimal("DiscountValue"));
-            customer[5] = String.valueOf(rs.getBigDecimal("DiscountValue"));
+            customer[5] = String.valueOf(rs.getBigDecimal("paymentValue"));
             customer[6] = String.valueOf(rs.getBigDecimal("BalanceValue"));
             customer[7] = String.valueOf(rs.getString("date"));
             DealHistory.dealItemsToTable(customer); // calling data items setting to table method in dealHistory class
@@ -1210,11 +1210,20 @@ public class dbConnector {
 //    }
 
     //sending income date values of specific date to generate income report in report class
-    void get_values_of_income(String date) throws Exception {
+    void get_values_of_income(String[] date , boolean range) throws Exception {
 
-        query = "SELECT * FROM bookshop.outgoing WHERE (`date` = '" + date + "');";
-        query2 = "SELECT * FROM bookshop.incomedata WHERE (`date` = '" + date + "');";
-        String query3 = "SELECT * FROM bookshop.cashitems WHERE (`itemCode` = '50' AND `date` = '" + date + "');";
+        if( range)
+            {
+                query = "SELECT * FROM bookshop.outgoing WHERE (`date` = '" + date[0] + "');";
+                query2 = "SELECT * FROM bookshop.incomedata WHERE (`date` = '" + date[0] + "');";
+                query3 = "SELECT * FROM bookshop.cashitems WHERE (`itemCode` = '50' AND `date` = '" + date[0]+ "');";
+            }
+        else
+            {
+                query = "SELECT * FROM bookshop.outgoing WHERE `date` BETWEEN '"+ date[0] +"' AND '"+ date[1] +"' ;";
+                query2 = "SELECT * FROM bookshop.incomedata WHERE `date` BETWEEN '"+ date[0] +"' AND '"+ date[1] +"';";
+                query3 = "SELECT * FROM bookshop.cashitems WHERE `itemCode` = '50' AND `date` BETWEEN '"+ date[0] +"' AND '"+ date[1] +"';";
+            }
         
         if(con == null)
             {
@@ -1226,21 +1235,21 @@ public class dbConnector {
         ResultSet rs = st.executeQuery(query); //execute query 1
        
         while (rs.next()) {
+            
             report.csshout.setText(new BigDecimal(report.csshout.getText()).add(rs.getBigDecimal("outgoing")).toString()); //out goingcashdeals
         }
         
         ResultSet rs2 = st.executeQuery(query2); //execute query 2
         
-        if (rs2.next()) {
-            report.totalsell.setText(rs2.getBigDecimal("sellIncome").toString()); //income amount
-            report.lend.setText(rs2.getBigDecimal("borrowing").toString()); //lending amount
-        } else {
-            JOptionPane.showMessageDialog(null, " No Date Excist !");
+        while(rs2.next()) {
+            report.totalsell.setText((new BigDecimal(report.totalsell.getText()).add(rs2.getBigDecimal("sellIncome"))).toString()); //income amount
+            report.lend.setText((new BigDecimal(report.lend.getText()).add(rs2.getBigDecimal("borrowing"))).toString()); //lending amount
         }
 
          
          ResultSet rs3 = st.executeQuery(query3); //execute query 1
          while (rs3.next()) {
+             
             report.woodpowder.setText(new BigDecimal(report.woodpowder.getText()).add(rs3.getBigDecimal("price")).toString()); //wood powder amount
         }
 
@@ -1269,7 +1278,7 @@ public class dbConnector {
     boolean stockout() throws Exception {
         boolean out = false;
 
-        query = "SELECT * FROM bookshop.stocks WHERE stock < 10 ;";
+        query = "SELECT * FROM bookshop.stocks WHERE stock < 200 ;";
         
          if(con == null)
             {
@@ -2013,7 +2022,7 @@ public class dbConnector {
             catch(Exception e)
                 {
                     //Logger.getLogger(Adimin_login.class.getName()).log(Level.SEVERE, null, e);
-                    JOptionPane.showMessageDialog(null,"Your Storage may be running out !");
+                   // JOptionPane.showMessageDialog(null,"Your Storage may be running out !");
                 }
         }
      

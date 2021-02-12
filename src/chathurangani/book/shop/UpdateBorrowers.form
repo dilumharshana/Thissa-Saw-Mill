@@ -200,18 +200,22 @@
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="address" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="addressUpdate" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel5" alignment="0" pref="45" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="address" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                          <Component id="jButton2" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                          <Component id="addressUpdate" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="passbox" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="passedit" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                      <Component id="passupdate" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lbl_password" alignment="1" pref="37" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="passbox" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                          <Component id="passedit" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                          <Component id="passupdate" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Component id="CloseUpdatePannel" min="-2" pref="41" max="-2" attributes="0"/>

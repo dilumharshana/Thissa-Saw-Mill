@@ -522,8 +522,7 @@ public class loanPay extends javax.swing.JFrame {
                 JasperReport bill = JasperCompileManager.compileReport(pdf);
                 JasperPrint print = JasperFillManager.fillReport(bill,map,con);
                 JasperPrintManager.printReport(print, false);
-                JasperViewer.viewReport(print);
-                
+               
             }
           catch(Exception e)
             {

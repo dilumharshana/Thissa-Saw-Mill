@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
     public Adimin_login() {
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
+        userName_box.requestFocusInWindow();
 //        lbl_userName.setVisible(false);
   //      userName_box.setVisible(false);
     }
@@ -42,13 +43,6 @@ import javax.swing.JOptionPane;
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        password = new javax.swing.JPasswordField();
-        signin = new javax.swing.JButton();
-        text_user = new javax.swing.JLabel();
-        img_logo = new javax.swing.JLabel();
-        forget = new javax.swing.JLabel();
-        apasslogo = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         lbl_userName1 = new javax.swing.JLabel();
         cPass = new javax.swing.JPasswordField();
@@ -58,6 +52,13 @@ import javax.swing.JOptionPane;
         forget1 = new javax.swing.JLabel();
         apasslogo1 = new javax.swing.JLabel();
         userName_box = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        password = new javax.swing.JPasswordField();
+        signin = new javax.swing.JButton();
+        text_user = new javax.swing.JLabel();
+        img_logo = new javax.swing.JLabel();
+        forget = new javax.swing.JLabel();
+        apasslogo = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -88,7 +89,7 @@ import javax.swing.JOptionPane;
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 28)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("THISSA SAW MILL");
+        jLabel1.setText("TISSA SAW MILL");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
@@ -119,105 +120,6 @@ import javax.swing.JOptionPane;
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(21, 20, 222, 24));
 
         jTabbedPane1.setBackground(new java.awt.Color(0, 153, 0));
-
-        jPanel2.setBackground(new java.awt.Color(2, 35, 35));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
-        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel2MouseClicked(evt);
-            }
-        });
-
-        password.setBackground(new java.awt.Color(255, 255, 204));
-        password.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        password.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordActionPerformed(evt);
-            }
-        });
-        password.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                passwordKeyTyped(evt);
-            }
-        });
-
-        signin.setBackground(new java.awt.Color(0, 204, 204));
-        signin.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        signin.setForeground(new java.awt.Color(255, 255, 255));
-        signin.setText("Sign In");
-        signin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                signinActionPerformed(evt);
-            }
-        });
-
-        text_user.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        text_user.setForeground(new java.awt.Color(255, 255, 255));
-        text_user.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        text_user.setText("Adminstrator ");
-
-        img_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/admin.png"))); // NOI18N
-        img_logo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                img_logoMouseClicked(evt);
-            }
-        });
-
-        forget.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        forget.setForeground(new java.awt.Color(255, 255, 255));
-        forget.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        forget.setText("Forget password ");
-        forget.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                forgetMouseClicked(evt);
-            }
-        });
-
-        apasslogo.setBackground(new java.awt.Color(255, 255, 255));
-        apasslogo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        apasslogo.setForeground(new java.awt.Color(255, 255, 0));
-        apasslogo.setText("Password : ");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(signin, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(text_user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(password)
-                    .addComponent(forget, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(img_logo)
-                            .addComponent(apasslogo, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 42, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(text_user)
-                .addGap(18, 18, 18)
-                .addComponent(img_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(apasslogo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(signin, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(forget)
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Admin", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(2, 41, 41));
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -339,13 +241,112 @@ import javax.swing.JOptionPane;
 
         jTabbedPane1.addTab("Cashier", jPanel3);
 
+        jPanel2.setBackground(new java.awt.Color(2, 35, 35));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
+
+        password.setBackground(new java.awt.Color(255, 255, 204));
+        password.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
+        password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordKeyTyped(evt);
+            }
+        });
+
+        signin.setBackground(new java.awt.Color(0, 204, 204));
+        signin.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        signin.setForeground(new java.awt.Color(255, 255, 255));
+        signin.setText("Sign In");
+        signin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signinActionPerformed(evt);
+            }
+        });
+
+        text_user.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        text_user.setForeground(new java.awt.Color(255, 255, 255));
+        text_user.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        text_user.setText("Adminstrator ");
+
+        img_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/admin.png"))); // NOI18N
+        img_logo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                img_logoMouseClicked(evt);
+            }
+        });
+
+        forget.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        forget.setForeground(new java.awt.Color(255, 255, 255));
+        forget.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        forget.setText("Forget password ");
+        forget.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forgetMouseClicked(evt);
+            }
+        });
+
+        apasslogo.setBackground(new java.awt.Color(255, 255, 255));
+        apasslogo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        apasslogo.setForeground(new java.awt.Color(255, 255, 0));
+        apasslogo.setText("Password : ");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(signin, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(text_user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(password)
+                    .addComponent(forget, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(img_logo)
+                            .addComponent(apasslogo, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 42, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(text_user)
+                .addGap(18, 18, 18)
+                .addComponent(img_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(apasslogo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(signin, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(forget)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Admin", jPanel2);
+
         jPanel1.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 51, -1, 474));
         jTabbedPane1.getAccessibleContext().setAccessibleName("Admin");
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/logo.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 56, 391, 339));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/login backgorund.jpeg"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main_package/images/login background.jpg"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 970, 570));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

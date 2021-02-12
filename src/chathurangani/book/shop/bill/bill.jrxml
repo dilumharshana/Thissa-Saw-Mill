@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="414" pageHeight="576" columnWidth="374" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4aabfb84-8c7f-4581-99f2-0d7cb6bca409">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="172"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="billNo" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -263,7 +263,7 @@ FROM
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Contact - 076 6 324 349  |  evon.customers@gmail.com  |  www.EvonApps.com]]></text>
+				<text><![CDATA[Contact - 076 6 324 349  |  evon.customer@gmail.com  |  www.EvonApps.com]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

@@ -136,6 +136,7 @@ public class BillOwner extends javax.swing.JFrame {
 
         changephoneno.setBackground(new java.awt.Color(0, 51, 51));
         changephoneno.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        changephoneno.setForeground(new java.awt.Color(255, 255, 255));
         changephoneno.setText("Change");
         changephoneno.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         changephoneno.addActionListener(new java.awt.event.ActionListener() {

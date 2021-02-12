@@ -1,5 +1,6 @@
 package chathurangani.book.shop;
 
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import javax.swing.JOptionPane;
@@ -17,10 +18,12 @@ public class cashOuts_resons extends javax.swing.JFrame {
      */
     public cashOuts_resons() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
     }
 
     public cashOuts_resons(String cash, String Reson , String pk) {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("ok.png")));
         next.setText("UPDATE");
         this.pk = pk;
         updater = true;
@@ -82,7 +85,9 @@ public class cashOuts_resons extends javax.swing.JFrame {
 
         next.setBackground(new java.awt.Color(0, 153, 204));
         next.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        next.setForeground(new java.awt.Color(255, 255, 255));
         next.setText("ADD");
+        next.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         next.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nextActionPerformed(evt);
@@ -186,9 +191,9 @@ public class cashOuts_resons extends javax.swing.JFrame {
                 if (updater == false) {
     
                         //sending new out going recod to databse
-                        int code = connect.Strore_outGoingdata(String.valueOf(new BigDecimal(cashAmount.getText())), reson.getText(), String.valueOf(java.time.LocalDate.now()));
+                        int code = connect.Strore_outGoingdata(String.valueOf(new BigDecimal(cashAmount.getText().trim())), reson.getText(), String.valueOf(java.time.LocalDate.now()));
 
-                        String[] dataList = {String.valueOf(code), String.valueOf(new BigDecimal(cashAmount.getText())), reson.getText(), String.valueOf(java.time.LocalDate.now())};
+                        String[] dataList = {String.valueOf(code), String.valueOf(new BigDecimal(cashAmount.getText().trim())), reson.getText(), String.valueOf(java.time.LocalDate.now())};
                         cashOut.addRow(dataList);
 
                         //refreshing table

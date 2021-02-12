@@ -306,29 +306,36 @@ public class DealHistory extends javax.swing.JFrame {
     }//GEN-LAST:event_dateBoxPropertyChange
 
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
-            DefaultTableModel delas = (DefaultTableModel) dealTable.getModel();
+        
+        String[] option = {"YES DELETE THIS SALE" , "NO NO NOW"};
+        
+        int choice = JOptionPane.showOptionDialog(null,"DO YOU WANT TO DELETE THIS SALE ? ", "SALES MANAGER.." , JOptionPane.INFORMATION_MESSAGE ,JOptionPane.PLAIN_MESSAGE,null,option,option[0] );
+        if (choice == 0)
+            {
+                    DefaultTableModel delas = (DefaultTableModel) dealTable.getModel();
 
-            int row = dealTable.getSelectedRow();
-            
-       try {
-                if(!dealTable.getValueAt(row, 0).toString().isEmpty())
-                    {
+                    int row = dealTable.getSelectedRow();
 
-                                    connect.cleardeal(dealTable.getValueAt(row, 0).toString()); 
-                                    delas.removeRow(row);
-                                    btn_delete.setEnabled(false);
-                    }
-                else
-                    {
+                       try {
+                                if(!dealTable.getValueAt(row, 0).toString().isEmpty())
+                                    {
 
-                        JOptionPane.showMessageDialog(null, "Please select a Sale !");
-                    }
-        }
-     catch (Exception ex) 
-           {
-                JOptionPane.showMessageDialog(null, "Something went wrong - Deal History#275 !");
-                connect.recod_error(ex.toString()+" - deal bistory 275");
-                //Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
+                                                    connect.cleardeal(dealTable.getValueAt(row, 0).toString()); 
+                                                    delas.removeRow(row);
+                                                    btn_delete.setEnabled(false);
+                                    }
+                                else
+                                    {
+
+                                        JOptionPane.showMessageDialog(null, "Please select a Sale !");
+                                    }
+                        }
+                     catch (Exception ex) 
+                           {
+                                JOptionPane.showMessageDialog(null, "Something went wrong - Deal History#275 !");
+                                connect.recod_error(ex.toString()+" - deal bistory 275");
+                                //Logger.getLogger(DealHistory.class.getName()).log(Level.SEVERE, null, ex);
+                            }
             }
     }//GEN-LAST:event_btn_deleteActionPerformed
 

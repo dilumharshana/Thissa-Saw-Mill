@@ -266,7 +266,7 @@ WHERE
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Contact - 076 6 324 349  |  evon.customers@gmail.com  |  www.EvonApps.com]]></text>
+				<text><![CDATA[Contact - 076 6 324 349  |  evon.customer@gmail.com  |  www.EvonApps.com]]></text>
 			</staticText>
 		</band>
 	</pageFooter>
