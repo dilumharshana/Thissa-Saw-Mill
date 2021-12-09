@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="414" pageHeight="576" columnWidth="374" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4aabfb84-8c7f-4581-99f2-0d7cb6bca409">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="156"/>
+	<parameter name="billNo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     advanced.`dealno` AS advanced_dealno,
+     advanced.`name` AS advanced_name,
+     advanced.`phone` AS advanced_phone,
+     advanced.`nic` AS advanced_nic,
+     advanced.`address` AS advanced_address,
+     advanced.`total` AS advanced_total,
+     advanced.`discount` AS advanced_discount,
+     advanced.`advanced` AS advanced_advanced,
+     advanced.`date` AS advanced_date,
+     advanceditems.`id` AS advanceditems_id,
+     advanceditems.`dealNo` AS advanceditems_dealNo,
+     advanceditems.`itemCode` AS advanceditems_itemCode,
+     advanceditems.`itemName` AS advanceditems_itemName,
+     advanceditems.`quantity` AS advanceditems_quantity,
+     advanceditems.`price` AS advanceditems_price,
+     advanceditems.`total` AS advanceditems_total
+FROM
+     `advanceditems` advanceditems INNER JOIN `advanced` advanced ON advanceditems.`dealNo` = advanced.`dealno`
+WHERE
+     advanced.`dealno` = $P{billNo}]]>
+	</queryString>
+	<field name="advanced_dealno" class="java.lang.Integer"/>
+	<field name="advanced_name" class="java.lang.String"/>
+	<field name="advanced_phone" class="java.lang.String"/>
+	<field name="advanced_nic" class="java.lang.String"/>
+	<field name="advanced_address" class="java.lang.String"/>
+	<field name="advanced_total" class="java.math.BigDecimal"/>
+	<field name="advanced_discount" class="java.math.BigDecimal"/>
+	<field name="advanced_advanced" class="java.math.BigDecimal"/>
+	<field name="advanced_date" class="java.sql.Date"/>
+	<field name="advanceditems_id" class="java.lang.Integer"/>
+	<field name="advanceditems_dealNo" class="java.lang.Integer"/>
+	<field name="advanceditems_itemCode" class="java.lang.String"/>
+	<field name="advanceditems_itemName" class="java.lang.String"/>
+	<field name="advanceditems_quantity" class="java.lang.String"/>
+	<field name="advanceditems_price" class="java.math.BigDecimal"/>
+	<field name="advanceditems_total" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="127" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="51" width="374" height="30" uuid="a38e865b-0c26-4ac5-862a-b161ff9a81ec"/>
+				<imageExpression><![CDATA["C:\\ProgramData\\bill\\under logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="100" y="-1" width="272" height="35" uuid="9fcce5dc-5e80-4ebd-a9dd-cdbe43956364"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Rounded MT Bold" size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TISSA SAW MILL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="32" width="269" height="18" uuid="1180db9d-ad94-4dc8-a4f1-8c8b139f8227"/>
+				<textElement textAlignment="Center">
+					<font fontName="FMBindumathi" size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[;siai ,S fuda, iy ,S fj,oie,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="70" width="152" height="13" forecolor="#FFFFFF" uuid="7a293a3b-7ddc-49d1-ad09-e3f8eef77b9f"/>
+				<textElement>
+					<font fontName="Harlow Solid Italic" size="9"/>
+				</textElement>
+				<text><![CDATA[Wholesale & retail for all kinfs of timber]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="231" y="70" width="142" height="12" forecolor="#FFFFFF" uuid="a063983c-379a-4491-a6a6-ae9b02f1e8b9"/>
+				<textElement>
+					<font fontName="FMDerana"/>
+				</textElement>
+				<text><![CDATA[ish¨u j¾.fha oej lemSu iy úls“u ']]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="180" height="15" uuid="ca2bd784-66f8-4066-978a-81e7a29db8f8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Mihidumtenna , Dulmura , Talatuoya.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="94" width="100" height="14" uuid="51e0079c-e9bb-4b63-8eba-97b242bda6f7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Tel : 081 2 426 917]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="109" width="109" height="16" uuid="7c9bd134-febf-4a30-b449-7ee622ecb568"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Mobile : 077 6 946 599]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="81" width="137" height="16" uuid="bf3c5e0f-65e9-4dd1-9ebf-9bbae7b4123e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="FMBindumathi" size="9"/>
+				</textElement>
+				<text><![CDATA[ñysÿ;ekak " ÿ,auqr " ;,d;=Th']]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="258" y="97" width="60" height="15" uuid="3c1e0706-84cb-41a7-b9bf-2785b124a439"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="FMBindumathi" size="9"/>
+				</textElement>
+				<text><![CDATA[,s'm' wxlh (  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="97" width="39" height="14" uuid="b6a73b52-10a7-465d-aa29-8c940f006640"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[TD692Y]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="258" y="112" width="28" height="13" uuid="e59893f4-e2aa-4c5e-b17e-081431a55f79"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="295" y="113" width="79" height="13" uuid="38ea99cc-99ef-4e42-b36d-ae7fb39fb024"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{advanced_date}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="9" y="3" width="55" height="45" uuid="2bc6f503-b14e-4313-9b9f-b50b303865b5"/>
+				<imageExpression><![CDATA["C:\\ProgramData\\bill\\logo.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="256" y="3" width="41" height="13" uuid="e6785694-c91b-4005-b58a-0636cbaedd1d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Rounded MT Bold" size="10"/>
+				</textElement>
+				<text><![CDATA[Bill No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="2" width="54" height="13" uuid="bad79144-2547-4981-a54a-3eb510b8c3ac"/>
+				<textElement>
+					<font fontName="Arial Rounded MT Bold" size="9"/>
+				</textElement>
+				<text><![CDATA[Customer :]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="18" width="374" height="1" uuid="e9e284df-1cd0-49eb-820a-309c67179c39"/>
+			</line>
+			<textField>
+				<reportElement x="303" y="2" width="69" height="13" uuid="893aa874-c8e6-4f34-bdf7-bb7fa5255ec4"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{advanced_dealno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="54" y="2" width="100" height="12" uuid="637e5af8-a62b-4e7a-934b-3027174bd8a1"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{advanced_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="9" y="2" width="64" height="15" uuid="985d97ed-0511-400d-a23f-17694b359512"/>
+				<textElement>
+					<font fontName="Arial Black"/>
+				</textElement>
+				<text><![CDATA[Timber Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="181" y="2" width="58" height="15" uuid="8eb68f57-46d4-488c-9276-189f281d9363"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Black"/>
+				</textElement>
+				<text><![CDATA[Price (Rs)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="251" y="2" width="41" height="15" uuid="0e6df967-6d9b-4240-9529-3d22a1add381"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Black"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="2" width="65" height="15" uuid="ecfb6601-74e8-40d9-b7b8-d60b7c903942"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Black"/>
+				</textElement>
+				<text><![CDATA[ Total (Rs)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="375" height="1" uuid="2fd1abb7-7e26-463a-a33d-38efc26ff780"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<line>
+				<reportElement x="2" y="19" width="371" height="1" uuid="fde2e3a8-25d1-44e8-a9cc-b6abe09561c8"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="9" y="2" width="100" height="20" uuid="d829b86f-5452-4005-81f2-27eae4f2b096"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{advanceditems_itemName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="181" y="2" width="55" height="20" uuid="acd07bba-8112-4332-ad18-8c0d42c85a1c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{advanceditems_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="251" y="2" width="41" height="20" uuid="0891ec6d-2397-4212-b0f1-68a735af5388"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{advanceditems_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="309" y="2" width="65" height="20" uuid="54329777-312e-4efb-aebd-8c490aad21c5"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{advanceditems_total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="5" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="3" width="374" height="1" uuid="69f5af17-86a8-42d1-af37-b399885eca7c"/>
+				<graphicElement>
+					<pen lineWidth="1.75" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="373" height="14" uuid="04c577b4-9991-43a7-9814-7aad4540e25e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Rounded MT Bold"/>
+				</textElement>
+				<text><![CDATA[System By - Evon Apps ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="20" width="373" height="12" uuid="7f09bdfe-b020-49a3-8b7e-a3eedcc877cd"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Contact - 076 6 324 349  |  evon.customer@gmail.com  |  www.EvonApps.com]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="168" splitType="Stretch">
+			<staticText>
+				<reportElement x="193" y="35" width="74" height="14" uuid="cb3c7290-a9f8-4c67-bff6-19bfed865f17"/>
+				<textElement>
+					<font fontName="Arial Black" size="9"/>
+				</textElement>
+				<text><![CDATA[SUB TOTAL   ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="49" width="74" height="14" uuid="373b90a8-4921-4617-977f-7b81228aed9a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Advanced]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="299" y="49" width="73" height="14" uuid="b7114269-bf41-449f-9d36-1f40f83a01ec"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Rounded MT Bold" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{advanced_advanced}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="193" y="64" width="74" height="14" uuid="4966a937-cd2a-451a-9757-124256415350"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Discount]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="299" y="63" width="73" height="14" uuid="b811ab23-62e0-482c-9179-a566662ba9c8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Rounded MT Bold" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{advanced_discount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="269" y="35" width="28" height="14" uuid="7d5e612f-ddb2-40c3-b21e-3ccbda9de1ff"/>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Rs .]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="50" width="28" height="14" uuid="1c9fb1d4-03f3-4f73-b359-5c6a7a6938dd"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Rs .]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="64" width="28" height="13" uuid="eccaac0b-5655-4bf8-8aa4-3494377fa8e8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Rs .]]></text>
+			</staticText>
+			<line>
+				<reportElement x="193" y="27" width="181" height="1" uuid="e9e0c4f1-47b8-4be1-9bf1-4d00e44d7f01"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="299" y="35" width="73" height="13" uuid="329b742a-256a-46f0-b286-953e44d8422b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial Black" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{advanced_total}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="299" y="80" width="75" height="1" uuid="c1294b04-7a8c-4fed-ac37-dfa225f2c0c5"/>
+				<graphicElement>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="299" y="85" width="73" height="14" uuid="f75d6dab-7ac5-40c9-9ec3-217b65c8b311"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{advanced_total}.subtract( $F{advanced_advanced}.add( $F{advanced_discount} ) )]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="269" y="85" width="28" height="13" uuid="67be4893-1863-4237-85da-99f6426dc931"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Rs .]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="84" width="74" height="14" uuid="240215d0-d15d-41b3-b38c-deafeb08a644"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial Rounded MT Bold" size="8"/>
+				</textElement>
+				<text><![CDATA[NET AMOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="134" width="249" height="19" uuid="cf237a96-c017-48f9-a670-d6cdf8380062"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[* Please take the bill when you come to carry timber]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="9" y="146" width="249" height="16" uuid="0886138d-abfe-4ac2-901b-de9b8fc25add"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[* Advanced will be not return]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
